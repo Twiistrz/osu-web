@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'primește notificări pentru noi probleme pe hărți calificate de modelele următoare',
+        'beatmapset_disqualify' => 'primește notificări pentru când beatmap-urile din modurile următoare sunt descalificate',
+        'comment_reply' => 'primește notificări pentru răspunsurile la comentariile tale',
         'title' => 'Notificări',
         'topic_auto_subscribe' => 'activați notificările automat pe noi topici de pe forum pe care le poți creea',
-        'beatmapset_discussion_qualified_problem' => 'primește notificări pentru noi probleme pe hărți calificate de modelele următoare',
 
-        'mail' => [
-            '_' => 'primește notificări mail pentru',
+        'options' => [
+            '_' => 'opțiuni de livrare',
             'beatmapset:modding' => 'modatul de beatmap',
-            'forum_topic_reply' => 'răspunsul topic',
+            'channel_message' => 'mesaje chat private',
+            'comment_new' => 'comentarii noi',
+            'forum_topic_reply' => 'răspuns topic',
+            'mail' => 'mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'medalie de utilizator deblocată',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'clienți autorizați',
         'own_clients' => 'deține Client',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Opțiuni',
+
+        'beatmapset_download' => [
+            '_' => 'tip implicit de descărcare de beatmap',
+            'all' => 'cu video dacă e disponibil',
+            'no_video' => 'fără video',
+            'direct' => 'deschis în osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'arată metadatele beatmap în limba originală',
     ],
 
     'playstyles' => [

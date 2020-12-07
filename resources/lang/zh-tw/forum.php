@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => '置頂主題',
@@ -54,7 +39,7 @@ return [
     'mark_as_read' => [
         'forum' => '將論壇標為已讀',
         'forums' => '將論壇標為已讀',
-        'busy' => '標記已讀…',
+        'busy' => '標記為已讀…',
     ],
 
     'post' => [
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => '刪除回覆',
-            'restore' => '恢復回覆',
             'edit' => '編輯回覆',
+            'report' => '',
+            'restore' => '恢復回覆',
         ],
 
         'create' => [
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => '已刪除的主題',
         'go_to_latest' => '查看最後的貼文',
+        'has_replied' => '您已回覆此主題',
+        'in_forum' => '目前看板[ :forum ]',
         'latest_post' => ':when :user',
         'latest_reply_by' => '最後回覆: :user',
         'new_topic' => '發表新主題',
@@ -112,7 +100,7 @@ return [
                 'default' => '此主題不被討論一段時間了。如非有特殊理由，請勿在此回覆。',
 
                 'new_topic' => [
-                    '_' => "此主題不被討論一段時間了。如果你沒有在這裡發文的具體理由, 請用 :create 代替。",
+                    '_' => "此主題不被討論一段時間了。如果你沒有在這裡回文的具體理由, 請用 :create 代替。",
                     'create' => '建立一個新的主題',
                 ],
             ],
@@ -185,7 +173,7 @@ return [
                 'hide_results_info' => '這些內容只在投票結束後顯示。',
                 'length' => '投票持續',
                 'length_days_suffix' => '天',
-                'length_info' => '如果無期限則留空',
+                'length_info' => '若無截止期限則留空',
                 'max_options' => '最多可選數',
                 'max_options_info' => '每個人最多可選的數量。',
                 'options' => '選項',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => '主題已被鎖定，不能回覆',
             'to_0' => '解鎖主题',
+            'to_0_confirm' => '解鎖主題?',
             'to_0_done' => '主题已經解鎖',
             'to_1' => '鎖定主题',
+            'to_1_confirm' => '鎖定主題?',
             'to_1_done' => '主题已被鎖定',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => '取消置頂',
+            'to_0_confirm' => '取消置頂主題?',
             'to_0_done' => '該主题已取消置頂',
             'to_1' => '置頂',
+            'to_1_confirm' => '置頂主題?',
             'to_1_done' => '該主题已置頂',
             'to_2' => '至頂並標記為公告',
+            'to_2_confirm' => '置頂主題並設為公告?',
             'to_2_done' => '該主题已置頂並標記為公告',
         ],
 

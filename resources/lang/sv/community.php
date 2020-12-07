@@ -1,82 +1,67 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
         'convinced' => [
             'title' => 'Jag är övertygad! :D',
-            'support' => 'stötta osu!',
+            'support' => 'stödja osu!',
             'gift' => 'eller ge support till en annan spelare i present',
             'instructions' => 'klicka på hjärtat för att gå till osu!store',
         ],
         'why-support' => [
-            'title' => 'Varför ska jag stötta osu!? Var tar pengarna vägen?',
+            'title' => 'Varför ska jag stödja osu!? Vart går pengarna?',
 
             'team' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Stödja teamet',
+                'description' => 'Ett litet team utvecklar och driver osu!. Ditt stöd hjälper dem att, du vet... leva.',
             ],
             'infra' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Server infrastruktur',
+                'description' => 'Bidrag går till servrarna för att köra webbplatsen, flerspelartjänster, online topplistor, o.s.v.          ',
             ],
             'featured-artists' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Utvalda Artister',
+                'description' => 'Med ditt stöd kan vi närma oss ännu mer grymma artister och licensiera mer bra musik för användning i osu!',
+                'link_text' => 'Visa den aktuella deltagarlistan &raquo;',
             ],
             'ads' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Behåll osu! självförsörjande',
+                'description' => 'Dina bidrag hjälper till att hålla spelet oberoende och helt fri från annonser och externa sponsorer.',
             ],
             'tournaments' => [
                 'title' => 'Officiella turneringar',
-                'description' => '',
-                'link_text' => '',
+                'description' => 'Hjälp till att finansiera driften av (och priserna för) den officiella osu! VM-murneringar.',
+                'link_text' => 'Utforska turneringar &raquo;',
             ],
             'bounty-program' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Program för öppen källkod',
+                'description' => 'Stöd de bidragsgivare som har gett sin tid och ansträngning för att hjälpa till att göra osu! bättre.',
+                'link_text' => 'Ta reda på mer &raquo;',
             ],
         ],
         'perks' => [
-            'title' => 'Oh? Vad får jag?!',
+            'title' => 'Coolt! Vilka förmåner får jag?',
             'osu_direct' => [
                 'title' => 'osu!direct',
                 'description' => 'snabb och enkel tillgång till att söka beatmaps utan att lämna spelet.',
             ],
 
             'friend_ranking' => [
-                'title' => '',
-                'description' => "",
+                'title' => 'Rankning bland vänner',
+                'description' => "Se hur du staplar upp mot dina vänner på en beatmaps topplistor, både i spelet och på hemsidan.",
             ],
 
             'country_ranking' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Nationell Rankning',
+                'description' => 'Erövra ditt land innan du erövrar världen.',
             ],
 
             'mod_filtering' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Filtrera efter mods',
+                'description' => 'Associera bara med människor som spelar HDHR? Inga problem!',
             ],
 
             'auto_downloads' => [
@@ -135,20 +120,20 @@ return [
             ],
 
             'more_favourites' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Fler favoriter',
+                'description' => 'Det maximala antalet beatmaps du kan favorisera ökar från :normally &rarr; :supporter',
             ],
             'more_friends' => [
                 'title' => 'Flera vänner',
-                'description' => '',
+                'description' => 'Det maximala antalet vänner du kan ha ökar från :normally &rarr; :supporter',
             ],
             'more_beatmaps' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Ladda upp fler Beatmaps',
+                'description' => 'Hur många orankade beatmaps kan du ha på en gång beräknas från ett basvärde plus en extra bonus för varje rankad beatmap du för närvarande har (upp till en gräns). <br/><br/>Vanligtvist är detta :base plus :bonus per rankad beatmap (upp till :bonus_max). Med supporter ökar detta till :supporter_base plus :supporter_bonus per rankad beatmap (upp till :supporter_bonus_max).',
             ],
             'friend_filtering' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Vän topplistor',
+                'description' => 'Tävla med dina vänner och se hur du rankar upp mot dem!',
             ],
 
         ],

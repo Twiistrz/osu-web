@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'Avbryt',
@@ -28,10 +13,10 @@ return [
     ],
 
     'authorized_clients' => [
-        'confirm_revoke' => '',
+        'confirm_revoke' => 'Er su dikker på at du vil oppheve tillatelsen til denne klienten?',
         'scopes_title' => 'Denne applikasjonen kan:',
         'owned_by' => 'Eies av :user',
-        'none' => '',
+        'none' => 'Ingen autoriserte applikasjoner',
 
         'revoked' => [
             'false' => 'Opphev tilgang',
@@ -43,22 +28,30 @@ return [
         'id' => 'Klient-ID',
         'name' => 'Applikasjonsnavn',
         'redirect' => 'Applikasjonens omdirigeringslenke',
-        'secret' => '',
+        'reset' => 'Nullstille klienthemmelighet',
+        'reset_failed' => 'Kunne ikke nullstille klienthemmelighet',
+        'secret' => 'Kundehemmelighet',
+
+        'secret_visible' => [
+            'false' => 'Vis klienthemmelighet',
+            'true' => 'Skjul klienthemmelighet',
+        ],
     ],
 
     'new_client' => [
-        'header' => '',
-        'register' => '',
+        'header' => 'Registrer en ny OAuth-applikasjon',
+        'register' => 'Registrer applikasjon',
         'terms_of_use' => [
-            '_' => '',
-            'link' => '',
+            '_' => 'Med å bruke API-en godtar du :link.',
+            'link' => 'Brukervilkår',
         ],
     ],
 
     'own_clients' => [
-        'confirm_delete' => '',
-        'new' => '',
-        'none' => '',
+        'confirm_delete' => 'Er du sikker på at du vil slette denne klienten?',
+        'confirm_reset' => 'Er du sikker på at du vil nullstille klienthemmeligheten? Dette vil tilbakekalle alle eksisterende tokens.',
+        'new' => 'Ny OAuth applikasjon',
+        'none' => 'Ingen Klienter',
 
         'revoked' => [
             'false' => 'Slett',

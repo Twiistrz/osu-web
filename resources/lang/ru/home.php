@@ -1,35 +1,20 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'landing' => [
-        'download' => 'Скачать сейчас',
-        'online' => 'из них <strong>:players</strong> сейчас в <strong>:games</strong> играх',
-        'peak' => 'Пик, :count активных игроков',
-        'players' => 'зарегистрировано <strong>:count</strong> игроков',
+        'download' => 'Начать играть',
+        'online' => '<strong>:players:</strong> сейчас в игре, <strong>:games:</strong>  матчей в процессе',
+        'peak' => 'Пик, :count игроков в игре',
+        'players' => '<strong>:count</strong> игроков',
         'title' => 'добро пожаловать',
-        'see_more_news' => 'посмотреть больше новостей',
+        'see_more_news' => 'перейти ко всем новостям',
 
         'slogan' => [
-            'main' => 'наилучшайшая бесплатная ритм-игра',
-            'sub' => 'ритм всего лишь в клике от вас',
+            'main' => 'наилучшая бесплатная ритм-игра',
+            'sub' => 'ритм всего лишь в клике от тебя',
         ],
     ],
 
@@ -38,11 +23,11 @@ return [
         'button' => 'Найти',
         'empty_result' => 'Ничего не найдено!',
         'keyword_required' => 'Требуется ключевое слово для поиска',
-        'placeholder' => 'введите текст для поиска',
+        'placeholder' => 'введите для поиска',
         'title' => 'Поиск',
 
         'beatmapset' => [
-            'login_required' => '',
+            'login_required' => 'Войдите в аккаунт для поиска по картам',
             'more' => 'больше :count результатов поиска среди карт',
             'more_simple' => 'Посмотреть другие результаты поиска среди карт',
             'title' => 'Карты',
@@ -51,7 +36,7 @@ return [
         'forum_post' => [
             'all' => 'Все форумы',
             'link' => 'Искать на форуме',
-            'login_required' => '',
+            'login_required' => 'Войдите в аккаунт для поиска по форуму',
             'more_simple' => 'Посмотреть другие результаты поиска на форуме',
             'title' => 'Форумы',
 
@@ -72,7 +57,7 @@ return [
         ],
 
         'user' => [
-            'login_required' => '',
+            'login_required' => 'Войдите в аккаунт для поиска по пользователям',
             'more' => 'больше :count результатов поиска среди игроков',
             'more_simple' => 'Посмотреть другие результаты поиска среди игроков',
             'more_hidden' => 'Результаты поиска игроков сокращены до :max игроков. Попробуйте уточнить запрос.',
@@ -89,6 +74,13 @@ return [
     'download' => [
         'tagline' => "давайте<br>начнём!",
         'action' => 'Скачать osu!',
+
+        'help' => [
+            '_' => 'если у вас появились проблемы с запуском игры или регистрацией аккаунта, :help_forum_link или :support_button.',
+            'help_forum_link' => 'проверьте форум поддержки',
+            'support_button' => 'свяжитесь с поддержкой',
+        ],
+
         'os' => [
             'windows' => 'для Windows',
             'macos' => 'для macOS',

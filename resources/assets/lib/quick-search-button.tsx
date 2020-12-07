@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import { route } from 'laroute';
 import { observer } from 'mobx-react';
@@ -47,7 +32,7 @@ interface State {
   }
 
   render() {
-    let className = 'nav2__menu-link-main nav2__menu-link-main--search js-login-required--click';
+    let className = 'nav2__menu-link-main nav2__menu-link-main--search';
 
     if (this.state.open || document.location.pathname === route('search', null, false)) {
       className += ' u-section--bg-normal';
@@ -80,12 +65,12 @@ interface State {
   }
 
   private toggle = (event?: React.SyntheticEvent<HTMLElement>) => {
-    if (event != null) {
-      event.preventDefault();
-    }
-
     if (currentUser.id == null) {
       return;
+    }
+
+    if (event != null) {
+      event.preventDefault();
     }
 
     if (this.isSearchPage) {

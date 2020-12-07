@@ -1,3 +1,6 @@
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 /* tslint:disable:max-classes-per-file */
 
 // importable coffeescript modules
@@ -36,34 +39,12 @@ declare module 'big-button' {
   class BigButton extends React.PureComponent<Props> {}
 }
 
-declare module 'flag-country' {
-  class FlagCountry extends React.PureComponent<any> {}
-}
-
 declare module 'friend-button' {
   class FriendButton extends React.PureComponent<any> {}
 }
 
 declare module 'img2x' {
   class Img2x extends React.PureComponent<any> {}
-}
-
-declare module 'show-more-link' {
-  interface Props {
-    callback?: () => void;
-    data?: any;
-    direction?: string;
-    event?: any;
-    hasMore?: boolean;
-    hideIcon?: boolean;
-    label?: string;
-    loading?: boolean;
-    modifiers?: string[];
-    remaining?: number;
-    url?: string;
-  }
-
-  class ShowMoreLink extends React.PureComponent<Props> {}
 }
 
 declare module 'spinner' {
@@ -105,6 +86,7 @@ declare module 'popup-menu' {
 
   interface Props {
     children: Children;
+    customRender?: (children: JSX.Element[], ref: React.RefObject<HTMLElement>, toggle: (event: React.MouseEvent<HTMLElement>) => void) => JSX.Element;
     onHide?: () => void;
     onShow?: () => void;
   }
@@ -135,4 +117,28 @@ declare module 'report-form' {
   }
 
   class ReportForm extends React.PureComponent<ReportFormProps, any> {}
+}
+
+declare module 'select-options' {
+  interface Option<T = string> {
+    id: T | null;
+    text: string;
+  }
+
+  interface OptionRenderProps<T = string> {
+    children: React.ReactNode[];
+    cssClasses: string;
+    onClick: (event: React.SyntheticEvent) => void;
+    option: Option<T>;
+  }
+
+  interface Props<T> {
+    bn?: string;
+    onChange: (option: Option<T>) => void;
+    options: Option<T>[];
+    renderOption: (props: OptionRenderProps<T>) => React.ReactNode;
+    selected: Option<T>;
+  }
+
+  class SelectOptions<T = string> extends React.PureComponent<Props<T>> {}
 }

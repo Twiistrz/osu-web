@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => '取消',
@@ -43,7 +28,14 @@ return [
         'id' => '客户端 ID',
         'name' => '应用名称',
         'redirect' => '应用回调链接',
+        'reset' => '重置客户端密钥',
+        'reset_failed' => '重置客户端密钥失败',
         'secret' => '客户端密钥',
+
+        'secret_visible' => [
+            'false' => '显示客户端密钥',
+            'true' => '隐藏客户端密钥',
+        ],
     ],
 
     'new_client' => [
@@ -57,6 +49,7 @@ return [
 
     'own_clients' => [
         'confirm_delete' => '你确定想要删除这个客户端？',
+        'confirm_reset' => '您确定要重置客户端密钥吗？这将撤销现有的所有 Token。',
         'new' => '新的 OAuth 应用',
         'none' => '没有客户端',
 

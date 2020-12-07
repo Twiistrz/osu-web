@@ -1,25 +1,10 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 class @TooltipDefault
   constructor: ->
     $(document).on 'mouseover touchstart', '[title]:not(iframe)', @onMouseOver
-    $(document).on 'mouseenter touchstart', '.u-ellipsis-overflow, .u-ellipsis-overflow-desktop', @autoAddTooltip
+    $(document).on 'mouseenter touchstart', '.u-ellipsis-overflow, .u-ellipsis-overflow-desktop, .u-ellipsis-pre-overflow', @autoAddTooltip
     $(document).on 'turbolinks:before-cache', @rollback
 
 
@@ -28,16 +13,17 @@ class @TooltipDefault
 
     title = el.getAttribute 'title'
     el.removeAttribute 'title'
+    htmlTitle = osu.presence(el.dataset.htmlTitle)
 
-    return if _.size(title) == 0
+    return if _.size(title) == 0 && !htmlTitle?
 
-    isTime = el.classList.contains('timeago') || el.classList.contains('js-tooltip-time')
+    isTime = el.classList.contains('js-timeago') || el.classList.contains('js-tooltip-time')
 
     $content =
       if isTime
         @timeagoTip el, title
       else
-        $('<span>').text(title)
+        htmlTitle ? $('<span>').text(title)
 
     if el._tooltip
       $(el).qtip 'set', 'content.text': $content
@@ -78,7 +64,9 @@ class @TooltipDefault
           height: 8
 
     if event.type == 'touchstart'
-      options.hide = inactive: 3000
+      options.hide =
+        inactive: 3000
+        event: 'unfocus'
 
     # if enabled, prevents tooltip from changing position
     if el.dataset.tooltipPinPosition
@@ -104,7 +92,7 @@ class @TooltipDefault
         api.enable()
       else
         $target.attr 'title', $target.text()
-        $target.trigger('mouseover') # immediately trigger qtip magic
+        $target.trigger(e.type) # immediately trigger qtip magic
     else
       api?.disable()
 

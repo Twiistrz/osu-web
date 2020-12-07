@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -27,7 +12,7 @@ return [
             'instructions' => 'klikněte na srdíčko pro přesměrování do osu!store',
         ],
         'why-support' => [
-            'title' => '',
+            'title' => 'Proč bych měl podpořit osu!? Kam jdou peníze?',
 
             'team' => [
                 'title' => 'Podpořit tým',
@@ -38,13 +23,13 @@ return [
                 'description' => '',
             ],
             'featured-artists' => [
-                'title' => '',
+                'title' => 'Vybraní umělci',
                 'description' => '',
                 'link_text' => '',
             ],
             'ads' => [
                 'title' => '',
-                'description' => '',
+                'description' => 'Vaše pomoc pomáhá udržet hru nezávislou a zcela bez reklam a externích sponzorů.',
             ],
             'tournaments' => [
                 'title' => 'Oficiální turnaje',
@@ -65,7 +50,7 @@ return [
             ],
 
             'friend_ranking' => [
-                'title' => '',
+                'title' => 'Žebříček přátel',
                 'description' => "",
             ],
 
@@ -75,7 +60,7 @@ return [
             ],
 
             'mod_filtering' => [
-                'title' => '',
+                'title' => 'Filtrovat podle módů',
                 'description' => '',
             ],
 
@@ -147,7 +132,7 @@ return [
                 'description' => '',
             ],
             'friend_filtering' => [
-                'title' => '',
+                'title' => 'Žebříček kamarádů',
                 'description' => '',
             ],
 

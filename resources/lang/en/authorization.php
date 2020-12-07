@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'How about playing some osu! instead?',
     'require_login' => 'Please sign in to proceed.',
     'require_verification' => 'Please verify to proceed.',
     'restricted' => "Can't do that while restricted.",
@@ -32,10 +18,9 @@ return [
         ],
         'nominate' => [
             'exhausted' => 'You have reached your nomination limit for the day, please try again tomorrow.',
-            'full_bn_required' => 'You must be a full nominator to perform this qualifying nomination.',
-            'full_bn_required_hybrid' => 'You must be a full nominator to nominate beatmap sets with more than one game mode.',
             'incorrect_state' => 'Error performing that action, try refreshing the page.',
             'owner' => "Can't nominate own beatmap.",
+            'set_metadata' => 'You must set the genre and language before nominating.',
         ],
         'resolve' => [
             'not_owner' => 'Only thread starter and beatmap owner can resolve a discussion.',
@@ -46,6 +31,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Can't vote on discussion made by bot",
             'limit_exceeded' => 'Please wait a while before casting more votes',
             'owner' => "Can't vote on own discussion.",
             'wrong_beatmapset_state' => 'Can only vote on discussions of pending beatmaps.',
@@ -67,6 +53,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'This beatmap is locked for discussion.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'You cannot change metadata of a nominated map. Contact a BN or NAT member if you think it is set incorrectly.',
         ],
     ],
 

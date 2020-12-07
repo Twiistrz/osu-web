@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'Que tal jogar um pouco de osu! em vez disso?',
     'require_login' => 'Por favor inicia sessão para proceder.',
     'require_verification' => 'Por favor verifica para proceder.',
     'restricted' => "Não é possível fazeres isso enquanto estiveres restrito.",
@@ -27,7 +13,7 @@ return [
 
     'beatmap_discussion' => [
         'destroy' => [
-            'is_hype' => 'Não é possível anular o hyping.',
+            'is_hype' => 'Não é possível anular a publicação.',
             'has_reply' => 'Não é possível apagares uma discussão com respostas',
         ],
         'nominate' => [
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Tens que ser um nomeador por completo para nomear grupos de beatmaps com mais de um modo de jogo.',
             'incorrect_state' => 'Erro ao executar essa ação, tenta recarregar a página.',
             'owner' => "Não é possível nomeares o teu próprio beatmap.",
+            'set_metadata' => 'Tens de definir o género e a língua antes de nomeares.',
         ],
         'resolve' => [
             'not_owner' => 'Só quem começou um segmento de mensagens ou o proprietário do beatmap é que consegue resolver uma discussão.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Não é possível votar numa discussão criada por um bot",
             'limit_exceeded' => 'Por favor espera um momento antes de pores mais votos',
             'owner' => "Não é possível votares na tua própria discussão.",
             'wrong_beatmapset_state' => 'Só é possível votares em discussões com beatmaps que estejam a aguardar aprovação.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'Este beatmap está bloqueado para discussão.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Não podes alterar os metadados dum mapa nomeado. Contacta um membro dos BN ou da NAT se achas que estão estabelecidos incorretamente.',
         ],
     ],
 

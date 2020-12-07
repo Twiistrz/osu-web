@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '',
     'require_login' => 'Log venligst ind for at fortsætte.',
     'require_verification' => 'Verificer venligst for at fortsætte.',
     'restricted' => "Det kan du ikke gøre, når du er tilbageholdt.",
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Du skal være en fuld nominator for at kunne nominere beatmap sæt med mere end en spiltilstand.',
             'incorrect_state' => 'Fejl i udføringen af handlingen, prøv at genindlæse siden.',
             'owner' => "Kan ikke nominere din egen beatmap.",
+            'set_metadata' => '',
         ],
         'resolve' => [
             'not_owner' => 'Kun den oprindelige ejer af tråden og beatmap-ejeren kan løse en diskussion.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "",
             'limit_exceeded' => 'Vent venligst før du stemmer igen',
             'owner' => "Du kan ikke stemme på din egen diskussion!",
             'wrong_beatmapset_state' => 'Kan kun stemme på diskussioner fra afventende beatmaps.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'Dette beatmap er låst for diskussion.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => '',
         ],
     ],
 

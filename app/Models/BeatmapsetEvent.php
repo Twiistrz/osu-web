@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
@@ -37,6 +22,7 @@ class BeatmapsetEvent extends Model
 {
     const NOMINATE = 'nominate';
     const LOVE = 'love';
+    const REMOVE_FROM_LOVED = 'remove_from_loved';
     const QUALIFY = 'qualify';
     const DISQUALIFY = 'disqualify';
     const APPROVE = 'approve';
@@ -61,6 +47,9 @@ class BeatmapsetEvent extends Model
     const DISCUSSION_POST_RESTORE = 'discussion_post_restore';
 
     const NOMINATION_RESET = 'nomination_reset';
+
+    const GENRE_EDIT = 'genre_edit';
+    const LANGUAGE_EDIT = 'language_edit';
 
     public static function log($type, $user, $object, $extraData = [])
     {
@@ -88,12 +77,14 @@ class BeatmapsetEvent extends Model
 
     public static function search($rawParams = [])
     {
+        $pagination = pagination($rawParams);
+
         $params = [
-            'limit' => clamp(get_int($rawParams['limit'] ?? null) ?? 20, 5, 50),
-            'page' => max(get_int($rawParams['page'] ?? null) ?? 1, 1),
+            'limit' => $pagination['limit'],
+            'page' => $pagination['page'],
         ];
 
-        $query = static::limit($params['limit'])->offset(($params['page'] - 1) * $params['limit']);
+        $query = static::limit($params['limit'])->offset($pagination['offset']);
         $searchByUser = present($rawParams['user'] ?? null);
 
         if ($searchByUser) {
@@ -203,9 +194,13 @@ class BeatmapsetEvent extends Model
                     static::LOVE,
                     static::NOMINATION_RESET,
                     static::DISQUALIFY,
+                    static::REMOVE_FROM_LOVED,
 
                     static::KUDOSU_GAIN,
                     static::KUDOSU_LOST,
+
+                    static::GENRE_EDIT,
+                    static::LANGUAGE_EDIT,
                 ],
                 'kudosuModeration' => [
                     static::KUDOSU_ALLOW,
@@ -243,12 +238,22 @@ class BeatmapsetEvent extends Model
 
     public function beatmapset()
     {
+        // FIXME: consistency with BeatmapDiscussion which includes deleted.
         return $this->belongsTo(Beatmapset::class, 'beatmapset_id');
     }
 
     public function getBeatmapDiscussionIdAttribute()
     {
         return $this->comment['beatmap_discussion_id'] ?? null;
+    }
+
+    public function getNominationModesAttribute()
+    {
+        if ($this->type !== self::NOMINATE) {
+            return null;
+        }
+
+        return $this->comment['modes'] ?? [];
     }
 
     public function beatmapDiscussion()
@@ -289,14 +294,5 @@ class BeatmapsetEvent extends Model
     public function setCommentAttribute($value)
     {
         $this->attributes['comment'] = is_array($value) ? json_encode($value) : $value;
-    }
-
-    public function typeForTranslation()
-    {
-        if ($this->type === 'disqualify' && !is_array($this->comment)) {
-            return 'disqualify_legacy';
-        }
-
-        return $this->type;
     }
 }

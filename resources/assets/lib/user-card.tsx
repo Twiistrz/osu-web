@@ -1,24 +1,11 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import { BlockButton } from 'block-button';
-import { FlagCountry } from 'flag-country';
+import FlagCountry from 'flag-country';
+import FollowUserModdingButton from 'follow-user-modding-button';
 import { FriendButton } from 'friend-button';
+import UserJson from 'interfaces/user-json';
 import { route } from 'laroute';
 import * as _ from 'lodash';
 import { PopupMenuPersistent } from 'popup-menu-persistent';
@@ -26,14 +13,16 @@ import * as React from 'react';
 import { ReportReportable } from 'report-reportable';
 import { Spinner } from 'spinner';
 import { SupporterIcon } from 'supporter-icon';
+import UserCardBrick from 'user-card-brick';
+import UserGroupBadges from 'user-group-badges';
 
-export type ViewMode = 'card' | 'list';
+export type ViewMode = 'brick' | 'card' | 'list';
 
 interface Props {
   activated: boolean;
   mode: ViewMode;
   modifiers: string[];
-  user?: User;
+  user?: UserJson;
 }
 
 interface State {
@@ -48,7 +37,9 @@ export class UserCard extends React.PureComponent<Props, State> {
     modifiers: [],
   };
 
-  static userLoading: User = {
+  static userLoading: UserJson = {
+    avatar_url: '',
+    country_code: '',
     cover: {},
     default_group: '',
     id: 0,
@@ -56,7 +47,9 @@ export class UserCard extends React.PureComponent<Props, State> {
     is_bot: false,
     is_online: false,
     is_supporter: false,
+    last_visit: '',
     pm_friends_only: true,
+    profile_colour: '',
     username: osu.trans('users.card.loading'),
   };
 
@@ -99,6 +92,14 @@ export class UserCard extends React.PureComponent<Props, State> {
   }
 
   render() {
+    if (this.props.mode === 'brick') {
+      if (this.props.user == null) {
+        return null;
+      }
+
+      return <UserCardBrick {...this.props} user={this.props.user} />;
+    }
+
     const modifiers = this.props.modifiers.slice();
     // Setting the active modifiers from the parent causes unwanted renders unless deep comparison is used.
     modifiers.push(this.props.activated ? 'active' : 'highlightable');
@@ -115,8 +116,9 @@ export class UserCard extends React.PureComponent<Props, State> {
             </div>
             <div className='user-card__details'>
               {this.renderIcons()}
-              <div className='user-card__username'>
-                <div className='u-ellipsis-overflow'>{this.user.username}</div>
+              <div className='user-card__username-row'>
+                <div className='user-card__username u-ellipsis-pre-overflow'>{this.user.username}</div>
+                <div className='user-card__group-badges'><UserGroupBadges groups={this.user.groups} short={true} wrapper='user-card__group-badge' /></div>
               </div>
               {this.renderListModeIcons()}
             </div>
@@ -199,34 +201,46 @@ export class UserCard extends React.PureComponent<Props, State> {
           className='user-card__icon user-card__icon--flag'
           href={route('rankings', { mode: 'osu', type: 'performance', country: this.user.country_code })}
         >
-          <FlagCountry country={this.user.country} modifiers={['full']} />
+          <FlagCountry country={this.user.country} />
         </a>
 
-        {
-          this.props.mode === 'card' && this.user.is_supporter ?
-          <a className='user-card__icon' href={route('support-the-game')}>
-            <SupporterIcon modifiers={['user-card']}/>
-          </a> : null
-        }
-
-        {
-          this.props.mode === 'card' ?
-          <div className='user-card__icon'>
-            <FriendButton userId={this.user.id} modifiers={['user-card']} />
-          </div> : null
-        }
+        {this.props.mode === 'card' && (
+          <>
+            {this.user.is_supporter && (
+              <a className='user-card__icon' href={route('support-the-game')}>
+                <SupporterIcon modifiers={['user-card']}/>
+              </a>
+            )}
+            <div className='user-card__icon'>
+              <FriendButton userId={this.user.id} modifiers={['user-card']} />
+            </div>
+            <div className='user-card__icon'>
+              <FollowUserModdingButton userId={this.user.id} modifiers={['user-card']} />
+            </div>
+          </>
+        )}
       </div>
     );
   }
 
   renderListModeIcons() {
-    if (this.props.mode !== 'list' || !this.isUserLoaded || !this.user.is_supporter) { return null; }
+    if (this.props.mode !== 'list' || !this.isUserLoaded) { return null; }
 
     return (
       <div className='user-card__icons'>
-        <a className='user-card__icon' href={route('support-the-game')}>
-          <SupporterIcon level={this.user.support_level} />
-        </a>
+        {this.user.is_supporter && (
+          <a className='user-card__icon' href={route('support-the-game')}>
+            <SupporterIcon level={this.user.support_level} modifiers={['user-list']} />
+          </a>
+        )}
+
+        <div className='user-card__icon'>
+          <FriendButton userId={this.user.id} modifiers={['user-list']} />
+        </div>
+
+        <div className='user-card__icon'>
+          <FollowUserModdingButton userId={this.user.id} modifiers={['user-list']} />
+        </div>
       </div>
     );
   }

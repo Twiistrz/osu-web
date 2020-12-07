@@ -1,43 +1,40 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
-import { ChannelJSON, ChannelType } from 'chat/chat-api-responses';
+import { ChannelJson, ChannelJsonExtended, ChannelType, MessageJson } from 'chat/chat-api-responses';
 import * as _ from 'lodash';
-import { action, computed, observable, transaction } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import User from 'models/user';
 import Message from './message';
 
 export default class Channel {
   @observable channelId: number;
   @observable description?: string;
+  firstMessageId: number = -1;
   @observable icon?: string;
+  @observable inputText: string = '';
   @observable lastMessageId: number = -1;
   @observable lastReadId?: number;
   @observable loaded: boolean = false;
   @observable loading: boolean = false;
+  @observable loadingEarlierMessages: boolean = false;
   @observable messages: Message[] = observable([]);
   @observable metaLoaded: boolean = false;
   @observable moderated: boolean = false;
   @observable name: string = '';
-  @observable newChannel: boolean = false;
+  @observable newPmChannel = false;
   @observable type: ChannelType = 'NEW';
   @observable users: number[] = [];
-  private backlogSize: number = 100;
+
+  @computed
+  get firstMessage() {
+    return this.messages.length > 0 ? this.messages[0] : undefined;
+  }
+
+  @computed
+  get hasEarlierMessages() {
+    return this.firstMessageId !== this.minMessageId;
+  }
 
   @computed
   get isUnread(): boolean {
@@ -49,8 +46,15 @@ export default class Channel {
   }
 
   @computed
-  get exists(): boolean {
-    return this.channelId > 0;
+  get lastMessage(): Message | undefined {
+    return this.messages[this.messages.length - 1];
+  }
+
+  @computed
+  get minMessageId() {
+    const id = this.messages.length > 0 ? this.messages[0].messageId : undefined;
+
+    return typeof id === 'number' ? id : -1;
   }
 
   @computed
@@ -62,11 +66,16 @@ export default class Channel {
     return this.users.find((userId: number) => userId !== currentUser.id);
   }
 
+  @computed
+  get transient() {
+    return this.type === 'NEW';
+  }
+
   constructor(channelId: number) {
     this.channelId = channelId;
   }
 
-  static fromJSON(json: ChannelJSON): Channel {
+  static fromJson(json: ChannelJsonExtended): Channel {
     const channel = Object.create(Channel.prototype);
     return Object.assign(channel, {
       channelId: json.channel_id,
@@ -74,6 +83,7 @@ export default class Channel {
       type: json.type,
 
       description: json.description,
+      firstMessageId: json.first_message_id,
       icon: json.icon,
       lastMessageId: json.last_message_id,
       lastReadId: json.last_read_id,
@@ -82,7 +92,7 @@ export default class Channel {
 
   static newPM(target: User): Channel {
     const channel = new Channel(-1);
-    channel.newChannel = true;
+    channel.newPmChannel = true;
     channel.type = 'PM';
     channel.name = target.username;
     channel.icon = target.avatarUrl;
@@ -92,42 +102,56 @@ export default class Channel {
   }
 
   @action
-  addMessages(messages: Message | Message[], skipSort: boolean = false) {
-    transaction(() => {
-      this.messages = this.messages.concat(messages);
+  addMessages(messages: Message[], skipSort: boolean = false) {
+    this.messages.push(...messages);
 
-      if (!skipSort) {
-        this.resortMessages();
-      }
+    if (!skipSort) {
+      this.resortMessages();
+    }
 
-      if (this.messages.length > this.backlogSize) {
-        this.messages = _.drop(this.messages, this.messages.length - this.backlogSize);
-      }
+    const lastMessage = _(messages)
+      .filter((message) => typeof message.messageId === 'number')
+      .maxBy('messageId');
+    let lastMessageId;
 
-      const lastMessage = _(([] as Message[]).concat(messages))
-        .filter((message) => typeof message.messageId === 'number')
-        .maxBy('messageId');
-      let lastMessageId;
-
-      // The type check is redundant due to the filter above.
-      if (lastMessage != null && typeof lastMessage.messageId === 'number') {
-        lastMessageId = lastMessage.messageId;
-      } else {
-        lastMessageId = -1;
-      }
-      if (lastMessageId > this.lastMessageId) {
-        this.lastMessageId = lastMessageId;
-      }
-    });
+    // The type check is redundant due to the filter above.
+    if (lastMessage != null && typeof lastMessage.messageId === 'number') {
+      lastMessageId = lastMessage.messageId;
+    } else {
+      lastMessageId = -1;
+    }
+    if (lastMessageId > this.lastMessageId) {
+      this.lastMessageId = lastMessageId;
+    }
   }
 
   @action
-  resortMessages() {
-    let newMessages = this.messages.slice();
-    newMessages = _.sortBy(newMessages, 'timestamp');
-    newMessages = _.uniqBy(newMessages, 'messageId');
+  afterSendMesssage(message: Message, json: MessageJson | null) {
+    if (json != null) {
+      message.messageId = json.message_id;
+      message.timestamp = json.timestamp;
+      message.persist();
+    } else {
+      message.errored = true;
+      // delay and retry?
+    }
 
-    this.messages = newMessages;
+    this.resortMessages();
+  }
+
+  @action
+  markAsRead() {
+    this.lastReadId = this.lastMessageId;
+  }
+
+  @action
+  removeMessagesFromUserIds(userIds: Set<number>) {
+    this.messages = this.messages.filter((message) => !userIds.has(message.senderId));
+  }
+
+  @action
+  setInputText(message: string) {
+    this.inputText = message;
   }
 
   @action
@@ -136,32 +160,29 @@ export default class Channel {
   }
 
   @action
-  updateMessage(message: Message) {
-    const messageObject = _.find(this.messages, {uuid: message.uuid});
-    if (messageObject) {
-      messageObject.update(message);
-      if (messageObject.errored) {
-        messageObject.messageId = messageObject.uuid; // prevent from being culled by uniq sort thing
-      } else {
-        messageObject.persist();
-      }
-    } else {
-      // delay and retry?
-    }
+  updatePresence = (json: ChannelJsonExtended) => {
+    this.updateWithJson(json);
+    this.lastReadId = json.last_read_id;
   }
 
   @action
-  updatePresence = (presence: ChannelJSON) => {
-    this.name = presence.name;
-    this.description = presence.description;
-    this.type = presence.type;
-    this.icon = presence.icon || '/images/layout/chat/channel-default.png'; // TODO: update with channel-specific icons?
-    this.lastReadId = presence.last_read_id;
+  updateWithJson(json: ChannelJson) {
+    this.name = json.name;
+    this.description = json.description;
+    this.type = json.type;
+    this.icon = json?.icon ?? '/images/layout/chat/channel-default.png'; // TODO: update with channel-specific icons?
+    this.moderated = json.moderated;
+    this.users = json.users;
 
-    const lastMessageId = _.max([this.lastMessageId, presence.last_message_id]);
-    this.lastMessageId = lastMessageId == null ? -1 : lastMessageId;
+    this.firstMessageId = json.first_message_id ?? this.firstMessageId;
+    // ?? -1 is just there for typing, lastMessageId initializes with -1.
+    this.lastMessageId = _.max([this.lastMessageId, json.last_message_id]) ?? -1;
 
-    this.users = presence.users;
     this.metaLoaded = true;
+  }
+
+  @action
+  private resortMessages() {
+    this.messages = _(this.messages).sortBy('timestamp').uniqBy('messageId').value();
   }
 }

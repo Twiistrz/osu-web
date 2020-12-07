@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { ExtraHeader } from './extra-header'
 import { BeatmapsetPanel } from 'beatmapset-panel'
@@ -44,19 +29,14 @@ export class Beatmaps extends React.PureComponent
     count = @props.counts[section]
     beatmapsets = @props[section]
 
-    div
-      key: section
+    el React.Fragment, key: section,
       h3
         className: 'title title--page-extra-small'
         osu.trans("users.show.extra.beatmaps.#{sectionSnaked}.title")
-        ' '
-        if count > 0
-          span
-            className: 'title__count'
-            osu.formatNumber(count)
+        span className: 'title__count', osu.formatNumber(count)
 
       if beatmapsets.length > 0
-        div className: 'osu-layout__col-container osu-layout__col-container--with-gutter',
+        div className: 'osu-layout__col-container osu-layout__col-container--with-gutter js-audio--group',
           for beatmapset in beatmapsets
             div
               key: beatmapset.id
@@ -75,6 +55,3 @@ export class Beatmaps extends React.PureComponent
                 url: laroute.route 'users.beatmapsets',
                   user: @props.user.id
                   type: sectionSnaked
-
-      else
-        p className: 'page-extra-entries', osu.trans('users.show.extra.beatmaps.none')

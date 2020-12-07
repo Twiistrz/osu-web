@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 class @AccountEdit
   constructor: ->
@@ -23,6 +8,7 @@ class @AccountEdit
     $(document).on 'ajax:error', '.js-account-edit', @ajaxError
     $(document).on 'ajax:send', '.js-account-edit', @ajaxSaving
     $(document).on 'ajax:success', '.js-account-edit', @ajaxSaved
+    $(document).on 'ajax:success', '.js-user-preferences-update', @ajaxUserPreferencesUpdate
 
 
   initializeUpdate: (e) =>
@@ -48,6 +34,10 @@ class @AccountEdit
     @saved e.currentTarget
 
 
+  ajaxUserPreferencesUpdate: (_e, user) ->
+    $.publish 'user:update', user
+
+
   clearState: (el) =>
     el.dataset.accountEditState = ''
 
@@ -59,6 +49,13 @@ class @AccountEdit
       value = ['']
       for checkbox in form.querySelectorAll('input')
         value.push(checkbox.value) if checkbox.checked
+    else if form.dataset.accountEditType == 'radio'
+      prevValue = form.dataset.lastValue
+
+      for checkbox in form.querySelectorAll('input[type="radio"]')
+        if checkbox.checked
+          value = checkbox.value
+          break
     else
       prevValue = form.dataset.lastValue
 
@@ -69,6 +66,15 @@ class @AccountEdit
         value = input.value.trim()
 
     { value, prevValue }
+
+
+  getMultiValue: (form) ->
+    data = {}
+
+    for checkbox in form.querySelectorAll('.js-account-edit__input')
+      data[checkbox.name] = checkbox.checked
+
+    data
 
 
   saved: (el) =>
@@ -89,24 +95,26 @@ class @AccountEdit
 
 
   update: (form) =>
-    { value, prevValue } = @getValue(form)
+    if form.dataset.accountEditType == 'multi'
+      data = @getMultiValue(form)
+    else
+      { value, prevValue } = @getValue(form)
 
-    return @clearState(form) if value == prevValue
-
-    form.dataset.lastValue = value
+      return @clearState(form) if value == prevValue
+      input = form.querySelector('.js-account-edit__input')
+      field = form.dataset.field ? input.name
+      form.dataset.lastValue = value
+      data = "#{field}": value
 
     url = form.dataset.url ? laroute.route('account.update')
-    input = form.querySelector('.js-account-edit__input')
-    field = form.dataset.field ? input.name
 
     form.updating = $.ajax url,
       method: 'PUT'
-      data:
-        "#{field}": value
+      data: data
 
-    .done =>
+    .done (data) =>
       @saved form
-      $(form).trigger 'ajax:success'
+      $(form).trigger 'ajax:success', data
 
     .fail (xhr, status) =>
       return if status == 'abort'

@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '',
     'require_login' => 'Te rugăm să te autentifici pentru a continua.',
     'require_verification' => 'Vă rugăm să verificați pentru a continua.',
     'restricted' => "Nu poți face asta cât timp ești restricționat.",
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Trebuie să fi un nominator complet pentru a nominaliza beatmap-uri care au mai mult de un singur mod de joc.',
             'incorrect_state' => 'S-a produs o eroare la efectuarea acestei acțiuni, încearcă să reîmprospătezi pagina.',
             'owner' => "Nu îți poți nominaliza propriul beatmap.",
+            'set_metadata' => 'Trebuie să setezi genre-ul și limba înainte de a nomina.',
         ],
         'resolve' => [
             'not_owner' => 'Numai cel ce a început subiectul sau proprietarul acestui beatmap pot rezolva o discuție.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "",
             'limit_exceeded' => 'Te rugăm să aștepți un timp înainte să acorzi mai multe voturi',
             'owner' => "Nu îți poți vota propria discuție.",
             'wrong_beatmapset_state' => 'Poți vota doar discuțiile despre beatmapuri în așteptare.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'Acest beatmap este blocat pentru discuții.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Nu poți schimba datele meta a unei hărți nominate. Contactează un membru BN sau NAT dacă crezi că e setat greșit.',
         ],
     ],
 

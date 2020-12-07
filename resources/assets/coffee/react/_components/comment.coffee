@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import ClickToCopy from 'click-to-copy'
 import { CommentEditor } from 'comment-editor'
@@ -25,8 +10,10 @@ import core from 'osu-core-singleton'
 import * as React from 'react'
 import { a, button, div, span, textarea } from 'react-dom-factories'
 import { ReportReportable } from 'report-reportable'
+import { ShowMoreLink } from 'show-more-link'
 import { Spinner } from 'spinner'
 import { UserAvatar } from 'user-avatar'
+import { estimateMinLines } from 'utils/estimate-min-lines'
 
 el = React.createElement
 
@@ -38,6 +25,7 @@ userStore = core.dataStore.userStore
 uiState = core.dataStore.uiState
 
 export class Comment extends React.PureComponent
+  CLIP_LINES = 7
   MAX_DEPTH = 6
 
   makePreviewElement = document.createElement('div')
@@ -48,10 +36,6 @@ export class Comment extends React.PureComponent
     else
       makePreviewElement.innerHTML = comment.messageHtml
       _.truncate makePreviewElement.textContent, length: 100
-
-
-  @defaultProps =
-    showReplies: true
 
 
   constructor: (props) ->
@@ -73,14 +57,25 @@ export class Comment extends React.PureComponent
       expandReplies = children?.length > 0 && @props.depth < MAX_DEPTH
 
     @state =
+      clipped: true
       postingVote: false
       editing: false
       showNewReply: false
       expandReplies: expandReplies
+      lines: null
 
 
   componentWillUnmount: =>
     xhr?.abort() for own _name, xhr of @xhr
+
+
+  componentDidMount: =>
+    @setState lines: estimateMinLines(@props.comment.messageHtml)
+
+
+  componentDidUpdate: (prevProps) =>
+    if prevProps.comment.messageHtml != @props.comment.messageHtml
+      @setState lines: estimateMinLines(@props.comment.messageHtml)
 
 
   render: =>
@@ -88,9 +83,18 @@ export class Comment extends React.PureComponent
       @children = uiState.getOrderedCommentsByParentId(@props.comment.id) ? []
       parent = store.comments.get(@props.comment.parentId)
       user = @userFor(@props.comment)
+      meta = commentableMetaStore.get(@props.comment.commentableType, @props.comment.commentableId)
+
+      # Only clip if there are at least CLIP_LINES + 2 lines to ensure there are enough contents
+      # being clipped instead of just single lone line (or worse no more lines because of rounding up).
+      longContent = @state.lines? && @state.lines.count >= CLIP_LINES + 2
 
       modifiers = @props.modifiers?[..] ? []
       modifiers.push 'top' if @props.depth == 0
+
+      mainModifiers = []
+      mainModifiers.push 'deleted' if @props.comment.isDeleted
+      mainModifiers.push 'clip' if @state.clipped && longContent
 
       repliesClass = 'comment__replies'
       repliesClass += ' comment__replies--indented' if @props.depth < MAX_DEPTH
@@ -100,9 +104,13 @@ export class Comment extends React.PureComponent
         className: osu.classWithModifiers 'comment', modifiers
 
         @renderRepliesToggle()
-        @renderCommentableMeta()
+        @renderCommentableMeta(meta)
 
-        div className: "comment__main #{if @props.comment.isDeleted then 'comment__main--deleted' else ''}",
+        div
+          className: osu.classWithModifiers('comment__main', mainModifiers)
+          style:
+            '--line-height': if @state.lines? then "#{@state.lines.lineHeight}px" else undefined
+            '--clip-lines': CLIP_LINES
           if @props.comment.canHaveVote
             div className: 'comment__float-container comment__float-container--left hidden-xs',
               @renderVoteButton()
@@ -112,6 +120,7 @@ export class Comment extends React.PureComponent
           div className: 'comment__container',
             div className: 'comment__row comment__row--header',
               @renderUsername user
+              @renderOwnerBadge(meta)
 
               if @props.comment.pinned
                 span
@@ -138,10 +147,12 @@ export class Comment extends React.PureComponent
                   modifiers: @props.modifiers
                   close: @closeEdit
             else if @props.comment.messageHtml?
-              div
-                className: 'comment__message',
-                dangerouslySetInnerHTML:
-                  __html: @props.comment.messageHtml
+              el React.Fragment, null,
+                div
+                  className: 'comment__message',
+                  dangerouslySetInnerHTML:
+                    __html: @props.comment.messageHtml
+                @renderToggleClipButton() if longContent
 
             div className: 'comment__row comment__row--footer',
               if @props.comment.canHaveVote
@@ -160,12 +171,12 @@ export class Comment extends React.PureComponent
               @renderDelete()
               @renderPin()
               @renderReport()
-              @renderRepliesText()
               @renderEditedBy()
+              @renderRepliesText()
 
             @renderReplyBox()
 
-        if @props.showReplies && @props.comment.repliesCount > 0
+        if @props.comment.repliesCount > 0
           div
             className: repliesClass
             @children.map @renderComment
@@ -191,6 +202,7 @@ export class Comment extends React.PureComponent
       depth: @props.depth + 1
       parent: @props.comment
       modifiers: @props.modifiers
+      expandReplies: @props.expandReplies
 
 
   renderDelete: =>
@@ -233,9 +245,16 @@ export class Comment extends React.PureComponent
             timeago: osu.timeago(@props.comment.editedAt)
             user:
               if editor.id?
-                osu.link(laroute.route('users.show', user: editor.id), editor.username, classNames: ['comment__link'])
+                osu.link(laroute.route('users.show', user: editor.id), editor.username)
               else
                 _.escape editor.username
+
+
+  renderOwnerBadge: (meta) =>
+    return null unless @props.comment.userId == meta.owner_id
+
+    div className: 'comment__row-item',
+      div className: 'comment__owner-badge', meta.owner_title
 
 
   renderPermalink: =>
@@ -251,31 +270,24 @@ export class Comment extends React.PureComponent
   renderRepliesText: =>
     return if @props.comment.repliesCount == 0
 
-    if @props.showReplies
-      if !@state.expandReplies && @children.length == 0
-        onClick = @loadReplies
-        label = osu.trans('comments.load_replies')
-      else
-        onClick = @toggleReplies
-        label = "#{osu.trans('comments.replies')} (#{osu.formatNumber(@props.comment.repliesCount)})"
-
-      label = "[#{if @state.expandReplies then '-' else '+'}] #{label}"
-
-      div className: 'comment__row-item',
-        button
-          type: 'button'
-          className: 'comment__action'
-          onClick: onClick
-          label
+    if !@state.expandReplies && @children.length == 0
+      callback = @loadReplies
+      label = osu.trans('comments.load_replies')
     else
-      div className: 'comment__row-item',
-        osu.trans('comments.replies')
-        ': '
-        osu.formatNumber(@props.comment.repliesCount)
+      callback = @toggleReplies
+      label = osu.transChoice('comments.replies_count', @props.comment.repliesCount)
+
+    div className: 'comment__row-item comment__row-item--replies',
+      el ShowMoreLink,
+        direction: if @state.expandReplies then 'up' else 'down'
+        hasMore: true
+        label: label
+        callback: callback
+        modifiers: ['comment-replies']
 
 
   renderRepliesToggle: =>
-    if @props.showReplies && @props.depth == 0 && @children.length > 0
+    if @props.depth == 0 && @children.length > 0
       div className: 'comment__float-container comment__float-container--right',
         button
           className: 'comment__top-show-replies'
@@ -295,7 +307,7 @@ export class Comment extends React.PureComponent
 
 
   renderReplyButton: =>
-    if @props.showReplies && !@props.comment.isDeleted
+    if !@props.comment.isDeleted
       div className: 'comment__row-item',
         button
           type: 'button'
@@ -324,6 +336,17 @@ export class Comment extends React.PureComponent
           osu.trans('common.buttons.restore')
 
 
+  renderToggleClipButton: =>
+    button
+      type: 'button'
+      className: 'comment__toggle-clip'
+      onClick: @toggleClip
+      if @state.clipped
+        osu.trans('common.buttons.read_more')
+      else
+        osu.trans('common.buttons.show_less')
+
+
   renderUserAvatar: (user) =>
     if user.id?
       a
@@ -342,11 +365,11 @@ export class Comment extends React.PureComponent
       a
         'data-user-id': user.id
         href: laroute.route('users.show', user: user.id)
-        className: 'js-usercard comment__row-item comment__row-item--username comment__row-item--username-link'
+        className: 'js-usercard comment__row-item'
         user.username
     else
       span
-        className: 'comment__row-item comment__row-item--username'
+        className: 'comment__row-item'
         user.username
 
 
@@ -354,6 +377,7 @@ export class Comment extends React.PureComponent
   renderVoteButton: =>
     className = osu.classWithModifiers('comment-vote', @props.modifiers)
     className += ' comment-vote--posting' if @state.postingVote
+    className += ' comment-vote--disabled' if !@props.comment.canVote
 
     if @hasVoted()
       className += ' comment-vote--on'
@@ -386,9 +410,8 @@ export class Comment extends React.PureComponent
       "+#{osu.formatNumberSuffixed(@props.comment.votesCount, null, maximumFractionDigits: 1)}"
 
 
-  renderCommentableMeta: =>
+  renderCommentableMeta: (meta) =>
     return unless @props.showCommentableMeta
-    meta = commentableMetaStore.get(@props.comment.commentableType, @props.comment.commentableId)
 
     if meta.url
       component = a
@@ -475,7 +498,7 @@ export class Comment extends React.PureComponent
 
 
   userFor: (comment) =>
-    user = userStore.get(comment.userId)?.toJSON()
+    user = userStore.get(comment.userId)?.toJson()
 
     if user?
       user
@@ -540,3 +563,7 @@ export class Comment extends React.PureComponent
 
   toggleReplies: =>
     @setState expandReplies: !@state.expandReplies
+
+
+  toggleClip: =>
+    @setState clipped: !@state.clipped

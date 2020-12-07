@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => '儲存失敗',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => '投票更新失敗',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'kudosu 被收回',
         'message_placeholder_deleted_beatmap' => '該難度已被刪除，無法繼續討論',
         'message_placeholder_locked' => '此圖譜的討論已被禁用。',
+        'message_placeholder_silenced' => "",
         'message_type_select' => '選擇回覆類型',
         'reply_notice' => '按下 Enter 以回覆',
         'reply_placeholder' => '在此處輸入您的回覆',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => '在此處輸入以發佈至整體 (:version)',
             'generalAll' => '在此處輸入以發佈至整體 (所有難度)',
+            'review' => '',
             'timeline' => '在此處輸入以發佈至時間軸 (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => '在編輯模式下按 Ctrl+C 並至您輸入的對話框中按 Ctrl+V 以加入時間戳！',
             'title' => '新的討論',
             'unpin' => '取消釘選',
+        ],
+
+        'review' => [
+            'new' => '',
+            'embed' => [
+                'delete' => '刪除',
+                'missing' => '',
+                'unlink' => '',
+                'unsaved' => '尚未儲存',
+                'timestamp' => [
+                    'all-diff' => '',
+                    'diff' => '',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '',
+                'praise' => '',
+                'problem' => '',
+                'suggestion' => '',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => '確定要提名這張圖譜？',
         'nominated_by' => '被 :users 提名',
         'not_enough_hype' => "沒有足夠的推薦。",
-        'qualified' => '如果沒有問題，預計將於 :date 被 Ranked 。',
-        'qualified_soon' => '如果沒有問題，預計不久將被 Ranked 。',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => '提名數: :current/:required',
         'reset_message_deleted' => '已刪除',
         'title' => '提名狀態',
         'unresolved_issues' => '仍然有需解決的問題 。',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => '提名於 :time_ago 被新問題 :discussion 重置。',
@@ -245,6 +252,7 @@ return [
         'converts' => '包括轉換圖譜',
     ],
     'mode' => [
+        'all' => '全部',
         'any' => '所有',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -267,13 +275,17 @@ return [
         'any' => '所有',
         'unspecified' => '未指定',
         'video-game' => '電子遊戲',
-        'anime' => '動漫',
+        'anime' => '動畫',
         'rock' => '搖滾',
         'pop' => '流行樂',
         'other' => '其他',
         'novelty' => '新奇',
         'hip-hop' => '嘻哈',
         'electronic' => '電音',
+        'metal' => '重金屬',
+        'classical' => '古典樂',
+        'folk' => '',
+        'jazz' => '爵士樂',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => '觸控螢幕',
+        'V2' => '',
     ],
     'language' => [
         'any' => '所有',
@@ -311,8 +324,11 @@ return [
         'korean' => '韓語',
         'spanish' => '西班牙語',
         'swedish' => '瑞典語',
+        'russian' => '俄語',
+        'polish' => '波蘭語',
         'instrumental' => '樂器演奏',
         'other' => '其他',
+        'unspecified' => '',
     ],
     'played' => [
         'any' => '所有',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => '遊玩次數：:count',
         'favourites' => '收藏次數：:count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => '全部',
+        ],
     ],
 ];

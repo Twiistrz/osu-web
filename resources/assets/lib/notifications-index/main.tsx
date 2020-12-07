@@ -1,31 +1,18 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import HeaderV4 from 'header-v4';
 import HeaderLink from 'interfaces/header-link';
 import { route } from 'laroute';
-import { observe } from 'mobx';
+import { computed } from 'mobx';
 import { observer } from 'mobx-react';
-import { Name as NotificationTypeName, TYPES } from 'models/notification-type';
+import { Name as NotificationTypeName, typeNames } from 'models/notification-type';
 import Stack from 'notification-widget/stack';
 import { NotificationContext, NotificationContextData } from 'notifications-context';
 import LegacyPm from 'notifications/legacy-pm';
 import NotificationController from 'notifications/notification-controller';
+import NotificationDeleteButton from 'notifications/notification-delete-button';
+import NotificationReadButton from 'notifications/notification-read-button';
 import core from 'osu-core-singleton';
 import * as React from 'react';
 import { ShowMoreLink } from 'show-more-link';
@@ -34,29 +21,22 @@ import { ShowMoreLink } from 'show-more-link';
 export class Main extends React.Component {
   static readonly contextType = NotificationContext;
 
-  readonly links: HeaderLink[];
-
   private readonly controller: NotificationController;
 
+  @computed
+  get links(): HeaderLink[] {
+    return typeNames.map((name) => ({
+      active: this.controller.currentFilter === name,
+      data: { 'data-type': name },
+      title: osu.trans(`notifications.filters.${name ?? '_'}`),
+      url: route('notifications.index', { type: name }),
+    }));
+  }
+
   constructor(props: {}, context: NotificationContextData) {
-    super(props, context);
+    super(props);
 
-    this.controller = new NotificationController(core.dataStore.notificationStore, this.context);
-    this.links = TYPES.map((obj) => {
-      const type = obj.type;
-      return {
-        active: this.controller.currentFilter === obj.type,
-        data: { 'data-type': type },
-        title: osu.trans(`notifications.filters.${type ?? '_'}`),
-        url: route('notifications.index', { type }),
-      };
-    });
-
-    observe(this.controller, 'currentFilter', (change) => {
-      this.links.forEach((link) => {
-        link.active = link.data['data-type'] === change.newValue;
-      });
-    });
+    this.controller = new NotificationController(core.dataStore.notificationStore, context);
   }
 
   render() {
@@ -70,7 +50,13 @@ export class Main extends React.Component {
 
         <div className='osu-page osu-page--generic-compact'>
           <div className='notification-index'>
+            <div className='notification-index__actions'>
+              {this.renderMarkAsReadButton()}
+              {this.renderDeleteButton()}
+            </div>
+
             {this.renderLegacyPm()}
+
             <div className='notification-stacks'>
               {this.renderStacks()}
               {this.renderShowMore()}
@@ -109,6 +95,10 @@ export class Main extends React.Component {
     return nodes;
   }
 
+  private handleDelete = () => {
+    this.controller.type.delete();
+  }
+
   private handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
@@ -116,7 +106,39 @@ export class Main extends React.Component {
     this.controller.navigateTo(type);
   }
 
+  private handleMarkAsRead = () => {
+    this.controller.markCurrentTypeAsRead();
+  }
+
   private handleShowMore = () => {
     this.controller.loadMore();
+  }
+
+  private renderDeleteButton() {
+    const type = this.controller.type;
+
+    if (type.isEmpty) return null;
+
+    return (
+      <NotificationDeleteButton
+        isDeleting={type.isDeleting}
+        onDelete={this.handleDelete}
+        text={osu.trans('notifications.delete', { type: osu.trans(`notifications.filters.${type.name ?? '_'}`) })}
+      />
+    );
+  }
+
+  private renderMarkAsReadButton() {
+    const type = this.controller.type;
+
+    if (type.isEmpty) return null;
+
+    return (
+      <NotificationReadButton
+        isMarkingAsRead={type.isMarkingAsRead}
+        onMarkAsRead={this.handleMarkAsRead}
+        text={osu.trans('notifications.mark_read', { type: osu.trans(`notifications.filters.${type.name ?? '_'}`) })}
+      />
+    );
   }
 }

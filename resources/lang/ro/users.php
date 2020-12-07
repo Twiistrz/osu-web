@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[utilizator șters]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Contul dumneavoastră nu a fost folosit într-un timp îndelungat.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Conectare incorectă',
         'forgot' => 'Ți-ai uitat parola?',
         'info' => 'Pentru a continua, vă rugam să vă autentificaţi',
+        'invalid_captcha' => '',
         'locked_ip' => 'adresa ta IP este blocată. Te rugăm să aștepți câteva minute.',
         'password' => 'Parolă',
         'register' => "Nu ai un cont osu!? Fă-ți unul nou",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Momentat online',
         'missingtext' => 'S-ar putea să fi făcut o greșeală de scriere! (sau este posibil ca utilizatorul să fi fost restricționat)',
         'origin_country' => 'Din :country',
-        'page_description' => 'osu! - Tot ce ai dorit vreodată să știi despre :username!',
         'previous_usernames' => 'cunoscut anterior ca',
         'plays_with' => 'Joacă cu :devices',
         'title' => "Profilul lui :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Încarcă imaginea',
                     'dropzone' => 'Plasați fișiere aici pentru a le încărca',
                     'dropzone_info' => 'Poți, de asemenea, să-ți plasezi imaginea aici pentru a o încărca',
-                    'size_info' => 'Dimensiunea coperții trebuie să fie de 2800x620',
+                    'size_info' => 'Dimensiunea coperții trebuie să fie de 2400x620',
                     'too_large' => 'Fișierul încărcat este prea mare.',
                     'unsupported_format' => 'Format nesuportat.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'de :artist',
-                'none' => 'Nici unul... încă.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'vedeți mai multe evenimente',
             ],
             'historical' => [
-                'empty' => 'Nicio înregistrare de performanță. :(',
                 'title' => 'Istoric',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu avabili',
-                'available_info' => "Kudosu pot fi tranzacționați pentru stele kudosu, ce pot ajuta ca beatmapul tău să obțină mai multă atenție. Acesta este numărul de kudosu ce nu au fost tranzacționați încă.",
                 'recent_entries' => 'Istoricul Kudosu recent',
                 'title' => 'Kudosu!',
                 'total' => 'Suma totală de Kudosu câștigați',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Descarcă replay-ul',
-                'empty' => 'Nicio performanță uimitoare nu a fost înregistrată încă. :(',
                 'not_ranked' => 'Numai beatmaps clasate acordă pp.',
                 'pp_weight' => 'ponderat :percentage',
+                'view_details' => 'Vezi detalii',
                 'title' => 'Clasamente',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Interese',
-            'lastfm' => 'Last.fm',
             'location' => 'Locația curentă',
             'occupation' => 'Ocupație',
             'skype' => '',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Vedere brick',
         'card' => 'Vedere card',
         'list' => 'Vedere listă',
     ],

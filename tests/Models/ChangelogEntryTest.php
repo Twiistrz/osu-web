@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Models;
 
@@ -28,7 +13,7 @@ class ChangelogEntryTest extends TestCase
 {
     public function testMessageHTMLVisibility()
     {
-        $entry = new ChangelogEntry;
+        $entry = new ChangelogEntry();
 
         $entry->message = 'Hidden';
         $this->assertSame(null, $entry->messageHTML());
@@ -81,5 +66,88 @@ class ChangelogEntryTest extends TestCase
         $converted = ChangelogEntry::convertLegacy($legacy);
         $this->assertSame($message, $converted->title);
         $this->assertNull($converted->messageHTML());
+    }
+
+    public function testGuessCategoryCapitalise()
+    {
+        $data = [
+            'repository' => ['full_name' => ''],
+            'pull_request' => [
+                'labels' => [
+                    ['name' => 'forum'],
+                ],
+            ],
+        ];
+
+        $this->assertSame('Forum', ChangelogEntry::guessCategory($data));
+    }
+
+    public function testGuessCategoryDashToSpace()
+    {
+        $data = [
+            'repository' => ['full_name' => ''],
+            'pull_request' => [
+                'labels' => [
+                    ['name' => 'beatmapset-discussion'],
+                ],
+            ],
+        ];
+
+        $this->assertSame('Beatmapset Discussion', ChangelogEntry::guessCategory($data));
+    }
+
+    public function testGuessCategoryMixedDashAndSpaceNoConversion()
+    {
+        $data = [
+            'repository' => ['full_name' => ''],
+            'pull_request' => [
+                'labels' => [
+                    ['name' => 'beatmapset - discussion'],
+                ],
+            ],
+        ];
+
+        $this->assertSame('Beatmapset - Discussion', ChangelogEntry::guessCategory($data));
+    }
+
+    public function testGuessCategoryPrefixRemoval()
+    {
+        $data = [
+            'repository' => ['full_name' => ''],
+            'pull_request' => [
+                'labels' => [
+                    ['name' => 'area:forum'],
+                ],
+            ],
+        ];
+
+        $this->assertSame('Forum', ChangelogEntry::guessCategory($data));
+    }
+
+    public function testIsPrivate()
+    {
+        $data = [
+            'repository' => ['full_name' => ''],
+            'pull_request' => [
+                'labels' => [
+                    ['name' => 'javascript'],
+                    ['name' => 'area:forum'],
+                ],
+            ],
+        ];
+
+        $this->assertFalse(ChangelogEntry::isPrivate($data));
+
+        $data = [
+            'repository' => ['full_name' => ''],
+            'pull_request' => [
+                'labels' => [
+                    ['name' => 'javascript'],
+                    ['name' => 'dependencies'],
+                ],
+            ],
+        ];
+
+        $this->assertTrue(ChangelogEntry::isPrivate($data));
     }
 }

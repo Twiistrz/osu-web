@@ -1,54 +1,39 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'beatmapset_update_notice' => [
-        'new' => '',
+        'new' => 'Dáváme vám vědět, že od vaší poslední návštěvy došlo k aktualizaci beatmapy „:title“.',
         'subject' => 'Nová aktualizace pro beatmapu ":title"',
-        'unwatch' => '',
+        'unwatch' => 'Pokud již nechcete sledovat tuto beatmapu, můžete kliknout na odkaz "Přestat sledovat", který je nalezitelný na výše uvedené stránce, nebo na módovací stránce sledovaní:',
         'visit' => 'Navštivte stránku diskuze:',
     ],
 
     'common' => [
         'closing' => 'S pozdravem,',
         'hello' => 'Ahoj :user,',
-        'report' => '',
+        'report' => 'Okamžitě odpovězte prosím na tento e-mail, pokud jste o tuto změnu nepožádali.',
     ],
 
     'donation_thanks' => [
-        'benefit_more' => '',
+        'benefit_more' => 'Více výhod pro podporovatele se budou přidávat!',
         'feedback' => "",
         'keep_free' => '',
-        'keep_running' => '',
+        'keep_running' => 'Tvoje podpora udržuje osu! po dobu :minutes! Možná se to nezdá jako mnoho, ale to všechno se sčítá :).',
         'subject' => 'Díky, osu! tě <3luje',
         'translation' => '',
 
         'benefit' => [
             'gift' => '',
-            'self' => '',
+            'self' => 'Nyní máte přístup k osu!direct a mnoha dalším výhodám supporter tagu, po dobu :duration.',
         ],
 
         'support' => [
-            '_' => '',
+            '_' => 'Mnohokrát děkujeme za :support vůči osu!.',
             'first' => 'podpora',
-            'repeat' => '',
+            'repeat' => 'trvalou podporu',
         ],
     ],
 
@@ -60,7 +45,7 @@ return [
     ],
 
     'password_reset' => [
-        'code' => '',
+        'code' => 'Tvůj ověřovací kód je:',
         'requested' => '',
         'subject' => 'obnovení osu! účtu',
     ],
@@ -80,14 +65,14 @@ return [
         'anonymous_gift_maybe_not' => 'Ale už asi víte, kdo to je ;).',
         'duration' => '',
         'features' => '',
-        'gifted' => '',
+        'gifted' => 'Někdo vám právě daroval osu!supporter tag!',
         'subject' => 'Dostal si status osu!podporovatele jako dárek!',
     ],
 
     'user_email_updated' => [
         'changed_to' => '',
         'check' => '',
-        'sent' => '',
+        'sent' => 'Z důvodu bezpečnosti byl tento email odeslán na obě emailové adresy, jak na starou, tak i na novou.',
         'subject' => 'potvrzení změny osu! e-mailu',
     ],
 
@@ -95,11 +80,17 @@ return [
         'main' => '',
         'perform_reset' => 'Můžete provést resetování z :url',
         'reason' => 'Důvod:',
+        'subject' => 'osu! Vyžadována reaktivace účtu',
+    ],
+
+    'user_notification_digest' => [
+        'new' => '',
+        'settings' => '',
         'subject' => '',
     ],
 
     'user_password_updated' => [
-        'confirmation' => '',
+        'confirmation' => 'Toto je pouze potvrzení toho, že od Vašeho osu! účtu bylo změněno heslo.',
         'subject' => 'potvrzení změny osu! hesla',
     ],
 

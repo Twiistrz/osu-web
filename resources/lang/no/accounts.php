@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -26,7 +11,7 @@ return [
         'avatar' => [
             'title' => 'Profilbilde',
             'rules' => 'Vennligst sørg for at profilbildet ditt følger :link<br/>Dette betyr at det må være <strong>passende for alle aldersgrupper</strong>. d.v.s. ingen nakenhet, upassende språk eller innhold.',
-            'rules_link' => '',
+            'rules_link' => 'Samfunns regler',
         ],
 
         'email' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'motta varsler for nye problemer på kvalifiserte beatmaps av følgende moduser',
+        'beatmapset_disqualify' => 'få varsler når beatmaperav de følgende moduser er diskvalifisert',
+        'comment_reply' => '',
         'title' => 'Varsler',
         'topic_auto_subscribe' => 'aktiver automatiske varslinger på nye forum emner som du lager',
-        'beatmapset_discussion_qualified_problem' => '',
 
-        'mail' => [
-            '_' => '',
-            'beatmapset:modding' => '',
-            'forum_topic_reply' => '',
+        'options' => [
+            '_' => 'leveringsalternativer',
+            'beatmapset:modding' => 'beatmap modding',
+            'channel_message' => 'private meldinger',
+            'comment_new' => 'nye kommentar',
+            'forum_topic_reply' => 'emne svar',
+            'mail' => 'e-post',
+            'push' => 'trykk',
+            'user_achievement_unlock' => 'brukerens medalje ulåst',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'autoriserte applikasjoner',
         'own_clients' => 'egne klienter',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Innstillinger',
+
+        'beatmapset_download' => [
+            '_' => 'standard nedlastingstype for beatmap',
+            'all' => 'med video hvis tilgjengelig',
+            'no_video' => 'uten video',
+            'direct' => 'åpne i osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'vis beatmap metadata på originalspråket',
     ],
 
     'playstyles' => [

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => '고정된 주제',
@@ -60,18 +45,19 @@ return [
     'post' => [
         'confirm_destroy' => '정말 이 글을 삭제할까요?',
         'confirm_restore' => '정말 이 글을 복원할까요?',
-        'edited' => '마지막으로 :user님이 :when에 수정하여 총 :count회 수정되었습니다.',
+        'edited' => ':user 님이 마지막으로 :when에 수정하여 총 :count_delimited회 수정되었습니다.',
         'posted_at' => ':when에 게시됨',
 
         'actions' => [
             'destroy' => '삭제',
-            'restore' => '복원',
             'edit' => '수정',
+            'report' => '',
+            'restore' => '복원',
         ],
 
         'create' => [
             'title' => [
-                'reply' => '새로운 회신',
+                'reply' => '새 답글 작성',
             ],
         ],
 
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => '삭제된 주제',
         'go_to_latest' => '최근에 올라온 글 보기',
+        'has_replied' => '이 주제에 답글을 달았습니다.',
+        'in_forum' => ':forum 에서',
         'latest_post' => ':when by :user',
         'latest_reply_by' => ':user님이 마지막 답변 작성',
         'new_topic' => '새 주제글 작성',
@@ -109,11 +97,11 @@ return [
             'submit' => '게시하기',
 
             'necropost' => [
-                'default' => '이 주제는 조금 오래된 글입니다. 정말 그래야 할 사유가 있는 경우에만 작성해 주세요.',
+                'default' => '이 주제는 오래된 글입니다. 마땅한 사유가 있는 경우에만 작성해 주세요.',
 
                 'new_topic' => [
-                    '_' => "이 주제는 조금 오래된 글입니다. 정말 여기에 작성해야 할 사유가 없다면, :create해 주세요.",
-                    'create' => '새로운 주제글 작성',
+                    '_' => "이 주제는 오래된 글입니다. 마땅한 사유가 있는 경우에만 :create해 주세요.",
+                    'create' => '새로운 주제글을 작성',
                 ],
             ],
 
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => '주제글이 잠겨있어 답글을 달 수 없습니다.',
             'to_0' => '주제글 잠금 풀기',
+            'to_0_confirm' => '주제를 잠금 해제할까요?',
             'to_0_done' => '해당 주제의 잠금이 해제되었습니다,',
             'to_1' => '주제글 잠그기',
+            'to_1_confirm' => '주제를 잠글까요?',
             'to_1_done' => '해당 주제가 잠겼습니다.',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => '주제글 고정 해제',
+            'to_0_confirm' => '주제를 고정 해제할까요?',
             'to_0_done' => '해당 주제의 고정이 해제되었습니다.',
             'to_1' => '주제글 고정',
+            'to_1_confirm' => '주제를 고정할까요?',
             'to_1_done' => '해당 주제가 고정되었습니다.',
             'to_2' => '주제글을 고정하고 알림글로 나타내기',
+            'to_2_confirm' => '주제를 고정하고 공지 사항로 표시할까요?',
             'to_2_done' => '해당 주제가 고정되고 알림글로 표시됩니다.',
         ],
 

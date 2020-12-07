@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
@@ -80,12 +65,14 @@ class BeatmapDiscussion extends Model
 
     public static function search($rawParams = [])
     {
+        $pagination = pagination($rawParams);
+
         $params = [
-            'limit' => clamp(get_int($rawParams['limit'] ?? null) ?? 20, 5, 50),
-            'page' => max(get_int($rawParams['page'] ?? null) ?? 1, 1),
+            'limit' => $pagination['limit'],
+            'page' => $pagination['page'],
         ];
 
-        $query = static::limit($params['limit'])->offset(($params['page'] - 1) * $params['limit']);
+        $query = static::limit($params['limit'])->offset($pagination['offset']);
 
         if (present($rawParams['user'] ?? null)) {
             $params['user'] = $rawParams['user'];
@@ -195,7 +182,7 @@ class BeatmapDiscussion extends Model
     public function startingPost()
     {
         return $this->hasOne(BeatmapDiscussionPost::class)->whereNotExists(function ($query) {
-            $table = (new BeatmapDiscussionPost)->getTable();
+            $table = (new BeatmapDiscussionPost())->getTable();
 
             $query->selectRaw(1)
                 ->from(DB::raw("{$table} d"))
@@ -255,8 +242,7 @@ class BeatmapDiscussion extends Model
 
     public function canGrantKudosu()
     {
-        return
-            in_array($this->attributes['message_type'] ?? null, static::KUDOSUABLE_TYPES, true) &&
+        return in_array($this->attributes['message_type'] ?? null, static::KUDOSUABLE_TYPES, true) &&
             $this->user_id !== $this->beatmapset->user_id &&
             !$this->trashed() &&
             !$this->kudosu_denied;
@@ -273,6 +259,11 @@ class BeatmapDiscussion extends Model
         $currentVotes = $this->canGrantKudosu() ?
             (int) $this->beatmapDiscussionVotes()->sum('score') :
             0;
+        // remove kudosu by bots here instead of in canGrantKudosu due to
+        // the function is also called by transformer without user preloaded
+        if ($this->user !== null && $this->user->isBot()) {
+            $currentVotes = 0;
+        }
         $kudosuGranted = (int) $this->kudosuHistory()->sum('amount');
         $targetKudosu = 0;
 
@@ -286,9 +277,9 @@ class BeatmapDiscussion extends Model
 
         $beatmapsetKudosuGranted = (int) KudosuHistory
             ::where('kudosuable_type', $this->getMorphClass())
-            ->whereIn('kudosuable_id',
-                static
-                    ::where('kudosu_denied', '=', false)
+            ->whereIn(
+                'kudosuable_id',
+                static::where('kudosu_denied', '=', false)
                     ->where('beatmapset_id', '=', $this->beatmapset_id)
                     ->where('user_id', '=', $this->user_id)
                     ->select('id')
@@ -307,7 +298,7 @@ class BeatmapDiscussion extends Model
             $event = 'recalculate';
         }
 
-        DB::transaction(function () use ($change, $event, $eventExtraData, $currentVotes) {
+        DB::transaction(function () use ($change, $event, $eventExtraData) {
             if ($event === 'vote') {
                 if ($change > 0) {
                     $beatmapsetEventType = BeatmapsetEvent::KUDOSU_GAIN;
@@ -402,7 +393,8 @@ class BeatmapDiscussion extends Model
             'kudosu_denied_by_id',
         ];
 
-        if ($this->exists &&
+        if (
+            $this->exists &&
             count(array_diff(array_keys($this->getDirty()), $modifiableWhenLocked)) > 0 &&
             $this->isLocked()
         ) {
@@ -702,14 +694,17 @@ class BeatmapDiscussion extends Model
     public function scopeOpenIssues($query)
     {
         return $query
-            ->withoutTrashed()
+            ->visible()
             ->whereIn('message_type', static::RESOLVABLE_TYPES)
-            ->where(function ($query) {
-                $query
-                    ->has('visibleBeatmap')
-                    ->orWhereNull('beatmap_id');
-            })
-            ->where('resolved', '=', false);
+            ->where(['resolved' => false]);
+    }
+
+    public function scopeOpenProblems($query)
+    {
+        return $query
+            ->visible()
+            ->ofType('problem')
+            ->where(['resolved' => false]);
     }
 
     public function scopeWithoutTrashed($query)

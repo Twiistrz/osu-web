@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'otrzymuj powiadomienia o nowych problemach z zakwalifikowanymi beatmapami dla następujących trybów',
+        'beatmapset_disqualify' => 'otrzymuj powiadomienia o dyskwalifikacjach beatmap następujących trybów',
+        'comment_reply' => 'otrzymuj powiadomienia o odpowiedziach do twoich komentarzy',
         'title' => 'Powiadomienia',
         'topic_auto_subscribe' => 'automatycznie włączaj powiadomienia dla twoich wątków na forum',
-        'beatmapset_discussion_qualified_problem' => 'otrzymuj powiadomienia o nowych problemach z zakwalifikowanymi beatmapami dla następujących trybów',
 
-        'mail' => [
-            '_' => 'otrzymuj powiadomienia e-mail dla',
-            'beatmapset:modding' => 'dyskusji beatmap',
-            'forum_topic_reply' => 'odpowiedzi w wątkach',
+        'options' => [
+            '_' => 'opcje wysyłania',
+            'beatmapset:modding' => 'dyskusje beatmap',
+            'channel_message' => 'wiadomości prywatne na czacie',
+            'comment_new' => 'nowe komentarze',
+            'forum_topic_reply' => 'odpowiedzi do wątków',
+            'mail' => 'e-mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'odblokowanie medalu',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'autoryzowane klienty',
         'own_clients' => 'moje klienty',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Ustawienia strony',
+
+        'beatmapset_download' => [
+            '_' => 'domyślny sposób pobierania beatmap',
+            'all' => 'z wideo, jeżeli jest ono dostępne',
+            'no_video' => 'bez wideo',
+            'direct' => 'otwórz w osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'pokaż metadane beatmapy w oryginalnym języku',
     ],
 
     'playstyles' => [

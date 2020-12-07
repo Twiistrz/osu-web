@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries\Payments;
 
@@ -73,6 +58,7 @@ class PaypalPaymentProcessor extends PaymentProcessor
 
     public function getNotificationType()
     {
+        static $ignored_statuses = ['masspay', 'new_case'];
         static $payment_statuses = ['Completed'];
         static $refund_statuses = ['Refunded', 'Reversed', 'Canceled_Reversal'];
         static $pending_statuses = ['Pending'];
@@ -87,6 +73,8 @@ class PaypalPaymentProcessor extends PaymentProcessor
             return NotificationType::PENDING;
         } elseif (in_array($status, $rejected_statuses, true)) {
             return NotificationType::REJECTED;
+        } elseif (in_array($status, $ignored_statuses, true)) {
+            return NotificationType::IGNORED;
         } else {
             return "unknown__{$status}";
         }
@@ -94,7 +82,7 @@ class PaypalPaymentProcessor extends PaymentProcessor
 
     public function getNotificationTypeRaw()
     {
-        return $this['payment_status'];
+        return $this['payment_status'] ?? $this['txn_type'];
     }
 
     public function validateTransaction()
@@ -153,30 +141,20 @@ class PaypalPaymentProcessor extends PaymentProcessor
      */
     protected function getOrder()
     {
-        if (!isset($this->order)) {
+        return $this->memoize(__FUNCTION__, function () {
             // Order number can come from anywhere when paypal is involved /tableflip.
             // Attempt to find order number, else fallback to paypal's parent transaction ID for refunds,
             //  since the IPN might not include the invoice id.
-            if ($this->getNotificationType() === NotificationType::REFUND) {
-                if ($this->getOrderNumber() === null) {
-                    $order = Order::withPayments()
-                        ->wherePaymentTransactionId($this['parent_txn_id'], Order::PROVIDER_PAYPAL)
-                        ->first();
-                } else {
-                    $order = Order::withPayments()
-                        ->whereOrderNumber($this->getOrderNumber())
-                        ->first();
-                }
-            } else {
-                $order = Order::withPayments()
-                    ->whereOrderNumber($this->getOrderNumber())
+            if ($this->getNotificationType() === NotificationType::REFUND && $this->getOrderNumber() === null) {
+                return Order::withPayments()
+                    ->wherePaymentTransactionId($this['parent_txn_id'], Order::PROVIDER_PAYPAL)
                     ->first();
             }
 
-            $this->order = [$order];
-        }
-
-        return $this->order[0];
+            return Order::withPayments()
+                ->whereOrderNumber($this->getOrderNumber())
+                ->first();
+        });
     }
 
     private function isPaymentOrPending()

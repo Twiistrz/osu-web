@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 namespace Tests\Browser;
 
 use App\Models\Beatmap;
@@ -12,7 +15,7 @@ use Tests\DuskTestCase;
 
 class BeatmapDiscussionPostsTest extends DuskTestCase
 {
-    private $new_reply_widget_selector = '.beatmap-discussion__full .beatmap-discussion-post--new-reply';
+    private $new_reply_widget_selector = '.beatmap-discussion-post--new-reply';
 
     public function testConcurrentPostAfterResolve()
     {

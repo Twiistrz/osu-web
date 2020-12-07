@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => '确定？',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => '管理员',
         'authorise' => '授权',
+        'authorising' => '授权中...',
         'back_to_previous' => '返回上一位置',
         'back_to_top' => '回到顶部',
         'cancel' => '取消',
         'change' => '更改',
+        'clear' => '清空',
         'click_to_copy' => '点击以复制到剪贴板',
         'click_to_copy_copied' => '已经复制到剪贴板！',
         'close' => '关闭',
@@ -51,6 +38,7 @@ return [
         'permalink' => '静态链接',
         'pin' => '置顶',
         'post' => '发表',
+        'read_more' => '阅读更多',
         'reply' => '回复',
         'reply_reopen' => '回复并重新打开',
         'reply_resolve' => '回复并标记为已解决',
@@ -138,6 +126,21 @@ return [
         'count_geki' => 'MAX',
         'count_katu' => '200',
         'count_miss' => 'Miss',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '%d 天前',
+        'dd' => '%d 天前',
+        'h' => '%d 小时前',
+        'hh' => '%d 小时前',
+        'M' => '%d 月前',
+        'm' => '%d 分钟前',
+        'MM' => '%d 月前',
+        'mm' => '%d 分钟前',
+        'past' => '%s',
+        's' => '%d 秒前',
+        'y' => '%d 年前',
+        'yy' => '%d 年前',
     ],
 
     'time' => [

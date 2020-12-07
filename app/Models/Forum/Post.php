@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\Forum;
 
@@ -24,10 +9,12 @@ use App\Jobs\EsIndexDocument;
 use App\Jobs\MarkNotificationsRead;
 use App\Libraries\BBCodeForDB;
 use App\Libraries\BBCodeFromDB;
+use App\Libraries\Elasticsearch\Indexable;
 use App\Libraries\Transactions\AfterCommit;
 use App\Models\Beatmapset;
 use App\Models\DeletedUser;
 use App\Models\Elasticsearch;
+use App\Models\Reportable;
 use App\Models\User;
 use App\Traits\Validatable;
 use Carbon\Carbon;
@@ -70,9 +57,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $topic_id
  * @property User $user
  */
-class Post extends Model implements AfterCommit
+class Post extends Model implements AfterCommit, Indexable
 {
-    use Elasticsearch\PostTrait, SoftDeletes, Validatable;
+    use Elasticsearch\PostTrait, Reportable, SoftDeletes, Validatable;
 
     protected $table = 'phpbb_posts';
     protected $primaryKey = 'post_id';
@@ -119,6 +106,13 @@ class Post extends Model implements AfterCommit
         $this->attributes['post_text'] = $bbcode->generate();
         $this->attributes['bbcode_uid'] = $bbcode->uid;
         $this->attributes['bbcode_bitfield'] = $bbcode->bitfield;
+    }
+
+    public function getPostEditUserAttribute($value)
+    {
+        if ($value !== 0) {
+            return $value;
+        }
     }
 
     public function setPostTimeAttribute($value)
@@ -256,8 +250,12 @@ class Post extends Model implements AfterCommit
     {
         $this->validationErrors()->reset();
 
-        if (!$this->skipBodyPresenceCheck && !present($this->post_text)) {
-            $this->validationErrors()->add('post_text', 'required');
+        if (!$this->skipBodyPresenceCheck) {
+            if (trim_unicode($this->post_text) === '') {
+                $this->validationErrors()->add('post_text', 'required');
+            } elseif (trim_unicode(BBCodeFromDB::removeBlockQuotes($this->post_text)) === '') {
+                $this->validationErrors()->add('base', '.only_quote');
+            }
         }
 
         if ($this->isDirty('post_text') && mb_strlen($this->body_raw) > config('osu.forum.max_post_length')) {
@@ -271,10 +269,6 @@ class Post extends Model implements AfterCommit
 
                 return false;
             }
-        }
-
-        if (empty(trim(BBCodeFromDB::removeBlockQuotes($this->post_text)))) {
-            $this->validationErrors()->add('base', '.only_quote');
         }
 
         return $this->validationErrors()->isEmpty();
@@ -301,8 +295,7 @@ class Post extends Model implements AfterCommit
     public function isBeatmapsetPost()
     {
         if ($this->topic !== null) {
-            return
-                $this->getKey() === $this->topic->topic_first_post_id &&
+            return $this->getKey() === $this->topic->topic_first_post_id &&
                 $this->topic->beatmapset()->exists();
         }
     }
@@ -354,5 +347,18 @@ class Post extends Model implements AfterCommit
         }
 
         (new MarkNotificationsRead($this, $user))->dispatch();
+    }
+
+    public function url()
+    {
+        return route('forum.posts.show', $this);
+    }
+
+    protected function newReportableExtraParams(): array
+    {
+        return [
+            'reason' => 'Spam',
+            'user_id' => $this->poster_id,
+        ];
     }
 }

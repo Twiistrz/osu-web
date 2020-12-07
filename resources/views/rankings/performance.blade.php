@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @extends("rankings.index")
 
@@ -51,13 +38,26 @@
                     </td>
                     <td class="ranking-page-table__column">
                         <div class="ranking-page-table__user-link">
-                            <a href="{{route('rankings', ['mode' => $mode, 'type' => 'performance', 'country' => $score->user->country->acronym])}}">
-                                @include('objects._country_flag', [
-                                    'country_name' => $score->user->country->name,
-                                    'country_code' => $score->user->country->acronym,
+                            <a
+                                href="{{ route('rankings', [
+                                    'mode' => $mode,
+                                    'type' => 'performance',
+                                    'country' => $score->user->country->acronym,
+                                    'variant' => $variant,
+                                ]) }}"
+                            >
+                                @include('objects._flag_country', [
+                                    'countryName' => $score->user->country->name,
+                                    'countryCode' => $score->user->country->acronym,
+                                    'modifiers' => ['medium'],
                                 ])
                             </a>
-                            <a href="{{route('users.show', $score->user_id)}}" class="ranking-page-table__user-link-text js-usercard" data-user-id="{{$score->user_id}}" data-tooltip-position="right center">
+                            <a
+                                href="{{ route('users.show', ['user' => $score->user_id, 'mode' => $mode]) }}"
+                                class="ranking-page-table__user-link-text js-usercard"
+                                data-user-id="{{ $score->user_id }}"
+                                data-tooltip-position="right center"
+                            >
                                 {{ $score->user->username }}
                             </a>
                         </div>

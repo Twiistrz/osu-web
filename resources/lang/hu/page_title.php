@@ -1,71 +1,142 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'admin' => [
+        '_' => 'admin',
+    ],
+    'admin_forum' => [
+        '_' => 'admin',
+    ],
+    'admin_store' => [
+        '_' => 'admin',
+    ],
     'error' => [
         'error' => [
-            '_' => 'hiba',
-            '404' => 'hiányzó',
-            '403' => 'tiltott',
-            '401' => 'jogosulatlan',
+            '400' => 'Érvénytelen lekérés',
+            '404' => 'Hiányzó',
+            '403' => 'Tiltott',
+            '401' => 'Jogtalan',
+            '401-verification' => 'Fiók hitelesítése',
             '405' => 'hiányzó',
-            '500' => 'valami elromlott',
+            '422' => 'Érvénytelen lekérés',
+            '500' => 'Valami nincs rendben',
             '503' => 'karbantartás',
         ],
     ],
     'forum' => [
-        '_' => 'Fórum',
+        '_' => 'fórum',
         'topic_watches_controller' => [
-            'index' => 'áttekintés',
+            'index' => 'írányítópult',
         ],
     ],
     'main' => [
         'account_controller' => [
-            'edit' => 'áttekintés',
+            'edit' => 'irányítópult',
+            'verify_link' => 'Fiók hitelesítése',
         ],
-        'beatmapset_watches_controller' => [
-            'index' => 'áttekintés',
-        ],
-        'friends_controller' => [
-            'index' => 'áttekintés',
-        ],
-        'home_controller' => [
-            'index' => 'áttekintés',
-            'get_download' => 'letöltés',
-            'search' => 'keresés',
-            'support_the_game' => 'támogasd a játékot',
-        ],
-        'beatmap_discussions_controller' => [
-            '_' => 'beatmap viták',
+        'artists_controller' => [
+            '_' => 'kiemelt előadók',
         ],
         'beatmap_discussion_posts_controller' => [
-            '_' => 'beatmap vita posztok',
+            '_' => 'beatmap beszélgetési posztok',
+        ],
+        'beatmap_discussions_controller' => [
+            '_' => 'beatmap beszélgetések',
+        ],
+        'beatmap_packs_controller' => [
+            '_' => 'beatmap csomagok',
+        ],
+        'beatmapset_discussion_votes_controller' => [
+            '_' => 'beatmap beszélgetési szavazatok',
+        ],
+        'beatmapset_events_controller' => [
+            '_' => 'beatmap előzmények',
+        ],
+        'beatmapset_watches_controller' => [
+            'index' => 'irányítópult',
+        ],
+        'beatmapsets_controller' => [
+            'discussion' => 'beatmap beszélgetések',
+            'index' => 'beatmapes listák',
+            'show' => 'beatmap információk',
+        ],
+        'changelog_controller' => [
+            '_' => 'változási napló',
         ],
         'chat_controller' => [
             '_' => 'chat',
         ],
+        'comments_controller' => [
+            '_' => 'hozzászolások',
+        ],
+        'contests_controller' => [
+            '_' => 'versenyek',
+        ],
+        'friends_controller' => [
+            'index' => 'irányítópult',
+        ],
+        'groups_controller' => [
+            'show' => 'csoportok',
+        ],
+        'home_controller' => [
+            'get_download' => 'letöltés',
+            'index' => 'irányítópult',
+            'search' => 'keresés',
+            'support_the_game' => 'játék támogatása',
+            'testflight' => 'teszt',
+        ],
         'legal_controller' => [
             '_' => 'információ',
         ],
+        'livestreams_controller' => [
+            '_' => 'élő közvetítések',
+        ],
+        'matches_controller' => [
+            '_' => 'találatok',
+        ],
+        'news_controller' => [
+            '_' => 'újdonságok',
+        ],
+        'notifications_controller' => [
+            '_' => 'értesítési előzmények',
+        ],
+        'password_reset_controller' => [
+            '_' => 'jelszó visszaállítása',
+        ],
+        'ranking_controller' => [
+            '_' => 'rangsorolás',
+        ],
+        'scores_controller' => [
+            '_' => 'teljesítmény',
+        ],
+        'store_controller' => [
+            '_' => 'osu!bolt',
+        ],
+        'tournaments_controller' => [
+            '_' => 'bajnokságok',
+        ],
+        'users_controller' => [
+            '_' => 'játékos információi',
+            'disabled' => 'értesítés',
+        ],
         'wiki_controller' => [
-            'show' => 'Tudásbázis',
+            '_' => 'tudásbázis',
+        ],
+    ],
+    'multiplayer' => [
+        'rooms_controller' => [
+            '_' => 'rangsorolás',
+        ],
+    ],
+    'store' => [
+        '_' => 'osu!bolt',
+    ],
+    'users' => [
+        'modding_history_controller' => [
+            '_' => 'modding információ',
         ],
     ],
 ];

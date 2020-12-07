@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Opslaan van post mislukt',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Stem bijwerken mislukt',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Verkrijgen van kudosu ontkend.',
         'message_placeholder_deleted_beatmap' => 'Deze moeilijkheidsgraad is verwijderd en mag niet meer besproken worden.',
         'message_placeholder_locked' => 'Discussie voor deze beatmap is uitgeschakeld.',
+        'message_placeholder_silenced' => "Kan discussie niet plaatsen als je je misdragen hebt.",
         'message_type_select' => 'Selecteer Commentaartype',
         'reply_notice' => 'Druk op enter om te antwoorden.',
         'reply_placeholder' => 'Type hier je reactie',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Typ hier om in General te posten (:version)',
             'generalAll' => 'Typ hier om in General te posten (Alle moeilijkheden)',
+            'review' => 'Typ hier om een recensie te plaatsen',
             'timeline' => 'Typ hier om naar de tijdlijn te posten (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'ctrl+c in de bewerkmodus en plak in je bericht om een tijdstip toe te voegen!',
             'title' => 'Nieuwe Discussie',
             'unpin' => 'Losmaken',
+        ],
+
+        'review' => [
+            'new' => 'Nieuwe Recensie',
+            'embed' => [
+                'delete' => 'Verwijderen',
+                'missing' => '[DISCUSSIE VERWIJDERD]',
+                'unlink' => 'Ontkoppelen',
+                'unsaved' => 'Niet-opgeslagen',
+                'timestamp' => [
+                    'all-diff' => 'Posts op "All difficulties" kunnen niet worden getimestamped.',
+                    'diff' => 'Als :type begint met een tijdstempel, dan wordt deze getoond onder de tijdlijn.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'paragraaf invoegen',
+                'praise' => 'praise toevoegen',
+                'problem' => 'probleem toevoegen',
+                'suggestion' => 'suggestie toevoegen',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Nomineer deze beatmap?',
         'nominated_by' => 'genomineerd door :gebruikers',
         'not_enough_hype' => "Er is niet genoeg hype.",
-        'qualified' => 'Naar schatting gerankt op :date, als er geen problemen optreden.',
-        'qualified_soon' => 'Naar schatting binnenkort gerankt, als er geen problemen optreden.',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Nimonaties: :current/:required',
         'reset_message_deleted' => 'verwijderd',
         'title' => 'Nominatiestatus',
         'unresolved_issues' => 'Er zijn nog steeds onopgeloste problemen die eerst moeten worden aangepakt.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Nominatieprocess :time_ago gereset door :user met nieuw probleem :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Tel geconverteerde beatmaps mee',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Alles',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Electronic',
+        'metal' => 'Metal',
+        'classical' => 'Klassiek',
+        'folk' => 'Volksmuziek',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => 'Alles',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Koreaans',
         'spanish' => 'Spaans',
         'swedish' => 'Zweeds',
+        'russian' => 'Russisch',
+        'polish' => 'Pools',
         'instrumental' => 'Instrumentaal',
         'other' => 'Anders',
+        'unspecified' => 'Niet Gespecificeerd',
     ],
     'played' => [
         'any' => 'Alles',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Speelaantal :count',
         'favourites' => 'Favorieten: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Alles',
+        ],
     ],
 ];

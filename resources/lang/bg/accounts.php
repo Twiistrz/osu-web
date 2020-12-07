@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -25,8 +10,8 @@ return [
 
         'avatar' => [
             'title' => 'Аватар',
-            'rules' => '',
-            'rules_link' => 'правилата на общността',
+            'rules' => 'Моля, уверете се, че вашият аватар се придържда към :link.<br/>Това означава, че задължително трябва да бъде <strong>подходящ за всички възрасти</strong>. т.е. няма голота, ругатни или внушаващо съдържание.',
+            'rules_link' => 'обществените правила',
         ],
 
         'email' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'получаване на известия за нови проблеми на квалифицирани бийтмапове от следните ремижи на игра',
+        'beatmapset_disqualify' => 'получаване на известия, когато бийтмапове от следните режими на игра са дисквалифицирани',
+        'comment_reply' => 'получавайте известия за отговори на вашите коментари',
         'title' => 'Известия',
-        'topic_auto_subscribe' => '',
-        'beatmapset_discussion_qualified_problem' => '',
+        'topic_auto_subscribe' => 'автоматично включване на известията при създаването на нови форумни теми',
 
-        'mail' => [
-            '_' => '',
-            'beatmapset:modding' => '',
-            'forum_topic_reply' => '',
+        'options' => [
+            '_' => 'опции за доставка',
+            'beatmapset:modding' => 'бийтмап modding',
+            'channel_message' => '',
+            'comment_new' => 'нови коментари ',
+            'forum_topic_reply' => 'отговор на темата',
+            'mail' => 'поща',
+            'push' => 'push',
+            'user_achievement_unlock' => '',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'оторизирани клиенти',
         'own_clients' => 'собствени клиенти',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Hастройки',
+
+        'beatmapset_download' => [
+            '_' => 'тип на теглене на бийтмапове по подразбиране',
+            'all' => 'с видео при наличност',
+            'no_video' => 'без видео',
+            'direct' => 'отвори в osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'покажете метаданни на beatmap на оригиналния език',
     ],
 
     'playstyles' => [
@@ -118,6 +123,6 @@ return [
     ],
 
     'verification_invalid' => [
-        'title' => '',
+        'title' => 'Невалиден или изтекъл линк за потвърждение',
     ],
 ];

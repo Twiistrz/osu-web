@@ -1,17 +1,26 @@
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
+
 import { ReactTurbolinks } from 'react-turbolinks'
+import Events from 'beatmap-discussions/events'
 import { BeatmapsetPanel } from 'beatmapset-panel'
 import { BlockButton } from 'block-button'
+import ChatIcon from 'chat-icon'
 import { Comments } from 'comments'
 import { CommentsManager } from 'comments-manager'
 import { CountdownTimer } from 'countdown-timer'
+import ForumPostReport from 'forum-post-report'
 import { FriendButton } from 'friend-button'
 import { LandingNews } from 'landing-news'
+import { keyBy } from 'lodash'
+import MultiplayerSelectOptions from 'multiplayer-select-options'
 import NotificationIcon from 'notification-icon'
 import NotificationWidget from 'notification-widget/main'
 import NotificationWorker from 'notifications/worker'
 import QuickSearch from 'quick-search/main'
 import QuickSearchButton from 'quick-search-button'
 import QuickSearchWorker from 'quick-search/worker'
+import RankingFilter from 'ranking-filter'
 import { SpotlightSelectOptions } from 'spotlight-select-options'
 import { UserCard } from 'user-card'
 import { UserCardStore } from 'user-card-store'
@@ -35,11 +44,34 @@ reactTurbolinks.register 'blockButton', BlockButton, (target) ->
   container: target
   userId: parseInt(target.dataset.target)
 
+
+reactTurbolinks.register 'beatmap-discussion-events', Events, (container) ->
+  props = {
+    container
+    discussions: osu.parseJson('json-discussions')
+    events: osu.parseJson('json-events')
+    posts: osu.parseJson('json-posts')
+  }
+
+  # TODO: move to store?
+  users = osu.parseJson('json-users')
+  props.users = _.keyBy(users, 'id')
+  props.users[null] = props.users[undefined] =
+    username: osu.trans 'users.deleted'
+
+  props
+
+
 reactTurbolinks.register 'beatmapset-panel', BeatmapsetPanel, (el) ->
   JSON.parse(el.dataset.beatmapsetPanel)
 
+reactTurbolinks.registerPersistent 'forum-post-report', ForumPostReport
+
 reactTurbolinks.register 'spotlight-select-options', SpotlightSelectOptions, ->
   osu.parseJson 'json-spotlight-select-options'
+
+reactTurbolinks.registerPersistent 'multiplayer-select-options', MultiplayerSelectOptions, true, ->
+  osu.parseJson 'json-multiplayer-select-options'
 
 reactTurbolinks.register 'comments', CommentsManager, (el) ->
   props = JSON.parse(el.dataset.props)
@@ -51,6 +83,12 @@ notificationWorker = new NotificationWorker()
 resetNotificationWorker = -> notificationWorker.setUserId(currentUser.id)
 $(document).ready resetNotificationWorker
 $.subscribe 'user:update', resetNotificationWorker
+
+reactTurbolinks.registerPersistent 'chat-icon', ChatIcon, true, (el) ->
+  props = (try JSON.parse(el.dataset.chatIcon)) ? {}
+  props.worker = notificationWorker
+
+  props
 
 reactTurbolinks.registerPersistent 'notification-icon', NotificationIcon, true, (el) ->
   props = (try JSON.parse(el.dataset.notificationIcon)) ? {}
@@ -67,6 +105,12 @@ reactTurbolinks.registerPersistent 'quick-search', QuickSearch, true, (el) ->
 
 reactTurbolinks.registerPersistent 'quick-search-button', QuickSearchButton, true, ->
   worker: quickSearchWorker
+
+reactTurbolinks.registerPersistent 'ranking-filter', RankingFilter, true, (el) ->
+  countries: osu.parseJson 'json-countries'
+  gameMode: el.dataset.gameMode
+  type: el.dataset.type
+  variants: try JSON.parse(el.dataset.variants)
 
 reactTurbolinks.register 'user-card', UserCard, (el) ->
   modifiers: try JSON.parse(el.dataset.modifiers)

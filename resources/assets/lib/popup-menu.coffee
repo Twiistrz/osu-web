@@ -1,25 +1,10 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
-import { createElement as el, createRef, PureComponent } from 'react'
+import { createRef, PureComponent } from 'react'
 import { createPortal } from 'react-dom'
 import * as React from 'react'
-import { a, button, div, i } from 'react-dom-factories'
+import { button, div, i } from 'react-dom-factories'
 import { TooltipContext } from 'tooltip-context'
 import { Modal } from 'modal'
 
@@ -43,7 +28,7 @@ export class PopupMenu extends PureComponent
 
   componentDidMount: =>
     @tooltipHideEvent = @tooltipElement().qtip('option', 'hide.event')
-    $(window).on 'throttled-resize.#{@uuid}', @resize
+    $(window).on "resize.#{@uuid}", @resize
     $(document).on "turbolinks:before-cache.#{@uuid}", () =>
       @removePortal()
 
@@ -92,6 +77,7 @@ export class PopupMenu extends PureComponent
 
   componentWillUnmount: =>
     $(document).off ".#{@uuid}"
+    $(window).off ".#{@uuid}"
 
 
   dismiss: =>
@@ -131,16 +117,19 @@ export class PopupMenu extends PureComponent
   render: =>
     @portal ?= document.createElement('div')
 
-    div
-      className: 'popup-menu'
-      ref: @menu
-      button
-        className: 'popup-menu__button'
-        type: 'button'
-        onClick: @toggle
-        i className: 'fas fa-ellipsis-v'
+    if @props.customRender
+      @props.customRender createPortal(@props.children(@dismiss), @portal), @menu, @toggle
+    else
+      div
+        className: 'popup-menu'
+        ref: @menu
+        button
+          className: 'popup-menu__button'
+          type: 'button'
+          onClick: @toggle
+          i className: 'fas fa-ellipsis-v'
 
-      createPortal @renderMenu(), @portal
+        createPortal @renderMenu(), @portal
 
 
   renderMenu: =>

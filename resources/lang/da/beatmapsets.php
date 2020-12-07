@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmaps',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'download',
+            'video' => 'download med video',
+            'no_video' => 'download uden video',
+            'direct' => 'open med osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Diskussion',
 
         'details' => [
-            'approved' => 'godkendt den ',
             'favourite' => 'Markér dette beatmapset som favorit',
             'logged-out' => 'Du skal være logget ind for at kunne downloade beatmaps!',
-            'loved' => 'elsket den ',
             'mapped_by' => 'mappet af :mapper',
-            'qualified' => 'kvalificeret den ',
-            'ranked' => 'ranked den ',
-            'submitted' => 'uploadet den ',
             'unfavourite' => 'Fjern dette beatmapset fra dine favoritter',
-            'updated' => 'sidst opdateret den ',
             'updated_timeago' => 'sidst opdateret :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'til at få adgang til flere funktioner',
                 'top' => 'Log ind',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'godkendt :timeago',
+            'loved' => 'elsket :timeago',
+            'qualified' => 'kvalificeret :timeago',
+            'ranked' => 'ranked :timeago',
+            'submitted' => 'indsendt :timeago',
+            'updated' => 'sidst opdateret :timeago',
         ],
 
         'favourites' => [
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => 'Hvis du finder en fejl i denne beatmap, diskvalificer den venligst :link.',
-                'button_title' => 'Diskvalificer en kvalificeret beatmap.',
             ],
 
             'report' => [
                 '_' => 'Hvis du finder en fejl i denne beatmap, meld det venligst :link til teamet.',
                 'button' => 'Rapporter Problem',
-                'button_title' => 'Rapporter et problem på en kvalificeret beatmap.',
                 'link' => 'her',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Kilde',
             'success-rate' => 'Succesrate',
             'tags' => 'Tags',
-            'unranked' => 'Ikke-ranked beatmap',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Rang',
                 'score_total' => 'Total Score',
                 'score' => 'Score',
+                'time' => '',
             ],
 
             'no_scores' => [

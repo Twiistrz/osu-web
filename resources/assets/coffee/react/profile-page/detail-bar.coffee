@@ -1,23 +1,9 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { Rank } from './rank'
 import { BlockButton } from 'block-button'
+import FollowUserModdingButton from 'follow-user-modding-button'
 import { FriendButton } from 'friend-button'
 import * as React from 'react'
 import { a, button, div, dd, dl, dt, h1, i, img, li, span, ul } from 'react-dom-factories'
@@ -66,6 +52,11 @@ export class DetailBar extends React.PureComponent
             followers: @props.user.follower_count
             modifiers: ['profile-page']
             alwaysVisible: true
+
+        if @state.currentUser.id? && @state.currentUser.id != @props.user.id
+          div className: "#{bn}__entry",
+            el FollowUserModdingButton, userId: @props.user.id, modifiers: ['profile-page']
+
         if @state.currentUser.id != @props.user.id && !isBlocked
           div className: "#{bn}__entry",
             a
@@ -89,11 +80,13 @@ export class DetailBar extends React.PureComponent
               div className: "bar__text",
                 "#{@props.stats.level.progress}%"
 
-        div className: "#{bn}__entry #{if @props.expanded then 'visible-xs' else ''}",
-          el Rank, type: 'global', stats: @props.stats
+        if !@props.expanded
+          el React.Fragment, null,
+            div className: "#{bn}__entry hidden-xs",
+              el Rank, type: 'global', stats: @props.stats
 
-        div className: "#{bn}__entry #{if @props.expanded then 'visible-xs' else ''}",
-          el Rank, type: 'country', stats: @props.stats
+            div className: "#{bn}__entry hidden-xs",
+              el Rank, type: 'country', stats: @props.stats
 
         div className: "#{bn}__entry #{bn}__entry--level",
           div

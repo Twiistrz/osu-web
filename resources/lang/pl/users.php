@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[usunięty użytkownik]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => 'Według trybu gry',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Brak aktywności przez długi czas.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Nieprawidłowe dane logowania',
         'forgot' => 'Nie pamiętasz hasła?',
         'info' => 'Zaloguj się, aby kontynuować.',
+        'invalid_captcha' => 'Zbyt wiele nieudanych prób logowania - wykonaj captchę, by spróbować ponownie (odśwież stronę, jeżeli captcha nie jest widoczna).',
         'locked_ip' => 'Twój adres IP został zablokowany. Poczekaj kilka minut.',
         'password' => 'Hasło',
         'register' => "Nie posiadasz konta osu!? Utwórz nowe.",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Obecnie online',
         'missingtext' => 'Wprowadzona nazwa użytkownika jest błędna lub użytkownik został zablokowany',
         'origin_country' => 'Pochodzi z :country',
-        'page_description' => 'osu! - Wszystko co chcesz wiedzieć o :username!',
         'previous_usernames' => 'poprzednie nazwy użytkownika',
         'plays_with' => 'Gra za pomocą :devices',
         'title' => "Profil :username",
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'autorstwa :artist',
-                'none' => 'Jeszcze nie ma...',
                 'title' => 'Beatmapy',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'zobacz więcej wydarzeń',
             ],
             'historical' => [
-                'empty' => 'Brak wyników. :(',
                 'title' => 'Historia',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Dostępne kudosu',
-                'available_info' => "Punkty kudosu mogą zostać wymienione na gwiazdki kudosu, które pomogą twojej mapie zyskać więcej uwagi. Powyżej podano liczbę kudosu, którą możesz wymienić.",
                 'recent_entries' => 'Ostatnio zdobyte kudosu',
                 'title' => 'Kudosu!',
                 'total' => 'Zdobyte kudosu',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Pobierz powtórkę',
-                'empty' => 'Brak wyników. :(',
                 'not_ranked' => 'Tylko rankingowe beatmapy przyznają pp.',
                 'pp_weight' => 'ważone :percentage',
+                'view_details' => 'Pokaż szczegóły',
                 'title' => 'Wyniki',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Zainteresowania',
-            'lastfm' => 'Last.fm',
             'location' => 'Obecna lokalizacja',
             'occupation' => 'Zajęcia',
             'skype' => 'Skype',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Widok cegiełek',
         'card' => 'Widok kart',
         'list' => 'Widok listy',
     ],

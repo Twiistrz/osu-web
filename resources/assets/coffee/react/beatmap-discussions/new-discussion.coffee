@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { MessageLengthCounter } from './message-length-counter'
 import { BigButton } from 'big-button'
@@ -42,7 +27,8 @@ export class NewDiscussion extends React.PureComponent
 
 
   componentDidMount: =>
-    $(window).on 'throttled-resize.new-discussion', @setTop
+    @setTop()
+    $(window).on 'resize.new-discussion', @setTop
     @inputBox.current?.focus() if @props.autoFocus
 
 
@@ -178,7 +164,7 @@ export class NewDiscussion extends React.PureComponent
             for discussion in @nearbyDiscussions()
               osu.link BeatmapDiscussionHelper.url(discussion: discussion),
                 BeatmapDiscussionHelper.formatTimestamp(discussion.timestamp)
-                classNames: ['js-beatmap-discussion--jump', "#{bn}__notice-link"]
+                classNames: ['js-beatmap-discussion--jump']
           timestampsString = osu.transArray(timestamps)
 
           div className: "#{bn}__notice",
@@ -202,6 +188,7 @@ export class NewDiscussion extends React.PureComponent
 
 
   canPost: =>
+    !@props.currentUser.is_silenced &&
     (!@props.beatmapset.discussion_locked || BeatmapDiscussionHelper.canModeratePosts(@props.currentUser)) &&
     (!@props.currentBeatmap.deleted_at? || @props.mode == 'generalAll')
 
@@ -226,7 +213,9 @@ export class NewDiscussion extends React.PureComponent
     if @canPost()
       osu.trans "beatmaps.discussions.message_placeholder.#{@props.mode}", version: @props.currentBeatmap.version
     else
-      if @props.beatmapset.discussion_locked
+      if @props.currentUser.is_silenced
+        osu.trans 'beatmaps.discussions.message_placeholder_silenced'
+      else if @props.beatmapset.discussion_locked
         osu.trans 'beatmaps.discussions.message_placeholder_locked'
       else
         osu.trans 'beatmaps.discussions.message_placeholder_deleted_beatmap'
@@ -235,53 +224,17 @@ export class NewDiscussion extends React.PureComponent
   nearbyDiscussions: =>
     return [] if !@timestamp()?
 
-    if @nearbyDiscussionsCache? && (@nearbyDiscussionsCache.beatmap != @props.currentBeatmap || @nearbyDiscussionsCache.timestamp != @timestamp())
-      @nearbyDiscussionsCache = null
-
-    if !@nearbyDiscussionsCache?
-      discussions = {}
-
-      for discussion in @props.currentDiscussions.timelineAllUsers
-        continue if discussion.message_type not in ['suggestion', 'problem']
-
-        distance = Math.abs(discussion.timestamp - @timestamp())
-
-        continue if distance > 5000
-
-        if discussion.user_id == @props.currentUser.id
-          continue if moment(discussion.updated_at).diff(moment(), 'hour') > -24
-
-        category = switch
-          when distance == 0 then 'd0'
-          when distance < 100 then 'd100'
-          when distance < 1000 then 'd1000'
-          else 'other'
-
-        discussions[category] ?= []
-        discussions[category].push discussion
-
-      shownDiscussions = discussions.d0 ? discussions.d100 ? discussions.d1000 ? discussions.other ? []
-
+    if !@nearbyDiscussionsCache? || (@nearbyDiscussionsCache.beatmap != @props.currentBeatmap || @nearbyDiscussionsCache.timestamp != @timestamp())
       @nearbyDiscussionsCache =
         beatmap: @props.currentBeatmap
         timestamp: @timestamp()
-        discussions: _.sortBy shownDiscussions, 'timestamp'
+        discussions: BeatmapDiscussionHelper.nearbyDiscussions(@props.currentDiscussions.timelineAllUsers, @timestamp())
 
     @nearbyDiscussionsCache.discussions
 
 
   onFocus: =>
     @setSticky true
-
-
-  parseTimestamp: (message) =>
-    timestampRe = message.match /\b(\d{2,}):([0-5]\d)[:.](\d{3})\b/
-
-    if timestampRe?
-      timestamp = timestampRe.slice(1).map (x) => parseInt x, 10
-
-      # this isn't all that smart
-      (timestamp[0] * 60 + timestamp[1]) * 1000 + timestamp[2]
 
 
   post: (e) =>
@@ -348,6 +301,7 @@ export class NewDiscussion extends React.PureComponent
     @setState message: e.currentTarget.value
 
 
+  # TODO: to whoever refactors this - this 'sticky' behaviour was ported to new-review.tsx, so remember to refactor that too
   setSticky: (sticky = true) =>
     @setState
       cssTop: @cssTop(sticky)
@@ -385,7 +339,7 @@ export class NewDiscussion extends React.PureComponent
     if !@timestampCache?
       @timestampCache =
         message: @state.message
-        timestamp: @parseTimestamp(@state.message)
+        timestamp: BeatmapDiscussionHelper.parseTimestamp(@state.message)
 
     @timestampCache.timestamp
 

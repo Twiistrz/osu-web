@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '',
     'require_login' => 'Моля влезте в профила си, за да продължите.',
-    'require_verification' => '',
+    'require_verification' => 'Моля потвърдете, за да продължите.',
     'restricted' => "Не може да правите това докато сте с ограничен статут.",
     'silenced' => "Не може докато сте заглушен.",
     'unauthorized' => 'Достъпът е отказан.',
@@ -32,10 +18,11 @@ return [
         ],
         'nominate' => [
             'exhausted' => 'Вие стигнахте вашия лимит за номиниране за деня, моля опитайте пак утре.',
-            'full_bn_required' => '',
-            'full_bn_required_hybrid' => 'Трябва да сте пълен номиниран, за да номинирате битмап сетове с повече от един режим на игра.',
+            'full_bn_required' => 'Трябва да сте пълен номинатор, за да изпълните тази квалификационна номинация.',
+            'full_bn_required_hybrid' => 'Трябва да сте пълен номинатор, за да номинирате бийтмап сетове с повече от един режим на игра.',
             'incorrect_state' => 'Грешка при извършване на това действие, опитайте да презаредите страницата.',
             'owner' => "Не може да номинирате собствения си бийтмап.",
+            'set_metadata' => 'Трябва да зададете жанр и език преди номиниране.',
         ],
         'resolve' => [
             'not_owner' => 'Само автор и притежател на бийтмап могат да разрешат дискусия.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Не може да гласувате на дискусия създадена от бот",
             'limit_exceeded' => 'Моля изчакайте малко преди да гласувате отново',
             'owner' => "Не може да гласувате на собствена дискусия.",
             'wrong_beatmapset_state' => 'Може да се гласува само в дускусии на бийтмапове чакащи одобрение.',
@@ -54,19 +42,25 @@ return [
 
     'beatmap_discussion_post' => [
         'destroy' => [
-            'not_owner' => '',
-            'resolved' => '',
-            'system_generated' => '',
+            'not_owner' => 'Можете да триете само собствените си публикации.',
+            'resolved' => 'Не можете да триете публикация на разрешена дискусия.',
+            'system_generated' => 'Автоматично създадената публикация не може да бъде изтрита.',
         ],
 
         'edit' => [
             'not_owner' => 'Само създателят на публикацията може да я редактира.',
-            'resolved' => '',
+            'resolved' => 'Не можете да редактирате публикация на разрешена дискусия.',
             'system_generated' => 'Автоматично създанената публикация не може да бъде редактирана.',
         ],
 
         'store' => [
-            'beatmapset_locked' => '',
+            'beatmapset_locked' => 'Този бийтмап е заключен за дискусии.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Не можете да промените на метаданните на номиниран мап. Свържете се с BN или NAT член ако смятате, че са зададени погрешно.',
         ],
     ],
 
@@ -138,7 +132,7 @@ return [
             'vote' => [
                 'no_forum_access' => 'Достъп до исканият форум е нужен.',
                 'over' => 'Гласуването е приключило, не може да се гласува повече.',
-                'play_more' => '',
+                'play_more' => 'Необходимо е да играете повече преди да можете да гласувате във форума.',
                 'voted' => 'Промяната на глас не е разрешена.',
 
                 'user' => [
@@ -159,7 +153,7 @@ return [
                 'not_owner' => 'Само собственикът може да редактира корицата.',
             ],
             'store' => [
-                'forum_not_allowed' => '',
+                'forum_not_allowed' => 'Този форум не приема тематични корици.',
             ],
         ],
 

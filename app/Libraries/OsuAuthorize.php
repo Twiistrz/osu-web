@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
@@ -34,7 +19,9 @@ use App\Models\Forum\Forum;
 use App\Models\Forum\Post;
 use App\Models\Forum\Topic;
 use App\Models\Forum\TopicCover;
-use App\Models\Multiplayer\Match;
+use App\Models\Genre;
+use App\Models\Language;
+use App\Models\Match\Match;
 use App\Models\OAuth\Client;
 use App\Models\User;
 use App\Models\UserContestEntry;
@@ -44,6 +31,8 @@ class OsuAuthorize
 {
     const ALWAYS_CHECK = [
         'IsOwnClient',
+        'IsNotOAuth',
+        'IsSpecialScope',
     ];
 
     /** @var AuthorizationResult[] */
@@ -245,14 +234,19 @@ class OsuAuthorize
 
     /**
      * @param User|null $user
+     * @param Beatmapset $beatmapset
      * @return string
      * @throws AuthorizationException
      */
-    public function checkBeatmapsetDiscussionReviewStore(?User $user): string
+    public function checkBeatmapsetDiscussionReviewStore(?User $user, Beatmapset $beatmapset): string
     {
         $this->ensureLoggedIn($user);
         $this->ensureCleanRecord($user);
         $this->ensureHasPlayed($user);
+
+        if ($beatmapset->discussion_locked) {
+            return 'beatmap_discussion_post.store.beatmapset_locked';
+        }
 
         return 'ok';
     }
@@ -312,6 +306,10 @@ class OsuAuthorize
     {
         $prefix = 'beatmap_discussion.vote.';
 
+        if ($discussion->user !== null && $discussion->user->isBot()) {
+            return $prefix.'bot';
+        }
+
         $this->ensureLoggedIn($user);
         $this->ensureCleanRecord($user);
 
@@ -361,6 +359,10 @@ class OsuAuthorize
     public function checkBeatmapDiscussionVoteDown(?User $user, BeatmapDiscussion $discussion): string
     {
         $prefix = 'beatmap_discussion.vote.';
+
+        if ($discussion->user !== null && $discussion->user->isBot()) {
+            return $prefix.'bot';
+        }
 
         $this->ensureLoggedIn($user);
         $this->ensureCleanRecord($user);
@@ -504,6 +506,19 @@ class OsuAuthorize
 
     /**
      * @param User|null $user
+     * @return string
+     */
+    public function checkBeatmapsetAdvancedSearch(?User $user): string
+    {
+        if (oauth_token() === null && !config('osu.beatmapset.guest_advanced_search')) {
+            $this->ensureLoggedIn($user);
+        }
+
+        return 'ok';
+    }
+
+    /**
+     * @param User|null $user
      * @param Beatmapset $beatmapset
      * @return string
      * @throws AuthorizationException
@@ -560,22 +575,16 @@ class OsuAuthorize
             return $prefix.'incorrect_state';
         }
 
-        if ($user->beatmapsetNominationsToday() >= config('osu.beatmapset.user_daily_nominations')) {
-            return $prefix.'exhausted';
-        }
-
         if ($user->getKey() === $beatmapset->user_id) {
             return $prefix.'owner';
         }
 
-        if ($user->isLimitedBN()) {
-            if ($beatmapset->playmodeCount() > 1) {
-                return $prefix.'full_bn_required_hybrid';
-            }
+        if ($beatmapset->genre_id === Genre::UNSPECIFIED || $beatmapset->language_id === Language::UNSPECIFIED) {
+            return $prefix.'set_metadata';
+        }
 
-            if ($beatmapset->requiresFullBNNomination()) {
-                return $prefix.'full_bn_required';
-            }
+        if ($user->beatmapsetNominationsToday() >= config('osu.beatmapset.user_daily_nominations')) {
+            return $prefix.'exhausted';
         }
 
         return 'ok';
@@ -711,6 +720,50 @@ class OsuAuthorize
      * @return string
      * @throws AuthorizationException
      */
+    public function checkBeatmapsetMetadataEdit(?User $user, Beatmapset $beatmapset): string
+    {
+        $this->ensureLoggedIn($user);
+
+        if ($user->isModerator()) {
+            return 'ok';
+        }
+
+        if ($user->isProjectLoved() && $beatmapset->isLoved()) {
+            return 'ok';
+        }
+
+        static $bnEditable = [
+            Beatmapset::STATES['wip'],
+            Beatmapset::STATES['pending'],
+            Beatmapset::STATES['qualified'],
+        ];
+        static $ownerEditable = [
+            Beatmapset::STATES['graveyard'],
+            Beatmapset::STATES['wip'],
+            Beatmapset::STATES['pending'],
+        ];
+
+        if ($user->isBNG() && in_array($beatmapset->approved, $bnEditable, true)) {
+            return 'ok';
+        }
+
+        if ($user->getKey() !== $beatmapset->user_id || !in_array($beatmapset->approved, $ownerEditable, true)) {
+            return 'unauthorized';
+        }
+
+        if ($beatmapset->hasNominations()) {
+            return 'beatmapset.metadata.nominated';
+        }
+
+        return 'ok';
+    }
+
+    /**
+     * @param User|null $user
+     * @param Beatmapset $beatmapset
+     * @return string
+     * @throws AuthorizationException
+     */
     public function checkBeatmapsetDownload(?User $user, Beatmapset $beatmapset): string
     {
         // restricted users are still allowed to download
@@ -733,6 +786,10 @@ class OsuAuthorize
         $this->ensureCleanRecord($user, $prefix);
         $this->ensureHasPlayed($user);
 
+        if ($user->isModerator()) {
+            return 'ok';
+        }
+
         if ($target->hasBlocked($user) || $user->hasBlocked($target)) {
             return $prefix.'blocked';
         }
@@ -754,8 +811,9 @@ class OsuAuthorize
     {
         $prefix = 'chat.';
 
-        $this->ensureLoggedIn($user);
+        $this->ensureSessionVerified($user);
         $this->ensureCleanRecord($user, $prefix);
+        // This check becomes useless when min_plays_allow_verified_bypass is enabled.
         $this->ensureHasPlayed($user);
 
         if (!$this->doCheckUser($user, 'ChatChannelRead', $channel)->can()) {
@@ -1059,7 +1117,7 @@ class OsuAuthorize
             return 'ok';
         }
 
-        if ($forum->moderator_groups !== null && !empty(array_intersect($user->groupIds(), $forum->moderator_groups))) {
+        if ($forum->moderator_groups !== null && !empty(array_intersect($user->groupIds()['active'], $forum->moderator_groups))) {
             return 'ok';
         }
 
@@ -1458,6 +1516,31 @@ class OsuAuthorize
         return 'ok';
     }
 
+    public function checkIsNotOAuth(?User $user): string
+    {
+        // TODO: add test that asserts oauth_token is always set if user()->token() exists.
+        if (oauth_token() === null) {
+            return 'ok';
+        }
+
+        return 'unauthorized';
+    }
+
+    // Allow non-OAuth requests or OAuth requests with * scope.
+    public function checkIsSpecialScope(?User $user): string
+    {
+        if ($user === null) {
+            return 'unauthorzied';
+        }
+
+        $token = $user->token();
+        if ($token === null || $token->can('*')) {
+            return 'ok';
+        }
+
+        return 'unauthorized';
+    }
+
     /**
      * @param User|null $user
      * @return string
@@ -1570,7 +1653,7 @@ class OsuAuthorize
             return 'ok';
         }
 
-        if ($owner->hasProfile()) {
+        if ($owner->hasProfileVisible()) {
             return 'ok';
         } else {
             return $prefix.'no_access';
@@ -1672,10 +1755,29 @@ class OsuAuthorize
             return;
         }
 
-        if ($user->isSessionVerified()) {
-            return;
+        if (config('osu.user.min_plays_allow_verified_bypass')) {
+            if ($user->isSessionVerified()) {
+                return;
+            }
+
+            throw new AuthorizationException('require_verification');
         }
 
-        throw new AuthorizationException('require_verification');
+        throw new AuthorizationException('play_more');
+    }
+
+    /**
+     * Ensure User is logged in and verified.
+     *
+     * @param User|null $user
+     * @throws AuthorizationException
+     */
+    public function ensureSessionVerified(?User $user)
+    {
+        $this->ensureLoggedIn($user);
+
+        if (!$user->isSessionVerified()) {
+            throw new AuthorizationException('require_verification');
+        }
     }
 }

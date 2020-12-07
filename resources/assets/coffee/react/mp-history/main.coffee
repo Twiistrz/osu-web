@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { Content } from './content'
 import HeaderV4 from 'header-v4'
@@ -27,10 +12,6 @@ export class Main extends React.Component
   MAXIMUM_EVENTS = 500
   REFRESH_TIMEOUT = 10000
 
-  findLastGame = (events) ->
-    _.findLast events, (e) -> e.game?
-
-
   constructor: (props) ->
     super props
 
@@ -39,6 +20,7 @@ export class Main extends React.Component
     @timeouts = {}
 
     @state =
+      match: props.events.match
       events: events
       users: _.keyBy props.events.users, 'id'
       currentGameId: props.events.current_game_id
@@ -47,35 +29,46 @@ export class Main extends React.Component
 
 
   componentDidMount: =>
-    @timeouts.autoload = Timeout.set REFRESH_TIMEOUT, @autoload
+    @delayedAutoload()
 
 
   render: =>
-    div className: 'osu-layout__section',
+    el React.Fragment, null,
       el HeaderV4,
         theme: 'mp-history'
 
-      el Content,
-        id: @props.match.id
-        events: @state.events
-        currentGameId: @state.currentGameId
-        allEventsCount: @state.allEventsCount
-        users: @state.users
-        hasNext: @hasNext()
-        hasPrevious: @hasPrevious()
-        loadingNext: @state.loadingNext
-        loadingPrevious: @state.loadingPrevious
-        loadNext: @loadNext
-        loadPrevious: @loadPrevious
-        isAutoloading: @isAutoloading()
+      div className: 'osu-page osu-page--generic',
+        el Content,
+          match: @state.match
+          events: @state.events
+          currentGameId: @state.currentGameId
+          allEventsCount: @state.allEventsCount
+          users: @state.users
+          hasNext: @hasNext()
+          hasPrevious: @hasPrevious()
+          loadingNext: @state.loadingNext
+          loadingPrevious: @state.loadingPrevious
+          loadNext: @loadNext
+          loadPrevious: @loadPrevious
+          isAutoloading: @isAutoloading()
 
 
   componentWillUnmount: ->
     Timeout.clear timeout for _name, timeout of @timeouts
 
 
+  isOngoing: =>
+    !@state.match.end_time?
+
+
+  hasLatest: =>
+    lastEvent = _.last(@state.events)
+
+    lastEvent? && lastEvent.id == @state.latestEventId
+
+
   isAutoloading: =>
-    @state.latestEventId == _.last(@state.events)?.id
+    @isOngoing() && @hasLatest()
 
 
   autoload: =>
@@ -89,7 +82,7 @@ export class Main extends React.Component
 
 
   hasNext: =>
-    _.last(@state.events)?.detail.type != 'match-disbanded'
+    @isOngoing() || !@hasLatest()
 
 
   loadNext: =>
@@ -98,7 +91,7 @@ export class Main extends React.Component
     Timeout.clear @timeouts.autoload
     @setState loadingNext: true
 
-    $.ajax laroute.route('matches.history', match: @props.match.id),
+    $.ajax laroute.route('matches.history', match: @state.match.id),
       method: 'GET'
       dataType: 'JSON'
       data:
@@ -115,6 +108,7 @@ export class Main extends React.Component
       newUsers = @newUsersHash data.users
 
       @setState
+        match: data.match
         events: newEvents
         users: newUsers
         currentGameId: data.current_game_id
@@ -135,7 +129,9 @@ export class Main extends React.Component
 
 
   hasPrevious: =>
-    @state.events[0].detail.type != 'match-created'
+    firstEvent = @state.events[0]
+
+    firstEvent? && firstEvent.id != @props.events.first_event_id
 
 
   loadPrevious: =>
@@ -143,7 +139,7 @@ export class Main extends React.Component
 
     @setState loadingPrevious: true
 
-    $.ajax laroute.route('matches.history', match: @props.match.id),
+    $.ajax laroute.route('matches.history', match: @state.match.id),
       method: 'GET'
       dataType: 'JSON'
       data:

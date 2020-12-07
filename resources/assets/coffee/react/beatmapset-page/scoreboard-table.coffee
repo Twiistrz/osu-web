@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { ScoreboardTableRow } from './scoreboard-table-row'
 import * as React from 'react'
@@ -55,6 +40,7 @@ export class ScoreboardTable extends React.PureComponent
                 th key: stat[0], className: "#{bn}__header #{bn}__header--hitstat", stat[0]
               th className: "#{bn}__header #{bn}__header--miss", osu.trans('beatmapsets.show.scoreboard.headers.miss')
               th className: "#{bn}__header #{bn}__header--pp", osu.trans('beatmapsets.show.scoreboard.headers.pp')
+              th className: "#{bn}__header #{bn}__header--time", osu.trans('beatmapsets.show.scoreboard.headers.time')
               th className: "#{bn}__header #{bn}__header--mods", osu.trans('beatmapsets.show.scoreboard.headers.mods')
               th className: "#{bn}__header #{bn}__header--popup-menu"
 
@@ -66,7 +52,6 @@ export class ScoreboardTable extends React.PureComponent
                 el ScoreboardTableRow,
                   activated: @state.activeKey == index
                   beatmap: @props.beatmap
-                  countries: @props.countries
                   hitTypeMapping: @props.hitTypeMapping
                   index: index
                   score: score

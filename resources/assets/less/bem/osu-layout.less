@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .osu-layout {
   ._page {
@@ -32,6 +17,7 @@
 
     @media @mobile {
       position: fixed;
+      width: 100%;
     }
   }
 
@@ -45,7 +31,7 @@
     // https://fourword.fourkitchens.com/article/fix-scrolling-performance-css-will-change-property
     // using backface-visibility since IE doesn't have will-change property yet.
     &::before {
-      .at2x("/images/backgrounds/page-dark.png", 500px, 500px);
+      .at2x("~@images/backgrounds/page-dark.png", 500px, 500px);
       opacity: 0.25;
       position: fixed;
       backface-visibility: hidden;
@@ -119,6 +105,7 @@
   &__no-scroll {
     overflow: hidden;
     flex: 1 0 auto;
+    position: relative;
   }
 
   &__row {
@@ -183,12 +170,6 @@
       margin-bottom: 10px;
     }
 
-    &--page-mp-history {
-      ._page;
-      padding: 20px;
-      margin-bottom: 10px;
-    }
-
     &--sm1 {
       ._width(20px);
       @media @desktop {
@@ -239,13 +220,7 @@
 
     &--landing-footer {
       flex: none;
-      .at2x("/images/backgrounds/page-000.png", 500px, 500px);
-    }
-
-    &--users-extra {
-      flex: 1 0 auto;
-      background-color: @osu-colour-b6;
-      padding: 10px 0;
+      .at2x("~@images/backgrounds/page-000.png", 500px, 500px);
     }
   }
 

@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -20,15 +23,21 @@ $factory->define(BeatmapDiscussion::class, function (Faker\Generator $faker) use
 });
 
 $factory->defineAs(BeatmapDiscussion::class, 'timeline', function () {
-    return  [
+    return [
         'timestamp' => 0,
         'message_type' => 'problem',
     ];
 });
 
 $factory->defineAs(BeatmapDiscussion::class, 'general', function () {
-    return  [
+    return [
         'timestamp' => null,
         'message_type' => 'problem',
+    ];
+});
+
+$factory->defineAs(BeatmapDiscussion::class, 'review', function () {
+    return [
+        'message_type' => 'review',
     ];
 });

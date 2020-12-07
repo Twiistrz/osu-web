@@ -1,25 +1,12 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @extends('master')
 
 {{-- FIXME: move to user modding history --}}
 @section('content')
-    @include('layout._page_header_v4')
+    @include('layout._page_header_v4', ['params' => ['theme' => 'beatmapsets']])
     <div class="osu-layout__row osu-layout__row--page">
         <div class="beatmapset-activities">
             @if (isset($user))
@@ -31,19 +18,17 @@
                     {{ trans('beatmap_discussions.index.form._') }}
                 </h2>
 
-                @if ($showUserSearch ?? true)
-                    <label class="simple-form__row">
-                        <div class="simple-form__label">
-                            {{ trans('beatmap_discussions.index.form.username') }}
-                        </div>
+                <label class="simple-form__row">
+                    <div class="simple-form__label">
+                        {{ trans('beatmap_discussions.index.form.username') }}
+                    </div>
 
-                        <input
-                            class="simple-form__input"
-                            name="user"
-                            value="{{ $search['params']['user'] ?? '' }}"
-                        >
-                    </label>
-                @endif
+                    <input
+                        class="simple-form__input"
+                        name="user"
+                        value="{{ $params['user'] ?? '' }}"
+                    >
+                </label>
 
                 <div class="simple-form__row">
                     <div class="simple-form__label">
@@ -51,7 +36,7 @@
                     </div>
                     <div class="simple-form__checkboxes-overflow">
                         @php
-                            if (present($search['params']['user'] ?? null)) {
+                            if (present($params['user'] ?? null)) {
                                 $types = App\Models\BeatmapsetEvent::types('public');
                                 if (priv_check('BeatmapDiscussionAllowOrDenyKudosu')->can()) {
                                     $types = array_merge($types, App\Models\BeatmapsetEvent::types('kudosuModeration'));
@@ -67,7 +52,7 @@
                             <div class="simple-form__checkbox-overflow-container">
                                 <label class="simple-form__checkbox simple-form__checkbox--overflow">
                                     @include('objects._switch', [
-                                        'checked' => in_array($type, $search['params']['types'], true),
+                                        'checked' => in_array($type, $params['types'], true),
                                         'name' => 'types[]',
                                         'type' => 'checkbox',
                                         'value' => $type,
@@ -90,7 +75,7 @@
                         type="date"
                         {{-- set correct baseline for safari --}}
                         placeholder=" "
-                        value="{{ $search['params']['min_date'] ?? '' }}"
+                        value="{{ $params['min_date'] ?? '' }}"
                     >
 
                     <span class="simple-form__input-arrow-next">
@@ -103,7 +88,7 @@
                         type="date"
                         {{-- set correct baseline for safari --}}
                         placeholder=" "
-                        value="{{ $search['params']['max_date'] ?? '' }}"
+                        value="{{ $params['max_date'] ?? '' }}"
                     >
                 </div>
 
@@ -123,11 +108,19 @@
 
             <div class='beatmapset-events' id="events">
                 <div class='beatmapset-events__title'></div>
-                @foreach ($events as $event)
-                    @include('beatmapset_events._item', compact('event'))
-                @endforeach
+                <div class='js-react--beatmap-discussion-events'></div>
             </div>
-            @include('objects._pagination_v2', ['object' => $events->fragment('events')])
+            @include('objects._pagination_v2', ['object' => $paginator->fragment('events')])
         </div>
     </div>
+@endsection
+
+@section ("script")
+    @parent
+
+    @foreach ($jsonChunks as $name => $data)
+        <script id="json-{{$name}}" type="application/json">
+            {!! json_encode($data) !!}
+        </script>
+    @endforeach
 @endsection

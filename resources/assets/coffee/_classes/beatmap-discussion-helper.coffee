@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 class @BeatmapDiscussionHelper
   @DEFAULT_BEATMAP_ID: '-'
@@ -22,10 +7,10 @@ class @BeatmapDiscussionHelper
   @DEFAULT_FILTER: 'total'
   @MAX_MESSAGE_PREVIEW_LENGTH: 100
   @MAX_LENGTH_TIMELINE: 750
+  @TIMESTAMP_REGEX: /\b(((\d{2,}):([0-5]\d)[:.](\d{3}))(\s\((?:\d+[,|])*\d+\))?)/
 
-
-  @MODES = ['events', 'general', 'generalAll', 'timeline', 'reviews']
-  @FILTERS = ['deleted', 'hype', 'mapperNotes', 'mine', 'pending', 'praises', 'resolved', 'total']
+  @MODES = new Set(['events', 'general', 'generalAll', 'timeline', 'reviews'])
+  @FILTERS = new Set(['deleted', 'hype', 'mapperNotes', 'mine', 'pending', 'praises', 'resolved', 'total'])
 
 
   @canModeratePosts: (user) =>
@@ -78,7 +63,7 @@ class @BeatmapDiscussionHelper
     text = _.escape text
     text = text.trim()
     text = @discussionLinkify text
-    text = @linkTimestamp text, ["#{blockName}__timestamp"]
+    text = @linkTimestamp text, ['beatmap-discussion-timestamp-decoration']
 
     if options.newlines ? true
       # replace newlines with <br>
@@ -102,7 +87,7 @@ class @BeatmapDiscussionHelper
 
     ms = value % 1000
     s = Math.floor(value / 1000) % 60
-    # remaning duration goes here even if it's over an hour
+    # remaining duration goes here even if it's over an hour
     m = Math.floor(value / 1000 / 60)
 
     "#{_.padStart m, 2, 0}:#{_.padStart s, 2, 0}.#{_.padStart ms, 3, 0}"
@@ -123,13 +108,34 @@ class @BeatmapDiscussionHelper
       review: 'fas fa-tasks'
       suggestion: 'far fa-circle'
 
-    # used for svg since it doesn't seem to have ::before pseudo-element
-    iconText:
-      mapperNote: ['far', '&#xf249;']
-      praise: ['fas', '&#xf004;']
-      problem: ['fas', '&#xf06a;']
-      resolved: ['far', '&#xf058;']
-      suggestion: ['far', '&#xf111;']
+
+  @nearbyDiscussions: (discussions, timestamp) =>
+    return [] if !timestamp?
+
+    nearby = {}
+
+    for discussion in discussions
+      continue if not discussion.timestamp or discussion.message_type not in ['suggestion', 'problem']
+
+      distance = Math.abs(discussion.timestamp - timestamp)
+
+      continue if distance > 5000
+
+      if discussion.user_id == currentUser.id
+        continue if moment(discussion.updated_at).diff(moment(), 'hour') > -24
+
+      category = switch
+        when distance == 0 then 'd0'
+        when distance < 100 then 'd100'
+        when distance < 1000 then 'd1000'
+        else 'other'
+
+      nearby[category] ?= []
+      nearby[category].push discussion
+
+    shownDiscussions = nearby.d0 ? nearby.d100 ? nearby.d1000 ? nearby.other ? []
+
+    _.sortBy shownDiscussions, 'timestamp'
 
 
   @previewMessage = (message) =>
@@ -149,6 +155,18 @@ class @BeatmapDiscussionHelper
     beatmapsetId: discussion.beatmapset_id
     beatmapId: discussion.beatmap_id ? @DEFAULT_BEATMAP_ID
     mode: @discussionMode(discussion)
+
+
+  @parseTimestamp: (message) =>
+    return null if !message?
+
+    timestampRe = message.match @TIMESTAMP_REGEX
+
+    if timestampRe?
+      timestamp = timestampRe.slice(1).map (x) => parseInt x, 10
+
+      # this isn't all that smart
+      (timestamp[2] * 60 + timestamp[3]) * 1000 + timestamp[4]
 
 
   # Don't forget to update BeatmapDiscussionsController@show when changing this.
@@ -223,8 +241,8 @@ class @BeatmapDiscussionHelper
       beatmapsetId: if isFinite(beatmapsetId) then beatmapsetId
       beatmapId: if isFinite(beatmapId) then beatmapId
       # empty path segments are ''
-      mode: if _.includes(@MODES, mode) then mode else @DEFAULT_MODE
-      filter: if _.includes(@FILTERS, filter) then filter else @DEFAULT_FILTER
+      mode: if @MODES.has(mode) then mode else @DEFAULT_MODE
+      filter: if @FILTERS.has(filter) then filter else @DEFAULT_FILTER
       user: parseInt(url.searchParams.get('user'), 10) if url.searchParams.get('user')?
 
     if url.hash[1] == '/'

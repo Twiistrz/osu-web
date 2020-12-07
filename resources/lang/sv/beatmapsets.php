@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmaps',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'ladda ner',
+            'video' => 'ladda ner med video',
+            'no_video' => 'ladda ner utan video',
+            'direct' => 'öppna i osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Diskussion',
 
         'details' => [
-            'approved' => 'godkänd den ',
             'favourite' => 'Favorisera denna beatmapset',
             'logged-out' => 'Du behöver logga in innan du laddar ner beatmaps!',
-            'loved' => 'älskad den ',
             'mapped_by' => 'skapad av :mapper',
-            'qualified' => 'kvalificerad den ',
-            'ranked' => 'rankad den ',
-            'submitted' => 'uppladdad den ',
             'unfavourite' => 'Ta bort favorisering på denna beatmapset',
-            'updated' => 'senast uppdaterad den ',
             'updated_timeago' => 'senast ändrad :timeago',
 
             'download' => [
@@ -54,37 +42,44 @@ return [
             ],
 
             'login_required' => [
-                'bottom' => '',
-                'top' => '',
+                'bottom' => 'för att komma åt fler funktioner',
+                'top' => 'Logga in',
             ],
         ],
 
+        'details_date' => [
+            'approved' => 'godkänd :timeago',
+            'loved' => 'älskad :timeago',
+            'qualified' => 'kvalificerat :timeago',
+            'ranked' => 'rankad :timeago',
+            'submitted' => 'skickad :timeago',
+            'updated' => 'senast uppdaterat :timeago',
+        ],
+
         'favourites' => [
-            'limit_reached' => '',
+            'limit_reached' => 'Du har för många favoriserade beatmaps! Var vänlig ta bort en favorit innan du fortsätter.',
         ],
 
         'hype' => [
-            'action' => '',
+            'action' => 'Hypa denna map om du gillade att spela den för att hjälpa den att utvecklas till <strong>Rankad</strong> status.',
 
             'current' => [
-                '_' => '',
+                '_' => 'Denna map är för närvarande :status.',
 
                 'status' => [
-                    'pending' => '',
-                    'qualified' => '',
-                    'wip' => '',
+                    'pending' => 'väntande',
+                    'qualified' => 'kvalificerad',
+                    'wip' => 'under utveckling',
                 ],
             ],
 
             'disqualify' => [
-                '_' => '',
-                'button_title' => '',
+                '_' => 'Om du hittar ett problem med denna beatmap, diskvalificera den :link.',
             ],
 
             'report' => [
-                '_' => '',
-                'button' => '',
-                'button_title' => '',
+                '_' => 'Om du hittar ett problem med denna beatmap, vänligen rapportera det :link för att varna laget.',
+                'button' => 'Rapportera problem',
                 'link' => 'här',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Källa',
             'success-rate' => 'Genomsnittig Succe',
             'tags' => 'Taggar',
-            'unranked' => 'Ej rankad beatmap',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Rank',
                 'score_total' => 'Total Poäng',
                 'score' => 'Poäng',
+                'time' => 'Tid',
             ],
 
             'no_scores' => [
@@ -153,13 +148,13 @@ return [
         ],
 
         'status' => [
-            'ranked' => '',
-            'approved' => '',
-            'loved' => '',
-            'qualified' => '',
-            'wip' => '',
-            'pending' => '',
-            'graveyard' => '',
+            'ranked' => 'Rankad',
+            'approved' => 'Godkänd',
+            'loved' => 'Älskad',
+            'qualified' => 'Kvalificerad',
+            'wip' => 'Arbete pågår',
+            'pending' => 'Väntande',
+            'graveyard' => 'Kyrkogård',
         ],
     ],
 ];

@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Transformers;
 
 use App\Models\Beatmap;
+use App\Models\DeletedUser;
 use App\Models\Score\Best\Model as ScoreBest;
 use App\Models\Score\Model as ScoreModel;
 
@@ -29,15 +15,18 @@ class ScoreTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'beatmap',
         'beatmapset',
+        'rank_country',
+        'rank_global',
         'weight',
         'user',
-        'multiplayer',
+        'match',
     ];
 
     public function transform($score)
     {
         $ret = [
             'id' => $score->score_id,
+            'best_id' => $score->best_id,
             'user_id' => $score->user_id,
             'accuracy' => $score->accuracy(),
             'mods' => $score->enabled_mods,
@@ -61,6 +50,7 @@ class ScoreTransformer extends TransformerAbstract
         if ($score instanceof ScoreModel) {
             $ret['mode'] = $score->getMode();
             $ret['mode_int'] = Beatmap::modeInt($score->getMode());
+            $ret['replay'] = $score->best->replay ?? false;
         }
 
         if ($score instanceof ScoreBest) {
@@ -70,27 +60,42 @@ class ScoreTransformer extends TransformerAbstract
         return $ret;
     }
 
-    public function includeMultiplayer($score)
+    public function includeMatch($score)
     {
-        return $this->item($score, function ($score) {
-            return [
-                'slot' => $score->slot,
-                'team' => $score->team,
-                'pass' => $score->pass,
-            ];
-        });
+        return $this->primitive([
+            'slot' => $score->slot,
+            'team' => $score->team,
+            'pass' => $score->pass,
+        ]);
+    }
+
+    public function includeRankCountry($score)
+    {
+        return $this->primitive($score->userRank(['type' => 'country']));
+    }
+
+    public function includeRankGlobal($score)
+    {
+        return $this->primitive($score->userRank([]));
     }
 
     public function includeBeatmap($score)
     {
-        return $score->beatmap === null
-            ? $this->primitive(null)
-            : $this->item($score->beatmap, new BeatmapTransformer);
+        if ($score->beatmap === null) {
+            return $this->primitive(null);
+        }
+
+        if ($score->getMode() !== $score->beatmap->mode) {
+            $score->beatmap->convert = true;
+            $score->beatmap->playmode = Beatmap::MODES[$score->getMode()];
+        }
+
+        return $this->item($score->beatmap, new BeatmapTransformer());
     }
 
     public function includeBeatmapset($score)
     {
-        return $this->item($score->beatmap->beatmapset, new BeatmapsetCompactTransformer);
+        return $this->item($score->beatmap->beatmapset, new BeatmapsetCompactTransformer());
     }
 
     public function includeWeight($score)
@@ -109,6 +114,8 @@ class ScoreTransformer extends TransformerAbstract
 
     public function includeUser($score)
     {
-        return $this->item($score->user, new UserCompactTransformer);
+        $user = $score->user ?? new DeletedUser(['user_id' => $score->user_id]);
+
+        return $this->item($user, new UserCompactTransformer());
     }
 }

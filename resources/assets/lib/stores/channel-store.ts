@@ -1,42 +1,29 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import {
-  ChatMessageAddAction,
   ChatMessageSendAction,
-  ChatMessageUpdateAction,
-  ChatPresenceUpdateAction,
-} from 'actions/chat-actions';
+} from 'actions/chat-message-send-action';
+import { ChatNewConversationAdded } from 'actions/chat-new-conversation-added';
 import DispatcherAction from 'actions/dispatcher-action';
 import { UserLogoutAction } from 'actions/user-login-actions';
-import { dispatchListener } from 'app-dispatcher';
-import { ChannelJSON } from 'chat/chat-api-responses';
-import * as _ from 'lodash';
-import { action, computed, observable } from 'mobx';
+import { dispatch, dispatchListener } from 'app-dispatcher';
+import ChatAPI from 'chat/chat-api';
+import { ChannelJson, GetUpdatesJson, MessageJson, PresenceJson } from 'chat/chat-api-responses';
+import { groupBy, maxBy } from 'lodash';
+import { action, computed, observable, runInAction } from 'mobx';
 import Channel from 'models/chat/channel';
 import Message from 'models/chat/message';
 import core from 'osu-core-singleton';
-import Store from 'stores/store';
+import UserStore from './user-store';
 
 @dispatchListener
-export default class ChannelStore extends Store {
+export default class ChannelStore {
   @observable channels = observable.map<number, Channel>();
   @observable loaded: boolean = false;
+
+  private api = new ChatAPI();
+  private markingAsRead: Record<number, number> = {};
 
   @computed
   get channelList(): Channel[] {
@@ -46,7 +33,7 @@ export default class ChannelStore extends Store {
   @computed
   get maxMessageId(): number {
     const channelArray = Array.from(this.channels.toJS().values());
-    const max = _.maxBy(channelArray, 'lastMessageId');
+    const max = maxBy(channelArray, 'lastMessageId');
 
     return max == null ? -1 : max.lastMessageId;
   }
@@ -73,15 +60,15 @@ export default class ChannelStore extends Store {
   get pmChannels(): Channel[] {
     const sortedChannels: Channel[] = [];
     this.channels.forEach((channel) => {
-      if (channel.newChannel || (channel.type === 'PM' && channel.metaLoaded)) {
+      if (channel.newPmChannel || (channel.type === 'PM' && channel.metaLoaded)) {
         sortedChannels.push(channel);
       }
     });
 
     return sortedChannels.sort((a, b) => {
       // so 'new' channels always end up on top
-      if (a.newChannel) return -1;
-      if (b.newChannel) return 1;
+      if (a.newPmChannel) return -1;
+      if (b.newPmChannel) return 1;
 
       if (a.lastMessageId === b.lastMessageId) {
         return 0;
@@ -91,27 +78,29 @@ export default class ChannelStore extends Store {
     });
   }
 
-  @action
-  addMessages(channelId: number, messages: Message[]) {
-    if (_.isEmpty(messages)) {
-      return;
-    }
+  constructor(protected userStore: UserStore) {
+  }
 
-    this.getOrCreate(channelId).addMessages(messages);
+  @action
+  addNewConversation(json: ChannelJson, message: MessageJson) {
+    const channel = this.getOrCreate(json.channel_id);
+    channel.updateWithJson(json);
+    this.handleChatChannelNewMessages(channel.channelId, [message]);
+
+    return channel;
   }
 
   findPM(userId: number): Channel | null {
-    if (userId === core.currentUser.id) {
+    if (userId === core.currentUser?.id) {
       return null;
     }
 
-    // tslint:disable-next-line:prefer-const browsers that support ES6 but not const in for...of
-    for (let [, channel] of this.channels) {
+    for (const [, channel] of this.channels) {
       if (channel.type !== 'PM') {
         continue;
       }
 
-      if (channel.users.some((user) => user === userId)) {
+      if (channel.users.includes(userId)) {
         return channel;
       }
     }
@@ -121,7 +110,7 @@ export default class ChannelStore extends Store {
 
   @action
   flushStore() {
-    this.channels = observable.map<number, Channel>();
+    this.channels.clear();
     this.loaded = false;
   }
 
@@ -141,44 +130,204 @@ export default class ChannelStore extends Store {
     return channel;
   }
 
-  handleDispatchAction(dispatchedAction: DispatcherAction) {
-    if (dispatchedAction instanceof ChatMessageSendAction) {
-      this.getOrCreate(dispatchedAction.message.channelId).addMessages(dispatchedAction.message, true);
-    } else if (dispatchedAction instanceof ChatMessageAddAction) {
-      this.getOrCreate(dispatchedAction.message.channelId).addMessages(dispatchedAction.message);
-    } else if (dispatchedAction instanceof ChatMessageUpdateAction) {
-      const channel: Channel = this.getOrCreate(dispatchedAction.message.channelId);
-      channel.updateMessage(dispatchedAction.message);
-      channel.resortMessages();
-    } else if (dispatchedAction instanceof ChatPresenceUpdateAction) {
-      this.updatePresence(dispatchedAction.presence);
-    } else if (dispatchedAction instanceof UserLogoutAction) {
-      this.flushStore();
+  handleDispatchAction(event: DispatcherAction) {
+    if (event instanceof ChatMessageSendAction) {
+      this.handleChatMessageSendAction(event);
+    } else if (event instanceof UserLogoutAction) {
+      this.handleUserLogoutAction(event);
     }
   }
 
   @action
+  async loadChannel(channelId: number) {
+    const channel = this.getOrCreate(channelId);
+    if (channel.loading || channel.newPmChannel) {
+      return;
+    }
+
+    // TODO:
+    // current implementation should always have this loaded already,
+    // but future versions may skip having all the initial metadata on chat load.
+
+    if (channel.loaded) {
+      return;
+    }
+
+    channel.loading = true;
+
+    try {
+      const response = await this.api.getMessages(channelId);
+      this.handleChatChannelNewMessages(channelId, response);
+    } finally {
+      runInAction(() => {
+        channel.loading = false;
+      });
+    }
+  }
+
+  @action
+  async loadChannelEarlierMessages(channelId: number) {
+    const channel = this.get(channelId);
+
+    if (channel == null || !channel.hasEarlierMessages || channel.loadingEarlierMessages) {
+      return;
+    }
+
+    channel.loadingEarlierMessages = true;
+    let until: number | undefined;
+    // FIXME: nullable id instead?
+    if (channel.minMessageId > 0) {
+      until = channel.minMessageId;
+    }
+
+    try {
+      const response = await this.api.getMessages(channel.channelId, { until });
+      this.handleChatChannelNewMessages(channelId, response);
+    } finally {
+      runInAction(() => {
+        channel.loadingEarlierMessages = false;
+      });
+    }
+  }
+
+  @action
+  async markAsRead(channelId: number) {
+    const channel = this.get(channelId);
+
+    if (channel == null || !channel.isUnread) {
+      return;
+    }
+
+    if (this.markingAsRead[channelId] != null) {
+      return;
+    }
+
+    channel.markAsRead();
+
+    const currentTimeout = window.setTimeout(() => {
+      // allow next debounce to be queued again
+      if (this.markingAsRead[channelId] === currentTimeout) {
+        delete this.markingAsRead[channelId];
+      }
+
+      // TODO: need to mark again in case the marker has moved?
+
+      // We don't need to send mark-as-read for our own messages, as the cursor is automatically bumped forward server-side when sending messages.
+      if (channel.lastMessage?.sender.id === window.currentUser.id) {
+        return;
+      }
+
+      this.api.markAsRead(channel.channelId, channel.lastMessageId);
+    }, 1000);
+
+    this.markingAsRead[channelId] = currentTimeout;
+  }
+
+  @action
   partChannel(channelId: number) {
+    if (channelId > 0) {
+      this.api.partChannel(channelId, window.currentUser.id);
+    }
+
     this.channels.delete(channelId);
   }
 
   @action
-  updatePresence(presence: ChannelJSON[]) {
+  updateWithJson(updateJson: GetUpdatesJson) {
+    this.updateWithPresence(updateJson.presence);
+
+    const groups = groupBy(updateJson.messages, 'channel_id');
+    for (const key of Object.keys(groups)) {
+      const channelId = parseInt(key, 10);
+      this.handleChatChannelNewMessages(channelId, groups[channelId]);
+    }
+
+    // TODO: convert silence handling back to action when updating through websocket is figured out.
+    const silencedUserIds = new Set<number>(updateJson.silences.map((json) => json.user_id));
+    this.removePublicMessagesFromUserIds(silencedUserIds);
+  }
+
+  @action
+  updateWithPresence(presence: PresenceJson) {
     presence.forEach((json) => {
       this.getOrCreate(json.channel_id).updatePresence(json);
     });
 
     // remove parted channels
     this.channels.forEach((channel) => {
-      if (channel.newChannel) {
+      if (channel.newPmChannel) {
         return;
       }
 
       if (!presence.find((json) => json.channel_id === channel.channelId)) {
-          this.channels.delete(channel.channelId);
+        this.channels.delete(channel.channelId);
       }
     });
 
     this.loaded = true;
+  }
+
+  @action
+  private handleChatChannelNewMessages(channelId: number, json: MessageJson[]) {
+    const messages = json.map((messageJson) => {
+      if (messageJson.sender != null) this.userStore.getOrCreate(messageJson.sender_id, messageJson.sender);
+      return Message.fromJson(messageJson);
+    });
+
+    if (messages.length === 0) return;
+
+    const channel = this.channels.get(channelId);
+    if (channel == null) return;
+
+    channel.addMessages(messages);
+    channel.loaded = true;
+  }
+
+  @action
+  private async handleChatMessageSendAction(event: ChatMessageSendAction) {
+    const message = event.message;
+    const channel = this.getOrCreate(message.channelId);
+    channel.addMessages([message], true);
+    channel.markAsRead();
+
+    try {
+      if (channel.newPmChannel) {
+        const users = channel.users.slice();
+        const userId = users.find((user) => {
+          return user !== currentUser.id;
+        });
+
+        if (userId == null) {
+          console.debug('sendMessage:: userId not found?? this shouldn\'t happen');
+          return;
+        }
+
+        const response = await this.api.newConversation(userId, message);
+        runInAction(() => {
+          this.channels.delete(message.channelId);
+          const newChannel = this.addNewConversation(response.channel, response.message);
+          dispatch(new ChatNewConversationAdded(newChannel.channelId));
+        });
+      } else {
+        const response = await this.api.sendMessage(message);
+        channel.afterSendMesssage(message, response);
+      }
+    } catch (error) {
+      channel.afterSendMesssage(message, null);
+      // FIXME: this seems like the wrong place to tigger an error popup.
+      osu.ajaxError(error);
+    }
+  }
+
+  @action
+  private handleUserLogoutAction(event: UserLogoutAction) {
+    this.flushStore();
+  }
+
+  @action
+  private removePublicMessagesFromUserIds(userIds: Set<number>) {
+    this.nonPmChannels.forEach((channel) => {
+      channel.removeMessagesFromUserIds(userIds);
+    });
   }
 }

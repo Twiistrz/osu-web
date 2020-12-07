@@ -1,32 +1,18 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
-import { OwnClientJSON } from 'interfaces/own-client-json';
+import { OwnClientJson } from 'interfaces/own-client-json';
 import { route } from 'laroute';
 import { action, observable } from 'mobx';
 import { Client } from 'models/oauth/client';
 
 export class OwnClient extends Client {
+  @observable isResetting = false;
   @observable isUpdating = false;
   redirect: string;
   secret: string;
 
-  constructor(client: OwnClientJSON) {
+  constructor(client: OwnClientJson) {
     super(client);
 
     this.redirect = client.redirect;
@@ -48,7 +34,21 @@ export class OwnClient extends Client {
   }
 
   @action
-  updateFromJson(json: OwnClientJSON) {
+  async resetSecret() {
+    this.isResetting = true;
+
+    return $.ajax({
+      method: 'POST',
+      url: route('oauth.clients.reset-secret', { client: this.id }),
+    }).then((data: OwnClientJson) => {
+      this.updateFromJson(data);
+    }).always(() => {
+      this.isResetting = false;
+    });
+  }
+
+  @action
+  updateFromJson(json: OwnClientJson) {
     this.id = json.id;
     this.name = json.name;
     this.scopes = new Set(json.scopes);
@@ -67,7 +67,7 @@ export class OwnClient extends Client {
       data: { redirect },
       method: 'PUT',
       url: route('oauth.clients.update', { client: this.id }),
-    }).then((data: OwnClientJSON) => {
+    }).then((data: OwnClientJson) => {
       this.updateFromJson(data);
     }).always(() => {
       this.isUpdating = false;

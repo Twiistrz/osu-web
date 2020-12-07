@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
@@ -34,21 +19,33 @@ class UserNotificationOption extends Model
 {
     use Validatable;
 
-    const VALID_NAMES = [
-        self::BEATMAPSET_MODDING,
-        self::BEATMAPSET_DISCUSSION_QUALIFIED_PROBLEM,
-        self::FORUM_TOPIC_REPLY,
+    const BEATMAPSET_DISQUALIFIABLE_NOTIFICATIONS = [
+        Notification::BEATMAPSET_DISCUSSION_QUALIFIED_PROBLEM,
+        Notification::BEATMAPSET_DISQUALIFY,
     ];
 
     const BEATMAPSET_MODDING = 'beatmapset:modding'; // matches Follow notifiable_type:subtype
-    const BEATMAPSET_DISCUSSION_QUALIFIED_PROBLEM = Notification::BEATMAPSET_DISCUSSION_QUALIFIED_PROBLEM;
+    const COMMENT_REPLY = 'comment_reply';
+    const DELIVERY_MODES = ['mail', 'push'];
     const FORUM_TOPIC_REPLY = Notification::FORUM_TOPIC_REPLY;
 
-    const HAS_MAIL_NOTIFICATION = [self::BEATMAPSET_MODDING, self::FORUM_TOPIC_REPLY];
+    const HAS_DELIVERY_MODES = [
+        self::BEATMAPSET_MODDING,
+        Notification::CHANNEL_MESSAGE,
+        Notification::COMMENT_NEW,
+        self::FORUM_TOPIC_REPLY,
+        Notification::USER_ACHIEVEMENT_UNLOCK,
+    ];
 
     protected $casts = [
         'details' => 'array',
     ];
+
+    public static function supportsNotifications(string $name)
+    {
+        return in_array($name, static::HAS_DELIVERY_MODES, true)
+            || in_array($name, static::BEATMAPSET_DISQUALIFIABLE_NOTIFICATIONS, true);
+    }
 
     public function user()
     {
@@ -63,7 +60,7 @@ class UserNotificationOption extends Model
             $value = null;
         }
 
-        if ($this->name === static::BEATMAPSET_DISCUSSION_QUALIFIED_PROBLEM) {
+        if (in_array($this->name, static::BEATMAPSET_DISQUALIFIABLE_NOTIFICATIONS, true)) {
             if (is_array($value['modes'] ?? null)) {
                 $modes = array_filter($value['modes'], 'is_string');
                 $validModes = array_keys(Beatmap::MODES);
@@ -72,9 +69,17 @@ class UserNotificationOption extends Model
             }
         }
 
-        if ($this->hasMailNotification()) {
-            if (isset($value['mail'])) {
-                $details['mail'] = get_bool($value['mail'] ?? null);
+        if (in_array($this->name, static::HAS_DELIVERY_MODES, true)) {
+            foreach (static::DELIVERY_MODES as $mode) {
+                if (isset($value[$mode])) {
+                    $details[$mode] = get_bool($value[$mode] ?? null);
+                }
+            }
+        }
+
+        if ($this->name === Notification::COMMENT_NEW) {
+            if (isset($value[static::COMMENT_REPLY])) {
+                $details[static::COMMENT_REPLY] = get_bool($value[static::COMMENT_REPLY]);
             }
         }
 
@@ -87,16 +92,11 @@ class UserNotificationOption extends Model
 
     public function setNameAttribute($value)
     {
-        if (!in_array($value, static::VALID_NAMES, true)) {
+        if (!static::supportsNotifications($value)) {
             $value = null;
         }
 
         $this->attributes['name'] = $value;
-    }
-
-    public function hasMailNotification()
-    {
-        return in_array($this->name, static::HAS_MAIL_NOTIFICATION, true);
     }
 
     public function isValid()

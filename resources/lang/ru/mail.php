@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'beatmapset_update_notice' => [
@@ -38,10 +23,10 @@ return [
         'keep_free' => 'Благодаря таким людям, как Вы, osu! способна обеспечить бесперебойную работу игры и сообщества без каких-либо рекламных объявлений или принудительных платежей.',
         'keep_running' => 'Ваша поддержка позволит osu! работать примерно :minutes! Вам может показаться, что это мало, но каждый вклад имеет значение :)',
         'subject' => 'Спасибо, osu! <3 вас',
-        'translation' => 'Ниже приводится пользовательский перевод для информационных целей:',
+        'translation' => 'Ниже приводится пользовательский перевод для ознакомления:',
 
         'benefit' => [
-            'gift' => 'Ваш(и) подарок(-рки) даст(-дут) Вам доступ к osu!direct и многим другим привилегиям тега supporter.',
+            'gift' => 'Получатель вашего подарка теперь будет иметь доступ к osu!direct и многим другим привилегиям тега supporter.',
             'self' => 'Теперь у Вас есть доступ к osu!direct и многим другим привилегиям тега supporter на :duration.',
         ],
 
@@ -55,7 +40,7 @@ return [
     'forum_new_reply' => [
         'new' => 'Просто даём Вам знать, что с Вашего последнего посещения в теме «:title» появился новый ответ.',
         'subject' => '[osu!] Новый ответ в теме ":title"',
-        'unwatch' => 'Если Вы больше не желаете следить за этой темой, Вы можете нажать ссылку «Отписаться» внизу темы выше или со страницы подписок на темы:',
+        'unwatch' => 'Если Вы больше не желаете наблюдать за этой темой, Вы можете нажать ссылку «Отписаться» внизу темы выше или со страницы подписок на темы:',
         'visit' => 'Перейдите напрямую к последнему ответу, используя следующую ссылку:',
     ],
 
@@ -68,7 +53,7 @@ return [
     'store_payment_completed' => [
         'prepare_shipping' => 'Мы получили Ваш платёж и готовим Ваш заказ к доставке. Его оправка может занять несколько дней, в зависимости от количества заказов. Вы можете следить за прогрессом своего заказа здесь, включая детали доставки, где они доступны:',
         'processing' => 'Мы получили Ваш платёж и сейчас обрабатываем Ваш заказ. Вы можете следить за прогрессом своего заказа здесь:',
-        'questions' => "Если у Вас есть какие-то вопросы, не стесняйтесь ответить на это письмо.",
+        'questions' => "Если у Вас есть какие-то вопросы, не стесняйтесь отвечать на это письмо.",
         'shipping' => 'Доставка',
         'subject' => 'Мы получили ваш заказ в osu!store!',
         'thank_you' => 'Спасибо за Ваш заказ в osu!store!',
@@ -76,9 +61,9 @@ return [
     ],
 
     'supporter_gift' => [
-        'anonymous_gift' => 'Человек, который подарил Вам тег, возможно, решил сохранить анонимность, так что он не был упомянут в этом уведомлении.',
-        'anonymous_gift_maybe_not' => 'Но Вы, наверняка, и сами знаете, кто это ;).',
-        'duration' => 'Благодаря им, у вас теперь есть доступ к osu!direct и другим преимуществам osu!supporter на :duration.',
+        'anonymous_gift' => 'Человек, который подарил Вам тег, возможно, хочет сохранить анонимность, так что он не был упомянут в этом уведомлении.',
+        'anonymous_gift_maybe_not' => 'Но Вы, наверняка, сами уже знаете, кто это ;).',
+        'duration' => 'Благодаря ему, у вас теперь есть доступ к osu!direct и другим преимуществам osu!supporter на :duration.',
         'features' => 'Подробнее об этих функциях можно узнать здесь:',
         'gifted' => 'Кто-то только что подарил вам тег osu!supporter!',
         'subject' => 'Вам подарили osu!supporter!',
@@ -96,6 +81,12 @@ return [
         'perform_reset' => 'Вы можете выполнить сброс по ссылке: :url',
         'reason' => 'Причина:',
         'subject' => 'Необходима повторная активация аккаунта osu!',
+    ],
+
+    'user_notification_digest' => [
+        'new' => 'Просто даём знать, что в темах, за которыми вы следите, появились новые ответы.',
+        'settings' => 'Измените настройки email уведомлений:',
+        'subject' => 'Новые уведомления osu!',
     ],
 
     'user_password_updated' => [

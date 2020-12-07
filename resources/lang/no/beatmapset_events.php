@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
@@ -29,6 +14,7 @@ return [
         'discussion_unlock' => 'Diskusjon for dette beatmappet har blitt aktivert.',
         'disqualify' => 'Diskvalifisert av :user. Årsak: :discussion (:text).',
         'disqualify_legacy' => 'Diskvalifisert av :user. Årsak: :text.',
+        'genre_edit' => 'Sjanger endret fra :old til :new.',
         'issue_reopen' => 'Løst problem ved :discussion har blitt gjenåpnet.',
         'issue_resolve' => 'Problemet med :discussion har blitt markert som løst.',
         'kudosu_allow' => 'Kudosu fornektelse for diskusjon :discussion har blitt fjernet.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'Diskusjonen :discussion av :user oppnådde nok stemmer til kudosu.',
         'kudosu_lost' => 'Diskusjonen :discussion av :user har mistet stemmer og innvilget kudosu er blitt fjernet.',
         'kudosu_recalculate' => 'Diskusjonen :discussion har fått kudosu tilskuddene rekalkulert.',
+        'language_edit' => 'Språk endret fra :old til :new.',
         'love' => 'Elsket av :user',
         'nominate' => 'Nominert av :user.',
         'nomination_reset' => 'Nytt problem :discussion (:text) utløste en tilbakestilling av nominasjonen.',
         'qualify' => 'Dette beatmappet har nådd det nødvendige antallet med nominasjoner og har nå blitt kvalifisert.',
         'rank' => 'Rangert.',
+        'remove_from_loved' => '',
     ],
 
     'index' => [
@@ -65,6 +53,7 @@ return [
         'discussion_post_restore' => 'Diskusjonsvar gjenopprettelse',
         'discussion_restore' => 'Gjenopprett diskusjon',
         'disqualify' => 'Diskvalifikasjon',
+        'genre_edit' => 'Sjanger redigering',
         'issue_reopen' => 'Gjenåpne diskusjon',
         'issue_resolve' => 'Løs diskusjon',
         'kudosu_allow' => 'Kudosu kvote',
@@ -72,10 +61,12 @@ return [
         'kudosu_gain' => 'Kudosu gevinst',
         'kudosu_lost' => 'Kudosu tap',
         'kudosu_recalculate' => 'Kudosu rekalkulering',
+        'language_edit' => 'Språk redigering',
         'love' => 'Elsk',
         'nominate' => 'Nominasjon',
         'nomination_reset' => 'Nominasjon nullstilling',
         'qualify' => 'Kvalifikasjon',
         'rank' => 'Rangering',
+        'remove_from_loved' => '',
     ],
 ];

@@ -1,20 +1,10 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
+import BeatmapJson from 'interfaces/beatmap-json';
+import GameMode from 'interfaces/game-mode';
+import GenreJson from 'interfaces/genre-json';
+import LanguageJson from 'interfaces/language-json';
 
 interface BeatmapsetCovers {
   card: string;
@@ -23,11 +13,81 @@ interface BeatmapsetCovers {
   slimcover: string;
 }
 
-export interface BeatmapsetJSON extends JSON {
+export function isBeatmapsetNominationEvent(x: BeatmapsetEvent): x is BeatmapsetNominationEvent {
+  return x.type === 'nominate' && Array.isArray(x.comment?.modes);
+}
+
+export interface BeatmapsetNominationEvent extends BeatmapsetEvent {
+  comment: {
+    modes: GameMode[];
+  };
+  type: 'nominate';
+}
+
+export interface BeatmapsetEvent {
+  comment: any; // TODO: fix
+  created_at: string;
+  id: number;
+  type: string;
+  user_id?: number;
+}
+
+interface BaseNominationsInterface {
+  legacy_mode: boolean;
+  nominated?: boolean;
+  required_hype: number;
+}
+
+export interface NominationsInterface extends BaseNominationsInterface {
+  current: Partial<Record<GameMode, number>>;
+  legacy_mode: false;
+  required: Partial<Record<GameMode, number>>;
+}
+
+export interface LegacyNominationsInterface extends BaseNominationsInterface {
+  current: number;
+  legacy_mode: true;
+  required: number;
+}
+
+export type BeatmapsetNominationsInterface =
+  NominationsInterface | LegacyNominationsInterface;
+
+export type BeatmapsetStatus =
+  'graveyard' | 'wip' | 'pending' | 'ranked' | 'approved' | 'qualified' | 'loved';
+
+export interface CurrentUserAttributes {
+  can_delete: boolean;
+  can_edit_metadata: boolean;
+  can_hype: boolean;
+  can_hype_reason: string;
+  can_love: boolean;
+  can_remove_from_loved: boolean;
+  is_watching: boolean;
+  new_hype_time: string;
+  nomination_modes: Partial<Record<GameMode, 'full' | 'limited'>>;
+  remaining_hype: number;
+}
+
+// TODO: incomplete
+export interface BeatmapsetJson {
   artist: string;
+  artist_unicode: string | null;
+  beatmaps?: BeatmapJson[];
   covers: BeatmapsetCovers;
   creator: string;
+  current_user_attributes?: CurrentUserAttributes;
+  events?: BeatmapsetEvent[];
+  genre: GenreJson;
+  hype?: {
+    current: number;
+    required: number;
+  };
   id: number;
+  language: LanguageJson;
+  nominations?: BeatmapsetNominationsInterface;
+  status: BeatmapsetStatus;
   title: string;
+  title_unicode: string | null;
   user_id: number;
 }

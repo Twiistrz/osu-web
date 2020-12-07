@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => '',
     'not_negative' => ':attribute 不能為負數。',
     'required' => '需要 :attribute 。',
     'too_long' => ':attribute 超出最大長度——最多允許 :limit 個字符。',
     'wrong_confirmation' => '確認信息不匹配。',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => '討論被鎖定。',
-        'first_post' => '無法刪除第一個討論。',
-
-        'attributes' => [
-            'message' => '訊息',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => '指定了時間戳但是譜面不存在。',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "",
             'guest' => '登錄後才能推薦',
             'hyped' => '你已經推薦了這張譜面',
             'limit_exceeded' => '你已經用光了推薦次數',
@@ -57,6 +35,15 @@ return [
         'timestamp' => [
             'exceeds_beatmapset_length' => '指定的時間戳不在譜面範圍內。',
             'negative' => "無法定位時間戳。",
+        ],
+    ],
+
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => '討論被鎖定。',
+        'first_post' => '無法刪除第一個討論。',
+
+        'attributes' => [
+            'message' => '訊息',
         ],
     ],
 
@@ -132,11 +119,13 @@ return [
     ],
 
     'user' => [
-        'contains_username' => '密碼不能包含用戶名。',
+        'contains_username' => '密碼不能包含使用者名稱。',
         'email_already_used' => '郵箱已被使用。',
+        'email_not_allowed' => '',
         'invalid_country' => '國家未被數據庫收錄。',
         'invalid_discord' => 'Discord 用户名無效。',
         'invalid_email' => "無效的郵箱地址。",
+        'invalid_twitter' => 'Twitter帳戶名無效',
         'too_short' => '新密碼太短。',
         'unknown_duplicate' => '用戶名或郵箱已被使用。',
         'username_available_in' => '該用戶名將在 :duration 後可用。',
@@ -147,7 +136,7 @@ return [
         'username_no_space_userscore_mix' => '請在下劃線和空格間選一個，不要混用！',
         'username_no_spaces' => "用戶名不能以空格開頭或結束。",
         'username_not_allowed' => '不允許使用該用戶名。',
-        'username_too_short' => '用戶名太短。',
+        'username_too_short' => '使用者名稱太短。',
         'username_too_long' => '用戶名太長。',
         'weak' => '弱密碼。',
         'wrong_current_password' => '密碼不正確.',

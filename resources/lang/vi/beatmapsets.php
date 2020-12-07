@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmaps',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => '',
+            'video' => '',
+            'no_video' => '',
+            'direct' => '',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Góc Thảo Luận',
 
         'details' => [
-            'approved' => 'được chấp nhận vào ',
             'favourite' => 'Yêu thích beatmapset này',
             'logged-out' => 'Bạn cần phải đăng nhập trước khi tải xuống beatmap!',
-            'loved' => 'loved vào ',
             'mapped_by' => 'được tạo bởi :mapper',
-            'qualified' => 'qualified vào ',
-            'ranked' => 'được xếp hạng vào ',
-            'submitted' => 'tải lên vào ',
             'unfavourite' => 'Bỏ yêu thích beatmapset này',
-            'updated' => 'cập nhật lần cuối lúc ',
             'updated_timeago' => 'cập nhật lần cuối vào :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'để truy cập vào nhiều tính năng hơn',
                 'top' => 'Đăng Nhập',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'được chấp nhận :timeago',
+            'loved' => 'được yêu thích :timeago',
+            'qualified' => '',
+            'ranked' => 'được xếp hạng :timeago',
+            'submitted' => 'được đăng :timeago',
+            'updated' => 'cập nhật lần cuối :timeago',
         ],
 
         'favourites' => [
@@ -78,14 +75,12 @@ return [
 
             'disqualify' => [
                 '_' => '',
-                'button_title' => '',
             ],
 
             'report' => [
                 '_' => '',
-                'button' => '',
-                'button_title' => '',
-                'link' => '',
+                'button' => 'Báo cáo vấn đề',
+                'link' => 'đây',
             ],
         ],
 
@@ -98,7 +93,6 @@ return [
             'source' => 'Nguồn',
             'success-rate' => 'Tỉ Lệ Thành Công',
             'tags' => 'Tags',
-            'unranked' => 'Beatmap chưa được xếp hạng',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Xếp Hạng',
                 'score_total' => 'Tổng Điểm',
                 'score' => 'Điểm',
+                'time' => '',
             ],
 
             'no_scores' => [
@@ -153,13 +148,13 @@ return [
         ],
 
         'status' => [
-            'ranked' => '',
-            'approved' => '',
-            'loved' => '',
-            'qualified' => '',
+            'ranked' => 'Đã được xếp hạng',
+            'approved' => 'Được Chấp Nhận',
+            'loved' => 'Được yêu thích',
+            'qualified' => 'Qualified',
             'wip' => '',
-            'pending' => '',
-            'graveyard' => '',
+            'pending' => 'Đang Chờ',
+            'graveyard' => 'Graveyard',
         ],
     ],
 ];

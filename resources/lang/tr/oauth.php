@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'İptal et',
@@ -24,7 +9,7 @@ return [
     'authorise' => [
         'request' => 'hesabınıza erişmek için izin istiyor.',
         'scopes_title' => 'Bu uygulama şunları yapabilecek:',
-        'title' => 'İzin İsteği',
+        'title' => 'Doğrulama Talebi',
     ],
 
     'authorized_clients' => [
@@ -43,22 +28,30 @@ return [
         'id' => 'İstemci ID',
         'name' => 'Uygulama Adı',
         'redirect' => 'Uygulama Geri Çağırma URL\'si',
+        'reset' => 'İstemci anahtarını sıfırla',
+        'reset_failed' => 'İstemci anahtarı sıfırlanamadı',
         'secret' => 'İstemci Anahtarı',
+
+        'secret_visible' => [
+            'false' => 'İstemci anahtarını göster',
+            'true' => 'İstemci anahtarını gizle',
+        ],
     ],
 
     'new_client' => [
         'header' => 'Yeni bir OAuth uygulaması kaydet',
-        'register' => 'Uygulama Kaydet',
+        'register' => 'Uygulama kaydet',
         'terms_of_use' => [
-            '_' => 'API\'yı kullanarak kullanım koşullarını kabul ediyorsunuz: :link.',
+            '_' => 'API\'yi kullanarak :link\'nı kabul ediyorsunuz.',
             'link' => 'Kullanım Koşulları',
         ],
     ],
 
     'own_clients' => [
         'confirm_delete' => 'Bu istemciyi silmek istediğinize emin misiniz?',
-        'new' => 'Yeni OAuth uygulaması',
-        'none' => 'İstemci yok',
+        'confirm_reset' => 'İstemci anahtarını sıfırlamak istediğinizden emin misiniz? Bu mevcut tüm tokenları kaldıracak.',
+        'new' => 'Yeni OAuth Uygulaması',
+        'none' => 'İstemci Yok',
 
         'revoked' => [
             'false' => 'Sil',

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,7 +18,7 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'șters',
-        'none_found' => '',
+        'none_found' => 'Nicio discuție întâlnește criteriul acela de căutare.',
         'title' => 'Discuții despre beatmap',
 
         'form' => [
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Niciuna dintre aceste postări nu mă preocupă',
         'notice' => 'Există postări în jurul :timestamp (:existing_timestamps). Te rugăm să verifici înainte de a posta.',
+        'unsaved' => ':count în această recenzie',
     ],
 
     'reply' => [
@@ -79,14 +65,17 @@ return [
     ],
 
     'review' => [
+        'block_count' => ':used / :max blocuri folosite',
         'go_to_parent' => 'Vezi review-ul utilizatorului',
         'go_to_child' => 'Vezi Discuția',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => 'fiecare bloc poate conține până la :limit caractere',
+            'external_references' => 'recenzia conține referințe la probleme care nu aparțin la această revizuire',
+            'invalid_block_type' => 'tip de block invalid',
+            'invalid_document' => 'recenzie invalidă',
+            'minimum_issues' => 'recezia trebuie să conțină un minimum de :count problemă|recenzia trebuie să conțină un minimum de :count probleme',
+            'missing_text' => 'block-ul e lipsit de text',
+            'too_many_blocks' => 'recenziile pot să conțină doar :count paragrafe/probleme|recenziile pot să conțină doar până la :count paragrafe/probleme',
         ],
     ],
 

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'landing' => [
@@ -24,7 +9,7 @@ return [
         'online' => 'aktuell <strong>:players</strong> online in <strong>:games</strong> Spielen',
         'peak' => 'Maximum, :count Benutzer online',
         'players' => '<strong>:count</strong> registrierte Spieler',
-        'title' => 'Willkommen',
+        'title' => 'willkommen',
         'see_more_news' => 'mehr Neuigkeiten anzeigen',
 
         'slogan' => [
@@ -42,7 +27,7 @@ return [
         'title' => 'Suchergebnisse',
 
         'beatmapset' => [
-            'login_required' => '',
+            'login_required' => 'Melde Dich an, um Beatmaps zu sehen',
             'more' => ':count weitere gefundene Beatmaps',
             'more_simple' => 'Mehr gefundene Beatmaps anzeigen',
             'title' => 'Beatmaps',
@@ -51,13 +36,13 @@ return [
         'forum_post' => [
             'all' => 'Alle Foren',
             'link' => 'Das Forum durchsuchen',
-            'login_required' => '',
+            'login_required' => 'Melde Dich an, um das Forum zu durchsuchen',
             'more_simple' => 'Mehr gefundene Forenbeiträge anzeigen',
             'title' => 'Forum',
 
             'label' => [
-                'forum' => 'in Foren suchen',
-                'forum_children' => 'Subforen einbeziehen',
+                'forum' => 'in foren suchen',
+                'forum_children' => 'subforen einbeziehen',
                 'topic_id' => 'Thread #',
                 'username' => 'autor',
             ],
@@ -65,14 +50,14 @@ return [
 
         'mode' => [
             'all' => 'alle',
-            'beatmapset' => 'Beatmap',
+            'beatmapset' => 'beatmap',
             'forum_post' => 'forum',
             'user' => 'spieler',
             'wiki_page' => 'wiki',
         ],
 
         'user' => [
-            'login_required' => '',
+            'login_required' => 'Melde Dich an, um Benutzer zu suchen',
             'more' => ':count weitere gefundene Spieler',
             'more_simple' => 'Mehr gefundene Spieler anzeigen',
             'more_hidden' => 'Die Spielersuche ist auf :max Spieler limitiert. Verfeinere bitte deine Suchanfrage.',
@@ -89,13 +74,20 @@ return [
     'download' => [
         'tagline' => "lass uns<br>loslegen!",
         'action' => 'osu! herunterladen',
+
+        'help' => [
+            '_' => 'wenn du probleme mit dem starten des spiels oder der registrierung deines accounts hast, :help_forum_link oder :support_button.',
+            'help_forum_link' => 'schau im hilfeforum nach',
+            'support_button' => 'kontaktiere den support',
+        ],
+
         'os' => [
             'windows' => 'für Windows',
             'macos' => 'für macOS',
             'linux' => 'für Linux',
         ],
         'mirror' => 'mirror',
-        'macos-fallback' => 'macOS benutzer',
+        'macos-fallback' => 'macOS-benutzer',
         'steps' => [
             'register' => [
                 'title' => 'erstell einen account',
@@ -106,10 +98,10 @@ return [
                 'description' => 'klick den knopf da oben zum herunterladen und führ die installationsdatei aus!',
             ],
             'beatmaps' => [
-                'title' => 'hol\' dir Beatmaps',
+                'title' => 'hol\' dir beatmaps',
                 'description' => [
-                    '_' => ':browse durch die enorme Bibliothek an von Nutzern erstellten Beatmaps und fang an zu spielen!',
-                    'browse' => 'stöbern',
+                    '_' => ':browse durch die enorme bibliothek an von nutzern erstellten beatmaps und fang an zu spielen!',
+                    'browse' => 'stöbere',
                 ],
             ],
         ],
@@ -117,7 +109,7 @@ return [
     ],
 
     'user' => [
-        'title' => 'Dashboard',
+        'title' => 'dashboard',
         'news' => [
             'title' => 'News',
             'error' => 'News konnten nicht geladen werden. Versuche, die Seite neu zu laden...?',

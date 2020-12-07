@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 class @Forum
   boot: =>
@@ -34,12 +19,14 @@ class @Forum
     @_postsProgress = document.getElementsByClassName('js-forum__posts-progress')
     @posts = document.getElementsByClassName('js-forum-post')
     @loadMoreLinks = document.getElementsByClassName('js-forum-posts-show-more')
+    @throttledBoot = _.throttle @boot, 100
 
     @maxPosts = 250
 
-    $(document).on 'turbolinks:load osu:page:change', @boot
+    $(document).on 'turbolinks:load', @throttledBoot
+    $.subscribe 'osu:page:change', @throttledBoot
 
-    $(window).on 'throttled-scroll', @refreshCounter
+    $(window).on 'scroll', @refreshCounter
     $(document).on 'click', '.js-forum-posts-show-more', @showMore
     $(document).on 'click', '.js-post-url', @postUrlClick
     $(document).on 'submit', '.js-forum-posts-jump-to', @jumpToSubmit
@@ -208,8 +195,17 @@ class @Forum
 
 
   toggleDeleted: =>
-    Turbolinks.visit osu.updateQueryString @postUrlN(@currentPostPosition),
-      with_deleted: +!@showDeleted()
+    return if !@showDeleted()? # you don't see this option unless you're a moderator, anyway
+
+    $.ajax laroute.route('account.options'),
+      method: 'PUT'
+      data:
+        user_profile_customization:
+          forum_posts_show_deleted: !@showDeleted()
+    .done (user) =>
+      $.publish 'user:update', user
+      Turbolinks.visit @postUrlN(@currentPostPosition)
+
 
   initialScrollTo: =>
     return if location.hash != '' ||
@@ -221,19 +217,14 @@ class @Forum
 
 
   postUrlClick: (e) =>
-      e.preventDefault()
+    e.preventDefault()
 
-      id = $(e.target).closest('.js-forum-post').attr('data-post-id')
-      @scrollTo id
+    id = $(e.target).closest('.js-forum-post').attr('data-post-id')
+    @scrollTo id
 
 
   postUrlN: (postN) ->
-    url = "#{document.location.pathname}?n=#{postN}"
-
-    if @showDeleted() == false
-      url += "&with_deleted=0"
-
-    url
+    "#{document.location.pathname}?n=#{postN}"
 
 
   showMore: (e) =>

@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 use Illuminate\Database\Migrations\Migration;
 
 class UpdateMultiplayerMods extends Migration
@@ -62,7 +65,7 @@ class UpdateMultiplayerMods extends Migration
 
         foreach ($mods as $mod) {
             if (is_array($mod->settings) && count($mod->settings) === 0) {
-                $mod->settings = new stdClass;
+                $mod->settings = new stdClass();
             }
         }
 

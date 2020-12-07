@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'Anulează',
@@ -28,41 +13,49 @@ return [
     ],
 
     'authorized_clients' => [
-        'confirm_revoke' => '',
-        'scopes_title' => '',
-        'owned_by' => '',
-        'none' => '',
+        'confirm_revoke' => 'Ești sigur(ă) că vrei să revocați permisiunile clientului?',
+        'scopes_title' => 'Această aplicație poate:',
+        'owned_by' => 'Deținut de :user',
+        'none' => 'Niciun Client',
 
         'revoked' => [
-            'false' => '',
-            'true' => '',
+            'false' => 'Revocă Accesul',
+            'true' => 'Acces revocat',
         ],
     ],
 
     'client' => [
-        'id' => '',
-        'name' => '',
-        'redirect' => '',
-        'secret' => '',
+        'id' => 'ID-ul clientului',
+        'name' => 'Numele Aplicației',
+        'redirect' => 'URL-ul Callback al Aplicației',
+        'reset' => 'Resetează client secret',
+        'reset_failed' => 'Nu s-a putut reseta client secret',
+        'secret' => 'Client Secret',
+
+        'secret_visible' => [
+            'false' => 'Arată clientul secret',
+            'true' => 'Ascunde clientul secret',
+        ],
     ],
 
     'new_client' => [
-        'header' => '',
-        'register' => '',
+        'header' => 'Înregistrează o nouă aplicație OAuth',
+        'register' => 'Înregistrează aplicația',
         'terms_of_use' => [
-            '_' => '',
-            'link' => '',
+            '_' => 'Folosind API-ul sunteți de acord cu :link.',
+            'link' => 'Termeni de Utilizare',
         ],
     ],
 
     'own_clients' => [
-        'confirm_delete' => '',
-        'new' => '',
-        'none' => '',
+        'confirm_delete' => 'Ești sigur(Ă) că vrei să ștergi acest client?',
+        'confirm_reset' => 'Ești sigur(Ă) că vrei să resetezi clientul secret? Acesta va revoca toate token-urile existente.',
+        'new' => 'Noi aplicații OAuth',
+        'none' => 'Niciun Client',
 
         'revoked' => [
-            'false' => '',
-            'true' => '',
+            'false' => 'Șterge',
+            'true' => 'Șters',
         ],
     ],
 ];

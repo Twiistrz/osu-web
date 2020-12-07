@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -27,34 +12,37 @@ return [
             'instructions' => 'щракнете на розовият бутон със сърце горе, за да продължите към osu!store',
         ],
         'why-support' => [
-            'title' => '',
+            'title' => 'Защо да подкрепям финансово osu!? Къде отиват парите?',
 
             'team' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Подкрепи отбора ни',
+                'description' => 'Малък отбор разработва и поддържа osu!. Вашата подкрепа им помага, нали знаете... да живеят.',
             ],
             'infra' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Инфраструктура на сървъра',
+                'description' => 'Приносите Ви са насочени към поддържането на сървърите за работа на уебсайта, мултиплейър услугите ни, онлайн класациите и т.н.
+',
             ],
             'featured-artists' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Препоръчани изпълнители',
+                'description' => 'С вашата подкрепа можем да се обърнем към още страхотни изпълнители и да лицензираме уникална музика за използване в osu!',
+                'link_text' => 'Преглед на текущия списък &raquo;',
             ],
             'ads' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Държи osu! самоподдържаща се
+',
+                'description' => 'Вашите приноси помагат да запазим играта независима и без никакви реклами и външни спонсори.',
             ],
             'tournaments' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Официални турнири',
+                'description' => 'Помогнете с финансирането на официалните osu! World Cup турнири (за тяхното организиране и награди).',
+                'link_text' => 'Разгледайте турнири &raquo;',
             ],
             'bounty-program' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Насърчаване за принос към софтуера с отворен код',
+                'description' => 'Подкрепете членовете на общността, които са отделили своето време и усилия, за да помогнат да направим osu! едно по-добро преживяване.
+',
+                'link_text' => 'Разберете повече &raquo;',
             ],
         ],
         'perks' => [
@@ -65,18 +53,18 @@ return [
             ],
 
             'friend_ranking' => [
-                'title' => '',
-                'description' => "",
+                'title' => 'Приятелско класиране',
+                'description' => "Вижте как се подреждате срещу приятелите си в класацията на бийтмапове, както в играта, така и на уебсайта.",
             ],
 
             'country_ranking' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Класиране в страната',
+                'description' => 'Завладейте страната си, след това завладейте света.',
             ],
 
             'mod_filtering' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Филтриране по модове',
+                'description' => 'Асоциирате се само с хора, които граят HDHR? Няма проблем!',
             ],
 
             'auto_downloads' => [
@@ -135,20 +123,20 @@ return [
             ],
 
             'more_favourites' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'По-голям списък любими бийтмапове',
+                'description' => 'Максималният брой бийтмапове, които можете да отбележите като любими, се увеличава от :normally &rarr; :supporter ',
             ],
             'more_friends' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Повече приятели',
+                'description' => 'Максималният брой приятели, които можете да имате, се увеличава от :normally &rarr; :supporter',
             ],
             'more_beatmaps' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Качване на повече бийтмапове',
+                'description' => 'Това колко некласирани бийтмапове може да имате наведнъж се изчислява от базова стойност плюс допълнителен бонус за всеки класиран бийтмап, който в момента имате (до определен лимит).<br/><br/>Обикновено, това е :base плюс :bonus на класиран бийтмап (до :bonus_max). Със osu!supporter, това се увеличава до :supporter_base плюс :supporter_bonus на класиран бийтмап (до :supporter_bonus_max).',
             ],
             'friend_filtering' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Приятелски класации',
+                'description' => 'Съревновавайте се с вашите приятели и вижте как се класирате сред тях!',
             ],
 
         ],

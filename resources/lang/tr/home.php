@@ -1,28 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'landing' => [
         'download' => 'Şimdi indir',
         'online' => '<strong>:players</strong> oyuncu şu anda <strong>:games</strong> oyunda çevrimiçi',
-        'peak' => 'Zirve, :count çevrimiçi oyuncu',
+        'peak' => 'Zirve, :count çevrimiçi kullanıcı',
         'players' => '<strong>:count</strong> kayıtlı oyuncu',
         'title' => 'hoşgeldiniz',
         'see_more_news' => 'daha fazla haber gör',
@@ -42,7 +27,7 @@ return [
         'title' => 'Ara',
 
         'beatmapset' => [
-            'login_required' => '',
+            'login_required' => 'Beatmapleri aramak için giriş yapın',
             'more' => ':count tane daha beatmap arama sonucu',
             'more_simple' => 'Daha fazla beatmap arama sonucu gör',
             'title' => 'Beatmapler',
@@ -51,7 +36,7 @@ return [
         'forum_post' => [
             'all' => 'Tüm forumlar',
             'link' => 'Forumda ara',
-            'login_required' => '',
+            'login_required' => 'Forumda aramak için giriş yapın',
             'more_simple' => 'Daha fazla forum arama sonucu görmek için tıklayınız',
             'title' => 'Forum',
 
@@ -72,7 +57,7 @@ return [
         ],
 
         'user' => [
-            'login_required' => '',
+            'login_required' => 'Kullanıcıları aramak için giriş yapın',
             'more' => ':count tane daha oyuncu arama sonucu',
             'more_simple' => 'Daha fazla oyuncu arama sonucu gör',
             'more_hidden' => 'Oyuncu araması :max oyuncuyla sınırlıdır. Arama sorgusunu hassaslaştırmayı deneyin.',
@@ -89,6 +74,13 @@ return [
     'download' => [
         'tagline' => "haydi seni<br>oyuna hazırlayalım!",
         'action' => 'osu!\'yu indir',
+
+        'help' => [
+            '_' => 'oyunu çalıştırırken ya da hesap oluştururken herhangi bir sorun yaşıyorsanız, :help_forum_link veya :support_button.',
+            'help_forum_link' => 'yardım forumunu kontrol edin',
+            'support_button' => 'destek ile iletişime geçin',
+        ],
+
         'os' => [
             'windows' => 'Windows için',
             'macos' => 'macOS için',
@@ -117,7 +109,7 @@ return [
     ],
 
     'user' => [
-        'title' => 'ön panel',
+        'title' => 'kontrol paneli',
         'news' => [
             'title' => 'Gelişmeler',
             'error' => 'Haberler yüklenirken hata oluştu, sayfayı yenilemeyi deneseniz?...',

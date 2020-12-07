@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Nastala chyba během ukládání příspěvku',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Nastala chyba během hlasování',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Odepřen od získávání kudosu.',
         'message_placeholder_deleted_beatmap' => 'Tato obtížnost byla smazána, takže už nemůže být probírána.',
         'message_placeholder_locked' => 'Diskuze o této mapě byly vypnuty.',
+        'message_placeholder_silenced' => "Nelze odeslat diskuzi když jste ztišeni.",
         'message_type_select' => 'Vybrat typ komentáře',
         'reply_notice' => 'Stiskni enter pro odpověď.',
         'reply_placeholder' => 'Napiš svou odpověď sem',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Piště zde pro odeslání příspěvku do Obecné (:version)',
             'generalAll' => 'Piště zde pro odeslání příspěvku do Obecné (Všechny obtížnosti)',
+            'review' => 'Piště zde pro odeslání recenze',
             'timeline' => 'Piště zde pro zařazení příspěvku do Časové osy (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'ctrl-c v režimu úprav a vložte do zprávy pro přidání časové sekvence!',
             'title' => 'Nová diskuze',
             'unpin' => 'Odepnout',
+        ],
+
+        'review' => [
+            'new' => 'Nová recenze',
+            'embed' => [
+                'delete' => 'Smazat',
+                'missing' => '[DISKUZE SMAZÁNA]',
+                'unlink' => 'Odpojit',
+                'unsaved' => 'Neuloženo',
+                'timestamp' => [
+                    'all-diff' => 'Příspěvky na "Všechny obtížnosti" nemohou být časovány.',
+                    'diff' => '',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'vložit odstavec',
+                'praise' => 'vložit pochvalu',
+                'problem' => 'vložit problém',
+                'suggestion' => 'vložit návrh',
+            ],
         ],
 
         'show' => [
@@ -185,13 +186,19 @@ return [
         'nominate' => 'Nominovat',
         'nominate_confirm' => 'Nominovat tuto beatmapu?',
         'nominated_by' => 'nominováno od :users',
-        'not_enough_hype' => "",
-        'qualified' => 'Předpokládané datum zhodnocení této mapy je :date, pokud se nenaleznou žádné chyby.',
-        'qualified_soon' => 'Již brzy bude tato mapa hodnocená, pokud se nenaleznou žádné chyby.',
+        'not_enough_hype' => "Není dostatečný hype.",
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Nominace: :current/:required',
         'reset_message_deleted' => 'odstraněno',
         'title' => 'Stav nominace',
         'unresolved_issues' => 'Existují stále nevyřešené problémy, které musí být řešeny jako první.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => 'brzy',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Proces nominace byl resetován před :time_ago nominátorem :user, kvůli nalezení nového problému :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Zahrň konvertované beatmapy',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Jakékoliv',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novinka',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elektronická',
+        'metal' => 'Metál',
+        'classical' => 'Klasická Hudba',
+        'folk' => 'Folk',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Korejské',
         'spanish' => 'Španělské',
         'swedish' => 'Švédské',
+        'russian' => 'Ruština',
+        'polish' => 'Polština',
         'instrumental' => 'Instrumentální',
         'other' => 'Jiné',
+        'unspecified' => 'Nespecifikováno',
     ],
     'played' => [
         'any' => 'Jakékoliv',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Počet zahrání: :count',
         'favourites' => 'V oblíbených: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Vše',
+        ],
     ],
 ];

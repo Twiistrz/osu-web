@@ -1,22 +1,7 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
-import { BeatmapDiscussionReview } from 'interfaces/beatmap-discussion-review';
+import { PersistedBeatmapDiscussionReview } from 'interfaces/beatmap-discussion-review';
 import * as React from 'react';
 import * as ReactMarkdown from 'react-markdown';
 import { autolinkPlugin } from './autolink-plugin';
@@ -53,14 +38,15 @@ export class ReviewPost extends React.Component<Props> {
           ]}
           key={osu.uuid()}
           source={source}
+          unwrapDisallowed={true}
           renderers={{
-            link: (props) => <a className='beatmap-discussion-review-post__link' rel='nofollow' {...props}/>,
+            link: (props) => <a rel='nofollow' {...props}/>,
             paragraph: (props) => {
               return <div className='beatmap-discussion-review-post__block'>
                 <div className='beatmapset-discussion-message' {...props}/>
               </div>;
             },
-            timestamp: (props) => <a className='beatmapset-discussion-message__timestamp' {...props}/>,
+            timestamp: (props) => <a className='beatmap-discussion-timestamp-decoration' {...props}/>,
           }}
         />
     );
@@ -70,13 +56,13 @@ export class ReviewPost extends React.Component<Props> {
     const docBlocks: JSX.Element[] = [];
 
     try {
-      const doc: BeatmapDiscussionReview = JSON.parse(this.props.message);
+      const doc: PersistedBeatmapDiscussionReview = JSON.parse(this.props.message);
 
       doc.forEach((block) => {
         switch (block.type) {
           case 'paragraph':
-            // '&nbsp;  ' converts into a newline
-            docBlocks.push(this.paragraph(osu.presence(block.text) || '&nbsp;  '));
+            const content = block.text.trim() === '' ? '&nbsp;' : block.text;
+            docBlocks.push(this.paragraph(content));
             break;
           case 'embed':
             if (block.discussion_id) {

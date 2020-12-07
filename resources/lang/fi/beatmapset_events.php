@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
@@ -29,6 +14,7 @@ return [
         'discussion_unlock' => '',
         'disqualify' => 'Hyväksymisen keskeytti :user. Syy: :discussion (:text).',
         'disqualify_legacy' => ':user keskeytti hyväksymisen. Syy: :text.',
+        'genre_edit' => '',
         'issue_reopen' => 'Ratkaistu ongelma :discussion uudelleenavattu.',
         'issue_resolve' => 'Ongelma :discussion merkitty ratkaistuksi.',
         'kudosu_allow' => 'Kudosuhylkäys keskustelusta :discussion on poistettu.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'Keskustelu :discussion käyttäjältä :user sai tarpeeksi ääniä kudosua varten.',
         'kudosu_lost' => 'Keskustelu :discussion käyttäjältä :user menetti ääniä ja annettu kudosu on poistettu.',
         'kudosu_recalculate' => 'Keskustelun :discussion kudosu on uudelleenlaskettu.',
+        'language_edit' => 'Kieli :old muutettu kieleen :new.',
         'love' => ':user rakastaa',
         'nominate' => 'Käyttäjän :user suosittelema.',
         'nomination_reset' => 'Uusi ongelma :discussion (:text) nollasi suositukset.',
         'qualify' => 'Tämä beatmap sai vaaditun määrän suosituksia hyväksymisvaihetta varten.',
         'rank' => 'Hyväksytty.',
+        'remove_from_loved' => '',
     ],
 
     'index' => [
@@ -65,6 +53,7 @@ return [
         'discussion_post_restore' => 'Keskustelun vastauksen palautus',
         'discussion_restore' => 'Keskustelun palauttaminen',
         'disqualify' => 'Epähyväksyntä',
+        'genre_edit' => 'Genren muokkaus',
         'issue_reopen' => 'Keskustelun uudelleenavaaminen',
         'issue_resolve' => 'Keskustelun ratkaiseminen',
         'kudosu_allow' => 'Kusodun hyväksyntä',
@@ -72,10 +61,12 @@ return [
         'kudosu_gain' => 'Kusodun ansaitseminen',
         'kudosu_lost' => 'Kusodun menettäminen',
         'kudosu_recalculate' => 'Kusodun uudelleenlaskenta',
+        'language_edit' => 'Kielen muokkaus',
         'love' => 'Rakkaus',
         'nominate' => 'Äänestetty',
         'nomination_reset' => 'Äänestyksen resetointi',
         'qualify' => 'Hyväksyntä',
         'rank' => 'Luokittelu',
+        'remove_from_loved' => '',
     ],
 ];

@@ -1,34 +1,22 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import { NotificationStackJson } from 'interfaces/notification-json';
 import { action, computed, observable } from 'mobx';
 import Notification from 'models/notification';
+import { Name } from 'models/notification-type';
 import { categoryFromName } from 'notification-maps/category';
 import { NotificationContextData } from 'notifications-context';
 import { NotificationCursor } from 'notifications/notification-cursor';
+import NotificationDeletable from 'notifications/notification-deletable';
 import { NotificationIdentity } from 'notifications/notification-identity';
 import NotificationReadable from 'notifications/notification-readable';
 import { NotificationResolver } from 'notifications/notification-resolver';
 
-export default class NotificationStack implements NotificationReadable {
+export default class NotificationStack implements NotificationReadable, NotificationDeletable {
   @observable cursor: NotificationCursor | null = null;
   @observable displayOrder = 0;
+  @observable isDeleting = false;
   @observable isLoading = false;
   @observable isMarkingAsRead = false;
   @observable notifications = new Map<number, Notification>();
@@ -54,27 +42,18 @@ export default class NotificationStack implements NotificationReadable {
   }
 
   @computed
-  get hasVisibleNotifications() {
-    return this.notifications.size > 0 || this.objectType === 'legacy_pm';
-  }
-
-  @computed
   get hasMore() {
     return !(this.notifications.size >= this.total || this.cursor == null);
   }
 
   @computed
-  get id() {
-    return `${this.objectType}-${this.objectId}-${this.category}`;
-  }
-
-  set isRead(value: boolean) {
-    this.notifications.forEach((notification) => notification.isRead = value);
+  get hasVisibleNotifications() {
+    return this.notifications.size > 0;
   }
 
   @computed
-  get isSingle() {
-    return this.total === 1;
+  get id() {
+    return `${this.objectType}-${this.objectId}-${this.category}`;
   }
 
   get identity(): NotificationIdentity {
@@ -85,8 +64,9 @@ export default class NotificationStack implements NotificationReadable {
     };
   }
 
-  get isLegacyPm() {
-    return this.objectType === 'legacy_pm';
+  @computed
+  get isSingle() {
+    return this.total === 1;
   }
 
   @computed
@@ -100,7 +80,7 @@ export default class NotificationStack implements NotificationReadable {
 
   constructor(
     readonly objectId: number,
-    readonly objectType: string,
+    readonly objectType: Name,
     readonly category: string,
     readonly resolver: NotificationResolver,
   ) {}
@@ -115,6 +95,18 @@ export default class NotificationStack implements NotificationReadable {
   add(notification: Notification) {
     this.notifications.set(notification.id, notification);
     this.displayOrder = Math.max(notification.id, this.displayOrder);
+  }
+
+  @action
+  delete() {
+    this.resolver.delete(this);
+  }
+
+  @action
+  deleteItem(notification?: Notification) {
+    // not from this stack, ignore.
+    if (notification == null || !this.notifications.has(notification.id)) { return; }
+    this.resolver.delete(notification);
   }
 
   @action

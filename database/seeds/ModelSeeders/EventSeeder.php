@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -22,10 +25,18 @@ class EventSeeder extends Seeder
 
         $generateEventText = function ($bm, $bms, $u, $rank) {
             switch ($bm->playmode) {
-            case 0: $playmode = 'osu!'; break;
-            case 1: $playmode = 'Taiko'; break;
-            case 2: $playmode = 'Catch the Beat'; break;
-            case 3: $playmode = 'osu!mania'; break;
+                case 0:
+                    $playmode = 'osu!';
+                    break;
+                case 1:
+                    $playmode = 'Taiko';
+                    break;
+                case 2:
+                    $playmode = 'Catch the Beat';
+                    break;
+                case 3:
+                    $playmode = 'osu!mania';
+                    break;
             }
             $rank_letters = ['X', 'S', 'A'];
             $rank_letter = array_rand_val($rank_letters);
@@ -72,17 +83,17 @@ class EventSeeder extends Seeder
             $string = '';
             switch (rand(1, 4)) {
                 case 1:
-                  $string = "<b><a href='/u/".$u->user_id."'>".$u->username.'</a></b> has once again chosen to support osu! - thanks for your generosity!';
-                break;
+                    $string = "<b><a href='/u/".$u->user_id."'>".$u->username.'</a></b> has once again chosen to support osu! - thanks for your generosity!';
+                    break;
                 case 2:
-                  $string = "<b><a href='/u/".$u->user_id."'>".$u->username.'</a></b> has become an osu! supporter - thanks for your generosity!';
-                break;
+                    $string = "<b><a href='/u/".$u->user_id."'>".$u->username.'</a></b> has become an osu! supporter - thanks for your generosity!';
+                    break;
                 case 3:
-                  $string = "<b><a href='/u/".$u->user_id."'>".$u->username.'</a></b> has received the gift of osu! supporter!';
-                break;
+                    $string = "<b><a href='/u/".$u->user_id."'>".$u->username.'</a></b> has received the gift of osu! supporter!';
+                    break;
                 case 4:
-                  $string = "<b><a href='/u/".$u->user_id."'>".$faker->userName.'</a></b> has changed their username to '.$u->username.'!';
-                break;
+                    $string = "<b><a href='/u/".$u->user_id."'>".$faker->userName.'</a></b> has changed their username to '.$u->username.'!';
+                    break;
             }
             $ev2 = $u->events()->save(App\Models\Event::create([
                 'user_id' => $u->user_id,

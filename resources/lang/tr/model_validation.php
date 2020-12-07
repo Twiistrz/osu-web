@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Geçersiz :attribute belirtildi.',
     'not_negative' => ':attribute negatif olamaz.',
     'required' => ':attribute gereklidir.',
     'too_long' => ':attribute azami uzunluğu aştı - sadece :limit karakter olabilir.',
     'wrong_confirmation' => 'Doğrulama eşleşmiyor.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Tartışma kilitli.',
-        'first_post' => 'Başlangıç yazısı silinemez.',
-
-        'attributes' => [
-            'message' => 'Mesaj',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Zaman damgası belirtildi, ancak beatmap eksik.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Bu beatmap şu anda tartışmaya kapalı ve gazlanamaz",
             'guest' => 'Destek oyu vermek için giriş yapmalısın.',
             'hyped' => 'Bu beatmap\'e zaten destek oyu kullandın.',
             'limit_exceeded' => 'Tüm destek oylarını kullandın.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Tartışma kilitli.',
+        'first_post' => 'Başlangıç yazısı silinemez.',
+
+        'attributes' => [
+            'message' => 'Mesaj',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Silinmiş yorumlara cevap verilemez.',
-        'top_only' => '',
+        'top_only' => 'Yorum cevabının sabitlenmesine izin verilmiyor.',
 
         'attributes' => [
             'message' => 'Mesaj',
@@ -121,12 +108,12 @@ return [
 
     'oauth' => [
         'client' => [
-            'too_many' => '',
+            'too_many' => 'İzin verilen azami OAuth uygulama sayısı aşıldı.',
             'url' => 'Lütfen geçerli bir URL giriniz.',
 
             'attributes' => [
                 'name' => 'Uygulama Adı',
-                'redirect' => '',
+                'redirect' => 'Uygulama Geri Çağırma URL\'si',
             ],
         ],
     ],
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Şifre kullanıcı adını içeremez.',
         'email_already_used' => 'E-posta adresi zaten kullanılıyor.',
+        'email_not_allowed' => 'E-posta adresine izin verilmiyor.',
         'invalid_country' => 'Ülke, veritabanında bulunmuyor.',
         'invalid_discord' => 'Discord kullanıcı adı hatalı.',
         'invalid_email' => "Geçerli bir e-posta adresi gibi görünmüyor.",
+        'invalid_twitter' => 'Twitter kullanıcı adı hatalı.',
         'too_short' => 'Yeni şifre çok kısa.',
         'unknown_duplicate' => 'Kullanıcı adı ya da e-posta zaten kullanımda.',
         'username_available_in' => 'Bu kullanıcı adı :duration içinde kullanıma açılacak.',

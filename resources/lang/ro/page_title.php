@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'admin' => [
@@ -30,13 +15,15 @@ return [
     ],
     'error' => [
         'error' => [
-            '_' => 'eroare',
+            '400' => 'cerere invalidă',
             '404' => 'lipsește',
             '403' => 'interzis',
             '401' => 'neautorizat',
+            '401-verification' => 'verificare cont',
             '405' => 'lipsește',
-            '500' => 'ceva s-a rupt',
-            '503' => 'pauză tehnică',
+            '422' => 'cerere invalidă',
+            '500' => 'ceva s-a stricat',
+            '503' => 'mentenanță',
         ],
     ],
     'forum' => [
@@ -48,28 +35,33 @@ return [
     'main' => [
         'account_controller' => [
             'edit' => 'tablou de bord',
-        ],
-        'beatmapset_watches_controller' => [
-            'index' => 'tablou de bord',
-        ],
-        'friends_controller' => [
-            'index' => 'tablou de bord',
-        ],
-        'home_controller' => [
-            'index' => 'tablou de bord',
-            'get_download' => 'descarcă',
-            'search' => 'căutare',
-            'support_the_game' => 'sprijină jocul',
-            'testflight' => 'zbortest',
+            'verify_link' => 'verificare cont',
         ],
         'artists_controller' => [
-            '_' => 'artiști renumiți',
+            '_' => 'featured artists',
+        ],
+        'beatmap_discussion_posts_controller' => [
+            '_' => 'discuție postări beatmap',
         ],
         'beatmap_discussions_controller' => [
             '_' => 'discuții beatmap',
         ],
-        'beatmap_discussion_posts_controller' => [
-            '_' => 'postări de la discuția beatmap',
+        'beatmap_packs_controller' => [
+            '_' => 'pachete beatmap',
+        ],
+        'beatmapset_discussion_votes_controller' => [
+            '_' => 'voturi la discuția beatmap',
+        ],
+        'beatmapset_events_controller' => [
+            '_' => 'istoria beatmap',
+        ],
+        'beatmapset_watches_controller' => [
+            'index' => 'tablou de bord',
+        ],
+        'beatmapsets_controller' => [
+            'discussion' => 'discuție beatmap',
+            'index' => 'listarea beatmap',
+            'show' => 'beatmap info',
         ],
         'changelog_controller' => [
             '_' => 'log de schimbare',
@@ -80,23 +72,71 @@ return [
         'comments_controller' => [
             '_' => 'comentarii',
         ],
+        'contests_controller' => [
+            '_' => 'concursuri',
+        ],
+        'friends_controller' => [
+            'index' => 'tablou de bord',
+        ],
+        'groups_controller' => [
+            'show' => 'grupuri',
+        ],
+        'home_controller' => [
+            'get_download' => 'descarcă',
+            'index' => 'tablou de bord',
+            'search' => 'caută',
+            'support_the_game' => 'sprijină jocul',
+            'testflight' => 'test de zbor',
+        ],
         'legal_controller' => [
             '_' => 'informație',
         ],
         'livestreams_controller' => [
             '_' => 'transmisiuni în direct',
         ],
+        'matches_controller' => [
+            '_' => 'potriviri',
+        ],
+        'news_controller' => [
+            '_' => 'noutăți',
+        ],
+        'notifications_controller' => [
+            '_' => 'istorie notificări',
+        ],
+        'password_reset_controller' => [
+            '_' => 'resetează parola',
+        ],
         'ranking_controller' => [
             '_' => 'clasament',
+        ],
+        'scores_controller' => [
+            '_' => 'performanță',
+        ],
+        'store_controller' => [
+            '_' => 'osu!magazin',
         ],
         'tournaments_controller' => [
             '_' => 'turnee',
         ],
         'users_controller' => [
-            'disabled' => 'observaj',
+            '_' => 'info jucător',
+            'disabled' => 'observație',
         ],
         'wiki_controller' => [
-            'show' => 'bază de cunoștințe',
+            '_' => 'bază de cunoștințe',
+        ],
+    ],
+    'multiplayer' => [
+        'rooms_controller' => [
+            '_' => 'clasament',
+        ],
+    ],
+    'store' => [
+        '_' => 'osu!magazin',
+    ],
+    'users' => [
+        'modding_history_controller' => [
+            '_' => 'info modder',
         ],
     ],
 ];

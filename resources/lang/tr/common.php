@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Emin misin?',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => 'Yönetici',
         'authorise' => 'Yetki ver',
+        'authorising' => 'İzin Veriliyor...',
         'back_to_previous' => 'Bir önceki pozisyona dön',
         'back_to_top' => 'Yukarıya geri dön',
         'cancel' => 'İptal',
         'change' => 'değiştir',
+        'clear' => 'Temizle',
         'click_to_copy' => 'panoya kopyalamak için tıklayın',
         'click_to_copy_copied' => 'panoya kopyalandı!',
         'close' => 'Kapat',
@@ -51,6 +38,7 @@ return [
         'permalink' => 'kalıcı bağlantı',
         'pin' => 'sabitle',
         'post' => 'Gönder',
+        'read_more' => 'daha fazlası',
         'reply' => 'Cevapla',
         'reply_reopen' => 'Cevapla ve Yeniden Aç',
         'reply_resolve' => 'Yanıtla ve Çözümle',
@@ -61,8 +49,8 @@ return [
         'search' => 'Arama',
         'see_more' => 'daha fazla',
         'show' => 'göster',
-        'show_deleted' => 'Silineni göster',
-        'show_less' => '',
+        'show_deleted' => 'Silinenleri göster',
+        'show_less' => 'daha az göster',
         'show_more' => 'daha fazla göster',
         'show_more_options' => 'daha fazla seçenek göster',
         'unpin' => 'sabitlemeyi kaldır',
@@ -76,22 +64,22 @@ return [
     ],
 
     'count' => [
-        'badges' => ':count rozet|:count rozet',
-        'days' => ':count gün|:count gün',
+        'badges' => ':count_delimited rozet|:count_delimited rozet',
+        'days' => ':count_delimited gün|:count_delimited gün',
         'hour_short_unit' => 'sa',
-        'hours' => ':count saat|:count saat',
-        'item' => ':count birim|:count birim',
+        'hours' => ':count_delimited saat|:count_delimited saat',
+        'item' => ':count_delimited birim|:count_delimited birim',
         'minute_short_unit' => 'dk|dk',
-        'minutes' => ':count dakika |:count dakika',
-        'months' => ':count ay|:count ay',
-        'notifications' => '',
-        'plus_others' => '',
+        'minutes' => ':count_delimited dakika|:count_delimited dakika',
+        'months' => ':count_delimited ay|:count_delimited ay',
+        'notifications' => ':count_delimited bildirim|:count_delimited bildirim',
+        'plus_others' => '+ :count_delimited tane daha!|+ :count_delimited tane daha!',
         'post' => ':count_delimited gönderi|:count_delimited gönderi',
         'second_short_unit' => 'sn|sn',
-        'star_priority' => '',
-        'update' => ':count_delimited güncelleme|:count_delimited güncellemeler',
-        'view' => '',
-        'years' => ':count yıl|:count yıl',
+        'star_priority' => ':count_delimited yıldız önceliği|:count_delimited yıldız önceliği',
+        'update' => ':count_delimited güncelleme|:count_delimited güncelleme',
+        'view' => ':count_delimited görüntülenme|:count_delimited görüntülenme',
+        'years' => ':count_delimited yıl|:count_delimited yıl',
     ],
 
     'countdown' => [
@@ -140,9 +128,24 @@ return [
         'count_miss' => 'Miss',
     ],
 
+    'scoreboard_time' => [
+        'd' => '%d gün',
+        'dd' => '%d gün',
+        'h' => '%d saat',
+        'hh' => '%d saat',
+        'M' => '%d ay',
+        'm' => '%d dk',
+        'MM' => '%d ay',
+        'mm' => '%d dk',
+        'past' => '',
+        's' => '%d sn',
+        'y' => '%d yıl',
+        'yy' => '%d yıl',
+    ],
+
     'time' => [
-        'days_ago' => ':count gün önce|:count gün önce',
-        'hours_ago' => ':count saat önce|:count saat önce',
+        'days_ago' => ':count_delimited gün önce|:count_delimited gün önce',
+        'hours_ago' => ':count_delimited saat önce|:count_delimited saat önce',
         'now' => 'şimdi',
         'remaining' => 'Kalan Süre',
     ],

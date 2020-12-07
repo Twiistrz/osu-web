@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries\Elasticsearch;
 
@@ -106,7 +91,7 @@ class SearchResponse implements \ArrayAccess, \Countable, \Iterator
             return;
         }
 
-        $key = (new $this->recordType)->getKeyName();
+        $key = (new $this->recordType())->getKeyName();
         $ids = $this->innerHitsIds($name, $this->idField);
 
         return $this->recordType::whereIn($key, $ids)->orderByField($key, $ids);
@@ -123,7 +108,7 @@ class SearchResponse implements \ArrayAccess, \Countable, \Iterator
             return;
         }
 
-        $key = (new $this->recordType)->getKeyName();
+        $key = (new $this->recordType())->getKeyName();
         $ids = $this->ids($this->idField);
 
         return $this->recordType::whereIn($key, $ids)->orderByField($key, $ids);
@@ -141,7 +126,10 @@ class SearchResponse implements \ArrayAccess, \Countable, \Iterator
 
     public function total()
     {
-        return $this->raw()['hits']['total'];
+        $total = $this->raw()['hits']['total'];
+
+        // total an object in elasticsearch 7+
+        return is_array($total) ? $total['value'] : $total;
     }
 
     //================

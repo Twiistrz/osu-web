@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,23 +18,23 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'выдалена',
-        'none_found' => '',
+        'none_found' => 'Не знойдзена абмеркаванняў, супадаючых з гэтымі крытэрыямі пошука.',
         'title' => 'Абмеркаванне бітмап',
 
         'form' => [
             '_' => 'Пошук',
             'deleted' => 'Уключаючы выдаленыя абмеркаванні',
-            'only_unresolved' => '',
+            'only_unresolved' => 'Паказаць толькі нявырашаныя абмеркаванні',
             'types' => 'Тыпы памедамленняў',
             'username' => 'Імя карыстальніка',
 
             'beatmapset_status' => [
-                '_' => '',
-                'all' => '',
-                'disqualified' => '',
-                'never_qualified' => '',
-                'qualified' => '',
-                'ranked' => '',
+                '_' => 'Статус бітмапы',
+                'all' => 'Усе',
+                'disqualified' => 'Дыскваліфікаваны',
+                'never_qualified' => 'Ніколі ні кваліфікавана',
+                'qualified' => 'Кваліфікавана',
+                'ranked' => 'Ранкавана',
             ],
 
             'user' => [
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Ні адзін з допісаў не вырашае маю праблему',
         'notice' => 'Існуюць допісы між :timestamp (:existing_timestamps). Праверце іх перш, чым размяшчаць.',
+        'unsaved' => '',
     ],
 
     'reply' => [
@@ -79,14 +65,17 @@ return [
     ],
 
     'review' => [
-        'go_to_parent' => '',
-        'go_to_child' => '',
+        'block_count' => '',
+        'go_to_parent' => 'Пабачыць адказ',
+        'go_to_child' => 'Пабачыць абмеркаванне',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => '',
+            'external_references' => '',
+            'invalid_block_type' => 'недапушчальны тып блоку',
+            'invalid_document' => 'недапушчальны адказ',
+            'minimum_issues' => 'адказ павінен утрымліваць як мінімум :count праблему|адказ павінен утрымліваць як мінімум :count праблемы|адказ павінен утрымліваць як мінімум :count праблем',
+            'missing_text' => 'у блоке адсутнічае тэкст',
+            'too_many_blocks' => 'адказы могуць утрымліваць толькі :count параграф/праблему|параграфы могуць утрымліваць толькі да :count параграфаў/праблем',
         ],
     ],
 
@@ -98,8 +87,8 @@ return [
     ],
 
     'timestamp_display' => [
-        'general' => '',
-        'general_all' => '',
+        'general' => 'агульнае',
+        'general_all' => 'агульнае (усе)',
     ],
 
     'user_filter' => [

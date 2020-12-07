@@ -1,278 +1,110 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'audio' => [
+        'autoplay' => 'Пусни следващата песен автоматично',
+    ],
+
     'defaults' => [
         'page_description' => 'osu! - Ритъмът е само на *клик* от вас! Със специални режими на игра като Ouendan/EBA и Taiko, както и напълно фунциониращ редактор на бийтмапове.',
     ],
 
     'header' => [
         'admin' => [
-            '_' => '',
-            'beatmapset' => '',
-            'beatmapset_covers' => '',
-            'contest' => '',
-            'contests' => '',
-            'root' => '',
-            'store_orders' => '',
+            'beatmapset' => 'бийтмап сет',
+            'beatmapset_covers' => 'бийтмап сет корици',
+            'contest' => 'конкурс',
+            'contests' => 'конкурси',
+            'root' => 'конзола',
+            'store_orders' => 'админ на магазина',
         ],
 
         'artists' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'beatmapsets' => [
-            '_' => '',
-            'discussions' => '',
-            'index' => '',
-            'show' => '',
-            'packs' => '',
+            'index' => 'списък',
         ],
 
         'changelog' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'community' => [
-            '_' => '',
-            'comments' => '',
-            'contests' => '',
-            'forum' => '',
-            'livestream' => '',
-        ],
-
-        'error' => [
-            '_' => '',
+            'index' => 'списък',
         ],
 
         'help' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'home' => [
-            '_' => '',
-            'password_reset' => '',
-        ],
-
-        'matches' => [
-            '_' => '',
-        ],
-
-        'notice' => [
-            '_' => '',
-        ],
-
-        'notifications' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'rankings' => [
-            '_' => '',
+            'index' => 'индекс',
+            'sitemap' => 'Карта на сайта',
         ],
 
         'store' => [
-            '_' => '',
-            'cart' => '',
-            'order' => '',
-            'orders' => '',
-            'product' => '',
-            'products' => '',
+            'cart' => 'количка',
+            'orders' => 'история на поръчките',
+            'products' => 'продукти',
         ],
 
         'tournaments' => [
-            '_' => '',
-            'index' => '',
+            'index' => 'списък',
         ],
 
         'users' => [
-            '_' => '',
-            'forum_posts' => '',
-            'modding' => '',
-            'show' => '',
+            'modding' => 'modding',
+            'show' => 'инфо',
         ],
     ],
 
     'gallery' => [
-        'close' => '',
-        'fullscreen' => '',
-        'zoom' => '',
-        'previous' => '',
-        'next' => '',
+        'close' => 'Затвори (Esc)',
+        'fullscreen' => 'Превключване на цял екран',
+        'zoom' => 'Приближаване/отдалечаване',
+        'previous' => 'Предишно (лява стрелка)',
+        'next' => 'Следващо (дясна стрелка)',
     ],
 
     'menu' => [
-        'home' => [
-            '_' => 'начало',
-            'account-edit' => 'настройки',
-            'account-verifyLink' => '',
-            'beatmapset-watches-index' => '',
-            'changelog-build' => 'версия',
-            'changelog-index' => 'списък на промените',
-            'client_verifications-create' => '',
-            'forum-topic-watches-index' => '',
-            'friends-index' => 'приятели',
-            'getDownload' => 'изтегли',
-            'getIcons' => 'икони',
-            'groups-show' => 'групи',
-            'index' => 'главно табло',
-            'legal-show' => 'информация',
-            'messages-index' => 'съобщения',
-            'news-index' => 'новини',
-            'news-show' => 'новини',
-            'password-reset-index' => 'задаване на нова парола',
-            'search' => 'търсене',
-            'supportTheGame' => 'подкрепи играта',
-            'team' => 'отбор',
-            'testflight' => '',
-        ],
-        'profile' => [
-            '_' => '',
-            'friends' => '',
-            'settings' => '',
-        ],
-        'help' => [
-            '_' => 'помощ',
-            'getFaq' => 'чзв',
-            'getRules' => 'правилник',
-            'getSupport' => 'не, наистина, имам нужда от помощ!',
-            'getWiki' => 'wiki',
-            'wiki-show' => 'wiki',
-        ],
         'beatmaps' => [
             '_' => 'бийтмапове',
             'artists' => 'препоръчани изпълнители',
-            'beatmap_discussion_posts-index' => 'публикации за обсъждане на бийтмапове',
-            'beatmap_discussions-index' => 'бийтмап дискусии',
-            'beatmapset_discussion_votes-index' => 'гласове от бийтмап дискусии',
-            'beatmapset_events-index' => 'бийтмап сет събития',
             'index' => 'списък',
             'packs' => 'пакети',
-            'show' => 'информация',
-        ],
-        'beatmapsets' => [
-            '_' => 'бийтмапове',
-            'discussion' => 'modding',
-        ],
-        'rankings' => [
-            '_' => 'класации',
-            'index' => 'изпълнение',
-            'performance' => 'performance',
-            'charts' => 'препоръчани',
-            'score' => 'резултат',
-            'country' => 'държава',
-            'kudosu' => 'kudosu',
         ],
         'community' => [
             '_' => 'колектив',
             'chat' => 'чат',
-            'chat-index' => 'чат',
-            'dev' => 'разработка',
-            'getForum' => 'форуми',
-            'getLive' => 'на живо',
-            'comments-index' => 'коментари',
-            'comments-show' => 'коментар',
             'contests' => 'конкурси',
-            'profile' => 'профил',
-            'tournaments' => 'турнири',
-            'tournaments-index' => 'турнири',
-            'tournaments-show' => 'информация за турнири',
-            'forum-topics-create' => 'форуми',
-            'forum-topics-show' => 'форуми',
+            'dev' => 'разработка',
             'forum-forums-index' => 'форуми',
-            'forum-forums-show' => 'форуми',
+            'getLive' => 'на живо',
+            'tournaments' => 'турнири',
         ],
-        'multiplayer' => [
-            '_' => 'мултиплейър',
-            'show' => 'мач',
+        'help' => [
+            '_' => 'помощ',
+            'getAbuse' => '',
+            'getFaq' => 'чзв',
+            'getRules' => 'правилник',
+            'getSupport' => 'не, наистина, имам нужда от помощ!',
+            'getWiki' => 'wiki',
         ],
-        'error' => [
-            '_' => 'грешка',
-            '404' => 'липсващ',
-            '403' => 'забранен',
-            '401' => 'неоторизиран',
-            '405' => 'липсващ',
-            '500' => 'нещо се счупи',
-            '503' => 'профилактика',
+        'home' => [
+            '_' => 'начало',
+            'changelog-index' => 'списък на промените',
+            'getDownload' => 'изтегли',
+            'news-index' => 'новини',
+            'search' => 'търсене',
+            'team' => 'отбор',
         ],
-        'user' => [
-            '_' => 'потребител',
-            'getLogin' => 'вход',
-            'disabled' => 'деактивиран',
-
-            'register' => 'регистрация',
-            'reset' => 'възстанови',
-            'new' => 'ново',
-
-            'help' => 'Помощ',
-            'logout' => 'Изход',
-            'messages' => 'Съобщения',
-            'modding-history-discussions' => 'потребителски modding дискусии',
-            'modding-history-events' => 'потребителски modding събития',
-            'modding-history-index' => 'потребителска modding история',
-            'modding-history-posts' => 'потребителски modding публикации',
-            'modding-history-votesGiven' => 'потребителски modding гласове дадени',
-            'modding-history-votesReceived' => 'потребителски modding гласове получени',
-            'notifications-index' => '',
-            'oauth_login' => 'влезте за oauth',
-            'oauth_request' => 'оаuth оторизация',
-            'settings' => 'Настройки',
+        'rankings' => [
+            '_' => 'класации',
+            'charts' => 'препоръчани',
+            'country' => 'държава',
+            'index' => 'изпълнение',
+            'kudosu' => 'kudosu',
+            'multiplayer' => 'мултиплейър',
+            'score' => 'резултат',
         ],
         'store' => [
             '_' => 'магазин',
-            'checkout-show' => 'разплащане',
-            'getListing' => 'списък',
             'cart-show' => 'количка',
-
-            'getCheckout' => 'разплащане',
-            'getInvoice' => 'фактура',
+            'getListing' => 'списък',
             'orders-index' => 'история на поръчките',
-            'products-show' => 'продукт',
-
-            'new' => 'ново',
-            'home' => 'начало',
-            'index' => 'начало',
-            'thanks' => 'благодаря',
-        ],
-        'admin-forum' => [
-            '_' => '',
-            'forum-covers-index' => '',
-        ],
-        'admin-store' => [
-            '_' => '',
-            'orders-index' => '',
-            'orders-show' => '',
-        ],
-        'admin' => [
-            '_' => '',
-            'beatmapsets-covers' => '',
-            'logs-index' => '',
-            'root' => '',
-
-            'beatmapsets' => [
-                '_' => '',
-                'show' => '',
-            ],
         ],
     ],
 
@@ -283,7 +115,6 @@ return [
             'changelog-index' => 'Списък на промените',
             'beatmaps' => 'Списък с бийтмапове',
             'download' => 'Изтеглете osu!',
-            'wiki' => 'Wiki',
         ],
         'help' => [
             '_' => 'Помощ и Колектив',
@@ -291,6 +122,7 @@ return [
             'forum' => 'Обществени форуми',
             'livestreams' => 'Живи Потоци',
             'report' => 'Подайте сигнал за проблем',
+            'wiki' => 'Wiki',
         ],
         'legal' => [
             '_' => 'Легалности и статус',
@@ -303,6 +135,10 @@ return [
     ],
 
     'errors' => [
+        '400' => [
+            'error' => 'Невалиден параметър на заявка',
+            'description' => '',
+        ],
         '404' => [
             'error' => 'Страницата липсва',
             'description' => "Извиняваме се, но страницата която търсите не е тук!",
@@ -318,6 +154,10 @@ return [
         '405' => [
             'error' => 'Страницата липсва',
             'description' => "Извиняваме се, но страницата която търсите не е тук!",
+        ],
+        '422' => [
+            'error' => 'Невалиден параметър на заявка',
+            'description' => '',
         ],
         '500' => [
             'error' => 'Ох не, нещо се счупи! Т - Т',
@@ -340,11 +180,13 @@ return [
     ],
 
     'popup_login' => [
+        'button' => '',
+
         'login' => [
             'forgot' => "Забравих си данните",
             'password' => 'парола',
             'title' => 'Влезте, за да продължите',
-            'username' => '',
+            'username' => 'потребителско име',
 
             'error' => [
                 'email' => "Потребителското име или имейл адресът не съществуват",
@@ -353,7 +195,7 @@ return [
         ],
 
         'register' => [
-            'download' => '',
+            'download' => 'Изтегли',
             'info' => 'Трябва ди акаунт, господине. Защо все още нямате един?',
             'title' => "Нямате акаунт?",
         ],

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers\OAuth;
 
@@ -46,14 +31,30 @@ class ClientsController extends Controller
         return json_collection(auth()->user()->oauthClients()->where('revoked', false)->get(), 'OAuth\Client', ['redirect', 'secret']);
     }
 
+    public function resetSecret($clientId)
+    {
+        $client = auth()->user()->oauthClients()->findOrFail($clientId);
+
+        if (!$client->resetSecret()) {
+            return error_popup(trans('oauth.client.reset_failed'));
+        }
+
+        return json_item($client, 'OAuth\Client', ['redirect', 'secret']);
+    }
+
     public function store()
     {
+        $params = get_params(request()->all(), null, [
+            'name',
+            'redirect',
+        ]);
+
         // from ClientRepository::create but with custom Client.
-        $client = (new Client)->forceFill([
+        $client = (new Client())->forceFill([
             'user_id' => auth()->user()->getKey(),
-            'name' => request('name'),
+            'name' => $params['name'] ?? null,
             'secret' => str_random(40),
-            'redirect' => request('redirect'),
+            'redirect' => $params['redirect'] ?? '',
             'personal_access_client' => false,
             'password_client' => false,
             'revoked' => false,

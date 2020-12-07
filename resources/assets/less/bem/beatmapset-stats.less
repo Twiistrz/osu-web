@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .beatmapset-stats {
   color: #fff;
@@ -29,9 +14,7 @@
     bottom: 0;
     left: 0;
 
-    width: 0;
-
-    .default-bar-transition(@function: linear);
+    width: calc(var(--progress) * 100%);
 
     background-color: @yellow;
     height: 3px;
@@ -44,12 +27,6 @@
     background-size: contain;
 
     margin-right: 5px;
-  }
-
-  &__preview-icon {
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
   }
 
   &__rating-chart {
@@ -68,11 +45,13 @@
   }
 
   &__row {
+    .reset-input();
     background-color: osu-hsla(@osu-colour-b4, 0.8);
     margin-top: 1px;
     padding: 7.5px 15px;
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     &--basic {
       padding-top: 10px;
@@ -80,15 +59,29 @@
     }
 
     &--preview {
+      .fas();
+      .link-plain();
+      .link-white();
       display: flex;
       align-items: center;
       justify-content: center;
-
+      --progress: 0;
+      --icon: @fa-var-play;
+      font-size: 18px; // icon size
       padding: 10px;
       cursor: pointer;
+      position: relative;
+
+      &::before {
+        content: var(--icon);
+      }
 
       &:hover {
         background-color: osu-hsla(@osu-colour-b6, 0.75);
+      }
+
+      &[data-audio-state="playing"] {
+        --icon: @fa-var-pause;
       }
     }
 

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,7 +18,7 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'видалено',
-        'none_found' => '',
+        'none_found' => 'Не знайдено жодної дискусії, що відповідають критеріям пошуку.',
         'title' => 'Обговорення карти',
 
         'form' => [
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Жоден з постів не вирішує про мою проблему',
         'notice' => 'Є повідомлення між :timestamp (:existing_timestamps). Перевірте їх перед публікацією.',
+        'unsaved' => ':count в цьому відгуку',
     ],
 
     'reply' => [
@@ -79,14 +65,18 @@ return [
     ],
 
     'review' => [
+        'block_count' => ':used / :max блоків використано',
         'go_to_parent' => 'Побачити відгук',
         'go_to_child' => 'Побачити обговорення',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => 'кожен блок може містити лише :limit символів',
+            'external_references' => 'відгук містить посилання на проблеми, не отсоящіеся до цього відкликанню',
+            'invalid_block_type' => 'недопустимий тип блоку',
+            'invalid_document' => 'недопустимий відгук',
+            'minimum_issues' => 'відгук повинен містити як мінімум :count проблему | відгук повинен містити як мінімум :count проблеми | відгук повинен містити як мінімум :count проблем
+',
+            'missing_text' => 'в блоці відсутній текст',
+            'too_many_blocks' => 'відгуки можуть містити лише :count параграф/проблему|відгуки можуть містити лише до :count параграфів/проблем',
         ],
     ],
 

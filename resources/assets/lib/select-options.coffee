@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import * as React from 'react'
 import { a, i, div } from 'react-dom-factories'
@@ -43,6 +28,19 @@ export class SelectOptions extends PureComponent
     document.removeEventListener 'click', @hideSelector
 
 
+  # dismiss the selector if clicking anywhere outside of it.
+  hideSelector: (e) =>
+    @setState showingSelector: false if e.button == 0 && !(@ref.current in e.composedPath())
+
+
+  optionSelected: (event, option) =>
+    return if event.button != 0
+    event.preventDefault()
+
+    @setState showingSelector: false
+    @props.onChange?(option)
+
+
   render: =>
     classNames = "#{@bn}"
     classNames += " #{@bn}--selecting" if @state.showingSelector
@@ -52,7 +50,7 @@ export class SelectOptions extends PureComponent
       ref: @ref
       div
         className: "#{@bn}__select"
-        @renderItem
+        @renderOption
           children: [
             div
               className: 'u-ellipsis-overflow'
@@ -64,53 +62,41 @@ export class SelectOptions extends PureComponent
               className: "#{@bn}__decoration",
               i className: "fas fa-chevron-down"
           ]
-          item: @props.selected
           onClick: @toggleSelector
+          option: @props.selected
 
       div
         className: "#{@bn}__selector"
-        for item in @props.options
-          @renderOption item
+        @renderOptions()
 
 
-  renderOption: (item) =>
-    @renderItem
-      children: [
-        div
-          className: 'u-ellipsis-overflow'
-          key: item.id
-          item.text
-      ],
-      item: item
-      selected: @props.selected?.id == item.id
-      onClick: (event) => @itemSelected(event, item)
+  renderOption: ({ children, onClick, option, selected = false }) =>
+    cssClasses = "#{@bn}__option"
+    cssClasses += " #{@bn}__option--selected" if selected
 
-
-  renderItem: ({ children, item, onClick, selected = false }) ->
-    cssClasses = "#{@bn}__item"
-    cssClasses += " #{@bn}__item--selected" if selected
-
-    return @props.renderItem({ children, item, onClick, cssClasses }) if @props.renderItem?
+    return @props.renderOption({ children, cssClasses, onClick, option }) if @props.renderOption?
 
     a
       className: cssClasses
       href: '#'
-      key: item.id
+      key: option.id
       onClick: onClick
       children
 
 
-  # dismiss the selector if clicking anywhere outside of it.
-  hideSelector: (e) =>
-    @setState showingSelector: false if e.button == 0 && !(@ref.current in e.composedPath())
-
-
-  itemSelected: (event, item) ->
-    return if event.button != 0
-    event.preventDefault()
-
-    @setState showingSelector: false
-    @props.onItemSelected?(item)
+  renderOptions: =>
+    for option in @props.options
+      do (option) =>
+        @renderOption
+          children: [
+            div
+              className: 'u-ellipsis-overflow'
+              key: option.id
+              option.text
+          ],
+          onClick: (event) => @optionSelected(event, option)
+          option: option
+          selected: @props.selected?.id == option.id
 
 
   toggleSelector: (event) =>

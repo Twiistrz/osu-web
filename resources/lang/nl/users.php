@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[verwijderde gebruiker]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Je account is lange tijd niet gebruikt.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Verkeerde login',
         'forgot' => 'Wachtwoord vergeten?',
         'info' => 'Log in om verder te gaan',
+        'invalid_captcha' => 'Captcha ongeldig, vernieuw de pagina en probeer het opnieuw.',
         'locked_ip' => 'je IP adres is vergrendeld. Wacht enkele minuten.',
         'password' => 'Wachtwoord',
         'register' => "Heb je geen osu! account? Maak een nieuwe",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Momenteel online',
         'missingtext' => 'Je hebt misschien een typfout gemaakt! (of de gebruiker is verbannen)',
         'origin_country' => 'Uit :country',
-        'page_description' => 'osu! - Alles wat je ooit over :username wilde weten!',
         'previous_usernames' => 'vroeger bekend als',
         'plays_with' => 'Speelt met :devices',
         'title' => "Profiel van :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Upload afbeelding',
                     'dropzone' => 'Drop hier om te uploaden',
                     'dropzone_info' => 'Je kunt je afbeelding ook hier droppen om te uploaden',
-                    'size_info' => 'Cover grootte moet 2800x620 zijn',
+                    'size_info' => 'Cover grootte moet 2400x620 zijn',
                     'too_large' => 'Het geüploade bestand is te groot.',
                     'unsupported_format' => 'Niet ondersteund formaat.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'door :artist',
-                'none' => 'Nog geen...',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'meer gebeurtenissen zien',
             ],
             'historical' => [
-                'empty' => 'Geen prestatiegegevens. :(',
                 'title' => 'Historisch',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu Beschikbaar',
-                'available_info' => "Kudosu kunnen omgeruild worden voor kudosu sterren, deze zorgen ervoor dat je beatmap meer aandacht krijgt. Dit is het aantal kudosu dat je nog niet omgeruild hebt.",
                 'recent_entries' => 'Recente Kudosu Geschiedenis',
                 'title' => 'Kudosu!',
                 'total' => 'Totaal Aantal Kudosu Verdiend',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Download Replay',
-                'empty' => 'Nog geen geweldige prestatiegegevens. :(',
                 'not_ranked' => 'Enkel gerankte beatmaps geven pp.',
                 'pp_weight' => 'gewogen :percentage',
+                'view_details' => 'Details Bekijken',
                 'title' => 'Ranks',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Interesses',
-            'lastfm' => 'Last.fm',
             'location' => 'Huidige Locatie',
             'occupation' => 'Beroep',
             'skype' => '',
@@ -397,23 +381,23 @@ return [
         ],
         'rank' => [
             'country' => 'Landelijke rank voor :mode',
-            'country_simple' => 'Land Ranking',
+            'country_simple' => 'Landelijke Ranking',
             'global' => 'Globale rank voor :mode',
-            'global_simple' => 'Globale Ranking',
+            'global_simple' => 'Wereldwijde Ranking',
         ],
         'stats' => [
             'hit_accuracy' => 'Hit Precisie',
             'level' => 'Level :level',
             'level_progress' => 'Voortgang naar volgend level',
-            'maximum_combo' => 'Maximum Combo',
+            'maximum_combo' => 'Hoogste Combo',
             'medals' => 'Medailles',
             'play_count' => 'Play Count',
             'play_time' => 'Totale Speeltijd',
             'ranked_score' => 'Gerankte Score',
-            'replays_watched_by_others' => 'Replays Gekeken door Anderen',
+            'replays_watched_by_others' => 'Replays Bekeken door Anderen',
             'score_ranks' => 'Score Ranks',
             'total_hits' => 'Totaal Aantal Hits',
-            'total_score' => 'Totaal Aantal Score',
+            'total_score' => 'Totale Score',
             // modding stats
             'ranked_and_approved_beatmapset_count' => 'Gerankte & Goedgekeurde Beatmaps',
             'loved_beatmapset_count' => 'Loved Beatmaps',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Baksteen weergave',
         'card' => 'Kaartweergave',
         'list' => 'Lijst weergave',
     ],

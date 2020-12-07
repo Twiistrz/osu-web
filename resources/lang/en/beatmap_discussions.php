@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'None of the posts address my concern',
         'notice' => 'There are posts around :timestamp (:existing_timestamps). Please check them before posting.',
+        'unsaved' => ':count in this review',
     ],
 
     'reply' => [
@@ -79,9 +65,12 @@ return [
     ],
 
     'review' => [
+        'block_count' => ':used / :max blocks used',
         'go_to_parent' => 'View Review Post',
         'go_to_child' => 'View Discussion',
         'validation' => [
+            'block_too_large' => 'each block may only contain up to :limit characters',
+            'external_references' => 'review contains references to issues that don\'t belong to this review',
             'invalid_block_type' => 'invalid block type',
             'invalid_document' => 'invalid review',
             'minimum_issues' => 'review must contain a minimum of :count issue|review must contain a minimum of :count issues',

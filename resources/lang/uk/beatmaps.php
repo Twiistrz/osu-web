@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Не вдається зберегти публікацію',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Не вдається оновити відповідь',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Відмовлено в отриманні кудосу.',
         'message_placeholder_deleted_beatmap' => 'Ця складність була видалена і відгукуватися про неї не можна.',
         'message_placeholder_locked' => 'Обговорення цієї карти відключено.',
+        'message_placeholder_silenced' => "Не можна коментувати поки заглушений.",
         'message_type_select' => 'Вибрати тип коментаря',
         'reply_notice' => 'Натисніть Enter для відповіді.',
         'reply_placeholder' => 'Введіть відповідь тут',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Напишіть тут, щоб розмістити повідомлення в Загальний (:version)',
             'generalAll' => 'Введіть тут, щоб запостити в Загальний (Всі складності)',
+            'review' => 'Введіть тут, щоб залишити відгук',
             'timeline' => 'Введіть тут, щоб запостити в шкалу часу (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'натисніть ctrl-c в редакторі щоб скопіювати мітку часу!',
             'title' => 'Нове обговорення',
             'unpin' => 'Відкріпити',
+        ],
+
+        'review' => [
+            'new' => 'Новий відгук',
+            'embed' => [
+                'delete' => 'Видалити',
+                'missing' => '[ТЕМА ВИДАЛЕНА]',
+                'unlink' => 'Відв\'язати',
+                'unsaved' => 'Не збережено',
+                'timestamp' => [
+                    'all-diff' => 'Записи для всіх складнощів не можуть мати тимчасових відміток.',
+                    'diff' => 'Якщо :type починається з тимчасової позначки, воно буде показано в Тимчасової шкалою.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'вставити абзац',
+                'praise' => 'вставити похвалу',
+                'problem' => 'вставити проблему',
+                'suggestion' => 'вставити пропозицію',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Номінувати цю карту?',
         'nominated_by' => 'номінована :users',
         'not_enough_hype' => "Недостатньо хайпа.",
-        'qualified' => 'Якщо більше не буде проблем, то карта отримає ранговий статус приблизно :date.',
-        'qualified_soon' => 'Якщо більше не буде проблем, то карта отримає ранговий статус дуже скоро.',
+        'remove_from_loved' => 'Вилучено з категорії Loved',
+        'remove_from_loved_prompt' => 'Причина вилучення від категорії Loved:',
         'required_text' => 'Номінації: :current/:required',
         'reset_message_deleted' => 'видалено',
         'title' => 'Статус номінації',
         'unresolved_issues' => 'Є ще деякі проблеми, які потребують вирішення.',
+
+        'rank_estimate' => [
+            '_' => 'Ця карта стане рейтинговою :date, якщо ніяких проблем не буде знайдено. Вона #:position в #:queue.',
+            'queue' => 'рейтинговому списку',
+            'soon' => 'скоро',
+        ],
 
         'reset_at' => [
             'nomination_reset' => ':user скинув прогрес номінації :time_ago через нову проблему :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'показувати конвертовані карти',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Всі',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Нові',
         'hip-hop' => 'Хіп-хоп',
         'electronic' => 'Електро',
+        'metal' => 'Метал',
+        'classical' => 'Класична',
+        'folk' => 'Народна',
+        'jazz' => 'Джаз',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Корейська',
         'spanish' => 'Іспанська',
         'swedish' => 'Шведська',
+        'russian' => 'Російська',
+        'polish' => 'Польська',
         'instrumental' => 'Інструментальна',
         'other' => 'Інше',
+        'unspecified' => 'Не визначений',
     ],
     'played' => [
         'any' => 'Всі',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Кількість ігор: :count',
         'favourites' => 'В улюблених: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Усі',
+        ],
     ],
 ];

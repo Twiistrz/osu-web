@@ -1,29 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'achievement' => '<strong><em>:user</em></strong> получил достижение "<strong>:achievement</strong>"!',
+    'achievement' => '<strong><em>:user</em></strong> получил медаль «<strong>:achievement</strong>»!',
     'beatmap_playcount' => ':beatmap играл :count раз!',
     'beatmapset_approve' => ':beatmapset от <strong>:user</strong> была :approval!',
     'beatmapset_delete' => ':beatmapset был удалён.',
-    'beatmapset_revive' => ':beatmapset был восстановлен <strong>:user</strong>.',
+    'beatmapset_revive' => ':beatmapset была воскрешена из вечного сна <strong>:user</strong>.',
     'beatmapset_update' => '<strong><em>:user</em></strong> обновил карту "<em>:beatmapset</em>"',
     'beatmapset_upload' => '<strong><em>:user</em></strong> опубликовал карту ":beatmapset"',
     'empty' => "Этот пользователь не делал ничего заметного в последнее время!",
@@ -33,4 +18,11 @@ return [
     'user_support_first' => '<strong>:user</strong> приобрёл тег osu!саппортера - благодарим за Вашу поддержку!',
     'user_support_gift' => '<strong>:user</strong> получил тег osu!supporter в подарок!',
     'username_change' => '<strong>:previousUsername</strong> сменил свой ник на <strong><em>:user</strong></em>!',
+
+    'beatmapset_status' => [
+        'approved' => 'одобренные',
+        'loved' => 'любимые',
+        'qualified' => 'квалифицированные',
+        'ranked' => 'рейтинговые',
+    ],
 ];

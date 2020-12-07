@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,7 +18,7 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'silindi',
-        'none_found' => '',
+        'none_found' => 'Kriterlere uyan bir tartışma sonucu bulunamadı.',
         'title' => 'Beatmap Tartışmaları',
 
         'form' => [
@@ -44,10 +29,10 @@ return [
             'username' => 'Kullanıcı adı',
 
             'beatmapset_status' => [
-                '_' => 'Beatmap durumu',
+                '_' => 'Beatmap Durumu',
                 'all' => 'Tümü',
                 'disqualified' => 'Diskalifiye edildi',
-                'never_qualified' => 'Nitelikli Değildi',
+                'never_qualified' => 'Niteliklendirilmedi',
                 'qualified' => 'Nitelikli',
                 'ranked' => 'Dereceli',
             ],
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Bu gönderilerin hiçbiri sorunumla ilgili değil',
         'notice' => ':timestamp (:existing_timestamp) civarında gönderilmiş mesajlar var. Göndermeden önce lütfen onlara bir göz atın.',
+        'unsaved' => 'bu incelemede :count',
     ],
 
     'reply' => [
@@ -79,14 +65,17 @@ return [
     ],
 
     'review' => [
-        'go_to_parent' => 'İnceleme paylaşımını görüntüle',
-        'go_to_child' => 'Tartışmayı görüntüle',
+        'block_count' => ':used / :max blok kullanıldı',
+        'go_to_parent' => 'İnceleme Gönderisini Görüntüle',
+        'go_to_child' => 'Tartışmayı Görüntüle',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => 'her blok en fazla :limit karakter içerebilir',
+            'external_references' => 'incelemede, bu incelemeye ait olmayan sorunlara göndermeler mevcut',
+            'invalid_block_type' => 'geçersiz blok türü',
+            'invalid_document' => 'geçersiz inceleme',
+            'minimum_issues' => 'inceleme en az :count sorun içermelidir|inceleme en az :count sorun içermelidir',
+            'missing_text' => 'blokta yazı eksik',
+            'too_many_blocks' => 'incelemeler yalnızca :count paragraf/sorun içerebilir|incelemeler sadece en fazla :count paragraf/sorun içerebilir',
         ],
     ],
 

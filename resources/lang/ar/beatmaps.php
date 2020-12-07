@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'فشل في حفظ المنشور',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'فشل تحديث التصويت',
@@ -35,13 +14,14 @@ return [
         'allow_kudosu' => 'السماح بـ كودوسو',
         'beatmap_information' => 'صفحة الخريطة',
         'delete' => 'حذف',
-        'deleted' => 'حذف بواسطة :editor:delete_time.',
+        'deleted' => 'تم الحذف بواسطة :editor:delete_time.',
         'deny_kudosu' => 'رفض كودوسو',
         'edit' => 'تعديل',
         'edited' => 'التعديل الأخير تم بواسطة :editor:update_time.',
         'kudosu_denied' => 'ممنوع من جمع كودوسو.',
         'message_placeholder_deleted_beatmap' => 'تم حذف هذه الصعوبة لذا لا يمكن مناقشتها بعد الان.',
         'message_placeholder_locked' => 'المناقشة لحزمة المراحل تم ايقافها.',
+        'message_placeholder_silenced' => "لا يمكن نشر مناقشه عندما تكون صامتاََ.",
         'message_type_select' => 'تحديد نوع التعليق',
         'reply_notice' => 'اضغط على ادخال للرد.',
         'reply_placeholder' => 'أدخل ردك هنا',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'اكتب هنا للنشر في العام (:version)',
             'generalAll' => 'اكتب هنا للنشر في العام (جميع الصعوبات)',
+            'review' => 'اكتب هنا لنشر مراجعة',
             'timeline' => 'اكتب هنا للنشر في الخط الزمني (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'ctrl-c في وضع التعديل والصق الرسالة هنا لأدخال طابع زمني!',
             'title' => 'مناقشة جديدة',
             'unpin' => 'إزالة التثبيت',
+        ],
+
+        'review' => [
+            'new' => 'مراجعة جديدة',
+            'embed' => [
+                'delete' => 'حذف',
+                'missing' => '[المناقشة محذوفة]',
+                'unlink' => 'إلغاء الربط',
+                'unsaved' => 'غير محفوظة',
+                'timestamp' => [
+                    'all-diff' => 'المشاركات على "كل الصعوبات" لا يمكن أن تكون مميزة زمنياً.',
+                    'diff' => 'إذا بدأ :type مع علامة زمنية، فسيتم عرضه تحت الخط الزمني.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'إدراج فقرة',
+                'praise' => 'ادراج تشجيع',
+                'problem' => 'إدراج مشكلة',
+                'suggestion' => 'إدراج اقتراح',
+            ],
         ],
 
         'show' => [
@@ -173,8 +174,8 @@ return [
 
     'nominations' => [
         'delete' => 'حذف',
-        'delete_own_confirm' => 'هل انت متأكد؟ سوف تمسح الخريطة وسوف يتم ارجاعك الى ملفك الشخصي.',
-        'delete_other_confirm' => 'هل انت متأكد؟ سوف تمسح الخريطة وسوف يتم ارجاعك الى ملف المستخدم الشخصي.',
+        'delete_own_confirm' => 'هل انت متأكد؟ سوف تمسح الخريطة وسيتم ارجاعك الى ملفك الشخصي.',
+        'delete_other_confirm' => 'هل انت متأكد؟ سوف تمسح الخريطة وسيتم ارجاعك الى ملف المستخدم الشخصي.',
         'disqualification_prompt' => 'سبب رفض التأهيل؟',
         'disqualified_at' => 'رفض تأهيلها في :time_ago (:reason).',
         'disqualified_no_reason' => 'لم يتم كتابة سبب معين',
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'ترشيح هذه الخريطة؟',
         'nominated_by' => 'تم ترشيحها بواسطة :users',
         'not_enough_hype' => "لا يوجد تشجيع كافي.",
-        'qualified' => 'متوقع ان يتم تصفيفها في :date, اذا لم يتم اكتشاف اي اخطاء.',
-        'qualified_soon' => 'متوقع ان يتم تصفيفها قريبا, اذا لم يتم اكتشاف اي اخطاء.',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'الترشيحات: :current/:required',
         'reset_message_deleted' => 'حُذفت',
         'title' => 'حالة الترشيح',
         'unresolved_issues' => 'لا تزال هناك اخطاء يجب الاِشارة اليها في البداية.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'اعادة تعيين حالة الترشيح بواسطة :user في :time_ago مع مشكلة جديدة :discussion (:message).',
@@ -209,7 +216,7 @@ return [
             'prompt' => 'اكتب الكلمات المفتاحية...',
             'login_required' => 'سجل الدخول للبحث.',
             'options' => 'خيارات بحث اكثر',
-            'supporter_filter' => 'تصفية بحسب :filters تحتاج الى إشارة مؤيد!osu فعالة',
+            'supporter_filter' => 'التصفية بحسب :filters تحتاج الى شارة osu!supporter فعالة',
             'not-found' => 'لا نتائج',
             'not-found-quote' => '... لا, لا يوجد شيء.',
             'filters' => [
@@ -236,7 +243,7 @@ return [
             ],
             'supporter_filter_quote' => [
                 '_' => 'تصفية بحسب :filters تحتاج الى تفعيل :link',
-                'link_text' => 'اشارة مؤيد!osu',
+                'link_text' => 'شارة osu!supporter',
             ],
         ],
     ],
@@ -245,6 +252,7 @@ return [
         'converts' => 'ادخال الخرائط المتحولة',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'الكل',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'الابداع',
         'hip-hop' => 'هيب هوب',
         'electronic' => 'إلكتروني',
+        'metal' => 'ميتال',
+        'classical' => 'كلاسيكي',
+        'folk' => 'شعبي',
+        'jazz' => 'جاز',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'أحرز هدفا V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'كورية',
         'spanish' => 'إسبانية',
         'swedish' => 'سويدية',
+        'russian' => 'روسية',
+        'polish' => 'بولندي',
         'instrumental' => 'آلة موسيقية',
         'other' => 'أخرى',
+        'unspecified' => 'غير محدد',
     ],
     'played' => [
         'any' => 'الكل',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'مرات اللعب: :count',
         'favourites' => 'التفضيلات: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'الكل',
+        ],
     ],
 ];

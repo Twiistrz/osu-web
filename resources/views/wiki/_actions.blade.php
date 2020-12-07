@@ -1,20 +1,17 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
+@php
+    $otherLocales = $page->otherLocales();
+    $locale = $page->requestedLocale;
+
+    // put back original page locale when showing fallback translation
+    if ($page->isVisible() && $locale !== $page->locale && !in_array($page->locale, $otherLocales, true)) {
+        array_unshift($otherLocales, $page->locale);
+        sort($otherLocales);
+    }
+@endphp
 <div class="header-buttons">
     <div class="header-buttons__item">
         <a
@@ -32,7 +29,7 @@
                 type="button"
                 class="btn-osu-big btn-osu-big--rounded-thin"
                 data-remote="true"
-                data-url="{{ wiki_url($page->path) }}"
+                data-url="{{ wiki_url($page->path, $locale) }}"
                 data-method="PUT"
                 title="{{ trans('wiki.show.edit.refresh') }}"
             >
@@ -40,4 +37,13 @@
             </button>
         </div>
     @endif
+
+    <div class="header-buttons__item">
+        @include('wiki._locale_menu', [
+            'contentLocale' => $page->locale,
+            'displayLocale' => $locale,
+            'otherLocales' => $otherLocales,
+            'path' => $page->path,
+        ])
+    </div>
 </div>

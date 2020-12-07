@@ -1,24 +1,13 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .btn-osu-big {
   @top: btn-osu-big;
 
+  --colour: hsl(var(--hsl-c1));
+  --bg: hsl(var(--hsl-h2));
+  --hover-colour: hsl(var(--hsl-c1));
+  --hover-bg: hsl(var(--hsl-h1));
   .reset-input();
   .link-plain();
   .default-border-radius();
@@ -26,11 +15,11 @@
 
   display: inline-block;
 
-  background-color: @osu-colour-h2;
+  background-color: var(--bg);
   transition: background-color 120ms;
 
   padding: 5px;
-  color: #fff;
+  color: var(--colour);
   font-size: @font-size--normal;
   font-weight: 600;
   overflow: hidden;
@@ -41,19 +30,26 @@
   &:focus,
   &:hover,
   &:active {
-    color: #fff;
-    background-color: @osu-colour-h1;
+    color: var(--hover-colour);
+    background-color: var(--hover-bg);
   }
 
-  &[disabled] {
+  &[disabled], &--disabled {
     background-color: @osu-colour-b3;
     color: @osu-colour-f1;
+
+    .link-hover({
+      background-color: @osu-colour-b3;
+      color: @osu-colour-f1;
+    });
   }
 
   &--account-edit {
     min-width: @avatar-size--base;
     padding: 7px 10px;
     text-align: left;
+    overflow: hidden;
+    position: relative;
   }
 
   &--beatmap-discussion-new {
@@ -114,12 +110,12 @@
   }
 
   &--danger {
-    background-color: @red;
+    background-color: @osu-colour-red-3;
 
     &:focus,
     &:hover,
     &:active {
-      background-color: @red-light;
+      background-color: @osu-colour-red-2;
     };
 
     &[disabled] {
@@ -139,7 +135,7 @@
     .default-box-shadow();
     .default-border-radius();
     .center-content();
-    background-image: url("/images/backgrounds/button.svg");
+    background-image: url("~@images/backgrounds/button.svg");
     background-color: @blue-darker;
     background-size: 150%;
     background-position: 50% 50%;
@@ -158,6 +154,11 @@
       background-color: @blue-darker;
       background-position: calc(50% - 20px) 50%;
     }
+  }
+
+  &--fileupload {
+    overflow: hidden;
+    position: relative;
   }
 
   &--mega {
@@ -202,6 +203,7 @@
     padding: 8px 15px;
     border-radius: 100000px;
     font-weight: normal;
+    position: relative;
 
     .link-hover({
       background-color: @osu-colour-orange-2;
@@ -293,7 +295,18 @@
   }
 
   &--pink {
-    background-color: @pink;
+    background-color: @osu-colour-pink-3;
+
+    &:focus,
+    &:hover,
+    &:active {
+      background-color: @osu-colour-pink-2;
+    };
+
+    &[disabled] {
+      background-color: @osu-colour-b3;
+      color: @osu-colour-f1;
+    }
   }
 
   &--quick-search-close {
@@ -375,17 +388,38 @@
     margin-top: 10px;
   }
 
-  &--wrap-text {
-    white-space: normal;
-  }
-
   &--user-homepage {
     display: block;
     width: 100%;
-    background-image: url('/images/backgrounds/button.svg');
+    background-image: url('~@images/backgrounds/button.svg');
     background-size: 175%;
     background-color: @blue;
     margin-bottom: 5px;
+  }
+
+  &--user-page-edit {
+    border-radius: 10000px;
+    width: 140px;
+    padding: 5px 10px;
+  }
+
+  &--warning {
+    background-color: @osu-colour-orange-3;
+
+    &:focus,
+    &:hover,
+    &:active {
+      background-color: @osu-colour-orange-2;
+    };
+
+    &[disabled] {
+      background-color: @osu-colour-b3;
+      color: @osu-colour-f1;
+    }
+  }
+
+  &--wrap-text {
+    white-space: normal;
   }
 
   &--activated, &.js-activated {
@@ -397,6 +431,11 @@
     &:active {
       color: white;
     }
+  }
+
+  &.js-click-menu--active {
+    --colour: var(--hover-colour);
+    --bg: var(--hover-bg);
   }
 
   &__content {
@@ -431,20 +470,10 @@
     }
   }
 
-  &__fileupload {
-    position: absolute;
-    left: -200%;
-    top: -200%;
-  }
-
   &__icon {
     flex: none;
     margin: 0 5px;
     font-size: 150%;
-
-    &--normal {
-      font-size: inherit;
-    }
 
     .@{top}--account-edit & {
       height: 0;
@@ -475,6 +504,18 @@
 
     .@{top}--forum-reply & {
       margin-right: 0;
+    }
+  }
+
+  &__icon-inline {
+    --margin: 5px;
+
+    &--left {
+      margin-right: var(--margin);
+    }
+
+    &--right {
+      margin-left: var(--margin);
     }
   }
 

@@ -1,26 +1,11 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'หัวข้อที่ปักหมุดไว้',
-    'slogan' => "เล่นคนเดียวมันอันตราย",
+    'slogan' => "มันอันตรายที่จะเล่นคนเดียว",
     'subforums' => 'ฟอรั่มย่อย',
     'title' => 'ฟอรั่ม osu!',
 
@@ -43,7 +28,7 @@ return [
         'latest_post' => 'โพสต์ล่าสุด',
 
         'index' => [
-            'title' => '',
+            'title' => 'หน้าแรกของบอร์ด',
         ],
 
         'topics' => [
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => 'ลบโพสต์',
-            'restore' => 'กู้คืนโพสต์',
             'edit' => 'แก้ไขโพสต์',
+            'report' => '',
+            'restore' => 'กู้คืนโพสต์',
         ],
 
         'create' => [
@@ -77,7 +63,7 @@ return [
 
         'info' => [
             'post_count' => ':count_delimited โพสต์|:count_delimited โพสต์',
-            'topic_starter' => '',
+            'topic_starter' => 'ผู้เริ่มกระทู้',
         ],
     ],
 
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'ลบกระทู้',
         'go_to_latest' => 'ดูโพสต์ล่าสุด',
+        'has_replied' => 'คุณได้ตอบกลับการสนทนานี้',
+        'in_forum' => 'ใน :forum',
         'latest_post' => ':when โดย :user',
         'latest_reply_by' => 'ตอบกลับล่าสุดโดย :user',
         'new_topic' => 'สร้างกระทู้ใหม่',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'This topic is locked and can not be replied to',
             'to_0' => 'ปลดล็อกหัวข้อ',
+            'to_0_confirm' => 'จะปลดล็อกกระทู้หรือไม่',
             'to_0_done' => 'หัวข้อถูกปลดล็อกแล้ว',
             'to_1' => 'ล็อกหัวข้อ',
+            'to_1_confirm' => 'จะล็อกกระทู้หรือไม่',
             'to_1_done' => 'หัวข้อถูกล็อกแล้ว',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'เลิกปักหมุดหัวข้อ',
+            'to_0_confirm' => 'จะเลิกปักหมุดหัวข้อหรือไม่',
             'to_0_done' => 'หัวข้อถูกเลิกปักหมุดแล้ว',
             'to_1' => 'ปักหมุดหัวข้อ',
+            'to_1_confirm' => 'จะปักหมุดหัวข้อหรือไม่',
             'to_1_done' => 'หัวข้อถูกปักหมุดแล้ว',
             'to_2' => 'ปักหมุดหัวข้อและตั้งให้เป็นประกาศ',
+            'to_2_confirm' => 'จะปักหมุดและให้กระทู้นี้เป็นการประกาศหรือไม่',
             'to_2_done' => 'หัวข้อถูกปักหมุดและตั้งให้เป็นประกาศแล้ว',
         ],
 

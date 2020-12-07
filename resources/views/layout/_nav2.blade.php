@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 <div class="nav2 js-nav-button">
     <div class="nav2__colgroup nav2__colgroup--menu js-nav-button--container">
@@ -32,7 +19,7 @@
                     data-menu-target="nav2-menu-popup-{{ $section }}"
                     data-menu-show-delay="0"
                 >
-                    <span class="nav2__menu-link-main-text">
+                    <span class="u-relative">
                         {{ trans("layout.menu.{$section}._") }}
 
                         @if ($section === $currentSection && !($isSearchPage ?? false))
@@ -105,11 +92,12 @@
                 class="nav-button nav-button--stadium js-click-menu"
                 data-click-menu-target="nav2-locale-popup"
             >
-                <img
-                    class="nav-button__locale-current-flag"
-                    alt="{{ App::getLocale() }}"
-                    src="{{ flag_path(locale_flag(App::getLocale())) }}"
-                >
+                <span class="nav-button__locale-current-flag">
+                    @include('objects._flag_country', [
+                        'countryCode' => locale_flag(App::getLocale()),
+                        'modifiers' => ['flat'],
+                    ])
+                </span>
             </button>
 
             <div class="nav-click-popup">
@@ -133,11 +121,12 @@
                                 @endif
                             >
                                 <span class="nav2-locale-item">
-                                    <img
-                                        src="{{ flag_path(locale_flag($locale)) }}"
-                                        alt="{{ $locale }}"
-                                        class="nav2-locale-item__flag"
-                                    >
+                                    <span class="nav2-locale-item__flag">
+                                        @include('objects._flag_country', [
+                                            'countryCode' => locale_flag($locale),
+                                            'modifiers' => ['flat'],
+                                        ])
+                                    </span>
 
                                     {{ locale_name($locale) }}
                                 </span>
@@ -149,6 +138,25 @@
         </div>
 
         @if (Auth::user() !== null)
+            <div class="nav2__col">
+                <button
+                    class="nav-button nav-button--stadium js-click-menu js-react--chat-icon"
+                    data-click-menu-target="nav2-chat-notification-widget"
+                >
+                    <span class="notification-icon">
+                        <i class="fas fa-comment-alt"></i>
+                        <span class="notification-icon__count">...</span>
+                    </span>
+                </button>
+                <div
+                    class="nav-click-popup js-click-menu js-react--notification-widget"
+                    data-click-menu-id="nav2-chat-notification-widget"
+                    data-visibility="hidden"
+                    data-notification-widget="{{ json_encode(['extraClasses' => 'js-nav2--centered-popup', 'only' => 'channel']) }}"
+                ></div>
+
+            </div>
+
             <div class="nav2__col">
                 <button
                     class="nav-button nav-button--stadium js-click-menu js-react--notification-icon"
@@ -163,7 +171,7 @@
                     class="nav-click-popup js-click-menu js-react--notification-widget"
                     data-click-menu-id="nav2-notification-widget"
                     data-visibility="hidden"
-                    data-notification-widget="{{ json_encode(['extraClasses' => 'js-nav2--centered-popup']) }}"
+                    data-notification-widget="{{ json_encode(['extraClasses' => 'js-nav2--centered-popup', 'excludes' => ['channel']]) }}"
                 ></div>
             </div>
         @endif

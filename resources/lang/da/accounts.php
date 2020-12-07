@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -31,7 +16,7 @@ return [
 
         'email' => [
             'current' => 'nuværende email-adresse',
-            'new' => 'ny email-adresse',
+            'new' => 'ny email',
             'new_confirmation' => 'email bekræftelse',
             'title' => 'Email',
         ],
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'modtag notifikationer for nye problemer på kvalificerede beatmaps for de følgende spileltilstande',
+        'beatmapset_disqualify' => 'modtag notifikationer når beatmaps af følgende modes bliver diskvalificeret',
+        'comment_reply' => 'modtag notifikationer når der bliver svaret på dine kommentarer',
         'title' => 'Notifikationer',
         'topic_auto_subscribe' => 'aktiver automatisk notifikationer på nye forum emner du opretter',
-        'beatmapset_discussion_qualified_problem' => 'modtag notifikationer for nye problemer på kvalificerede beatmaps for de følgende spileltilstande',
 
-        'mail' => [
-            '_' => 'modtag email notifikationer for',
-            'beatmapset:modding' => 'beatmap modding',
-            'forum_topic_reply' => 'emne svar',
+        'options' => [
+            '_' => '',
+            'beatmapset:modding' => '',
+            'channel_message' => '',
+            'comment_new' => '',
+            'forum_topic_reply' => '',
+            'mail' => '',
+            'push' => '',
+            'user_achievement_unlock' => '',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'autoriserede klienter',
         'own_clients' => 'egne klienter',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Indstillinger',
+
+        'beatmapset_download' => [
+            '_' => 'standard beatmap download type',
+            'all' => 'inkluder video hvis tilgængelig',
+            'no_video' => 'uden video',
+            'direct' => 'open med osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => '',
     ],
 
     'playstyles' => [

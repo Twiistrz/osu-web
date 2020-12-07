@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
 use App\Exceptions\ScoreRetrievalException;
+use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -29,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $beatmap_id
  * @property Beatmapset $beatmapset
  * @property int|null $beatmapset_id
+ * @property float $bpm
  * @property string|null $checksum
  * @property int $countNormal
  * @property int $countSlider
@@ -60,6 +47,8 @@ class Beatmap extends Model
 {
     use SoftDeletes;
 
+    public $convert = false;
+
     protected $table = 'osu_beatmaps';
     protected $primaryKey = 'beatmap_id';
 
@@ -79,9 +68,18 @@ class Beatmap extends Model
         'mania' => 3,
     ];
 
+    const VARIANTS = [
+        'mania' => ['4k', '7k'],
+    ];
+
     public static function isModeValid(?string $mode)
     {
         return array_key_exists($mode, static::MODES);
+    }
+
+    public static function isVariantValid(?string $mode, ?string $variant)
+    {
+        return $variant === null || in_array($variant, static::VARIANTS[$mode] ?? [], true);
     }
 
     public static function modeInt($str)
@@ -92,6 +90,11 @@ class Beatmap extends Model
     public static function modeStr($int)
     {
         return array_search_null($int, static::MODES);
+    }
+
+    public function baseMaxCombo()
+    {
+        return $this->difficultyAttribs()->noMods()->maxCombo();
     }
 
     public function beatmapset()
@@ -121,6 +124,12 @@ class Beatmap extends Model
 
     public function getDifficultyratingAttribute($value)
     {
+        if ($this->convert) {
+            $difficulty = $this->difficulty->where('mode', $this->playmode)->where('mods', 0)->first();
+
+            $value = optional($difficulty)->diff_unified ?? 0;
+        }
+
         return round($value, 2);
     }
 
@@ -185,6 +194,25 @@ class Beatmap extends Model
             ->orderBy('difficultyrating', 'ASC');
     }
 
+    public function scopeWithMaxCombo($query)
+    {
+        $mods = BeatmapDifficultyAttrib::NO_MODS;
+        $attrib = BeatmapDifficultyAttrib::MAX_COMBO;
+        $attribTable = (new BeatmapDifficultyAttrib())->tableName();
+        $mode = $this->qualifyColumn('playmode');
+        $id = $this->qualifyColumn('beatmap_id');
+
+        return $query
+            ->select(DB::raw("*, (
+                SELECT value
+                FROM {$attribTable}
+                WHERE beatmap_id = {$id}
+                    AND mode = {$mode}
+                    AND mods = {$mods}
+                    AND attrib_id = {$attrib}
+            ) AS max_combo"));
+    }
+
     public function failtimes()
     {
         return $this->hasMany(BeatmapFailtimes::class);
@@ -200,9 +228,48 @@ class Beatmap extends Model
         return $this->getScores(Score\Best::class, $mode);
     }
 
+    public function scoresBestOsu()
+    {
+        return $this->hasMany(Score\Best\Osu::class);
+    }
+
+    public function scoresBestTaiko()
+    {
+        return $this->hasMany(Score\Best\Taiko::class);
+    }
+
+    public function scoresBestFruits()
+    {
+        return $this->hasMany(Score\Best\Fruits::class);
+    }
+
+    public function scoresBestMania()
+    {
+        return $this->hasMany(Score\Best\Mania::class);
+    }
+
     public function isScoreable()
     {
         return $this->approved > 0;
+    }
+
+    public function maxCombo()
+    {
+        if (!$this->convert && array_key_exists('max_combo', $this->getAttributes())) {
+            return $this->max_combo;
+        }
+
+        if ($this->relationLoaded('baseMaxCombo')) {
+            $maxCombo = $this->baseMaxCombo->firstWhere('mode', $this->playmode);
+        } else {
+            $maxCombo = $this->difficultyAttribs()
+                ->mode($this->playmode)
+                ->noMods()
+                ->maxCombo()
+                ->first();
+        }
+
+        return optional($maxCombo)->value;
     }
 
     public function status()

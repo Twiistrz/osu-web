@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[törölt felhasználó]',
@@ -65,29 +50,33 @@ return [
     ],
 
     'disabled' => [
-        'title' => '',
-        'warning' => "",
+        'title' => 'Uh-oh! Úgy tűnik a fiókod le lett tiltva.',
+        'warning' => "Abban az esetben, ha megszegsz egy szabályt, kérlek vedd figyelembe, hogy van egy általános egy hónapos időszak, amiben nem fogadunk el amnesztiával kapcsolatos kéréseket. Ezután az időszak után, szabadon kapcsolatba léphetsz velünk, ha szükségesnek láttod. Kérlek vedd figyelembe, hogy ha egy új fiókot hozol létre, ha már volt legalább egy letiltott fiókod, ez egy újabb hónap meghosszabitást eredményez. Vedd azt is figyelembe, hogy minnél több fiókot hozol létre, annál több büntetésed lesz. Nagyon ajánljuk, hogy ne menj el ebbe az írányba!",
 
         'if_mistake' => [
-            '_' => '',
-            'email' => '',
+            '_' => 'Ha hibát észleltél, nyugodtan lépj kapcsolatba velünk (itt :email vagy kattints a ? ikonra a jobb alsó sarokba az oldalon). Fontos, hogy mi mindig magabiztosak vagyunk abban mit teszünk, mivel nagyon magabiztos adatokból dolgozunk. Továbbá fent tartjuk azt a jogot, hogy a becstelen  vagy sértő a kéréseket figyelmen kivül hagyjuk.',
+            'email' => 'email',
         ],
 
         'reasons' => [
-            'compromised' => '',
-            'opening' => '',
+            'compromised' => 'A fiókod veszélyeztetettnek tekinthető. Idéglenesen lehet nem lesz elérhető, addig amíg a valódi személyazonosság megerősítésre nem kerül.',
+            'opening' => 'Számtalan indok van, amiért a fiókod tiltva lett:',
 
             'tos' => [
-                '_' => '',
-                'community_rules' => '',
-                'tos' => '',
+                '_' => 'Megszegtél egy vagy több szabályt az előírásainkból :community_rules vagy :tos.',
+                'community_rules' => 'közösségi szabályok',
+                'tos' => 'felhasználási feltételek',
             ],
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
-            'inactive_different_country' => "",
+            'inactive_different_country' => "A fiókod hosszú ideje nem volt használva.",
         ],
     ],
 
@@ -95,10 +84,11 @@ return [
         '_' => 'Bejelentkezés',
         'button' => 'Bejelentkezés',
         'button_posting' => 'Bejelentkezés...',
-        'email_login_disabled' => '',
+        'email_login_disabled' => 'Az email-el való belépés jelenleg le van tiltva. Kérlek használd a felhasználó neved helyette.',
         'failed' => 'Hibás adatok',
         'forgot' => 'Elfelejtetted a jelszavad?',
-        'info' => '',
+        'info' => 'Jelentkezz be a folytatáshoz',
+        'invalid_captcha' => 'Túl sok sikertelen belépési kísérlet, kérlek töltsd ki a captcha-t és próbáld újra. (Ha a captcha nem látszik, frissítsd az oldalt)',
         'locked_ip' => 'Az IP címed zárolva van. Kérjük várj egy pár percet.',
         'password' => 'Jelszó',
         'register' => "Nincs osu! felhasználód? Regisztrálj egyet!",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Jelenleg elérhető',
         'missingtext' => 'Véletlenül elüthettél valamit! (vagy a felhasználó tiltva van)',
         'origin_country' => 'Innen: :country',
-        'page_description' => 'osu! - Minden amit valaha tudni akartál :username-ról!',
         'previous_usernames' => 'korábbi nevén',
         'plays_with' => 'Ezekkel játszik: :devices',
         'title' => ":username profilja",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Kép feltöltése',
                     'dropzone' => 'Húzd ide a feltöltendő fájlokat',
                     'dropzone_info' => 'Feltöltéshez ide is dobhatod a képed',
-                    'size_info' => 'A borítónak 2800x620-asnak kellene lennie',
+                    'size_info' => 'A borítónak 2400x620-asnak kellene lennie',
                     'too_large' => 'A feltöltött fájl túl nagy.',
                     'unsupported_format' => 'Nem támogatott formátum.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => ':artist által',
-                'none' => 'Nincsen... még.',
                 'title' => 'Beatmap-ek',
 
                 'favourite' => [
@@ -223,8 +211,8 @@ return [
             ],
             'discussions' => [
                 'title' => 'Hozzászólások',
-                'title_longer' => '',
-                'show_more' => '',
+                'title_longer' => 'Legújabb beszélgetések',
+                'show_more' => 'további beszélgetések mutatása',
             ],
             'events' => [
                 'title' => 'Események',
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'további események',
             ],
             'historical' => [
-                'empty' => 'Nincsenek teljesítmény rekordok. :(',
                 'title' => 'Történelem',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Elérhető Kudosu',
-                'available_info' => "A kudosu becserélhető kudosu csillagokra, amely segít a beatmapjeidnek figyelmet gyüjteni. Ez az kudosu mennyiség amit még nem cseréltél be.",
                 'recent_entries' => 'Legutóbbi Kudosu történelem',
                 'title' => 'Kudosu!',
                 'total' => 'Összesen megszerzett Kudosu',
@@ -299,7 +284,7 @@ return [
                 ],
 
                 'total_info' => [
-                    '_' => '',
+                    '_' => 'Annak alapján, hogy a felhasználó milyen mértékben járult hozzá egy beatmap moderálásához. További információkért kattints a linkre. :link.',
                     'link' => 'ez az oldal',
                 ],
             ],
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Replay letöltése',
-                'empty' => 'Még nem rendelkezik kiemelkedő eredménnyel. :(',
                 'not_ranked' => 'Kizárólag rangsorolt beatmap adhat pp-t.',
                 'pp_weight' => 'súlyozott :percentage',
+                'view_details' => 'Részletek mutatása',
                 'title' => 'Rangok',
 
                 'best' => [
@@ -338,7 +323,7 @@ return [
                 'received' => 'Beérkezett Szavazatok (legutóbbi 3 hónap)',
                 'title' => 'Szavazatok',
                 'title_longer' => 'Legutóbbi Szavazatok',
-                'vote_count' => '',
+                'vote_count' => ':count_delimited  szavazás:count_delimited szavazatok',
             ],
             'account_standing' => [
                 'title' => 'Fiók Állása',
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Érdekeltségek',
-            'lastfm' => 'Last.fm',
             'location' => 'Tartózkodási hely',
             'occupation' => 'Foglalkozás',
             'skype' => '',
@@ -387,7 +371,7 @@ return [
             'placeholder' => 'Írd ide az oldal tartalmát',
 
             'restriction_info' => [
-                '_' => '',
+                '_' => 'Ennek a szolgáltatásnak a feloldásához egy linknek kell lennie. :link.',
                 'link' => 'osu!támogató',
             ],
         ],
@@ -415,10 +399,10 @@ return [
             'total_hits' => 'Találatok Száma',
             'total_score' => 'Összpontszám',
             // modding stats
-            'ranked_and_approved_beatmapset_count' => '',
-            'loved_beatmapset_count' => '',
-            'unranked_beatmapset_count' => '',
-            'graveyard_beatmapset_count' => '',
+            'ranked_and_approved_beatmapset_count' => 'Rankedelt & jóváhagyott beatmapek',
+            'loved_beatmapset_count' => 'Kedvelt beatmapek',
+            'unranked_beatmapset_count' => 'Függőben lévő beatmapek',
+            'graveyard_beatmapset_count' => 'Eltemetett beatmapek',
         ],
     ],
 
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Tégla nézet',
         'card' => 'Kártya nézet',
         'list' => 'Lista nézet',
     ],

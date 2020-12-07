@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Falha ao salvar a publicação',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Falha ao atualizar votos',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Impossibilitado de receber kudosu.',
         'message_placeholder_deleted_beatmap' => 'Esta dificuldade foi deletada e uma dicussão não poderá ser aberta.',
         'message_placeholder_locked' => 'A discussão para este beatmap foi desabilitada.',
+        'message_placeholder_silenced' => "Não é possível postar na discussão enquanto silenciado.",
         'message_type_select' => 'Selecione o Tipo de Comentário',
         'reply_notice' => 'Pressione enter para responder.',
         'reply_placeholder' => 'Digite sua resposta aqui',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Digite aqui para publicar em Geral (:version)',
             'generalAll' => 'Digite aqui para publicar em Geral (Todas as dificuldades)',
+            'review' => 'Digite aqui para postar uma revisão',
             'timeline' => 'Digite aqui para publicar em Linha do Tempo (:version)',
         ],
 
@@ -108,10 +89,30 @@ return [
 
         'new' => [
             'pin' => 'Fixar',
-            'timestamp' => 'Timestamp',
+            'timestamp' => 'Marcação de tempo',
             'timestamp_missing' => 'ctrl-c no editor e ctrl-v na sua mensagem para adicionar uma timestamp!',
             'title' => 'Nova Discussão',
             'unpin' => 'Desafixar',
+        ],
+
+        'review' => [
+            'new' => 'Nova Revisão',
+            'embed' => [
+                'delete' => 'Excluir',
+                'missing' => '[DISCUSSÃO EXCLUÍDA]',
+                'unlink' => 'Desvincular',
+                'unsaved' => 'Não salvo',
+                'timestamp' => [
+                    'all-diff' => 'As postagens em "Todas as dificuldades" não podem ser temporizadas.',
+                    'diff' => 'Se este :type começa com marcação de tempo, será mostrado na Linha do Tempo.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'inserir parágrafo',
+                'praise' => 'inserir elogio',
+                'problem' => 'inserir problema',
+                'suggestion' => 'inserir sugestão',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Nomear este beatmap?',
         'nominated_by' => 'nomeado por :users',
         'not_enough_hype' => "Não há hype suficiente.",
-        'qualified' => 'Esse beatmap será ranqueado em :date, caso nenhum problema seja encontrado.',
-        'qualified_soon' => 'Estimado para ser ranqueado em breve, caso nenhum problema for encontrado.',
+        'remove_from_loved' => 'Remover dos Loved',
+        'remove_from_loved_prompt' => 'Motivo da remoção dos Loved:',
         'required_text' => 'Nomeações: :current/:required',
         'reset_message_deleted' => 'excluído',
         'title' => 'Estado de nomeação',
         'unresolved_issues' => 'Ainda há problemas não resolvidos que precisam de uma resposta.',
+
+        'rank_estimate' => [
+            '_' => 'Este mapa é estimado a ser ranqueado em :date se nenhum problema for encontrado. É o #:position na :queue.',
+            'queue' => 'fila de ranqueamento',
+            'soon' => 'em breve',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Processo de nomeação reiniciado :time_ago por :user com um novo problema :discussion (:message).',
@@ -218,8 +225,8 @@ return [
                 'status' => 'Categorias',
                 'genre' => 'Gênero',
                 'language' => 'Idioma',
-                'extra' => 'extra',
-                'rank' => 'Ranque Conquistado',
+                'extra' => 'Extra',
+                'rank' => 'Rank Conquistado',
                 'played' => 'Jogado',
             ],
             'sorting' => [
@@ -228,7 +235,7 @@ return [
                 'difficulty' => 'Dificuldade',
                 'favourites' => 'Favoritos',
                 'updated' => 'Atualizado',
-                'ranked' => 'Ranqueado',
+                'ranked' => 'Ranqueados',
                 'rating' => 'Avaliação',
                 'plays' => 'Vezes jogadas',
                 'relevance' => 'Relevância',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Incluir beatmaps convertidos',
     ],
     'mode' => [
+        'all' => 'Todos',
         'any' => 'Todos',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -256,12 +264,12 @@ return [
         'approved' => 'Aprovado',
         'favourites' => 'Favoritos',
         'graveyard' => 'Cemitério',
-        'leaderboard' => 'Possui Classificações',
+        'leaderboard' => 'Possuem Classificações',
         'loved' => 'Loved',
         'mine' => 'Meus Maps',
-        'pending' => 'Pendente & Em Progresso',
-        'qualified' => 'Qualificado',
-        'ranked' => 'Ranqueado',
+        'pending' => 'Pendentes & Em Progresso',
+        'qualified' => 'Qualificados',
+        'ranked' => 'Ranqueados',
     ],
     'genre' => [
         'any' => 'Todos',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Electronic',
+        'metal' => 'Metal',
+        'classical' => 'Clássica',
+        'folk' => 'Música popular',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Dispositivo de toque',
+        'V2' => 'Pontuação V2',
     ],
     'language' => [
         'any' => 'Todos',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Coreano',
         'spanish' => 'Espanhol',
         'swedish' => 'Sueco',
+        'russian' => 'Russo',
+        'polish' => 'Polonês',
         'instrumental' => 'Instrumental',
         'other' => 'Outro',
+        'unspecified' => 'Não especificada',
     ],
     'played' => [
         'any' => 'Todos',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Vezes jogadas :count',
         'favourites' => 'Favoritos :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Todos',
+        ],
     ],
 ];

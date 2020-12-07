@@ -1,28 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
-        'disabled' => 'هذه الخريطة غير متوفرة للتحميل حاليا.',
-        'parts-removed' => 'تم حذف اجزاء من هذه الخريطة نظراََ لطلب من مالك او جهة ثالثة للأغنية.',
-        'more-info' => 'تحقق من هنا للمزيد من المعلومات.',
+        'disabled' => 'هذه الأغنية غير متوفرة للتحميل حاليا.',
+        'parts-removed' => 'تم حذف بعض اجزاء هذه الخريطة نظراََ لطلب من مالك او جهة خارجية.',
+        'more-info' => 'تحقق هنا للمزيد من المعلومات.',
     ],
 
     'index' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'الخرائط',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'تحميل',
+            'video' => 'تحميل مع الفيديو',
+            'no_video' => 'تحميل بدون الفيديو',
+            'direct' => 'فتح في osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'مناقشة',
 
         'details' => [
-            'approved' => 'مقبولة في ',
             'favourite' => 'الاِعجاب بالخريطة',
             'logged-out' => 'يتجوب عليك تسجيل الدخول قبل تحميل اي خريطة!',
-            'loved' => 'تحببت في ',
-            'mapped_by' => 'عينت بواسطة :mapper',
-            'qualified' => 'تأهلت في ',
-            'ranked' => 'اِصطُفَت في ',
-            'submitted' => 'تم تقديمه في ',
+            'mapped_by' => 'نشأت بواسطة :mapper',
             'unfavourite' => 'الغاء الاِعجاب بالخريطة',
-            'updated' => 'تاريخ آخر تحديث ',
             'updated_timeago' => 'التحديث الأخير :timeago',
 
             'download' => [
@@ -59,6 +47,15 @@ return [
             ],
         ],
 
+        'details_date' => [
+            'approved' => 'مقبولة :timeago',
+            'loved' => 'محبوب timeago:',
+            'qualified' => 'مؤهل timeago:',
+            'ranked' => 'مصفوفة :timeago',
+            'submitted' => 'مُقدَمَة :timeago',
+            'updated' => 'آخر تحديث :timeago',
+        ],
+
         'favourites' => [
             'limit_reached' => 'لديك عدد كبير جداََ من الخرائط المحبوبة! رجائاََ قم بألغاء بعضها قبل المحاولة مجدداََ.',
         ],
@@ -70,7 +67,7 @@ return [
                 '_' => 'هذه الخريطة حاليا :status.',
 
                 'status' => [
-                    'pending' => 'معلقة',
+                    'pending' => 'مُعلَقة',
                     'qualified' => 'مؤهلة',
                     'wip' => 'قيد العمل',
                 ],
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => 'اذا وجدت مشكلة مع الأغنية, ارجوك قم بأِلغاء تأهيلها :link.',
-                'button_title' => 'أَلغِ تأهيل اغنية مؤهلة.',
             ],
 
             'report' => [
                 '_' => 'اذا كانت لديك مشكلة مع الخريطة رجائا ابلغ عنها :link لتنبيه فريق الدعم.',
                 'button' => 'الإبلاغ عن مشكلة',
-                'button_title' => 'ابلغ عن مشكلة على خريطة مؤهلة.',
                 'link' => 'هنا',
             ],
         ],
@@ -97,8 +92,7 @@ return [
             'points-of-failure' => 'نقاط الفشل',
             'source' => 'المصدر',
             'success-rate' => 'معدل النجاح',
-            'tags' => 'الوسوم',
-            'unranked' => 'خريطة غير مصفوفة',
+            'tags' => 'ألعلامات',
         ],
 
         'scoreboard' => [
@@ -107,19 +101,20 @@ return [
             'friend' => 'ترتيب الأصدقاء',
             'global' => 'الترتيب العالمي',
             'supporter-link' => 'اضغط <a href=":link">هنا</a> لمشاهدة كل الميزات الرائعة التي تحصل عليها!',
-            'supporter-only' => 'تحتاج الى ان تكون مؤيد!osu للوصول الى ترتيب الدولة والأصدقاء!',
+            'supporter-only' => 'تحتاج ان تكون osu!supporter للوصول الى ترتيب الدولة والأصدقاء!',
             'title' => 'لوح النتائج',
 
             'headers' => [
                 'accuracy' => 'الدقة',
-                'combo' => 'اعلى سرد',
+                'combo' => 'اقصى مجموع',
                 'miss' => 'اِخفاق',
-                'mods' => 'التعديلات',
+                'mods' => 'المودات',
                 'player' => 'اللاعب',
                 'pp' => '',
-                'rank' => 'الترتيب',
+                'rank' => 'المرتبه',
                 'score_total' => 'مجموع النقاط',
                 'score' => 'المجموع',
+                'time' => 'الوقت',
             ],
 
             'no_scores' => [
@@ -127,7 +122,7 @@ return [
                 'friend' => 'لا احد من اصدقائك حصل على نتيجة بهذه الخريطة بعد!',
                 'global' => 'لا نتيجة بعد. ربما عليك الحصول على واحدة؟',
                 'loading' => 'جارِ تحميل النتائج...',
-                'unranked' => 'خريطة غير مصفوفة.',
+                'unranked' => 'خريطة غير مصنفة.',
             ],
             'score' => [
                 'first' => 'في المقدمة',

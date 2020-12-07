@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[διαγραμμένος χρήστης]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Λάθος σύνδεση',
         'forgot' => 'Ξεχάσατε τον κωδικό σας;',
         'info' => '',
+        'invalid_captcha' => '',
         'locked_ip' => 'η διεύθυνση IP σας είναι κλειδωμένη. Παρακαλώ περιμένετε λίγα λεπτά.',
         'password' => 'Κωδικός',
         'register' => "Δεν έχετε λογαριασμό στο osu!; Φτιάξτε ένα νέο",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => '',
         'missingtext' => 'Ίσως να κάνατε κάποιο ορθογραφικό λάθος! (ή ο χρήστης είναι banned)',
         'origin_country' => 'Από :country',
-        'page_description' => 'osu! - Όλα όσα θέλεις να ξέρεις για τον :username!',
         'previous_usernames' => 'προηγουμένως γνωστός ως',
         'plays_with' => 'Παίζει με :devices',
         'title' => "Το προφίλ του :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Ανεβάστε εικόνα',
                     'dropzone' => 'Αφήστε εδώ για να ανεβεί',
                     'dropzone_info' => 'Μπορείτε επίσης να σύρετε την εικόνα σας εδώ για να ανεβεί',
-                    'size_info' => 'Το μέγεθος του εξωφύλλου πρέπει να είναι 2800x620',
+                    'size_info' => 'Το μέγεθος του εξωφύλλου πρέπει να είναι 2400x620',
                     'too_large' => 'Το αρχείο είναι πολύ μεγάλο.',
                     'unsupported_format' => 'Μη υποστηριζόμενη μορφή.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'από :artist',
-                'none' => 'Κανένα... ακόμα.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => '',
             ],
             'historical' => [
-                'empty' => 'Κανένα ρεκόρ επίδοσης. :(',
                 'title' => 'Ιστορικό',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Διαθέσιμα Kudosu',
-                'available_info' => "Τα Kudosu μπορούν να ανταλλάσσονται με αστέρια kudosu, τα οποία θα βοηθήσουν το beatmap σας να πάρει περισσότερη προσοχή. Αυτός είναι ο αριθμός των kudosu που δεν έχετε ανταλλάξει ακόμα.",
                 'recent_entries' => 'Πρόσφατο Ιστορικό Kudosu',
                 'title' => 'Kudosu!',
                 'total' => 'Σύνολο Εξασφαλισμένων Kudosu',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Λήψη Επανάληψης',
-                'empty' => 'Καμία εκπληκτική επίδοση ακόμα. :(',
                 'not_ranked' => 'Μόνο τα ranked beatmaps δίνουν pp.',
                 'pp_weight' => 'σταθμισμένo :percentage',
+                'view_details' => '',
                 'title' => 'Σκορ',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Ενδιαφέροντα',
-            'lastfm' => 'Last.fm',
             'location' => 'Τρέχουσα Τοποθεσία',
             'occupation' => 'Ενασχόληση',
             'skype' => '',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '',
         'card' => '',
         'list' => '',
     ],

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Jsi si jist/á?',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => 'Admin',
         'authorise' => 'Autorizovat',
+        'authorising' => 'Autorizování...',
         'back_to_previous' => 'Zpátky na předchozí pozici',
         'back_to_top' => 'Zpátky nahoru',
         'cancel' => 'Zrušit',
         'change' => 'změnit',
+        'clear' => 'Vymazat',
         'click_to_copy' => 'klikněte pro zkopírování do schránky',
         'click_to_copy_copied' => 'zkopírováno do schránky!',
         'close' => 'Zavřít',
@@ -51,6 +38,7 @@ return [
         'permalink' => 'trvalý odkaz',
         'pin' => 'připnout',
         'post' => 'Přidat příspěvek',
+        'read_more' => 'číst více',
         'reply' => 'Odpovědět',
         'reply_reopen' => 'Odpovědět a znovu otevřít',
         'reply_resolve' => 'Odpovědět a archivovat',
@@ -140,6 +128,21 @@ return [
         'count_miss' => 'Miss',
     ],
 
+    'scoreboard_time' => [
+        'd' => '',
+        'dd' => '',
+        'h' => '',
+        'hh' => '',
+        'M' => '',
+        'm' => 'nyní',
+        'MM' => '',
+        'mm' => 'nyní',
+        'past' => '',
+        's' => '',
+        'y' => '',
+        'yy' => '',
+    ],
+
     'time' => [
         'days_ago' => 'před:count dnem|před:count dny',
         'hours_ago' => 'před:count hodinou|před:count hodinami',
@@ -152,7 +155,7 @@ return [
     ],
 
     'wrong_user' => [
-        '_' => '',
-        'logout_link' => '',
+        '_' => 'Jsi přihlášen jako :user. :logout_link.',
+        'logout_link' => 'Klikni zde pro přihlášení jako jiný uživatel',
     ],
 ];

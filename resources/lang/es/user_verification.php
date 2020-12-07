@@ -1,37 +1,22 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'box' => [
-        'sent' => 'Un correo electrónico ha sido enviado a :mail con un código de verificación. Ingresa ese código.',
-        'title' => 'Verificación de la Cuenta',
-        'verifying' => 'Verificando..',
+        'sent' => 'Se ha enviado un correo electrónico a :mail con un código de verificación. Introduzca el código.',
+        'title' => 'Verificación de la cuenta',
+        'verifying' => 'Verificando...',
         'issuing' => 'Emitiendo nuevo código...',
 
         'info' => [
-            'check_spam' => "Asegúrate de revisar tu carpeta de spam si no puede encontrar el correo electrónico.",
-            'recover' => "Si no puede acceder a tu correo electrónico o has olvidado cual usaste, por favor sigue el :link.",
+            'check_spam' => "Asegúrese de revisar su carpeta de spam o correo no deseado si no puede encontrar el correo electrónico.",
+            'recover' => "Si no puede acceder a su correo electrónico o ha olvidado el que utilizó, siga el :link.",
             'recover_link' => 'proceso de recuperación de correo electrónico aquí',
-            'reissue' => 'También puedes :reissue_link o :logout_link.',
+            'reissue' => 'También puede :reissue_link o :logout_link.',
             'reissue_link' => 'solicitar otro código',
-            'logout_link' => 'cerrar sesión',
+            'logout_link' => 'cerrar la sesión',
         ],
     ],
 

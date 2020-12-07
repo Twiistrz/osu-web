@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'Wie wäre es, stattdessen ein bisschen osu! zu spielen?',
     'require_login' => 'Zum Fortfahren bitte einloggen.',
     'require_verification' => 'Bitte verifiziere Dich, um fortzufahren.',
     'restricted' => "Nicht möglich, während man restricted ist.",
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Du musst ein Nominator sein um Beatmap-Sets mit mehr als einem Spielmodus zu nominieren.',
             'incorrect_state' => 'Beim Ausführen dieser Aktion ist ein Fehler aufgetreten. Bitte Seite neu laden.',
             'owner' => "Eigene Beatmaps können nicht nominiert werden.",
+            'set_metadata' => 'Vor der Nominierung müssen Genre und Sprache festgelegt werden.',
         ],
         'resolve' => [
             'not_owner' => 'Nur der Thread- oder Beatmapersteller kann die Diskussion beilegen.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Kann nicht über vom Bot gestartete Diskussion abstimmen",
             'limit_exceeded' => 'Bitte warte eine Weile, bevor du mehr Stimmen abgibst',
             'owner' => "Man kann nicht in der eigenen Diskussion abstimmen!",
             'wrong_beatmapset_state' => 'Abstimmung nur in Diskussion von Pending Beatmaps möglich.',
@@ -70,12 +58,18 @@ return [
         ],
     ],
 
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Du kannst die Metadaten einer nominierten Map nicht ändern. Wenn du glaubst, dass sie falsch sind, wende dich an ein BN- oder NAT-Mitglied.',
+        ],
+    ],
+
     'chat' => [
         'blocked' => 'Du kannst keine Nachrichten an einen Benutzer senden, der dich oder den du blockiert hast.',
         'friends_only' => 'Der Benutzer blockiert alle Nachrichten von Personen, die nicht auf seiner Freundesliste sind.',
         'moderated' => 'Dieser Kanal wird derzeit moderiert.',
         'no_access' => 'Du hast kein Zugriff auf diesen Kanal.',
-        'restricted' => 'Du kannst keine Nachrichten senden während du stumm geschaltet oder gesperrt bist.',
+        'restricted' => 'Du kannst keine Nachrichten senden, während du stummgeschaltet, eingeschränkt oder gebannt bist.',
     ],
 
     'comment' => [
@@ -117,7 +111,7 @@ return [
 
         'topic' => [
             'reply' => [
-                'double_post' => 'Bitte bearbeite deinen letzten Post, statt erneut zu posten.',
+                'double_post' => 'Bitte bearbeite deinen letzten Beitrag, anstatt ihn erneut zu posten.',
                 'locked' => 'Auf gesperrte Threads kann nicht geantwortet werden.',
                 'no_forum_access' => 'Zugang zum angeforderten Forum wurde verwehrt.',
                 'no_permission' => 'Keine Berechtigung zum Antworten.',
@@ -125,14 +119,14 @@ return [
                 'user' => [
                     'require_login' => 'Zum Antworten bitte einloggen.',
                     'restricted' => "Man kann nicht antworten, während man restricted ist.",
-                    'silenced' => "Man kann nicht antworten, während man stummgeschaltet ist.",
+                    'silenced' => "Antworten nicht möglich, während du stummgeschaltet bist.",
                 ],
             ],
 
             'store' => [
                 'no_forum_access' => 'Zugang zum angeforderten Forum wurde verwehrt.',
                 'no_permission' => 'Keine Berechtigung, einen neuen Thread zu erstellen.',
-                'forum_closed' => 'Das Forum ist geschlossen. Man kann keine Posts mehr senden.',
+                'forum_closed' => 'Das Forum ist geschlossen. Man kann keine Beiträge mehr posten.',
             ],
 
             'vote' => [
@@ -144,7 +138,7 @@ return [
                 'user' => [
                     'require_login' => 'Zum Abstimmen bitte einloggen.',
                     'restricted' => "Man kann nicht abstimmen, während man restricted ist.",
-                    'silenced' => "Man kann nicht abstimmen, während man stummgeschaltet ist.",
+                    'silenced' => "Abstimmen nicht möglich, während du stummgeschaltet bist.",
                 ],
             ],
 
@@ -173,7 +167,7 @@ return [
             'edit' => [
                 'locked' => 'Dieses Profil ist gesperrt.',
                 'not_owner' => 'Nur das eigene Profil kann bearbeitet werden.',
-                'require_supporter_tag' => 'Ein osu!supporter Tag ist erforderlich.',
+                'require_supporter_tag' => 'Ein osu!supporter-Tag ist erforderlich.',
             ],
         ],
     ],

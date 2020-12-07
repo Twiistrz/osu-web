@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[poistettu käyttäjä]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Käyttäjätiliäsi ei ole käytetty pitkään aikaan.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Väärät kirjautumistiedot',
         'forgot' => 'Unohditko salasanasi?',
         'info' => 'Kirjaudu sisään jatkaaksesi',
+        'invalid_captcha' => '',
         'locked_ip' => 'IP-osoitteesi on lukittu. Ole hyvä ja odota muutama minuutti.',
         'password' => 'Salasana',
         'register' => "Eikö sinulla ole osu!-tiliä? Tee yksi",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Tällä hetkellä paikalla',
         'missingtext' => 'Taisit tehdä kirjoitusvirheen! (tai käyttäjällä on porttikielto)',
         'origin_country' => 'Maasta :country',
-        'page_description' => 'osu! - Kaikki mitä olet koskaan halunnut tietää :username:sta!',
         'previous_usernames' => 'tunnettiin aiemmin nimellä',
         'plays_with' => 'Pelityylinä :devices',
         'title' => ":username:n profiili",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Lataa kuva',
                     'dropzone' => 'Pudota tiedosto tähän ladataksesi',
                     'dropzone_info' => 'Voit myös lähettää kuvan pudottamalla sen tähän',
-                    'size_info' => 'Kansikuvan kuuluisi olla 2800x620 pikseliä',
+                    'size_info' => 'Kansikuvan kuuluisi olla 2400x620 pikseliä',
                     'too_large' => 'Lähetetty tiedosto on liian iso.',
                     'unsupported_format' => 'Tiedostomuotoa ei tueta.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'artistilta :artist',
-                'none' => 'Ei yhtään... vielä.',
                 'title' => 'Beatmapit',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => '',
             ],
             'historical' => [
-                'empty' => 'Tuloksia ei löydy. :(',
                 'title' => 'Historialliset',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosua Käytettävissä',
-                'available_info' => "Kudosuja voit vaihtaa kudosutähtiin, jotka auttavat tuomaan lisää huomiota beatmapillesi. Näin monta kudosua et ole vielä vaihtanut.",
                 'recent_entries' => 'Viimeisimmät Kudosut',
                 'title' => 'Kudosu!',
                 'total' => 'Ansaittu Kudosu',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Lataa Replay',
-                'empty' => 'Loistavia suorituksia ei ole vielä. :(',
                 'not_ranked' => 'Vain hyväksytyt beatmapit antavat pp:tä.',
                 'pp_weight' => 'painotettu :percentage',
+                'view_details' => '',
                 'title' => 'Suoritukset',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Kiinnostuksen kohteet',
-            'lastfm' => 'Last.fm',
             'location' => 'Tämänhetkinen sijainti',
             'occupation' => 'Ammatti',
             'skype' => '',
@@ -409,7 +393,7 @@ return [
             'medals' => 'Mitalit',
             'play_count' => 'Pelikertoja',
             'play_time' => 'Pelattu aika',
-            'ranked_score' => 'Tilastopisteet',
+            'ranked_score' => 'Tilastoidut pisteet',
             'replays_watched_by_others' => 'Muiden Katsomat Uusinnat',
             'score_ranks' => 'Luokitukset',
             'total_hits' => 'Osumat',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '',
         'card' => '',
         'list' => '',
     ],

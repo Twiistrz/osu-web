@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'index' => [
@@ -40,7 +25,7 @@ return [
     'show' => [
         'banner' => '贊助您的隊伍',
         'entered' => '你已經報名這次比賽。<br><br>請注意，這不表示你已經被分組。<br><br>比賽開始前你將收到郵件通知，所以請確保你的 osu! 帳號的email可以收到信件！',
-        'info_page' => '訊息頁',
+        'info_page' => '資訊頁',
         'login_to_register' => '請 :login 以查看報名細節！',
         'not_yet_entered' => '你還沒有報名這次比賽。',
         'rank_too_low' => '抱歉, 您的排名不符合這次比賽的要求!',
@@ -58,9 +43,9 @@ return [
 
         'state' => [
             'before_registration' => '這次比賽還沒開放報名。',
-            'ended' => '本次比赛已經结束。查看訊息頁面以取得比赛结果。',
-            'registration_closed' => '本次比赛已經停止報名。查看訊息頁面以取得最新消息。',
-            'running' => '本次比赛正在進行。查看訊息頁面以取得賽況。',
+            'ended' => '本次比賽已結束，請查看資訊頁面以取得比賽結果。',
+            'registration_closed' => '本次比賽已停止報名，請查看資訊頁面以取得最新消息。',
+            'running' => '本次比賽正在進行。查看資訊頁面以取得賽況。',
         ],
     ],
     'tournament_period' => ':start 到 :end',

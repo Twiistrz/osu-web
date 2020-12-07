@@ -1,26 +1,15 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
+use App\Libraries\Elasticsearch\BoolQuery;
 use App\Libraries\Elasticsearch\Es;
+use App\Libraries\Elasticsearch\Search;
+use App\Libraries\Elasticsearch\Sort;
+use App\Libraries\Search\BasicSearch;
 use App\Models\Score\Best;
 use App\Models\User;
 
@@ -34,6 +23,11 @@ use App\Models\User;
  */
 class UserBestScoresCheck
 {
+    /** @var int */
+    public $dbIdsFound;
+    /** @var int */
+    public $esIdsFound;
+
     /** @var User */
     private $user;
 
@@ -53,12 +47,32 @@ class UserBestScoresCheck
      */
     public function check(string $mode)
     {
+        $this->dbIdsFound = 0;
+        $this->esIdsFound = 0;
+
         $clazz = Best\Model::getClassByString($mode);
 
-        $esIds = $this->user->beatmapBestScoreIds($mode, 100);
-        $dbIds = $clazz::default()->whereIn('score_id', $esIds)->pluck('score_id')->all();
+        $search = $this->newSearch($mode);
+        $cursor = [0];
 
-        return array_values(array_diff($esIds, $dbIds));
+        $missingIds = [];
+
+        while ($cursor !== null) {
+            $esIds = $search->searchAfter(array_values($cursor))->response()->ids();
+            $this->esIdsFound += count($esIds);
+
+            $dbIds = $clazz::default()->whereIn('score_id', $esIds)->pluck('score_id')->all();
+            $this->dbIdsFound += count($dbIds);
+
+            $missingIds = array_merge(
+                $missingIds,
+                array_values(array_diff($esIds, $dbIds))
+            );
+
+            $cursor = $search->getSortCursor();
+        }
+
+        return $missingIds;
     }
 
     /**
@@ -85,5 +99,18 @@ class UserBestScoresCheck
     public function run(string $mode)
     {
         return $this->removeFromEs($mode, $this->check($mode));
+    }
+
+    private function newSearch(string $mode): Search
+    {
+        $index = config('osu.elasticsearch.prefix')."high_scores_{$mode}";
+
+        $search = new BasicSearch($index, "user_best_scores_check_{$mode}");
+        $search->connectionName = 'scores';
+
+        return $search
+            ->sort(new Sort('score_id', 'asc'))
+            ->size(Es::CHUNK_SIZE)
+            ->query((new BoolQuery())->filter(['term' => ['user_id' => $this->user->getKey()]]));
     }
 }

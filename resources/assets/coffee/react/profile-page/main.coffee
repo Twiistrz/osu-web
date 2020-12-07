@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { AccountStanding } from './account-standing'
 import { ExtraTab } from './extra-tab'
@@ -30,6 +15,7 @@ import { BlockButton } from 'block-button'
 import { NotificationBanner } from 'notification-banner'
 import * as React from 'react'
 import { a, button, div, i, li, span, ul } from 'react-dom-factories'
+import * as BeatmapHelper from 'utils/beatmap-helper'
 el = React.createElement
 
 pages = document.getElementsByClassName("js-switchable-mode-page--scrollspy")
@@ -88,7 +74,7 @@ export class Main extends React.PureComponent
     $.subscribe 'user:page:update.profilePage', @userPageUpdate
     $.subscribe 'profile:showMore.profilePage', @showMore
     $.subscribe 'profile:page:jump.profilePage', @pageJump
-    $(window).on 'throttled-scroll.profilePage', @pageScan
+    $(window).on 'scroll.profilePage', @pageScan
     $(document).on 'turbolinks:before-cache.profilePage', @saveStateToContainer
 
     $(@pages.current).sortable
@@ -178,7 +164,6 @@ export class Main extends React.PureComponent
           stats: @state.user.statistics
           currentMode: @state.currentMode
           withEdit: @props.withEdit
-          rankHistory: @props.rankHistory
           userAchievements: @props.userAchievements
 
         div
@@ -201,16 +186,14 @@ export class Main extends React.PureComponent
                       currentMode: @state.currentMode
 
         div
-          className: 'osu-layout__section osu-layout__section--users-extra'
-          div
-            className: 'osu-layout__row'
-            ref: @pages
-            @extraPage name for name in profileOrder
+          className: 'user-profile-pages'
+          ref: @pages
+          @extraPage name for name in profileOrder
 
 
   extraPage: (name) =>
     {extraClass, props, component} = @extraPageParams name
-    topClassName = 'js-switchable-mode-page--scrollspy js-switchable-mode-page--page'
+    topClassName = 'user-profile-pages__item js-switchable-mode-page--scrollspy js-switchable-mode-page--page'
     topClassName += ' js-sortable--page' if @isSortablePage name
     props.withEdit = @props.withEdit
     props.name = name

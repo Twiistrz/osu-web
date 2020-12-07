@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => '확실합니까?',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => '관리',
         'authorise' => '권한 부여',
+        'authorising' => '인증하기...',
         'back_to_previous' => '이전 위치로 돌아가기',
         'back_to_top' => '맨 위로',
         'cancel' => '취소',
         'change' => '변경',
+        'clear' => '비우기',
         'click_to_copy' => '클립보드에 복사',
         'click_to_copy_copied' => '클립보드에 복사되었습니다!',
         'close' => '닫기',
@@ -51,6 +38,7 @@ return [
         'permalink' => '고유 주소',
         'pin' => '고정',
         'post' => '게시하기',
+        'read_more' => '자세히 보기',
         'reply' => '답변하기',
         'reply_reopen' => '답변하고 토론 재개하기',
         'reply_resolve' => '답변하고 토론 마무리하기',
@@ -62,7 +50,7 @@ return [
         'see_more' => '더 보기',
         'show' => '표시',
         'show_deleted' => '삭제된 내용 표시',
-        'show_less' => '간단히 표시',
+        'show_less' => '간략히 보기',
         'show_more' => '더 보기',
         'show_more_options' => '더 많은 옵션 보기',
         'unpin' => '고정 해제',
@@ -138,6 +126,21 @@ return [
         'count_geki' => 'MAX',
         'count_katu' => '200',
         'count_miss' => 'Miss',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '%d일',
+        'dd' => '%d일',
+        'h' => '%d시간',
+        'hh' => '%d시간',
+        'M' => '%d달',
+        'm' => '%d분',
+        'MM' => '%d달',
+        'mm' => '%d분',
+        'past' => '%s',
+        's' => '%d초',
+        'y' => '%d년',
+        'yy' => '%d년',
     ],
 
     'time' => [

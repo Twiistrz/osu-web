@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Kunne ikke lagre innlegg',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Kunne ikke oppdatere stemme',
@@ -33,7 +12,7 @@ return [
 
     'discussions' => [
         'allow_kudosu' => 'tillat kudosu',
-        'beatmap_information' => '',
+        'beatmap_information' => 'Beatmapside',
         'delete' => 'slett',
         'deleted' => 'Slettet av :editor :delete_time.',
         'deny_kudosu' => 'avvis kudosu',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Avvist fra å få kudosu.',
         'message_placeholder_deleted_beatmap' => 'Denne vanskelighetsgraden har blitt slettet så den kan ikke bli diskutert lenger.',
         'message_placeholder_locked' => 'Diskusjon for dette beatmappet har blitt deaktivert.',
+        'message_placeholder_silenced' => "Kan ikke publisere diskusjonen mens du er dempet.",
         'message_type_select' => 'Velg kommentartype',
         'reply_notice' => 'Trykk enter for å svare.',
         'reply_placeholder' => 'Skriv din respons her',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Skriv her for å legge til på Generelt (:version)',
             'generalAll' => 'Skriv her for å legge til på Generelt (Alle vanskelighetsgrader)',
+            'review' => 'Skriv her for å legge til en anmeldelse',
             'timeline' => 'Skriv her for å legg til på tidslinjen (:version)',
         ],
 
@@ -91,14 +72,14 @@ return [
             'nomination_reset' => 'Tilbakestill Nominasjon',
             'praise' => 'Ros',
             'problem' => 'Problem',
-            'review' => '',
+            'review' => 'Anmeldelse',
             'suggestion' => 'Forslag',
         ],
 
         'mode' => [
             'events' => 'Historie',
             'general' => 'Generell :scope',
-            'reviews' => '',
+            'reviews' => 'Anmeldelser',
             'timeline' => 'Tidslinje',
             'scopes' => [
                 'general' => 'Denne vanskelighetsgraden',
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'trykk Ctrl+C i redigeringsmodus og lim inn for å legge til et tidsstempel!',
             'title' => 'Ny Diskusjon',
             'unpin' => 'Løsne',
+        ],
+
+        'review' => [
+            'new' => 'Ny anmeldelse',
+            'embed' => [
+                'delete' => 'Slett',
+                'missing' => '[DISKUSJON SLETTE]',
+                'unlink' => 'Koble fra',
+                'unsaved' => 'Ulagret',
+                'timestamp' => [
+                    'all-diff' => 'Innlegg på "Alle vanskeligheter" kan ikke bli tidsstemplet.',
+                    'diff' => 'Hvis denne :type starter med en tidsstempel, skal den bli vist under Timeline.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'sett inn avsnitt',
+                'praise' => 'sett inn ros',
+                'problem' => 'sett inn problem',
+                'suggestion' => 'sett inn forslag',
+            ],
         ],
 
         'show' => [
@@ -144,12 +145,12 @@ return [
 
         'votes' => [
             'none' => [
-                'down' => '',
-                'up' => '',
+                'down' => 'Ingen negative stemmer enda',
+                'up' => 'Ingen positive stemmer enda',
             ],
             'latest' => [
-                'down' => '',
-                'up' => '',
+                'down' => 'Seneste negative stemmer',
+                'up' => 'Seneste positive stemmer',
             ],
         ],
     ],
@@ -185,13 +186,19 @@ return [
         'nominate' => 'Nominer',
         'nominate_confirm' => 'Nominer dette beatmappet?',
         'nominated_by' => 'nominert av :users',
-        'not_enough_hype' => "",
-        'qualified' => 'Beregnes for å bli rangert :date, hvis ingen problemer blir funnet.',
-        'qualified_soon' => 'Beregnet for å bli rangert snart, hvis ingen problemer blir funnet.',
+        'not_enough_hype' => "Det er ikke nok hype.",
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Nominasjoner :current/:required',
         'reset_message_deleted' => 'slettet',
         'title' => 'Nominasjon Status',
         'unresolved_issues' => 'Det er fortsatt uløste problemer som må løses først.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Nominasjonsprosessen ble tilbakestilt :time_ago av :user med et nytt problem :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Inkluder konverterte beatmaps',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Alle',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elektronisk',
+        'metal' => 'Metall',
+        'classical' => 'Klassisk',
+        'folk' => 'Folkemusikk',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Koreansk',
         'spanish' => 'Spansk',
         'swedish' => 'Svensk',
+        'russian' => 'Russisk',
+        'polish' => 'Polsk',
         'instrumental' => 'Instrumental',
         'other' => 'Andre',
+        'unspecified' => 'Uspesifisert',
     ],
     'played' => [
         'any' => 'Alle',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Spillforsøk: :count',
         'favourites' => 'Favoritter: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'All',
+        ],
     ],
 ];

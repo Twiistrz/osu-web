@@ -6,6 +6,7 @@
   ],
   "jsRules": true,
   "rules": {
+    "array-type": [true, "array"],
     "curly": [true, "ignore-same-line"],
     "eofline": true,
     "indent": [
@@ -14,6 +15,9 @@
     ],
     "interface-name": false,
     "jsx-no-multiline-js": false,
+    "object-literal-sort-keys": {
+      "options": "ignore-case"
+    },
     "quotemark": [true, "single"],
     "max-line-length": false,
     "member-access": [true, "no-public"],

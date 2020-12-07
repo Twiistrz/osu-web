@@ -1,23 +1,11 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
+import { computed } from 'mobx';
 import { observer } from 'mobx-react';
+import { typeNames } from 'models/notification-type';
 import Worker from 'notifications/worker';
+import core from 'osu-core-singleton';
 import * as React from 'react';
 
 interface Props {
@@ -27,6 +15,15 @@ interface Props {
 
 @observer
 export default class NotificationIcon extends React.Component<Props> {
+  @computed
+  private get unreadCount() {
+    // TODO: need a better way of propagating the exclusion list to this (but it's global anyway?)
+    const types = typeNames.filter((name) => !(name == null || name === 'channel'));
+    return types.reduce((acc, current) => {
+      return acc + core.dataStore.notificationStore.unreadStacks.getOrCreateType({ objectType: current }).total;
+    }, 0);
+  }
+
   render() {
     if (!this.props.worker.isActive()) {
       return null;
@@ -36,7 +33,7 @@ export default class NotificationIcon extends React.Component<Props> {
       <span className={this.mainClass()}>
         <i className='fas fa-inbox' />
         <span className='notification-icon__count'>
-          {this.unreadCount()}
+          {this.unreadCountDisplay()}
         </span>
       </span>
     );
@@ -56,9 +53,9 @@ export default class NotificationIcon extends React.Component<Props> {
     return ret;
   }
 
-  private unreadCount() {
+  private unreadCountDisplay() {
     if (this.props.worker.hasData) {
-      return osu.formatNumber(this.props.worker.unreadCount);
+      return osu.formatNumber(this.unreadCount);
     } else {
       return '...';
     }

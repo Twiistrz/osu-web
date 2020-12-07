@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'landing' => [
@@ -42,7 +27,7 @@ return [
         'title' => 'Rechercher',
 
         'beatmapset' => [
-            'login_required' => '',
+            'login_required' => 'Connectez-vous pour rechercher des beatmaps',
             'more' => ':count résultats de recherche de beatmap en plus',
             'more_simple' => 'Voir plus de résultats de la recherche de beatmaps',
             'title' => 'Beatmaps',
@@ -51,7 +36,7 @@ return [
         'forum_post' => [
             'all' => 'Tous les forums',
             'link' => 'Rechercher sur le forum',
-            'login_required' => '',
+            'login_required' => 'Connectez-vous pour rechercher dans le forum',
             'more_simple' => 'Voir plus de résultats de la recherche du forum',
             'title' => 'Forum',
 
@@ -72,7 +57,7 @@ return [
         ],
 
         'user' => [
-            'login_required' => '',
+            'login_required' => 'Connectez-vous pour rechercher des utilisateurs',
             'more' => ':count résultats de la recherche de joueur',
             'more_simple' => 'Voir plus de résultats de la recherche de joueurs',
             'more_hidden' => 'La recherche de joueurs est limitée à :max joueurs. Essayez d\'affiner votre recherche.',
@@ -89,6 +74,13 @@ return [
     'download' => [
         'tagline' => "c'est parti<br>lancez-vous !",
         'action' => 'Télécharger osu!',
+
+        'help' => [
+            '_' => 'si vous avez des problèmes pour démarrer le jeu ou pour créer un compte, :help_forum_link ou :support_button.',
+            'help_forum_link' => 'consultez le forum d\'aide',
+            'support_button' => 'contacter l\'assistance',
+        ],
+
         'os' => [
             'windows' => 'pour Windows',
             'macos' => 'pour macOS',
@@ -102,7 +94,7 @@ return [
                 'description' => 'suivez les indications lorsque vous démarrerez le jeu pour vous connecter ou créer un nouveau compte',
             ],
             'download' => [
-                'title' => 'télécharger le jeu',
+                'title' => 'installer le jeu',
                 'description' => 'cliquez sur le bouton au-dessus pour télécharger l\'installateur, lancez-le ensuite !',
             ],
             'beatmaps' => [

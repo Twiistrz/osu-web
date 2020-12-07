@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .beatmap-discussion-new {
   @_avatar-size: 45px;
@@ -63,6 +48,13 @@
     }
   }
 
+  &__login-required {
+    .content-font();
+    color: @osu-colour-f1;
+    padding: 0 20px 20px 20px;
+    font-size: @font-size--title-small-2;
+  }
+
   &__message {
     .content-font();
     color: @osu-colour-f1;
@@ -79,11 +71,16 @@
     .reset-input();
     resize: vertical;
     width: 100%;
-    max-height: 70vh;
+    max-height: calc(50 * var(--vh, 1vh));
     min-height: 3em;
+    -webkit-overflow-scrolling: touch;
 
     flex: 1 0 auto;
     font-size: @font-size--phone-input;
+
+    @media @mobile {
+      max-height: calc(40 * var(--vh, 1vh));
+    }
 
     &::placeholder {
       color: @osu-colour-b1;
@@ -120,10 +117,6 @@
     margin: 5px 0 0;
     text-transform: initial;
     font-weight: initial;
-  }
-
-  &__notice-link {
-    .link-default();
   }
 
   &__timestamp-col {

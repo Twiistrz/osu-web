@@ -1,31 +1,28 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .mobile-menu-tab {
   .reset-input();
+  .link-plain();
+
+  --height: 40px;
   flex: none;
-  width: 40px;
   color: @osu-colour-l3;
-  height: $width;
+  width: var(--height);
+  height: var(--height);
+  position: relative;
+  --hover-line-margin: 25%;
 
   &--user {
+    --avatar-spacing: 8px;
     margin-right: auto;
-    padding: 8px;
+    padding: var(--avatar-spacing);
+    flex: 1;
+    max-width: max-content;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    --hover-line-margin: var(--avatar-spacing);
   }
 
   &:hover,
@@ -36,13 +33,21 @@
       content: '';
       display: block;
       position: absolute;
-      width: 50%;
       height: 4px;
       border-radius: 10000px;
       background-color: @osu-colour-h1;
-      left: 25%;
+      left: var(--hover-line-margin);
+      right: $left;
       bottom: -2px;
       z-index: 1; // inside z-index--nav-bar
     }
+  }
+
+  &__avatar {
+    height: calc(var(--height) - var(--avatar-spacing) * 2);
+    width: $height;
+    margin-right: var(--avatar-spacing);
+    position: relative;
+    flex: none;
   }
 }

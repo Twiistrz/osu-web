@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Na pewno?',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => 'Administrator',
         'authorise' => 'Autoryzuj',
+        'authorising' => 'Autoryzowanie...',
         'back_to_previous' => 'Powrót do poprzedniej pozycji',
         'back_to_top' => 'Powrót na górę',
         'cancel' => 'Anuluj',
         'change' => 'zmień',
+        'clear' => 'Wyczyść',
         'click_to_copy' => 'kliknij, aby skopiować',
         'click_to_copy_copied' => 'skopiowano do schowka!',
         'close' => 'Zamknij',
@@ -51,6 +38,7 @@ return [
         'permalink' => 'odnośnik bezpośredni',
         'pin' => 'przypnij',
         'post' => 'Opublikuj',
+        'read_more' => 'czytaj więcej',
         'reply' => 'Odpowiedz',
         'reply_reopen' => 'Odpowiedz i otwórz ponownie',
         'reply_resolve' => 'Odpowiedz i rozwiąż',
@@ -138,6 +126,21 @@ return [
         'count_geki' => 'MAX',
         'count_katu' => '200',
         'count_miss' => 'Pudło',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '%d d',
+        'dd' => '%d d',
+        'h' => '%d godz.',
+        'hh' => '%d godz.',
+        'M' => '%d mies.',
+        'm' => 'teraz',
+        'MM' => '%d mies.',
+        'mm' => 'teraz',
+        'past' => '%s',
+        's' => 'teraz',
+        'y' => '%d rok',
+        'yy' => '%d lat(a)',
     ],
 
     'time' => [

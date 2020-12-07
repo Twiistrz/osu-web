@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,7 +18,7 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'حُذفت',
-        'none_found' => '',
+        'none_found' => 'لم تم العثور على أي مناقشات تطابق معايير البحث.',
         'title' => 'مناقشات الخريطة',
 
         'form' => [
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'لا يشمل اي من هذه المنشورات حالتي',
         'notice' => 'هناك منشورات حول :timestamp (:existing_timestamps). رجائا تحقق منهم قبل النشر.',
+        'unsaved' => ':count في هذه المراجعة',
     ],
 
     'reply' => [
@@ -79,9 +65,12 @@ return [
     ],
 
     'review' => [
+        'block_count' => ':used / :max كتل مستخدمة',
         'go_to_parent' => 'مشاهدة منشور المراجعة',
         'go_to_child' => 'مشاهدة المناقشة',
         'validation' => [
+            'block_too_large' => 'كل كتلة قد تحتوي فقط على ما يصل إلى :limit أحرف',
+            'external_references' => 'المراجعة تحتوي إشارات إلى مشاكل لا تنتمي إلى هذه المراجعة',
             'invalid_block_type' => 'نوع كتلة غير صالح',
             'invalid_document' => 'مراجعة غير صالحة',
             'minimum_issues' => 'ألمراجعة يجب ان تحوي :count مشكلة على الأقل|المراجعة يجب ان تحوي :count مشاكل على الأقل',

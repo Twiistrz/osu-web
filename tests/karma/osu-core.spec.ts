@@ -16,7 +16,7 @@
  *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { UserJSON } from 'chat/chat-api-responses';
+import UserJson from 'interfaces/user-json';
 import User from 'models/user';
 import OsuCore from 'osu-core';
 
@@ -24,23 +24,23 @@ describe('OsuCore user:update subscriber testing thing', () => {
   it('user:update should update the user store from a JSON value', () => {
     const core = new OsuCore(window);
 
-    const json: UserJSON = {
+    const json: UserJson = {
       avatar_url: '',
-      blocks: [],
       country_code: '',
+      cover: {},
+      default_group: '',
       id: 1,
       is_active: true,
-      is_admin: true,
       is_bot: false,
-      is_moderator: false,
       is_online: true,
       is_supporter: true,
+      last_visit: null,
       pm_friends_only: false,
-      profile_colour: '',
+      profile_colour: null,
       username: 'foo',
     };
 
-    const user = User.fromJSON(json);
+    const user = User.fromJson(json);
 
     $.publish('user:update', json);
 

@@ -1,25 +1,11 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Transformers;
 
+use App\Models\Beatmap;
 use App\Models\UserStatistics;
 
 class UserStatisticsTransformer extends TransformerAbstract
@@ -27,6 +13,7 @@ class UserStatisticsTransformer extends TransformerAbstract
     protected $availableIncludes = [
         'rank',
         'user',
+        'variants',
     ];
 
     public function transform(UserStatistics\Model $stats = null)
@@ -82,6 +69,37 @@ class UserStatisticsTransformer extends TransformerAbstract
             $stats = new UserStatistics\Osu();
         }
 
-        return $this->item($stats->user, new UserCompactTransformer);
+        return $this->item($stats->user, new UserCompactTransformer());
+    }
+
+    public function includeVariants(UserStatistics\Model $stats = null)
+    {
+        if ($stats === null) {
+            return;
+        }
+
+        $mode = $stats->getMode();
+        $variants = Beatmap::VARIANTS[$mode] ?? null;
+
+        if ($variants === null) {
+            return;
+        }
+
+        $data = [];
+
+        foreach ($variants as $variant) {
+            $entry = UserStatistics\Model::getClass($mode, $variant)::where('user_id', $stats->user_id)->firstOrNew([]);
+
+            $data[] = [
+                'mode' => $mode,
+                'variant' => $variant,
+
+                'country_rank' => $entry->countryRank(),
+                'global_rank' => $entry->globalRank(),
+                'pp' => $entry->rank_score,
+            ];
+        }
+
+        return $this->primitive($data);
     }
 }

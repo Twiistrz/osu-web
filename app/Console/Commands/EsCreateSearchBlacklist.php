@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 namespace App\Console\Commands;
 
 use App\Libraries\Elasticsearch\Es;
@@ -45,7 +48,7 @@ class EsCreateSearchBlacklist extends Command
         $this->info("{$alias} does exist, creating aliased index {$index}...");
         $client->indices()->create([
             'body' => [
-                'aliases' => [$alias => new \stdClass],
+                'aliases' => [$alias => new \stdClass()],
                 'settings' => ['number_of_shards' => 1],
             ],
             'index' => $index,

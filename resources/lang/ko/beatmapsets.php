@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => '비트맵',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => '다운로드',
+            'video' => '영상 포함된 것으로 받기',
+            'no_video' => '영상 없는 것으로 받기',
+            'direct' => 'osu!direct에서 열기',
+        ],
+    ],
+
     'show' => [
         'discussion' => '토론',
 
         'details' => [
-            'approved' => 'approved된 날짜: ',
             'favourite' => '즐겨찾기',
             'logged-out' => '로그인 후 비트맵을 다운로드하세요!',
-            'loved' => 'loved된 날짜: ',
             'mapped_by' => ':mapper님의 맵',
-            'qualified' => 'qualified된 날짜: ',
-            'ranked' => 'ranked된 날짜: ',
-            'submitted' => '만든 날짜: ',
             'unfavourite' => '즐겨찾기 해제',
-            'updated' => '마지막 수정 날짜: ',
             'updated_timeago' => ':timeago에 마지막으로 수정됨',
 
             'download' => [
@@ -59,18 +47,27 @@ return [
             ],
         ],
 
+        'details_date' => [
+            'approved' => ':timeago 전 approved 됨',
+            'loved' => ':timeago 전 loved 됨',
+            'qualified' => ':timeago 전 qualified 됨',
+            'ranked' => ':timeago ranked 됨',
+            'submitted' => ':timeago 제출됨',
+            'updated' => ':timeago 마지막으로 수정됨',
+        ],
+
         'favourites' => [
             'limit_reached' => '즐겨찾기 한 비트맵이 너무 많습니다! 계속하기 전에 즐겨찾기 수를 줄여주세요.',
         ],
 
         'hype' => [
-            'action' => '이 맵을 즐기셨다면 홍보해서 <strong>Ranked</strong> 상태가 될 수 있게 도와주세요.',
+            'action' => '이 맵이 마음에 드신다면 <strong>Ranked</strong> 상태가 될 수 있도록 도움을 주게 Hype 해주세요.',
 
             'current' => [
                 '_' => '이 맵은 현재 :status 상태입니다.',
 
                 'status' => [
-                    'pending' => 'pending',
+                    'pending' => '보류',
                     'qualified' => 'qualified',
                     'wip' => '제작 중',
                 ],
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => '이 비트맵에 문제가 있다면, :link해 주세요.',
-                'button_title' => 'Qualified 비트맵을 Disqualify 처리',
             ],
 
             'report' => [
-                '_' => '이 비트맵에서 문제를 찾으셨다면 :link에서 저희에게 신고해 주세요.',
+                '_' => '이 비트맵에 문제가 있다면 :link에서 저희에게 신고해 주세요.',
                 'button' => '문제 보고',
-                'button_title' => 'Qualified 비트맵의 문제를 신고합니다.',
                 'link' => '여기',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => '원작',
             'success-rate' => '클리어 비율',
             'tags' => '태그',
-            'unranked' => 'Unranked beatmap',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => '순위',
                 'score_total' => '총 점수',
                 'score' => '점수',
+                'time' => '시간',
             ],
 
             'no_scores' => [
@@ -148,7 +143,7 @@ return [
             'count_sliders' => 'Slider Count',
             'user-rating' => '유저 평점',
             'rating-spread' => '평점 분포도',
-            'nominations' => '지명',
+            'nominations' => '추천',
             'playcount' => '플레이 횟수',
         ],
 
@@ -157,7 +152,7 @@ return [
             'approved' => 'Approved',
             'loved' => 'Loved',
             'qualified' => 'Qualified',
-            'wip' => '작업중',
+            'wip' => '제작 중',
             'pending' => 'Pending',
             'graveyard' => '무덤에 감',
         ],

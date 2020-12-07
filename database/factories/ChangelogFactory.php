@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -14,14 +17,16 @@
 use App\Models\User;
 
 $factory->define(App\Models\Changelog::class, function (Faker\Generator $faker) {
-    $u = User::orderByRaw('RAND()')->first();
-
     return [
-        'user_id' => $u->user_id,
+        'user_id' => function () {
+            $u = User::orderByRaw('RAND()')->first() ?? factory(User::class)->create();
+
+            return $u->getKey();
+        },
         'prefix' => $faker->randomElement(['*', '+', '?']),
         'category' => $faker->randomElement(['Web', 'Audio', 'Code', 'Editor', 'Gameplay', 'Graphics']),
         'message' => $faker->catchPhrase,
         'checksum' => $faker->md5,
-        'date' => $faker->dateTimeBetween($startDate = '-6 weeks', $endDate = 'now'),
+        'date' => $faker->dateTimeBetween('-6 weeks', 'now'),
     ];
 });

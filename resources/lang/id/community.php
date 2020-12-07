@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -76,7 +61,7 @@ return [
 
             'mod_filtering' => [
                 'title' => 'Filter Berdasarkan Mod',
-                'description' => 'Ingin mencari orang yang memainkan suatu map dengan HDHR? Tidak masalah!',
+                'description' => 'Ingin mencari tahu siapa-siapa saja yang memainkan suatu map dengan HDHR? Tidak masalah!',
             ],
 
             'auto_downloads' => [
@@ -111,7 +96,7 @@ return [
 
             'speedy_downloads' => [
                 'title' => 'Unduh Lebih Cepat',
-                'description' => 'Pembatasan pengunduhan yang lebih toleran, terutama saat menggunakan osu!direct.',
+                'description' => 'Pembatasan jumlah unduhan yang lebih lengang, terutama saat menggunakan osu!direct.',
             ],
 
             'change_username' => [
@@ -126,7 +111,7 @@ return [
 
             'feature_votes' => [
                 'title' => 'Hak Suara Ekstra',
-                'description' => 'Hak suara tambahan bagi Anda pada forum Feature Requests (2 suara per bulan).',
+                'description' => 'Hak suara tambahan yang dapat Anda dipergunakan pada sub-forum Feature Requests. (2 suara per bulan)',
             ],
 
             'sort_options' => [

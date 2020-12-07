@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { BigButton } from 'big-button'
 import { route } from 'laroute'
@@ -66,10 +51,10 @@ export class Hype extends React.PureComponent
 
         div className: "#{bn}__lights",
           for i in _.times(@props.beatmapset.hype.required)
-            state = if i < @props.beatmapset.hype.current then 'on' else 'off-light'
+            state = if i < @props.beatmapset.hype.current then 'on' else 'off'
             div
               key: i
-              className: "bar bar--beatmapset-nomination bar--beatmapset-nomination-#{state}"
+              className: "bar bar--beatmapset-hype bar--beatmapset-#{state}"
 
         div
           className: "#{bn}__button"
@@ -90,28 +75,34 @@ export class Hype extends React.PureComponent
                 else
                   false
 
-        if @props.beatmapset.status == 'qualified'
-          div
-            className: "#{bn}__button"
-            if @userCanDisqualify()
-              title: osu.trans('beatmapsets.show.hype.disqualify.button_title')
-              el BigButton,
-                modifiers: ['full']
-                text: osu.trans 'beatmaps.nominations.disqualify'
-                icon: 'fas fa-thumbs-down'
-                props:
-                  href: @reportUrl()
-            else
-              title: osu.trans('beatmapsets.show.hype.report.button_title')
-              el BigButton,
-                modifiers: ['full']
-                text: osu.trans('beatmapsets.show.hype.report.button')
-                icon: 'fas fa-exclamation-triangle'
-                props:
-                  href: @reportUrl()
+        div
+          className: "#{bn}__button"
+          @renderReportButton()
+
+
+  renderReportButton: =>
+    return unless @props.beatmapset.status == 'qualified'
+
+    if @userCanDisqualify()
+      buttonParams =
+        text: osu.trans 'beatmaps.nominations.disqualify'
+        icon: 'fas fa-thumbs-down'
+    else
+      buttonParams =
+        text: osu.trans('beatmapsets.show.hype.report.button')
+        icon: 'fas fa-exclamation-triangle'
+
+    el BigButton,
+      text: buttonParams.text
+      icon: buttonParams.icon
+      modifiers: ['full']
+      props:
+        href: @reportUrl()
+
 
   reportUrl: =>
     "#{route('beatmapsets.discussion', beatmapset: @props.beatmapset.id, beatmap: '-', mode: 'generalAll')}#new"
+
 
   userCanDisqualify: =>
     @props.currentUser? && (@props.currentUser.is_moderator || @props.currentUser.is_admin || @props.currentUser.is_full_bn)

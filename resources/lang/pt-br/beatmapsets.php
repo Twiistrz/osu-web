@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmaps',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'baixar',
+            'video' => 'baixar com vídeo',
+            'no_video' => 'baixar sem vídeo',
+            'direct' => 'abrir no osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Discussão',
 
         'details' => [
-            'approved' => 'aprovado em ',
             'favourite' => 'Favoritar este beatmap',
             'logged-out' => 'Você precisa conectar-se antes de baixar qualquer beatmap!',
-            'loved' => 'loved em ',
             'mapped_by' => 'mapeado por :mapper',
-            'qualified' => 'qualificado em ',
-            'ranked' => 'ranqueado em ',
-            'submitted' => 'enviado em ',
             'unfavourite' => 'Remover dos favoritos',
-            'updated' => 'última atualização em ',
             'updated_timeago' => 'última atualização :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'para acessar mais funcionalidades',
                 'top' => 'Conectar-se',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'aprovado :timeago',
+            'loved' => 'loved :timeago',
+            'qualified' => 'qualificado :timeago',
+            'ranked' => 'ranqueado :timeago',
+            'submitted' => 'enviado :timeago',
+            'updated' => 'atualizado :timeago',
         ],
 
         'favourites' => [
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => 'Se você encontrar um problema com este beatmap, por favor desqualifique-o :link.',
-                'button_title' => 'Desqualificar um beatmap qualificado.',
             ],
 
             'report' => [
                 '_' => 'Se você encontrar um problema com este beatmap, por favor reporte-o :link para alertar a equipe.',
                 'button' => 'Reportar Problema',
-                'button_title' => 'Relatar um problema em um beatmap qualificado.',
                 'link' => 'aqui',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Fonte',
             'success-rate' => 'Taxa de Sucesso',
             'tags' => 'Tags',
-            'unranked' => 'Beatmap não ranqueado',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Rank',
                 'score_total' => 'Pontuação Total',
                 'score' => 'Pontuação',
+                'time' => 'Tempo',
             ],
 
             'no_scores' => [
@@ -155,7 +150,7 @@ return [
         'status' => [
             'ranked' => 'Ranqueado',
             'approved' => 'Aprovado',
-            'loved' => 'Amado',
+            'loved' => 'Loved',
             'qualified' => 'Qualificado',
             'wip' => 'Em Progresso',
             'pending' => 'Pendente',

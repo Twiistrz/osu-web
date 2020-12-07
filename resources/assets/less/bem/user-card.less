@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .user-card {
   @top: user-card;
@@ -26,7 +11,6 @@
   @background-overlay-fade--offline: osu-hsla(@osu-colour-b5, 0.7);
   @card-border-radius: 10px;
   @card-item-spacing: 10px;
-  @flag-width: @user-card-icon-size * 1.5;
   @flag-gutter: 6px;
   @fade-duration: 220ms;
 
@@ -37,6 +21,7 @@
   height: @user-card-height;
   background-color: @background-color;
   border-radius: @card-border-radius;
+  position: relative;
 
   overflow: hidden;
 
@@ -94,6 +79,7 @@
     width: @avatar-size;
     height: @avatar-size;
     flex: none;
+    position: relative;
 
     .@{top}--list & {
       width: @avatar-size--list;
@@ -185,6 +171,7 @@
     pointer-events: none;
 
     height: 100%;
+    position: relative;
 
     .@{top}--list & {
       flex-direction: row;
@@ -224,6 +211,16 @@
     }
   }
 
+  &__group-badge {
+    margin-left: 2px;
+  }
+
+  &__group-badges {
+    display: flex;
+    margin-left: 3px;
+    pointer-events: auto;
+  }
+
   &__icon {
     display: flex;
     pointer-events: auto;
@@ -245,8 +242,7 @@
     }
 
     &--flag {
-      height: @user-card-icon-size;
-      width: @flag-width;
+      font-size: @user-card-icon-size; // icon size
     }
 
     &--menu {
@@ -255,6 +251,7 @@
       background-color: @osu-colour-b6;
       opacity: 0;
       transition: background-color 120ms ease-in-out;
+      position: relative;
 
       // NB: there is a issue where clicking on the button to close the menu
       // causes the state to momentarily unhover and rehover
@@ -361,6 +358,10 @@
   }
 
   &__username {
+    pointer-events: auto;
+  }
+
+  &__username-row {
     display: flex;
     align-items: center;
     min-width: 0;

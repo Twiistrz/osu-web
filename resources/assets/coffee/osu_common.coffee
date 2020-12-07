@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 @osu =
   isIos: /iPad|iPhone|iPod/.test(navigator.platform)
@@ -40,6 +25,10 @@
 
   currentUserIsFriendsWith: (user_id) ->
     _.find currentUser.friends, target_id: user_id
+
+
+  diffColour: (difficultyRating) ->
+    '--diff': "var(--diff-#{difficultyRating ? 'default'})"
 
 
   executeAction: (element) =>
@@ -103,7 +92,7 @@
 
 
   pageChangeImmediate: ->
-    $(document).trigger('osu:page:change')
+    $.publish 'osu:page:change'
 
 
   parseJson: (id, remove = false) ->
@@ -189,7 +178,7 @@
 
   timeago: (time) ->
     el = document.createElement('time')
-    el.classList.add 'timeago'
+    el.classList.add 'js-timeago'
     el.setAttribute 'datetime', time
     el.textContent = time
     el.outerHTML
@@ -252,7 +241,10 @@
 
 
   urlPresence: (url) ->
-    if osu.present(url) then "url(#{url})" else null
+    # Wrapping the string with quotes and escaping the used quotes inside
+    # is sufficient. Use double quote as it's easy to figure out with
+    # encodeURI (it doesn't escape single quote).
+    if osu.present(url) then "url(\"#{String(url).replace(/"/g, '%22')}\")" else null
 
 
   navigate: (url, keepScroll, {action = 'advance'} = {}) ->
@@ -340,24 +332,10 @@
     if !isFallbackLocale && !osu.transExists(key, locale)
       return osu.transChoice(key, count, replacements, fallbackLocale)
 
-    initialLocale = Lang.getLocale()
-    if locale != initialLocale
-      # FIXME: remove this setLocale hack once Lang.js is updated to the one with
-      #        locale pluralization rule bug fixed.
-      #
-      # How to check:
-      # > Lang.setLocale('be')
-      # > Lang.choice('common.count.months', 6, { count_delimited: 6 }, 'en')
-      # It should return "6 months" instead of undefined.
-      Lang.setLocale locale
-
     replacements.count_delimited = osu.formatNumber(count, null, null, locale)
     translated = Lang.choice(key, count, replacements, locale)
 
-    Lang.setLocale initialLocale if initialLocale?
-
     if !isFallbackLocale && !translated?
-      delete replacements.count_delimited
       # added by Lang.choice
       delete replacements.count
 
@@ -380,7 +358,10 @@
   updateQueryString: (url, params) ->
     urlObj = new URL(url ? window.location.href, document.location.origin)
     for own key, value of params
-      urlObj.searchParams.set(key, value)
+      if value?
+        urlObj.searchParams.set(key, value)
+      else
+        urlObj.searchParams.delete(key)
 
     return urlObj.href
 

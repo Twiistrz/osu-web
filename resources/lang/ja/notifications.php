@@ -1,28 +1,15 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'all_read' => '全ての通知を読む！',
-    'mark_all_read' => '全て消去',
+    'all_read' => '通知は全て既読です！',
+    'delete' => '',
+    'mark_read' => '消去 :type',
     'none' => '通知なし',
     'see_all' => 'すべての通知を見る',
+    'see_channel' => '',
 
     'filters' => [
         '_' => '全て',
@@ -46,6 +33,8 @@ return [
                 'beatmapset_discussion_post_new_empty' => ':username による「:title」への新しい投稿',
                 'beatmapset_discussion_post_new_compact' => ':username による新しい投稿: 「:content」',
                 'beatmapset_discussion_post_new_compact_empty' => ':username による新しい投稿',
+                'beatmapset_discussion_review_new' => ':usernameが「:title」に問題：:problems、提案：:suggestions、称賛：:praisesを含む、新しいレビューを投稿しました。',
+                'beatmapset_discussion_review_new_compact' => ':usernameが問題：:problems、提案：:suggestions、称賛：:praisesを含む、新しいレビューを投稿しました。',
                 'beatmapset_discussion_unlock' => 'ビートマップ「:title」ディスカッションのためにロック解除されました。',
                 'beatmapset_discussion_unlock_compact' => 'ディスカッションはアンロックされました。',
             ],
@@ -70,6 +59,8 @@ return [
                 'beatmapset_qualify_compact' => 'ビートマップがランキングのキューに入りました',
                 'beatmapset_rank' => '「:title」はrankedされました。',
                 'beatmapset_rank_compact' => 'ビートマップがrankedされました。',
+                'beatmapset_remove_from_loved' => '「:title」はlovedから削除されました',
+                'beatmapset_remove_from_loved_compact' => 'ビートマップはlovedから削除されました',
                 'beatmapset_reset_nominations' => ':usernameの問題点投稿によりビートマップ「:title」のノミネーションがリセットされました。 ',
                 'beatmapset_reset_nominations_compact' => 'ノミネーションがリセットされました。',
             ],
@@ -79,6 +70,8 @@ return [
 
                 'comment_new' => ':usernameが「:title」でコメント「:content」',
                 'comment_new_compact' => ':usernameがコメント「:content」',
+                'comment_reply' => ':usernameが「:title」に「:content」を返信しました',
+                'comment_reply_compact' => ':usernameが「:content」に返信しました',
             ],
         ],
 
@@ -103,6 +96,8 @@ return [
 
                 'comment_new' => ':usernameが「:title」でコメント「:content」',
                 'comment_new_compact' => ':usernameがコメント「:content」',
+                'comment_reply' => ':usernameが「:title」に「:content」を返信しました',
+                'comment_reply_compact' => ':usernameが「:content」に返信しました',
             ],
         ],
 
@@ -114,6 +109,8 @@ return [
 
                 'comment_new' => ':usernameが「:title」でコメント「:content」',
                 'comment_new_compact' => ':usernameがコメント「:content」',
+                'comment_reply' => ':usernameが「:title」に「:content」を返信しました',
+                'comment_reply_compact' => ':usernameが「:content」に返信しました',
             ],
         ],
 
@@ -143,6 +140,66 @@ return [
                 '_' => '新しいメダル',
                 'user_achievement_unlock' => ':title をアンロック！',
                 'user_achievement_unlock_compact' => ':title をアンロック！',
+                'user_achievement_unlock_group' => 'メダルのロックが解除されました！',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'ディスカッション「:title」はロックされています',
+                'beatmapset_discussion_post_new' => 'ディスカッション「:title」に新しい更新があります',
+                'beatmapset_discussion_unlock' => 'ディスカッション「:title」のロックが解除されました',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => '新しい問題が「:title」で報告されました',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '「:title」はdisqualifyされました',
+                'beatmapset_love' => '「:title」はlovedになりました',
+                'beatmapset_nominate' => '「:title」はノミネートされました',
+                'beatmapset_qualify' => '「:title」は十分なノミネートを獲得し、ランキングキューに入りました',
+                'beatmapset_rank' => '「:title」はrankedされました',
+                'beatmapset_remove_from_loved' => '「:title」はlovedから削除されました',
+                'beatmapset_reset_nominations' => '「:title」のノミネーションがリセットされました',
+            ],
+
+            'comment' => [
+                'comment_new' => 'ビートマップ「:title」に新しいコメントがあります',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => ':usernameから新しいメッセージを受信しました',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => '更新履歴「:title」に新しいコメントがあります',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'ニュース「:title」に新しいコメントがあります',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => '「:title」に新しい返信があります',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':usernameが新しいメダル「:title」をアンロックしました！',
+                'user_achievement_unlock_self' => '新しいメダル「:title」をアンロックしました！',
             ],
         ],
     ],

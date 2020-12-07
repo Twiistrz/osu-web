@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import DispatcherAction from 'actions/dispatcher-action';
 import { UserLoginAction, UserLogoutAction } from 'actions/user-login-actions';
@@ -22,8 +7,12 @@ import { dispatchListener } from 'app-dispatcher';
 import DispatchListener from 'dispatch-listener';
 import { action, observable } from 'mobx';
 import Notification from 'models/notification';
+import { NotificationEventDelete, NotificationEventRead } from 'notifications/notification-events';
+import { NotificationIdentity, resolveIdentityType, resolveStackId } from 'notifications/notification-identity';
 import NotificationStackStore from './notification-stack-store';
 import WidgetNotificationStackStore from './widget-notification-stack-store';
+
+type NotificationEachCallback = (notification: Notification) => void;
 
 @dispatchListener
 export default class NotificationStore implements DispatchListener {
@@ -47,8 +36,69 @@ export default class NotificationStore implements DispatchListener {
 
   @action
   handleDispatchAction(dispatched: DispatcherAction) {
-    if (dispatched instanceof UserLoginAction || dispatched instanceof UserLogoutAction) {
+    if (dispatched instanceof NotificationEventDelete) {
+      this.handleNotificationEventDelete(dispatched);
+    } else if (dispatched instanceof NotificationEventRead) {
+      this.handleNotificationEventRead(dispatched);
+    } else if (dispatched instanceof UserLoginAction || dispatched instanceof UserLogoutAction) {
       this.flushStore();
     }
+  }
+
+  @action
+  handleNotificationEventDelete(event: NotificationEventDelete) {
+    this.eachByEvent(event, (notification) => {
+      this.notifications.delete(notification.id);
+    });
+  }
+
+  @action
+  handleNotificationEventRead(event: NotificationEventRead) {
+    this.eachByEvent(event, (notification) => {
+      notification.isRead = true;
+    });
+  }
+
+  private eachByEvent(event: NotificationEventDelete | NotificationEventRead, callback: NotificationEachCallback) {
+    for (const identity of event.data) {
+      const identityType = resolveIdentityType(identity);
+
+      switch (identityType) {
+        case 'type':
+          this.eachByType(identity, callback);
+          break;
+
+        case 'stack':
+          this.eachByStack(identity, callback);
+          break;
+
+        case 'notification':
+          if (identity.id == null) return;
+          const notification = this.get(identity.id);
+
+          if (notification != null) {
+            callback(notification);
+          }
+          break;
+      }
+    }
+  }
+
+  private eachByStack(identity: NotificationIdentity, callback: NotificationEachCallback) {
+    const stackId = resolveStackId(identity);
+
+    this.notifications.forEach((notification) => {
+      if (notification.stackId === stackId) {
+        callback(notification);
+      }
+    });
+  }
+
+  private eachByType(identity: NotificationIdentity, callback: NotificationEachCallback) {
+    this.notifications.forEach((notification) => {
+      if (identity.objectType == null || notification.objectType === identity.objectType) {
+        callback(notification);
+      }
+    });
   }
 }

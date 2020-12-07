@@ -1,28 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Angepinnte Threads',
     'slogan' => "es ist gefährlich, alleine zu spielen.",
     'subforums' => 'Subforen',
-    'title' => 'osu! Foren',
+    'title' => 'Foren',
 
     'covers' => [
         'edit' => 'Cover bearbeiten',
@@ -58,15 +43,16 @@ return [
     ],
 
     'post' => [
-        'confirm_destroy' => 'Post entfernen?',
-        'confirm_restore' => 'Post wiederherstellen?',
-        'edited' => 'Zuletzt von :user :when bearbeitet, insgesamt :count Mal bearbeitet.',
+        'confirm_destroy' => 'Beitrag wirklich entfernen?',
+        'confirm_restore' => 'Beitrag wirklich wiederherstellen?',
+        'edited' => 'Zuletzt von :user :when bearbeitet, insgesamt :count_delimited Mal bearbeitet.',
         'posted_at' => 'erstellt :when',
 
         'actions' => [
-            'destroy' => 'Post löschen',
-            'restore' => 'Post wiederherstellen',
-            'edit' => 'Post bearbeiten',
+            'destroy' => 'Beitrag löschen',
+            'edit' => 'Beitrag bearbeiten',
+            'report' => '',
+            'restore' => 'Beitrag wiederherstellen',
         ],
 
         'create' => [
@@ -77,19 +63,21 @@ return [
 
         'info' => [
             'post_count' => ':count_delimited Beitrag | :count_delimited Beiträge',
-            'topic_starter' => 'Thread Starter',
+            'topic_starter' => 'Thread-Starter',
         ],
     ],
 
     'search' => [
-        'go_to_post' => 'Gehe zu Post',
-        'post_number_input' => 'postnummer hier eingeben',
-        'total_posts' => 'Insgesamt :posts_count Posts',
+        'go_to_post' => 'Gehe zu Beitrag',
+        'post_number_input' => 'beitragsnummer hier eingeben',
+        'total_posts' => 'Insgesamt :posts_count Beiträge',
     ],
 
     'topic' => [
         'deleted' => 'gelöschter thread',
-        'go_to_latest' => 'letzten post anschauen',
+        'go_to_latest' => 'letzten beitrag anschauen',
+        'has_replied' => 'Du hast auf diesen Thread geantwortet',
+        'in_forum' => 'in :forum',
         'latest_post' => ':when von :user',
         'latest_reply_by' => 'letzte antwort von :user',
         'new_topic' => 'Neuen Thread erstellen',
@@ -109,11 +97,11 @@ return [
             'submit' => 'Erstellen',
 
             'necropost' => [
-                'default' => 'Dieser Beitrag ist seit längerer Zeit inaktiv. Poste nur, wenn du einen wichtigen Grund dazu hast.',
+                'default' => 'Dieser Thread ist seit längerer Zeit inaktiv. Poste nur, wenn du einen wichtigen Grund dazu hast.',
 
                 'new_topic' => [
-                    '_' => "Dieser Beitrag ist seit längerer Zeit inaktiv. Wenn du keinen wichtigen Grund zum posten hast, dann :create hier einen neuen.",
-                    'create' => 'Erstelle einen neuen Beitrag',
+                    '_' => "Dieser Thread ist seit längerer Zeit inaktiv. Wenn du keinen wichtigen Grund zum Posten hast, :create stattdessen.",
+                    'create' => 'erstelle einen neuen Thread',
                 ],
             ],
 
@@ -124,11 +112,11 @@ return [
         ],
 
         'jump' => [
-            'enter' => 'hier klicken, um eine postnummer einzugeben',
-            'first' => 'zum ersten post',
-            'last' => 'zum letzten post',
-            'next' => '10 posts überspringen',
-            'previous' => '10 posts zurückgehen',
+            'enter' => 'hier klicken, um eine beitragsnummer einzugeben',
+            'first' => 'zum ersten beitrag',
+            'last' => 'zum letzten beitrag',
+            'next' => '10 beiträge überspringen',
+            'previous' => '10 beiträge zurückgehen',
         ],
 
         'post_edit' => [
@@ -166,7 +154,7 @@ return [
         'actions' => [
             'login_reply' => 'Melde dich an, um zu antworten',
             'reply' => 'Antworten',
-            'reply_with_quote' => 'Post in der Antwort zitieren',
+            'reply_with_quote' => 'Beitrag in der Antwort zitieren',
             'search' => 'Suchen',
         ],
 
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Dieser Thread ist gesperrt und erlaubt keine weiteren Antworten',
             'to_0' => 'Thread entsperren',
+            'to_0_confirm' => 'Thread entsperren?',
             'to_0_done' => 'Thread wurde entsperrt',
             'to_1' => 'Thread sperren',
+            'to_1_confirm' => 'Thread sperren?',
             'to_1_done' => 'Thread wurde gesperrt',
         ],
 
@@ -261,11 +251,14 @@ return [
         ],
 
         'moderate_pin' => [
-            'to_0' => 'Thread von den angepinnten Threads entfernen',
+            'to_0' => 'Thread von den angepinnten Threads lösen',
+            'to_0_confirm' => 'Thread lösen?',
             'to_0_done' => 'Thread wurde von den angepinnten Threads entfernt',
             'to_1' => 'Thread anpinnen',
+            'to_1_confirm' => 'Thread anpinnen?',
             'to_1_done' => 'Thread wurde angepinnt',
             'to_2' => 'Thread anpinnen und als Ankündigung markieren',
+            'to_2_confirm' => 'Thread anpinnen und als Ankündigung markieren?',
             'to_2_done' => 'Thread wurde angepinnt und als Ankündigung markiert',
         ],
 
@@ -275,21 +268,21 @@ return [
         ],
 
         'show' => [
-            'deleted-posts' => 'Gelöschte Posts',
-            'total_posts' => 'Posts insgesamt',
+            'deleted-posts' => 'Gelöschte Beiträge',
+            'total_posts' => 'Beiträge insgesamt',
 
             'feature_vote' => [
                 'current' => 'Aktuelle Priorität: +:count',
                 'do' => 'Priorität hinzufügen',
 
                 'info' => [
-                    '_' => 'Dies ist ein :feature_request. Funktionsvorschläge können nur von :supporters abgestimmt werden.',
+                    '_' => 'Dies ist ein :feature_request. Über Funktionsvorschläge können nur :supporters abstimmen.',
                     'feature_request' => 'Funktionsvorschlag',
                     'supporters' => 'Unterstützer',
                 ],
 
                 'user' => [
-                    'count' => '{0} Keine Stimme|{1} :count Stimme|[2,*] :count Stimmen',
+                    'count' => '{0} Keine Stimme|{1} :count_delimited Stimme|[2,*] :count_delimited Stimmen',
                     'current' => 'Du hast noch :votes.',
                     'not_enough' => "Du hast keine Stimmen mehr",
                 ],
@@ -320,8 +313,8 @@ return [
             'to_not_watching' => 'Kein Lesezeichen gesetzt',
             'to_watching' => 'Lesezeichen setzen',
             'to_watching_mail' => 'Lesezeichen setzen und benachrichtigt werden',
-            'tooltip_mail_disable' => 'Benachrichtigungen sind aktiviert. Klicken, zum deaktivieren',
-            'tooltip_mail_enable' => 'Benachrichtigungen sind deaktiviert. Klicken, zum aktivieren',
+            'tooltip_mail_disable' => 'Benachrichtigungen sind aktiviert. Klicken zum Deaktivieren',
+            'tooltip_mail_enable' => 'Benachrichtigungen sind deaktiviert. Klicken zum Aktivieren',
         ],
     ],
 ];

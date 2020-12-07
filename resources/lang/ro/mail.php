@@ -1,44 +1,29 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'beatmapset_update_notice' => [
-        'new' => '',
+        'new' => 'Doar vă las să știți că a fost un update nou în beatmap-ul ”:title” de la vizita ta trecută.',
         'subject' => 'Actualizare nouă pentru beatmapul ":title"',
-        'unwatch' => '',
-        'visit' => '',
+        'unwatch' => 'Dacă nu mai dorești să urmărești acest beatmap, puteți fie să dați click pe link-ul "Unwatch" găsit în pagina de mai sus, fie din pagina de vizualizare de modare:',
+        'visit' => 'Vizitați pagina de discuție aici:',
     ],
 
     'common' => [
-        'closing' => '',
-        'hello' => '',
-        'report' => '',
+        'closing' => 'Cu stimă,',
+        'hello' => 'Bună :user,',
+        'report' => 'Vă rugăm să răspundeți la acest e-mail IMEDIAT dacă nu ați solicitat această modificare.',
     ],
 
     'donation_thanks' => [
-        'benefit_more' => '',
-        'feedback' => "",
-        'keep_free' => '',
-        'keep_running' => '',
+        'benefit_more' => 'Mai multe beneficii de sprinjinitor vor apărea pe timp ce trece!',
+        'feedback' => "Dacă ai orice întrebare sau feedback, nu ezita să răspunzi acestui mail; O să mă întorc la tine cât mai curând posibil!",
+        'keep_free' => 'Este mulțumită oamenilor ca tine care joacă osu! pentru care putem să menținem jocul și comunitatea funcțională în mod lin fără reclame sau plăți forțate.',
+        'keep_running' => 'Sprijinul tău păstrează osu! rulează de aproximativ :minutes! Poate nu pare prea mult, dar totul se adaugă :).',
         'subject' => 'Mulțumim, osu! te <3',
-        'translation' => '',
+        'translation' => 'O traducere furnizată de comunitate pentru scopuri informaționale urmează:',
 
         'benefit' => [
             'gift' => '',
@@ -95,6 +80,12 @@ return [
         'main' => '',
         'perform_reset' => '',
         'reason' => '',
+        'subject' => '',
+    ],
+
+    'user_notification_digest' => [
+        'new' => '',
+        'settings' => '',
         'subject' => '',
     ],
 

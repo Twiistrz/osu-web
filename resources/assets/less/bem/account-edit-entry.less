@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .account-edit-entry {
   @top: account-edit-entry;
@@ -46,6 +31,16 @@
     }
   }
 
+  &.js-account-edit-avatar--start {
+    position: relative;
+
+    // placeholder to prevent triggering dragleave when entring child element
+    &::after {
+      .full-size();
+      content: '';
+    }
+  }
+
   &__avatar {
     .default-border-radius();
     .own-layer();
@@ -72,8 +67,17 @@
     flex-wrap: wrap;
     align-items: baseline;
 
+    @media @desktop {
+      position: relative;
+    }
+
     &--inline {
       margin: 5px 10px;
+    }
+
+    &--grid {
+      display: flex;
+      justify-content: center;
     }
   }
 
@@ -81,6 +85,14 @@
     margin-bottom: 5px;
     width: 100%;
     order: -1;
+    // label is 600, but checkbox-label isn't in a label when in a grid.
+    font-weight: 600;
+
+    &--grid {
+      margin-bottom: 0;
+      width: auto;
+      order: 0;
+    }
 
     @media @desktop {
       margin-bottom: 0;
@@ -105,6 +117,10 @@
     display: flex;
     flex-wrap: wrap;
     margin: -5px -10px;
+
+    @media @desktop {
+      position: relative;
+    }
 
     &--vertical {
       flex-direction: column;
@@ -135,28 +151,22 @@
   &__drop-overlay {
     .full-size();
     .center-content();
+    text-align: center;
     padding: 10px;
     opacity: 0;
     color: #fff;
-
-    &::before {
-      .full-size();
-      content: ' ';
-      background-color: #000;
-      opacity: 0;
-      transition: all 120ms;
-
-      .@{top}.js-account-edit-avatar--start & {
-        opacity: 0.5;
-      }
-
-      .@{top}.js-account-edit-avatar--hover & {
-        opacity: 0.7;
-      }
-    }
+    background-color: rgba(0, 0, 0, var(--bg-opacity));
+    transition: all 120ms;
+    --bg-opacity: 0;
 
     .@{top}.js-account-edit-avatar--start & {
       opacity: 1;
+      --bg-opacity: 0.5;
+    }
+
+    // higher priority than --start
+    .@{top}.js-account-edit-avatar--hover & {
+      --bg-opacity: 0.7;
     }
   }
 
@@ -174,6 +184,12 @@
     .@{top}[data-form-error-state=error] & {
       display: block;
     }
+  }
+
+  &__delivery-options {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    grid-gap: 5px;
   }
 
   &__input {

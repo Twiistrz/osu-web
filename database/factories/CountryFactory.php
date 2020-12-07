@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -12,7 +15,7 @@
 */
 
 $factory->define(App\Models\Country::class, function (Faker\Generator $faker) {
-    return  [
+    return [
         'acronym' => $faker->unique()->countryCode,
         'name' => $faker->unique()->country,
         'rankedscore' => rand(5000000, 500000000) * 10000,

@@ -1,26 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
-use App\Libraries\CommentBundleParams;
 use App\Libraries\ProfileCover;
 
 /**
@@ -46,6 +30,14 @@ class UserProfileCustomization extends Model
         'kudosu',
     ];
 
+    const BEATMAPSET_DOWNLOAD = ['all', 'no_video', 'direct'];
+
+    const USER_LIST = [
+        'filters' => ['all' => ['all', 'online', 'offline'], 'default' => 'all'],
+        'sorts' => ['all' => ['last_visit', 'rank', 'username'], 'default' => 'last_visit'],
+        'views' => ['all' => ['card', 'list', 'brick'], 'default' => 'card'],
+    ];
+
     protected $casts = [
         'cover_json' => 'array',
         'options' => 'array',
@@ -56,18 +48,17 @@ class UserProfileCustomization extends Model
     public static function repairExtrasOrder($value)
     {
         // read from inside out
-        return
-            array_values(
-                // remove duplicate sections from previous merge
-                array_unique(
-                    // ensure all sections are included
-                    array_merge(
-                        // remove invalid sections
-                        array_intersect($value, static::SECTIONS),
-                        static::SECTIONS
-                    )
+        return array_values(
+            // remove duplicate sections from previous merge
+            array_unique(
+                // ensure all sections are included
+                array_merge(
+                    // remove invalid sections
+                    array_intersect($value, static::SECTIONS),
+                    static::SECTIONS
                 )
-            );
+            )
+        );
     }
 
     public function cover()
@@ -86,18 +77,140 @@ class UserProfileCustomization extends Model
         $this->save();
     }
 
+    public function getAudioAutoplayAttribute()
+    {
+        return $this->options['audio_autoplay'] ?? false;
+    }
+
+    public function setAudioAutoplayAttribute($value)
+    {
+        if (!is_bool($value)) {
+            $value = null;
+        }
+
+        $this->setOption('audio_autoplay', $value);
+    }
+
+    public function getAudioMutedAttribute()
+    {
+        return $this->options['audio_muted'] ?? false;
+    }
+
+    public function setAudioMutedAttribute($value)
+    {
+        if (!is_bool($value)) {
+            $value = null;
+        }
+
+        $this->setOption('audio_muted', $value);
+    }
+
+    public function getAudioVolumeAttribute()
+    {
+        return $this->options['audio_volume'] ?? null;
+    }
+
+    public function setAudioVolumeAttribute($value)
+    {
+        if (!is_float($value) && !is_int($value)) {
+            $value = null;
+        }
+
+        $this->setOption('audio_volume', $value);
+    }
+
+    public function getBeatmapsetDownloadAttribute()
+    {
+        return $this->options['beatmapset_download'] ?? static::BEATMAPSET_DOWNLOAD[0];
+    }
+
+    public function setBeatmapsetDownloadAttribute($value)
+    {
+        if ($value !== null && !in_array($value, static::BEATMAPSET_DOWNLOAD, true)) {
+            $value = null;
+        }
+
+        $this->setOption('beatmapset_download', $value);
+    }
+
+    public function getBeatmapsetTitleShowOriginalAttribute()
+    {
+        return $this->options['beatmapset_title_show_original'] ?? false;
+    }
+
+    public function setBeatmapsetTitleShowOriginalAttribute($value)
+    {
+        if (!is_bool($value)) {
+            $value = null;
+        }
+
+        $this->setOption('beatmapset_title_show_original', $value);
+    }
+
     public function getCommentsSortAttribute()
     {
-        return $this->options['comments_sort'] ?? CommentBundleParams::DEFAULT_SORT;
+        return $this->options['comments_sort'] ?? Comment::DEFAULT_SORT;
     }
 
     public function setCommentsSortAttribute($value)
     {
-        if ($value !== null && !in_array($value, array_keys(CommentBundleParams::SORTS), true)) {
+        if ($value !== null && !array_key_exists($value, Comment::SORTS)) {
             $value = null;
         }
 
         $this->setOption('comments_sort', $value);
+    }
+
+    public function getForumPostsShowDeletedAttribute()
+    {
+        return $this->options['forum_posts_show_deleted'] ?? true;
+    }
+
+    public function setForumPostsShowDeletedAttribute($value)
+    {
+        $this->setOption('forum_posts_show_deleted', $value);
+    }
+
+    public function getUserListFilterAttribute()
+    {
+        return $this->options['user_list_filter'] ?? static::USER_LIST['filters']['default'];
+    }
+
+    public function setUserListFilterAttribute($value)
+    {
+        if ($value !== null && !in_array($value, static::USER_LIST['filters']['all'], true)) {
+            $value = null;
+        }
+
+        $this->setOption('user_list_filter', $value);
+    }
+
+    public function getUserListSortAttribute()
+    {
+        return $this->options['user_list_sort'] ?? static::USER_LIST['sorts']['default'];
+    }
+
+    public function setUserListSortAttribute($value)
+    {
+        if ($value !== null && !in_array($value, static::USER_LIST['sorts']['all'], true)) {
+            $value = null;
+        }
+
+        $this->setOption('user_list_sort', $value);
+    }
+
+    public function getUserListViewAttribute()
+    {
+        return $this->options['user_list_view'] ?? static::USER_LIST['views']['default'];
+    }
+
+    public function setUserListViewAttribute($value)
+    {
+        if ($value !== null && !in_array($value, static::USER_LIST['views']['all'], true)) {
+            $value = null;
+        }
+
+        $this->setOption('user_list_view', $value);
     }
 
     public function getExtrasOrderAttribute($value)

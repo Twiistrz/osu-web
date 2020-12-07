@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Зададен е невалиден :attribute.',
     'not_negative' => ':attribute не може да бъде отрицателно.',
     'required' => ':attribute е задължително.',
     'too_long' => ':attribute превишена максимална дължина - може да бъде само до :limit символа.',
     'wrong_confirmation' => 'Потвърждението не съвпада.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Дискусията е заключена.',
-        'first_post' => 'Не можете да изтриете началната публикация.',
-
-        'attributes' => [
-            'message' => '',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Времевата отметка е зададена, но бийтмапа липсва.',
@@ -42,11 +19,12 @@ return [
         'locked' => 'Дискусията е заключена.',
 
         'attributes' => [
-            'message_type' => '',
-            'timestamp' => '',
+            'message_type' => 'Вид на съобщението',
+            'timestamp' => 'Времева отметка',
         ],
 
         'hype' => [
+            'discussion_locked' => "Този бийтмап е в момента заключен за дискусии и не може да бъде надъхван",
             'guest' => 'Трябва да влезете в профила си за да надъхате.',
             'hyped' => 'Вие вече сте надъхали този бийтмап.',
             'limit_exceeded' => 'Използвахте си цялото надъхване.',
@@ -60,17 +38,26 @@ return [
         ],
     ],
 
-    'comment' => [
-        'deleted_parent' => 'Не е позволено отговарянето на изтрит коментар.',
-        'top_only' => '',
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Дискусията е заключена.',
+        'first_post' => 'Не можете да изтриете началната публикация.',
 
         'attributes' => [
-            'message' => '',
+            'message' => 'Съобщението',
+        ],
+    ],
+
+    'comment' => [
+        'deleted_parent' => 'Не е позволено отговарянето на изтрит коментар.',
+        'top_only' => 'Прикрепянето на отговора на коментара не е позволено.',
+
+        'attributes' => [
+            'message' => 'Съобщението',
         ],
     ],
 
     'follow' => [
-        'invalid' => '',
+        'invalid' => 'Зададен е невалиден :attribute.',
     ],
 
     'forum' => [
@@ -89,13 +76,13 @@ return [
             'only_quote' => 'Вашият отговор съдържа само цитат.',
 
             'attributes' => [
-                'post_text' => '',
+                'post_text' => 'Съдържание на публикацията',
             ],
         ],
 
         'topic' => [
             'attributes' => [
-                'topic_title' => '',
+                'topic_title' => 'Заглавие на темата',
             ],
         ],
 
@@ -109,7 +96,7 @@ return [
             'too_many_options' => 'Достигнат е максимум брой позволени опции.',
 
             'attributes' => [
-                'title' => '',
+                'title' => 'Име на анкетата',
             ],
         ],
 
@@ -121,12 +108,12 @@ return [
 
     'oauth' => [
         'client' => [
-            'too_many' => '',
-            'url' => '',
+            'too_many' => 'Достигнат е максимум брой позволени OAuth приложения.',
+            'url' => 'Въведете валиден URL.',
 
             'attributes' => [
-                'name' => '',
-                'redirect' => '',
+                'name' => 'Име на приложението',
+                'redirect' => 'Callback URL на приложението',
             ],
         ],
     ],
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Паролата не може да съдържа в себе си потребителското име.',
         'email_already_used' => 'Този имейл адрес вече се използва.',
+        'email_not_allowed' => '',
         'invalid_country' => 'Страната не е в базата данни.',
         'invalid_discord' => 'Потребителското име за Discord е невалидно.',
         'invalid_email' => "Това не изглежда да е валиден имейл адрес.",
+        'invalid_twitter' => 'Невалидно Twitter потребителско име.',
         'too_short' => 'Новата парола е твърде къса.',
         'unknown_duplicate' => 'Потребителското име или имейл адресът вече се използват.',
         'username_available_in' => 'Това потребителско име ще стане достъпно за употреба след :duration.',
@@ -156,13 +145,13 @@ return [
         'too_long' => 'Превишена максимална дължина - може да бъде само до :limit символа.',
 
         'attributes' => [
-            'username' => '',
-            'user_email' => '',
-            'password' => '',
+            'username' => 'Потребителско име',
+            'user_email' => 'Имейл адрес',
+            'password' => 'Парола',
         ],
 
         'change_username' => [
-            'restricted' => '',
+            'restricted' => 'Смяната на потребителското си име е невъзможно, докато сте с ограничен статут.',
             'supporter_required' => [
                 '_' => 'Трябва да сте :link , за да промените името си!',
                 'link_text' => 'подкрепили osu!',
@@ -172,15 +161,15 @@ return [
     ],
 
     'user_report' => [
-        'reason_not_valid' => '',
+        'reason_not_valid' => ':reason е невалидна причина за този тип докладване.',
         'self' => "Не може да докладвате себе си!",
     ],
 
     'store' => [
         'order_item' => [
             'attributes' => [
-                'quantity' => '',
-                'cost' => '',
+                'quantity' => 'Количество',
+                'cost' => 'Цена',
             ],
         ],
     ],

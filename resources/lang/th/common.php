@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'แน่ใจหรือ?',
@@ -35,11 +20,13 @@ return [
 
     'buttons' => [
         'admin' => 'ผู้ดูแล',
-        'authorise' => '',
+        'authorise' => 'อนุญาต',
+        'authorising' => 'กำลังอนุญาต...',
         'back_to_previous' => 'กลับไปยังตำแหน่งก่อนหน้านี้',
         'back_to_top' => 'กลับไปด้านบน',
         'cancel' => 'ยกเลิก',
         'change' => 'เปลี่ยน',
+        'clear' => 'ล้าง',
         'click_to_copy' => 'คลิกเพื่อคัดลอกไปยังคลิปบอร์ด',
         'click_to_copy_copied' => 'คัดลอกไปยังคลิปบอร์ดแล้ว',
         'close' => 'ปิด',
@@ -49,8 +36,9 @@ return [
         'expand' => 'ขยาย',
         'hide' => 'ซ่อน',
         'permalink' => 'ลิงก์ถาวร',
-        'pin' => '',
+        'pin' => 'ปักหมุด',
         'post' => 'โพสต์',
+        'read_more' => 'อ่านเพิ่มเติม',
         'reply' => 'ตอบกลับ',
         'reply_reopen' => 'ตอบกลับ และเปิดใหม่',
         'reply_resolve' => 'ตอบกลับ และแก้ไข',
@@ -62,12 +50,12 @@ return [
         'see_more' => 'ดูเพิ่มเติม',
         'show' => 'แสดง',
         'show_deleted' => 'แสดงรายการที่ลบ',
-        'show_less' => '',
+        'show_less' => 'แสดงน้อยลง',
         'show_more' => 'แสดงเพิ่มเติม',
         'show_more_options' => 'แสดงตัวเลือกเพิ่มเติม',
-        'unpin' => '',
+        'unpin' => 'ยกเลิกการปักหมุด',
         'update' => 'อัปเดต',
-        'upload_image' => 'อัพโหลดรูปภาพ',
+        'upload_image' => 'อัปโหลดรูปภาพ',
 
         'watch' => [
             'to_0' => 'เลิกติดตาม',
@@ -76,22 +64,22 @@ return [
     ],
 
     'count' => [
-        'badges' => ':count เหรียญ|:count เหรียญ',
-        'days' => ':count วัน|:count วัน',
+        'badges' => ':count_delimited เหรียญ|:count_delimited เหรียญ',
+        'days' => ':count_delimited วัน|:count_delimited วัน',
         'hour_short_unit' => 'ชั่วโมง|ชั่วโมง',
         'hours' => ':count ชั่วโมง|:count ชั่วโมง',
         'item' => ':count อัน|:count อัน',
         'minute_short_unit' => 'นาที|นาที',
         'minutes' => ':count_delimited นาที|:count_delimited นาที',
-        'months' => ':count เดือน|:count เดือน',
-        'notifications' => '',
-        'plus_others' => '',
-        'post' => '',
+        'months' => ':count_delimited เดือน|:count_delimited เดือน',
+        'notifications' => ':count_delimited การแจ้งเตือน|:count_delimited การแจ้งเตือนทั้งหมด',
+        'plus_others' => 'อีก + :count_delimited อัน!|อีก + :count_delimited อัน!',
+        'post' => ':count_delimited โพสต์|:count_delimited โพสต์',
         'second_short_unit' => 'วินาที|วินาที',
-        'star_priority' => '',
-        'update' => '',
-        'view' => '',
-        'years' => ':count ปี|:count ปี',
+        'star_priority' => ':count_delimited ดาวความสำคัญ|:count_delimited ดาวความสำคัญ',
+        'update' => ':count_delimited อัพเดต|:count_delimited อัพเดต',
+        'view' => ':count_delimited วิว|:count_delimited วิว',
+        'years' => ':count_delimited ปี|:count_delimited ปี',
     ],
 
     'countdown' => [
@@ -119,7 +107,7 @@ return [
     ],
 
     'dropzone' => [
-        'target' => 'วางที่นี่เพื่ออัพโหลด',
+        'target' => 'วางที่นี่เพื่ออัปโหลด',
     ],
 
     'input' => [
@@ -140,9 +128,24 @@ return [
         'count_miss' => 'Miss',
     ],
 
+    'scoreboard_time' => [
+        'd' => '%d วัน',
+        'dd' => '%d วัน',
+        'h' => '%d ชั่วโมง',
+        'hh' => '%d ชั่วโมง',
+        'M' => '%d เดือน',
+        'm' => '%d นาที',
+        'MM' => '%d เดือน',
+        'mm' => '%d นาที',
+        'past' => '',
+        's' => '%d วินาที',
+        'y' => '%d ปี',
+        'yy' => '%d ปี',
+    ],
+
     'time' => [
-        'days_ago' => ':count วันที่แล้ว|:count วันที่แล้ว',
-        'hours_ago' => ':count ชั่วโมงที่แล้ว|:count ชั่วโมงที่แล้ว',
+        'days_ago' => ':count_delimited วันที่แล้ว|:count_delimited วันที่แล้ว',
+        'hours_ago' => ':count_delimited ชั่วโมงที่แล้ว|:count_delimited ชั่วโมงที่แล้ว',
         'now' => 'ขณะนี้',
         'remaining' => 'เวลาที่เหลือ',
     ],
@@ -152,7 +155,7 @@ return [
     ],
 
     'wrong_user' => [
-        '_' => '',
-        'logout_link' => '',
+        '_' => 'คุณกำลังเข้าสู่ระบบด้วยชื่อ :user :logout_link',
+        'logout_link' => 'คลิกที่นี่เพื่อเข้าสู่ระบบในฐานะบัญชีผู้ใช้อื่น',
     ],
 ];

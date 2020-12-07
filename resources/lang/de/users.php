@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[gelöschter Benutzer]',
@@ -30,11 +15,11 @@ return [
         ],
 
         'events' => [
-            'title_recent' => 'Neuste Events',
+            'title_recent' => 'Neueste Events',
         ],
 
         'posts' => [
-            'title_recent' => 'Neuste Posts',
+            'title_recent' => 'Neueste Beiträge',
         ],
 
         'votes_received' => [
@@ -54,14 +39,14 @@ return [
         'show_profile' => 'Profil anzeigen',
         'too_many' => 'Block-Limit erreicht.',
         'button' => [
-            'block' => 'blocken',
-            'unblock' => 'entblocken',
+            'block' => 'Blocken',
+            'unblock' => 'Entblocken',
         ],
     ],
 
     'card' => [
         'loading' => 'Lädt...',
-        'send_message' => 'nachricht senden',
+        'send_message' => 'Nachricht senden',
     ],
 
     'disabled' => [
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => 'Mitglieder nach Spielmodus',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Dein Konto wurde längere Zeit nicht benutzt.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Falscher Login',
         'forgot' => 'Passwort vergessen?',
         'info' => 'Bitte melde dich an, um fortzufahren',
+        'invalid_captcha' => 'Captcha ungültig, bitte aktualisiere die Seite und versuche es erneut.',
         'locked_ip' => 'Deine IP-Adresse ist gesperrt. Bitte warte ein paar Minuten.',
         'password' => 'Passwort',
         'register' => "Noch keinen osu!-Account? Erstell' einen",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Derzeit online',
         'missingtext' => 'Vielleicht hast du dich verschrieben (oder der Benutzer wurde gebannt)!',
         'origin_country' => 'Aus :country',
-        'page_description' => 'osu! - Alles, was du jemals über :username wissen wolltest!',
         'previous_usernames' => 'auch bekannt als',
         'plays_with' => 'Spielt mit :devices',
         'title' => "Profil von :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Bild hochladen',
                     'dropzone' => 'Zum Hochladen hier ablegen',
                     'dropzone_info' => 'Du kannst das Bild auch hier ablegen, um es hochzuladen',
-                    'size_info' => 'Banner sollte 2800x620 groß sein',
+                    'size_info' => 'Banner sollte 2400x620 groß sein',
                     'too_large' => 'Datei ist zu groß.',
                     'unsupported_format' => 'Format wird nicht unterstützt.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'von :artist',
-                'none' => '(Noch) keine.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -218,7 +206,7 @@ return [
                     'title' => 'Ranked & Approved Beatmaps',
                 ],
                 'unranked' => [
-                    'title' => 'Pending Beatmaps',
+                    'title' => 'Ausstehende Beatmaps',
                 ],
             ],
             'discussions' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'mehr Events anzeigen',
             ],
             'historical' => [
-                'empty' => 'Keine Performance-Einträge. :(',
                 'title' => 'Historisch',
 
                 'monthly_playcounts' => [
@@ -241,7 +228,7 @@ return [
                 ],
                 'most_played' => [
                     'count' => 'mal gespielt',
-                    'title' => 'Meist gespielte Beatmaps',
+                    'title' => 'Meistgespielte Beatmaps',
                 ],
                 'recent_plays' => [
                     'accuracy' => 'genauigkeit: :percentage',
@@ -253,14 +240,12 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Verfügbares Kudosu',
-                'available_info' => "Kudosu kann gegen Kudosu-Sterne eingetauscht werden, die deiner Beatmap mehr Aufmerksamkeit bringen. Dies ist die Menge an Kudosu, die du noch nicht eingetauscht hast.",
-                'recent_entries' => 'Kudosu-Geschichte',
+                'recent_entries' => 'Kudosu-Verlauf',
                 'title' => 'Kudosu!',
                 'total' => 'Kudosu insgesamt',
 
                 'entry' => [
-                    'amount' => ':amount kudosu',
+                    'amount' => ':amount Kudosu',
                     'empty' => "Dieser Benutzer hat kein Kudosu erhalten!",
 
                     'beatmap_discussion' => [
@@ -269,11 +254,11 @@ return [
                         ],
 
                         'deny_kudosu' => [
-                            'reset' => ':amount vom Post :post verwehrt',
+                            'reset' => ':amount vom Beitrag :post verwehrt',
                         ],
 
                         'delete' => [
-                            'reset' => ':amount durch das Löschen des Modding-Posts :post verloren',
+                            'reset' => ':amount durch das Löschen des Modding-Beitrags :post verloren',
                         ],
 
                         'restore' => [
@@ -282,7 +267,7 @@ return [
 
                         'vote' => [
                             'give' => ':amount durch erhaltene Stimmen im Post :post erhalten',
-                            'reset' => ':amount durch verlorene Stimmen im Post :post verloren',
+                            'reset' => ':amount durch verlorene Stimmen im Beitrag :post verloren',
                         ],
 
                         'recalculate' => [
@@ -292,15 +277,15 @@ return [
                     ],
 
                     'forum_post' => [
-                        'give' => ':amount von :giver für einen Post in :post erhalten',
-                        'reset' => 'Kudosu von :giver im Post :post zurückgesetzt',
-                        'revoke' => 'Kudosu von :giver im Post :post verwehrt',
+                        'give' => ':amount von :giver für einen Beitrag in :post erhalten',
+                        'reset' => 'Kudosu von :giver im Beitrag :post zurückgesetzt',
+                        'revoke' => 'Kudosu von :giver im Beitrag :post verwehrt',
                     ],
                 ],
 
                 'total_info' => [
-                    '_' => 'Basierend auf dem Beitrag, den der Benutzer zur Beatmap-Moderation geleistet hat. Weitere Informationen unter :link.',
-                    'link' => 'diese Seite',
+                    '_' => 'Basierend auf dem Beitrag, den der Benutzer zum Beatmap-Modding geleistet hat. Weitere Informationen auf :link.',
+                    'link' => 'dieser Seite',
                 ],
             ],
             'me' => [
@@ -308,7 +293,7 @@ return [
             ],
             'medals' => [
                 'empty' => "Dieser Nutzer hat noch keine erhalten. ;_;",
-                'recent' => 'Neuste',
+                'recent' => 'Neueste',
                 'title' => 'Medaillen',
             ],
             'posts' => [
@@ -320,10 +305,10 @@ return [
                 'title' => 'Neulich',
             ],
             'top_ranks' => [
-                'download_replay' => 'Replay downloaden',
-                'empty' => 'Noch keine Performance-Rekorde. :(',
+                'download_replay' => 'Replay herunterladen',
                 'not_ranked' => 'Nur Ranked Beatmaps geben PP.',
                 'pp_weight' => ':percentage gewichtet',
+                'view_details' => 'Details anzeigen',
                 'title' => 'Ränge',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Interessen',
-            'lastfm' => 'Last.fm',
             'location' => 'Aktueller Standort',
             'occupation' => 'Beschäftigung',
             'skype' => 'Skype',
@@ -393,11 +377,11 @@ return [
         ],
         'post_count' => [
             '_' => ':link beigetragen',
-            'count' => ':count forenpost|:count forenposts',
+            'count' => ':count_delimited Forumsbeitrag|:count_delimited Forenbeiträge',
         ],
         'rank' => [
             'country' => 'Länderrang im Modus :mode',
-            'country_simple' => 'Länder-Rangliste',
+            'country_simple' => 'Landesrangliste',
             'global' => 'Globaler Rang im Modus :mode',
             'global_simple' => 'Globale Rangliste',
         ],
@@ -407,17 +391,17 @@ return [
             'level_progress' => 'Fortschritt bis zum nächsten Level',
             'maximum_combo' => 'Höchste Combo',
             'medals' => 'Medaillen',
-            'play_count' => 'Play-Anzahl',
+            'play_count' => 'Anzahl Spiele',
             'play_time' => 'Gesamtspielzeit',
             'ranked_score' => 'Punktzahl auf Ranglisten',
             'replays_watched_by_others' => 'Von anderen angeschaute Wiederholungen',
             'score_ranks' => 'Ränge durch Punkte',
-            'total_hits' => 'Total Hits',
+            'total_hits' => 'Anzahl Treffer',
             'total_score' => 'Gesamtpunktzahl',
             // modding stats
             'ranked_and_approved_beatmapset_count' => 'Ranked & Approved Beatmaps',
             'loved_beatmapset_count' => 'Loved Beatmaps',
-            'unranked_beatmapset_count' => 'Pending Beatmaps',
+            'unranked_beatmapset_count' => 'Ausstehende Beatmaps',
             'graveyard_beatmapset_count' => 'Begrabende Beatmaps',
         ],
     ],
@@ -428,13 +412,14 @@ return [
         'offline' => 'Offline',
     ],
     'store' => [
-        'saved' => 'User erstellt',
+        'saved' => 'Benutzer erstellt',
     ],
     'verify' => [
-        'title' => 'Accountbestätigung',
+        'title' => 'Accountverifizierung',
     ],
 
     'view_mode' => [
+        'brick' => 'Ziegelansicht',
         'card' => 'Kartenansicht',
         'list' => 'Listenansicht',
     ],

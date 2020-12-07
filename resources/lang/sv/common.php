@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Är du säker?',
@@ -30,48 +15,51 @@ return [
     ],
 
     'badges' => [
-        'new' => '',
+        'new' => 'NYTT',
     ],
 
     'buttons' => [
-        'admin' => '',
-        'authorise' => '',
-        'back_to_previous' => '',
-        'back_to_top' => '',
+        'admin' => 'Admin',
+        'authorise' => 'Auktorisera',
+        'authorising' => 'Auktoriserar...',
+        'back_to_previous' => 'Återgå till tidigare position',
+        'back_to_top' => 'Tillbaka till toppen',
         'cancel' => 'Avbryt',
         'change' => 'ändra',
+        'clear' => 'Rensa',
         'click_to_copy' => 'klicka för att kopiera till urklipp',
         'click_to_copy_copied' => 'kopierad till urklipp!',
-        'close' => '',
-        'collapse' => '',
+        'close' => 'Stäng',
+        'collapse' => 'kollapsa',
         'delete' => 'Radera',
-        'edit' => '',
-        'expand' => '',
+        'edit' => 'Redigera',
+        'expand' => 'expandera',
         'hide' => 'dölj',
         'permalink' => 'permalänk',
-        'pin' => '',
+        'pin' => 'fäst',
         'post' => 'Lägg upp',
+        'read_more' => 'läs mer',
         'reply' => 'Svara',
-        'reply_reopen' => 'Svara och Öppna Igen',
+        'reply_reopen' => 'Svara och öppna igen',
         'reply_resolve' => 'Svara och Lös',
         'reset' => 'Återställ',
-        'restore' => '',
+        'restore' => 'Återställ',
         'save' => 'Spara',
         'saving' => 'Sparar...',
         'search' => 'Sök',
         'see_more' => 'se mer',
         'show' => 'visa',
-        'show_deleted' => '',
-        'show_less' => '',
+        'show_deleted' => 'Visa raderade',
+        'show_less' => 'visa mindre',
         'show_more' => 'visa mer',
-        'show_more_options' => '',
-        'unpin' => '',
-        'update' => '',
+        'show_more_options' => 'visa fler alternativ',
+        'unpin' => 'ofäst ',
+        'update' => 'Uppdatera',
         'upload_image' => 'ladda upp bild',
 
         'watch' => [
-            'to_0' => '',
-            'to_1' => '',
+            'to_0' => 'Sluta följa ',
+            'to_1' => 'Följa ',
         ],
     ],
 
@@ -82,23 +70,23 @@ return [
         'hours' => ':count timme|:count timmar',
         'item' => ':count enhet|:count enheter',
         'minute_short_unit' => 'm|m',
-        'minutes' => '',
+        'minutes' => ':count_delimited minut|:count_delimited minuter',
         'months' => ':count månad|:count månader',
-        'notifications' => '',
-        'plus_others' => '',
-        'post' => '',
+        'notifications' => ':count_delimited avisering|:count_delimited aviseringar  ',
+        'plus_others' => '+ :count_delimited övrig!|+ :count_delimited övriga!',
+        'post' => ':count_delimited inlägg|:count_delimited inlägg',
         'second_short_unit' => 's|s',
-        'star_priority' => '',
-        'update' => '',
-        'view' => '',
+        'star_priority' => ':count_delimited stjärnprioritet|:count_delimited stjärnprioriteter',
+        'update' => ':count_delimited uppdatering|:count_delimited uppdateringar',
+        'view' => ':count_delimited visa|:count_delimited visningar ',
         'years' => ':count år|:count år',
     ],
 
     'countdown' => [
-        'days' => '',
-        'hours' => '',
-        'minutes' => '',
-        'seconds' => '',
+        'days' => 'dagar',
+        'hours' => 'timmar',
+        'minutes' => 'minuter',
+        'seconds' => 'sekunder',
     ],
 
     'datetime' => [
@@ -123,7 +111,7 @@ return [
     ],
 
     'input' => [
-        'search' => '',
+        'search' => 'sök...',
     ],
 
     'pagination' => [
@@ -140,6 +128,21 @@ return [
         'count_miss' => 'Miss',
     ],
 
+    'scoreboard_time' => [
+        'd' => '%d d',
+        'dd' => '%d d',
+        'h' => '%d tim',
+        'hh' => '%d tim',
+        'M' => '%d mån',
+        'm' => '%d min',
+        'MM' => '%d mån',
+        'mm' => '%d min',
+        'past' => '%s',
+        's' => '%d sek',
+        'y' => '%d år',
+        'yy' => '%d år',
+    ],
+
     'time' => [
         'days_ago' => ':count dag sedan|:count dagar sedan',
         'hours_ago' => ':count timme sedan|:count timmar sedan',
@@ -152,7 +155,7 @@ return [
     ],
 
     'wrong_user' => [
-        '_' => '',
-        'logout_link' => '',
+        '_' => 'Du är inloggad som :user. :logout_link.',
+        'logout_link' => 'Klicka här för att logga in som en annan användare',
     ],
 ];

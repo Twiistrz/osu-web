@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @php
     $currentRoute = app('route-section')->getCurrent();
@@ -33,19 +20,28 @@
         $titleTree[] = page_title();
     }
 
-    $title = implode(' · ', $titleTree);
-    // Titles ending with phrase containing "osu!" like "osu!store" don't need the suffix.
-    if (strpos(array_last($titleTree), 'osu!') === false) {
-        $title .= ' | osu!';
+    $title = '';
+    foreach ($titleTree as $i => $titlePart) {
+        $title .= e($titlePart);
+
+        if ($i + 1 === count($titleTree)) {
+            // Titles ending with phrase containing "osu!" like "osu!store" don't need the suffix.
+            if (strpos($titlePart, 'osu!') === false) {
+                $title .= ' | osu!';
+            }
+        } else {
+            $title .= ' · ';
+        }
     }
 
     $currentHue = $currentHue ?? section_to_hue_map($currentSection);
+
 @endphp
 <!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns#">
     <head>
         @include("layout.metadata")
-        <title>{{ $title }}</title>
+        <title>{!! $title !!}</title>
     </head>
 
     <body
@@ -115,8 +111,20 @@
                 @yield('permanent-fixed-footer')
             </div>
         </div>
-        <audio class="js-audio" preload="auto"></audio>
 
+        <div id="main-player" class="audio-player-floating" data-turbolinks-permanent>
+            <div class="js-audio--main"></div>
+            <div class="js-sync-height--target" data-sync-height-id="permanent-fixed-footer"></div>
+        </div>
+        {{--
+            Components:
+            - lib/utils/estimate-min-lines.ts (main)
+            - less/bem/estimate-min-lines.less (styling)
+            - views/master.blade.php (placeholder)
+        --}}
+        <div id="estimate-min-lines" class="estimate-min-lines" data-turbolinks-permanent>
+            <div class="estimate-min-lines__content js-estimate-min-lines"></div>
+        </div>
         @include("layout._global_variables")
         @include('layout._loading_overlay')
         @include('layout.popup-container')

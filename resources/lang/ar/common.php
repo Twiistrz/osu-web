@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'هل أنت متأكد؟',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => 'المشرف',
         'authorise' => 'استأِذان',
+        'authorising' => 'استأِذان...',
         'back_to_previous' => 'العودة إلى الحالة السابقة',
         'back_to_top' => 'العودة إلى الأعلى',
         'cancel' => 'إلغاء',
         'change' => 'تغيير',
+        'clear' => 'محو',
         'click_to_copy' => 'انقر للنسخ إلى الحافظة',
         'click_to_copy_copied' => 'نُسِخَ إلى الحافظة!',
         'close' => 'إغلاق',
@@ -51,6 +38,7 @@ return [
         'permalink' => 'الرابط الدائم',
         'pin' => 'ثبّت',
         'post' => 'نشر',
+        'read_more' => 'إقرأ المزيد',
         'reply' => 'رد',
         'reply_reopen' => 'الرد وإعادة فتح',
         'reply_resolve' => 'الرد والاِصلاح',
@@ -89,7 +77,7 @@ return [
         'post' => ':count_delimited منشور|:count_delimited منشورات',
         'second_short_unit' => 'ثانية|ثواني',
         'star_priority' => ':count_delimited اهمية النجمة|:count_delimited اهمية النجوم',
-        'update' => ':count تحديث|:count تحديثان|:count تحديثات|:count تحديث',
+        'update' => ':count_delimited تحديث|:count_delimited تحديثات',
         'view' => ':count_delimited مشاهدة|:count_delimited مشاهدات',
         'years' => ':count_delimited سنة|:count_delimited سنوات',
     ],
@@ -138,6 +126,21 @@ return [
         'count_geki' => '',
         'count_katu' => '٢٠٠',
         'count_miss' => 'اِخفاق',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '%d يوم',
+        'dd' => '%d يوم',
+        'h' => '%d ساعة',
+        'hh' => '%d ساعة',
+        'M' => '%d شهر',
+        'm' => '%d دقيقة',
+        'MM' => '%d شهر',
+        'mm' => '%d دقيقة',
+        'past' => '%s',
+        's' => '%d ثانية',
+        'y' => '%d سنة',
+        'yy' => '%d سنة',
     ],
 
     'time' => [

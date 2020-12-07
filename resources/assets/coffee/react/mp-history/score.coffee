@@ -1,23 +1,8 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
-import { FlagCountry } from 'flag-country'
-import { Mods } from 'mods'
+import FlagCountry from 'flag-country'
+import  Mod from 'mod'
 import * as React from 'react'
 import { div, span, a } from 'react-dom-factories'
 el = React.createElement
@@ -33,7 +18,7 @@ export class Score extends React.Component
       div
         className: 'mp-history-player-score__shapes'
         style:
-          backgroundImage: "url(/images/layout/mp-history/shapes-team-#{@props.score.multiplayer.team}.svg)"
+          backgroundImage: "url(/images/layout/mp-history/shapes-team-#{@props.score.match.team}.svg)"
 
       div className: 'mp-history-player-score__main',
         div className: 'mp-history-player-score__info-box mp-history-player-score__info-box--user',
@@ -43,22 +28,21 @@ export class Score extends React.Component
               href: laroute.route 'users.show', user: user.id
               user.username
 
-            if !@props.score.multiplayer.pass
-              span className: 'mp-history-player-score__failed', osu.trans 'multiplayer.match.failed'
+            if !@props.score.match.pass
+              span className: 'mp-history-player-score__failed', osu.trans 'matches.match.failed'
 
           a
             href: laroute.route 'rankings',
               mode: @props.mode
               country: user.country?.code
               type: 'performance'
-            el FlagCountry, country: user.country
+            el FlagCountry, country: user.country, modifiers: ['medium']
 
         div className: 'mp-history-player-score__info-box mp-history-player-score__info-box--stats',
           div className: 'mp-history-player-score__stat-row mp-history-player-score__stat-row--first',
-            div className: 'mp-history-player-score__mods-box',
-              el Mods,
-                mods: @props.score.mods
-                modifiers: ['reversed']
+            div className: 'mp-history-player-score__mods',
+              for mod in @props.score.mods
+                el Mod, key: mod, mod: mod
 
             @firstRow.map (m) =>
               modifier = 'medium'
@@ -73,7 +57,7 @@ export class Score extends React.Component
                   osu.formatNumber(@props.score.score)
 
               div className: "mp-history-player-score__stat mp-history-player-score__stat--#{m}", key: m,
-                span className: 'mp-history-player-score__stat-label mp-history-player-score__stat-label--small', osu.trans "multiplayer.match.score.stats.#{m}"
+                span className: 'mp-history-player-score__stat-label mp-history-player-score__stat-label--small', osu.trans "matches.match.score.stats.#{m}"
                 span className: "mp-history-player-score__stat-number mp-history-player-score__stat-number--#{modifier}", value
 
           div className: 'mp-history-player-score__stat-row',

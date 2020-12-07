@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '',
     'require_login' => 'Каб працягнуць, увайдзіце.',
-    'require_verification' => '',
+    'require_verification' => 'Калі ласка, каб працягнуць, пацвердзіце верыфікацыю.',
     'restricted' => "Нельга рабіць гэта падчас абмежавання.",
     'silenced' => "Нельга рабіць гэта падчас зацішша.",
     'unauthorized' => 'Доступ забаронены.',
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Вы павінны быць паўнапраўным намінатарам, каб намінаваць бітмапы з больш чым за адзін рэжым гульні.',
             'incorrect_state' => 'Узнікла невядомая памылка, паспрабуйце перазагрузіць старонку.',
             'owner' => "Нельга намінаваць уласную бітмапу.",
+            'set_metadata' => 'Вы павінны вызначыць жанр и мову перад намінаваннем.',
         ],
         'resolve' => [
             'not_owner' => 'Толькі стваральнік тэмы і бітмапы можа скончыць абмеркаванне.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "",
             'limit_exceeded' => 'Трохі пачакайце перш, чым працягнуць галасаваць далей',
             'owner' => "Нельга прагаласаваць за ўласнае абмеркаванне.",
             'wrong_beatmapset_state' => 'Магчыма толькі прагаласаваць у абмеркаваннях бітмап, што чакаюцца.',
@@ -54,19 +42,25 @@ return [
 
     'beatmap_discussion_post' => [
         'destroy' => [
-            'not_owner' => '',
-            'resolved' => '',
-            'system_generated' => '',
+            'not_owner' => 'Вы можаце выдаляць толькі вашыя запісы.',
+            'resolved' => 'Вы не можаце выдаліць запіс вырашанага абмеркавання.',
+            'system_generated' => 'Немагчыма выдаліць аўтаматычна створаны допіс.',
         ],
 
         'edit' => [
             'not_owner' => 'Толькі аўтар можа рэдагаваць допіс.',
-            'resolved' => '',
+            'resolved' => 'Вы не можаце рэдагаваць запіс вырашанага абмеркавання.',
             'system_generated' => 'Немагчыма рэдагаваць аўтаматычна створаны допіс.',
         ],
 
         'store' => [
             'beatmapset_locked' => 'Гэта бітмапа заблакавана для абмеркавання.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => '',
         ],
     ],
 

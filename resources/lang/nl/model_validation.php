@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Ongeldig :attribute opgegeven.',
     'not_negative' => ':attribute kan niet negatief zijn.',
     'required' => ':attribute is nodig.',
     'too_long' => ':attribute heeft de maximum lengte overschreden - kan enkel tot :limit karakters gebruiken.',
     'wrong_confirmation' => 'Bevestiging komt niet overeen.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Discussie is vergrendeld.',
-        'first_post' => 'Je kan de startpost niet verwijderen.',
-
-        'attributes' => [
-            'message' => 'Het bericht',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Tijdstip is opgegeven, maar beatmap ontbreekt.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Deze beatmap is momenteel vergrendeld voor discussie en kan niet gehyped worden",
             'guest' => 'He moet ingelogd zijn om te hypen.',
             'hyped' => 'Je hebt deze beatmap al gehyped.',
             'limit_exceeded' => 'Je hebt all je hype opgebruikt.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Discussie is vergrendeld.',
+        'first_post' => 'Kan startbericht niet verwijderen.',
+
+        'attributes' => [
+            'message' => 'Het bericht',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Op een verwijderde comment reageren is niet toegestaan.',
-        'top_only' => '',
+        'top_only' => 'Het pinnen van een antwoord op een reactie is niet toegestaan.',
 
         'attributes' => [
             'message' => 'Het bericht',
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Wachtwoorden mogen je gebruikersnaam niet bevatten.',
         'email_already_used' => 'Dit e-mailadres is al in gebruik.',
+        'email_not_allowed' => '',
         'invalid_country' => 'Land niet in de database.',
         'invalid_discord' => 'Discord gebruikersnaam is ongeldig.',
         'invalid_email' => "Dit lijkt niet een geldig e-mailadres te zijn.",
+        'invalid_twitter' => 'Twitter gebruikersnaam ongeldig.',
         'too_short' => 'Nieuw wachtwoord is te kort.',
         'unknown_duplicate' => 'Gebruikersnaam of e-mailadres is al in gebruik.',
         'username_available_in' => 'Deze gebruikersnaam zal over :duration beschikbaar zijn.',

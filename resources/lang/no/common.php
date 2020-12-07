@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Er du sikker?',
@@ -30,16 +15,18 @@ return [
     ],
 
     'badges' => [
-        'new' => '',
+        'new' => 'NY',
     ],
 
     'buttons' => [
         'admin' => 'Admin',
-        'authorise' => '',
+        'authorise' => 'Autoriser',
+        'authorising' => 'Autoriserer...',
         'back_to_previous' => 'Returner til forrige posisjon',
         'back_to_top' => 'Tilbake til toppen',
         'cancel' => 'Avbryt',
         'change' => 'endre',
+        'clear' => 'Fjern',
         'click_to_copy' => 'klikk for å kopiere til utklippstavlen',
         'click_to_copy_copied' => 'kopiert til utklippstavle!',
         'close' => 'Lukk',
@@ -49,8 +36,9 @@ return [
         'expand' => 'utvid',
         'hide' => 'skjul',
         'permalink' => 'permalenke',
-        'pin' => '',
+        'pin' => 'fest',
         'post' => 'Del',
+        'read_more' => 'les mer',
         'reply' => 'Svar',
         'reply_reopen' => 'Svar og åpne igjen',
         'reply_resolve' => 'Svar og marker som løst',
@@ -62,10 +50,10 @@ return [
         'see_more' => 'se mer',
         'show' => 'vis',
         'show_deleted' => 'Vis slettede',
-        'show_less' => '',
+        'show_less' => 'vis færre',
         'show_more' => 'vis mer',
         'show_more_options' => 'vis flere valg',
-        'unpin' => '',
+        'unpin' => 'løsne',
         'update' => 'Oppdater',
         'upload_image' => 'last opp bilde',
 
@@ -84,11 +72,11 @@ return [
         'minute_short_unit' => 'm|m',
         'minutes' => '::count_delimited minutt|:count_delimited minutter',
         'months' => '::count_delimited måned|:count_delimited måneder',
-        'notifications' => '',
+        'notifications' => ':count_delimited varsling|:count_delimited varsler',
         'plus_others' => '+ :count_delimited annen!|+ :count_delimited andre!',
         'post' => ':count_delimited innlegg|:count_delimited innlegg',
         'second_short_unit' => 's|s',
-        'star_priority' => '',
+        'star_priority' => ':count_delimited stjerneprioritet:count_delimited stjerneprioriteringer',
         'update' => ':count_delimited oppdater|:count_delimited oppdateringer',
         'view' => ':count_delimited visning|:count_delimited visninger',
         'years' => ':count_delimited år|:count_delimited år',
@@ -140,6 +128,21 @@ return [
         'count_miss' => 'Miss',
     ],
 
+    'scoreboard_time' => [
+        'd' => '%d d',
+        'dd' => '%d d',
+        'h' => '%d t',
+        'hh' => '%d t',
+        'M' => '%d må',
+        'm' => '%d min',
+        'MM' => '%d må',
+        'mm' => '%d min',
+        'past' => '',
+        's' => '%d sek',
+        'y' => '%d år',
+        'yy' => '%d år',
+    ],
+
     'time' => [
         'days_ago' => ':count dag siden|:count dager siden',
         'hours_ago' => ':count time siden|:count timer siden',
@@ -152,7 +155,7 @@ return [
     ],
 
     'wrong_user' => [
-        '_' => '',
-        'logout_link' => '',
+        '_' => 'Du er logget inn som :user. :logout_link.',
+        'logout_link' => 'Klikk her for å logge inn som en annen bruker',
     ],
 ];

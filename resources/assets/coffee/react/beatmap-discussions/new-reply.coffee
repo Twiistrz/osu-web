@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { MessageLengthCounter } from './message-length-counter'
 import { BigButton } from 'big-button'
@@ -60,12 +45,12 @@ export class NewReply extends React.PureComponent
     div
       className: "#{bn} #{bn}--reply #{bn}--new-reply"
 
+      @renderCancelButton()
+
       div
         className: "#{bn}__content"
         div className: "#{bn}__avatar",
           el UserAvatar, user: @props.currentUser, modifiers: ['full-rounded']
-
-        @renderCancelButton()
 
         div className: "#{bn}__message-container",
           el TextareaAutosize,
@@ -104,11 +89,11 @@ export class NewReply extends React.PureComponent
 
 
   renderPlaceholder: =>
-    [text, icon] =
+    [text, icon, disabled] =
       if @props.currentUser.id?
-        [osu.trans('beatmap_discussions.reply.open.user'), 'fas fa-reply']
+        [osu.trans('beatmap_discussions.reply.open.user'), 'fas fa-reply', @props.currentUser.is_silenced]
       else
-        [osu.trans('beatmap_discussions.reply.open.guest'), 'fas fa-sign-in-alt']
+        [osu.trans('beatmap_discussions.reply.open.guest'), 'fas fa-sign-in-alt', false]
 
     div
       className: "#{bn} #{bn}--reply #{bn}--new-reply #{bn}--new-reply-placeholder"
@@ -117,6 +102,7 @@ export class NewReply extends React.PureComponent
         icon: icon
         modifiers: ['beatmap-discussion-reply-open']
         props:
+          disabled: disabled
           onClick: @editStart
 
 

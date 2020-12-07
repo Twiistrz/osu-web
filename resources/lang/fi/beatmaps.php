@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Viestin tallentaminen epäonnistui',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Äänen päivitys ei onnistunut',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Evätty saamasta kudosua.',
         'message_placeholder_deleted_beatmap' => 'Tämä vaikeustaso on poistettu, joten siitä ei voi enää keskustella.',
         'message_placeholder_locked' => 'Keskustelu tällä beatmapille on poistettu käytöstä.',
+        'message_placeholder_silenced' => "",
         'message_type_select' => 'Valitse kommentin tyyppi',
         'reply_notice' => 'Vastaa painamalla enter-näppäintä.',
         'reply_placeholder' => 'Kirjoita vastauksesi tähän',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Kirjoita tähän lähettääksesi viestin Yleiseen (:version)',
             'generalAll' => 'Kirjoita tähän lähettääksesi viestin Yleiseen (Kaikki vaikeustasot)',
+            'review' => '',
             'timeline' => 'Kirjoita tähän lähettääksesi viestin Aikajanalle (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'Paina ctrl-c editointitilassa ja liitä viestiisi lisätäksesi aikaleiman!',
             'title' => 'Uusi keskustelu',
             'unpin' => 'Poista kiinnitys',
+        ],
+
+        'review' => [
+            'new' => '',
+            'embed' => [
+                'delete' => '',
+                'missing' => '[KESKUSTELU POISTETTU]',
+                'unlink' => '',
+                'unsaved' => '',
+                'timestamp' => [
+                    'all-diff' => '',
+                    'diff' => '',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '',
+                'praise' => '',
+                'problem' => '',
+                'suggestion' => 'lisää ehdotus',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Suosittele tätä beatmappia?',
         'nominated_by' => 'suositellut :users',
         'not_enough_hype' => "",
-        'qualified' => 'Arvioidaan hyväksyttävän :date, mikäli ongelmia ei löydy.',
-        'qualified_soon' => 'Arvioidaan hyväksyttävän pian, mikäli ongelmia ei löydy.',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Suositukset: :current/:required',
         'reset_message_deleted' => 'poistettu',
         'title' => 'Suositusten Tila',
         'unresolved_issues' => 'Vanhat ongelmat on ratkaistava ensin.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Suositteluprosessi nollaantui :time_ago sitten käyttäjän :user uuden ongelman vuoksi :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Sisällytä muunnetut beatmapit',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Kaikki',
         'osu' => '',
         'taiko' => '',
@@ -256,7 +264,7 @@ return [
         'approved' => 'Vahvistettu',
         'favourites' => 'Suosikit',
         'graveyard' => 'Hautausmaa',
-        'leaderboard' => '',
+        'leaderboard' => 'Tulostaulukollinen',
         'loved' => 'Rakastettu',
         'mine' => 'Mappini',
         'pending' => 'Vireillä & WIP',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Epätavallinen',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elektroninen',
+        'metal' => 'Metalli',
+        'classical' => 'Klassinen',
+        'folk' => 'Kansanmusiikki',
+        'jazz' => 'Jatsi',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Pisteytys V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'korea',
         'spanish' => 'espanja',
         'swedish' => 'ruotsi',
+        'russian' => 'Venäläinen',
+        'polish' => 'Puolalainen',
         'instrumental' => 'Instrumentaalinen',
         'other' => 'Muu',
+        'unspecified' => 'Täsmentämätön',
     ],
     'played' => [
         'any' => 'Kaikki',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Pelikerrat :count',
         'favourites' => 'Suosikit :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Kaikki',
+        ],
     ],
 ];

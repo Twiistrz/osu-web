@@ -1,28 +1,15 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'all_read' => 'Tutte le notifiche sono state lette!',
-    'mark_all_read' => 'Cancella tutto',
+    'all_read' => 'Lette tutte le notifiche!',
+    'delete' => 'Elimina :type',
+    'mark_read' => 'Segna :type come letto',
     'none' => 'Nessuna notifica',
     'see_all' => 'vedi tutte le notifiche',
+    'see_channel' => 'vai alla chat',
 
     'filters' => [
         '_' => 'tutto',
@@ -46,6 +33,8 @@ return [
                 'beatmapset_discussion_post_new_empty' => 'Nuovo post su ":title" di :username',
                 'beatmapset_discussion_post_new_compact' => 'Nuovo post da :username: ":content"',
                 'beatmapset_discussion_post_new_compact_empty' => 'Nuovo post di :username',
+                'beatmapset_discussion_review_new' => 'Nuova revisione su ":title" da :username contenente problemi: :problems, suggerimenti: :suggestions, elogi: :praises',
+                'beatmapset_discussion_review_new_compact' => 'Nuova revisione da :username contenente problemi: :problems, suggerimenti: :suggestions, elogi: :praises',
                 'beatmapset_discussion_unlock' => 'La discussione su ":title" è stata sbloccata',
                 'beatmapset_discussion_unlock_compact' => 'La discussione è stata sbloccata',
             ],
@@ -66,10 +55,12 @@ return [
                 'beatmapset_love_compact' => 'La beatmap è stata promossa tra le amate',
                 'beatmapset_nominate' => '":title" è stata nominata',
                 'beatmapset_nominate_compact' => 'La beatmap è stata nominata',
-                'beatmapset_qualify' => '":title" ha ottenuto abbastanza nomine ed è entrata nella coda di classificazione',
+                'beatmapset_qualify' => '":title" ha ottenuto abbastanza nomine ed è entrata nella coda di raking',
                 'beatmapset_qualify_compact' => 'La beatmap è entrata nella coda di classificazione',
                 'beatmapset_rank' => '":title" è stata classificata',
                 'beatmapset_rank_compact' => 'La beatmap è stata classificata',
+                'beatmapset_remove_from_loved' => '":title" è stato rimossa da Loved',
+                'beatmapset_remove_from_loved_compact' => 'La beatmap è stata rimossa dalle amate',
                 'beatmapset_reset_nominations' => 'La nomina di ":title" è stata reimpostata',
                 'beatmapset_reset_nominations_compact' => 'La nomina è stata reimpostata',
             ],
@@ -79,6 +70,8 @@ return [
 
                 'comment_new' => ':username ha commentato ":content" su ":title"',
                 'comment_new_compact' => ':username ha commentato ":content"',
+                'comment_reply' => ':username ha risposto ":content" su ":title"',
+                'comment_reply_compact' => ':username ha risposto ":content"',
             ],
         ],
 
@@ -103,6 +96,8 @@ return [
 
                 'comment_new' => ':username ha commentato ":content" su ":title"',
                 'comment_new_compact' => ':username ha commentato ":content"',
+                'comment_reply' => ':username ha risposto ":content" su ":title"',
+                'comment_reply_compact' => ':username ha risposto ":content"',
             ],
         ],
 
@@ -114,6 +109,8 @@ return [
 
                 'comment_new' => ':username ha commentato ":content" su ":title"',
                 'comment_new_compact' => ':username ha commentato ":content"',
+                'comment_reply' => ':username ha risposto ":content" su ":title"',
+                'comment_reply_compact' => ':username ha risposto ":content"',
             ],
         ],
 
@@ -143,6 +140,66 @@ return [
                 '_' => 'Nuova medaglia',
                 'user_achievement_unlock' => 'Sbloccato ":title"!',
                 'user_achievement_unlock_compact' => 'Sbloccato ":title"!',
+                'user_achievement_unlock_group' => 'Medaglie sbloccate!',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'La discussione su ":title" è stata bloccata',
+                'beatmapset_discussion_post_new' => 'La discussione su ":title" ha nuovi aggiornamenti',
+                'beatmapset_discussion_unlock' => 'La discussione su ":title" è stata sbloccata',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => 'Un nuovo problema è stato segnalato su ":title"',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '":title" è stata squalificata',
+                'beatmapset_love' => '":title" è stata promossa tra le amate',
+                'beatmapset_nominate' => '":title" è stata nominata',
+                'beatmapset_qualify' => '":title" ha ottenuto abbastanza nomine ed è entrata nella coda di ranking',
+                'beatmapset_rank' => '":title" è stata rankata',
+                'beatmapset_remove_from_loved' => '":title" è stata rimossa dalle amate',
+                'beatmapset_reset_nominations' => 'La nomina di ":title" è stata resettata',
+            ],
+
+            'comment' => [
+                'comment_new' => 'La beatmap ":title" ha nuovi commenti',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => 'Hai ricevuto un nuovo messaggio da :username',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => 'La nota di rilascio ":title" ha nuovi commenti',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'La notizia ":title" ha nuovi commenti',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => 'Ci sono nuove risposte in ":title"',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':username ha sbloccato una nuova medaglia, ":title"!',
+                'user_achievement_unlock_self' => 'Hai sbloccato una nuova medaglia, ":title"!',
             ],
         ],
     ],

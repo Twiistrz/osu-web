@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'إلغاء',
@@ -43,7 +28,14 @@ return [
         'id' => 'معرف العميل',
         'name' => 'اسم التّطبيق',
         'redirect' => 'رابط نقطة معاودة التطبيق',
+        'reset' => 'تغيير Client Secret',
+        'reset_failed' => 'فشل في إعادة تعيين Client Secret',
         'secret' => 'سؤال سر العميل',
+
+        'secret_visible' => [
+            'false' => 'اظهار Client Secret',
+            'true' => 'إخفاء Client Secret',
+        ],
     ],
 
     'new_client' => [
@@ -57,6 +49,7 @@ return [
 
     'own_clients' => [
         'confirm_delete' => 'هل أنت متأكد أنك تريد حذف هذا العميل؟',
+        'confirm_reset' => 'هل أنت متأكد من أنك تريد إعادة تعيين Client Secret؟ سيؤدي هذا إلى إلغاء جميع الرموز الموجودة.',
         'new' => 'تطبيق 0Auth جديد',
         'none' => 'لا عملاء',
 

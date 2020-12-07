@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Speichern des Beitrages fehlgeschlagen',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Aktualisieren der Stimme fehlgeschlagen',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Dir wurde kudosu verweigert.',
         'message_placeholder_deleted_beatmap' => 'Diese Schwierigkeitsstufe wurde gelöscht und kann nicht mehr diskutiert werden.',
         'message_placeholder_locked' => 'Die Diskussion für diese Beatmap wurde deaktiviert.',
+        'message_placeholder_silenced' => "Posten der Diskussion nicht möglich, während du stummgeschaltet bist.",
         'message_type_select' => 'Kommentartyp auswählen',
         'reply_notice' => 'Zum Antworten Enter drücken.',
         'reply_placeholder' => 'Antwort hier eingeben',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Hier tippen um auf General zu posten (:version)',
             'generalAll' => 'Hier tippen um auf General zu posten (Alle Schwierigkeitsstufen)',
+            'review' => 'Tippe hier, um eine Rezension zu posten',
             'timeline' => 'Hier tippen um auf die Timeline zu posten (:version)',
         ],
 
@@ -89,15 +70,15 @@ return [
             'hype' => 'Hype!',
             'mapper_note' => 'Anmerkung',
             'nomination_reset' => 'Nominierung zurücksetzen',
-            'praise' => 'Loben',
+            'praise' => 'Lob',
             'problem' => 'Problem',
             'review' => 'Bewertung',
             'suggestion' => 'Vorschlag',
         ],
 
         'mode' => [
-            'events' => 'Geschichte',
-            'general' => 'Allgemein',
+            'events' => 'Verlauf',
+            'general' => 'Allgemein :scope',
             'reviews' => 'Rezensionen',
             'timeline' => 'Timeline',
             'scopes' => [
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'Strg-C im Editor und in deine Nachricht einfügen, um eine Timestamp hinzuzufügen!',
             'title' => 'Neue Diskussion',
             'unpin' => 'Lösen',
+        ],
+
+        'review' => [
+            'new' => 'Neue Rezension',
+            'embed' => [
+                'delete' => 'Löschen',
+                'missing' => '[DISKUSSION GELÖSCHT]',
+                'unlink' => 'Verknüpfung aufheben',
+                'unsaved' => 'Nicht gespeichert',
+                'timestamp' => [
+                    'all-diff' => 'Beiträge zu "Alle Schwierigkeitsstufen" können nicht mit einem Zeitstempel versehen werden.',
+                    'diff' => 'Falls dieser/dieses :type mit einem Zeitstempel beginnt, wird er/es unter Timeline angezeigt.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'absatz einfügen',
+                'praise' => 'lob einfügen',
+                'problem' => 'problem einfügen',
+                'suggestion' => 'vorschlag einfügen',
+            ],
         ],
 
         'show' => [
@@ -137,7 +138,7 @@ return [
         'status-messages' => [
             'approved' => 'Diese Beatmap wurde am :date approved!',
             'graveyard' => "Diese Beatmap wurde seit dem :date nicht mehr aktualisiert und wurde wahrscheinlich vom Ersteller aufgegeben...",
-            'loved' => 'Diese Beatmap wurde am :date loved!',
+            'loved' => 'Diese Beatmap wurde am :date Loved!',
             'ranked' => 'Diese Beatmap wurde am :date ranked!',
             'wip' => 'Anmerkung: Diese Beatmap ist vom Ersteller als \'Work-In-Progress\' gekennzeichnet',
         ],
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Diese Beatmap nominieren?',
         'nominated_by' => 'Nominiert von :users',
         'not_enough_hype' => "Nicht ausreichend Hype vorhanden.",
-        'qualified' => 'Die Beatmap wird voraussichtlich am :date ranked, wenn keine Probleme gefunden werden.',
-        'qualified_soon' => 'Die Beatmap wird bald ranked, wenn keine Probleme gefunden werden.',
+        'remove_from_loved' => 'Aus Loved entfernen',
+        'remove_from_loved_prompt' => 'Grund fürs Entfernen aus Loved:',
         'required_text' => 'Nominierungen: :current/:required',
         'reset_message_deleted' => 'gelöscht',
         'title' => 'Nominierungsstatus',
         'unresolved_issues' => 'Es existieren noch Vorschläge/Probleme, die gelöst werden müssen.',
+
+        'rank_estimate' => [
+            '_' => 'Diese Map wird voraussichtlich (am) :date ranked. Sie befindet sich aktuell an Position :position der :queue.',
+            'queue' => 'Warteschlange',
+            'soon' => 'bald',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Nominierungsprozess zurückgesetzt vor :time_ago von :user mit dem Problem :discussion (:message).',
@@ -200,7 +207,7 @@ return [
 
         'reset_confirm' => [
             'nomination_reset' => 'Bist du dir sicher? Der Nominierungsprozess wird durch das neue Problem zurückgesetzt.',
-            'disqualify' => 'Bist du sicher? Das wird die Beatmap von der Qualifiezierung entfernen und den Nominierungsprozess zurücksetzen.',
+            'disqualify' => 'Bist du sicher? Dadurch wird die Beatmap aus der Qualifizierung entfernt und der Nominierungsprozess zurückgesetzt.',
         ],
     ],
 
@@ -209,7 +216,7 @@ return [
             'prompt' => 'stichwörter eingeben...',
             'login_required' => 'Melde dich an, um zu suchen.',
             'options' => 'Mehr Suchoptionen',
-            'supporter_filter' => 'Filtern nach :filters benötigt ein aktives osu!supporter Tag',
+            'supporter_filter' => 'Filtern nach :filters benötigt ein aktives osu!supporter-Tag',
             'not-found' => 'keine ergebnisse',
             'not-found-quote' => '... nope, nichts gefunden.',
             'filters' => [
@@ -218,7 +225,7 @@ return [
                 'status' => 'Kategorien',
                 'genre' => 'Genre',
                 'language' => 'Sprache',
-                'extra' => 'extra',
+                'extra' => 'Extra',
                 'rank' => 'Erreichter Rang',
                 'played' => 'Gespielt',
             ],
@@ -235,8 +242,8 @@ return [
                 'nominations' => 'Nominierungen',
             ],
             'supporter_filter_quote' => [
-                '_' => 'Du benötigst einen aktiven :link, um nach :filters zu filtern',
-                'link_text' => 'osu!supporter Tag',
+                '_' => 'Du benötigst ein aktives :link, um nach :filters zu filtern',
+                'link_text' => 'osu!supporter-Tag',
             ],
         ],
     ],
@@ -245,6 +252,7 @@ return [
         'converts' => 'Konvertierte Beatmaps miteinbeziehen',
     ],
     'mode' => [
+        'all' => 'Alle',
         'any' => 'Alle',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip-Hop',
         'electronic' => 'Electronic',
+        'metal' => 'Metal',
+        'classical' => 'Klassik',
+        'folk' => 'Folk',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Touch-Gerät',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => 'Alle',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Koreanisch',
         'spanish' => 'Spanisch',
         'swedish' => 'Schwedisch',
+        'russian' => 'Russisch',
+        'polish' => 'Polnisch',
         'instrumental' => 'Instrumental',
         'other' => 'Andere',
+        'unspecified' => 'Nicht angegeben',
     ],
     'played' => [
         'any' => 'Alle',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Anzahl der Spiele: :count',
         'favourites' => 'Favoriten: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Alle',
+        ],
     ],
 ];

@@ -1,27 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers\Chat;
 
 use App\Models\Chat\Channel;
 use App\Models\Chat\UserChannel;
+use App\Models\User;
 use Auth;
 
 /**
@@ -55,7 +41,7 @@ class ChannelsController extends Controller
     {
         return json_collection(
             Channel::public()->get(),
-            'Chat/Channel'
+            'Chat\Channel'
         );
     }
 
@@ -134,6 +120,71 @@ class ChannelsController extends Controller
         $channel->removeUser(Auth::user());
 
         return response([], 204);
+    }
+
+    /**
+     * Create Channel
+     *
+     * This endpoint creates a new channel if doesn't exist and joins it.
+     * Currently only for rejoining existing PM channels which the user has left.
+     *
+     * ---
+     *
+     * ### Response Format
+     *
+     * Returns [ChatChannel](#chatchannel) with `recent_messages` attribute.
+     * Note that if there's no existing PM channel, most of the fields will be blank.
+     * In that case, [send a message](#create-new-pm) instead to create the channel.
+     *
+     * @authenticated
+     *
+     * @bodyParam type string required channel type (currently only supports "PM")
+     * @bodyParam target_id integer target user id for type PM
+     *
+     * @response {
+     *   "channel_id": 1,
+     *   "name": "#pm_1-2",
+     *   "description": "",
+     *   "type": "PM",
+     *   "recent_messages": [
+     *     {
+     *       "message_id": 1,
+     *       "sender_id": 1,
+     *       "channel_id": 1,
+     *       "timestamp": "2020-01-01T00:00:00+00:00",
+     *       "content": "Happy new year",
+     *       "is_action": false
+     *     }
+     *   ]
+     * }
+     */
+    public function store()
+    {
+        $params = request()->all();
+        $params['type'] = $params['type'] ?? null;
+
+        if ($params['type'] === Channel::TYPES['pm']) {
+            if (!isset($params['target_id'])) {
+                abort(422, 'missing target_id parameter');
+            }
+
+            $sender = auth()->user();
+            $target = User::findOrFail($params['target_id']);
+
+            priv_check('ChatStart', $target)->ensureCan();
+
+            $channel = Channel::findPM($sender, $target) ?? new Channel();
+
+            if ($channel->exists) {
+                $channel->addUser($sender);
+            }
+        }
+
+        if (isset($channel)) {
+            return json_item($channel, 'Chat\Channel', ['recent_messages.sender']);
+        } else {
+            abort(422, 'unknown or missing type parameter');
+        }
     }
 
     /**

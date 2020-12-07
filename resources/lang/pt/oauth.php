@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'Cancelar',
@@ -43,7 +28,14 @@ return [
         'id' => 'ID do cliente',
         'name' => 'Nome da aplicação',
         'redirect' => 'URL da recolha da aplicação',
+        'reset' => 'Redefinir o segredo do cliente',
+        'reset_failed' => 'Falha ao redefinir o segredo do cliente',
         'secret' => 'Segredo do cliente',
+
+        'secret_visible' => [
+            'false' => 'Mostrar o segredo do cliente',
+            'true' => 'Ocultar o segredo do cliente',
+        ],
     ],
 
     'new_client' => [
@@ -57,6 +49,7 @@ return [
 
     'own_clients' => [
         'confirm_delete' => 'Tens a certeza que queres eliminar este cliente?',
+        'confirm_reset' => 'Tens a certeza que desejas redefinir o segredo do cliente? Isto irá revogar todos os tokens existentes.',
         'new' => 'Nova aplicação OAuth',
         'none' => 'Sem clientes',
 

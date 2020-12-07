@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,7 +18,7 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'terhapus',
-        'none_found' => '',
+        'none_found' => 'Tidak ada diskusi yang memenuhi kriteria pencarian.',
         'title' => 'Laman Diskusi Beatmap',
 
         'form' => [
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Tidak ada postingan yang membahas masalah saya',
         'notice' => 'Terdapat postingan pada :timestamp (:existing_timestamps). Silakan periksa sebelum memposting.',
+        'unsaved' => ':count pada kajian ini',
     ],
 
     'reply' => [
@@ -79,9 +65,12 @@ return [
     ],
 
     'review' => [
-        'go_to_parent' => 'Lihat Ulasan',
+        'block_count' => ':used / :max blok telah dipergunakan',
+        'go_to_parent' => 'Lihat Kajian',
         'go_to_child' => 'Lihat Topik Diskusi',
         'validation' => [
+            'block_too_large' => 'masing-masing poin yang dikaji terbatas pada :limit karakter',
+            'external_references' => 'kajian ini mengandung satu atau lebih poin yang mengacu pada isu-isu yang tidak berasal dari beatmap ini',
             'invalid_block_type' => 'tipe blok tidak sah',
             'invalid_document' => 'kajian tidak sah',
             'minimum_issues' => 'kajian harus tersusun atas setidaknya :count isu|kajian harus tersusun atas setidaknya :count isu',
@@ -92,7 +81,7 @@ return [
 
     'system' => [
         'resolved' => [
-            'true' => 'Ditandai selesai oleh :user',
+            'true' => 'Ditandai sebagai telah terjawab oleh :user',
             'false' => 'Dibuka ulang oleh :user',
         ],
     ],

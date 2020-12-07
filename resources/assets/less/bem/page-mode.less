@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .page-mode {
   @_top: page-mode;
@@ -39,8 +24,15 @@
   }
 
   &--page-extra-tabs {
-    background-color: transparent;
     padding-top: 5px;
+    border-bottom: 1px solid @osu-colour-h1;
+
+    @media @mobile {
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   &--post-reply {
@@ -52,16 +44,16 @@
   }
 
   &--profile-page-extra {
-    background-color: transparent;
     padding: 0;
+    border-bottom: 2px solid @osu-colour-h1;
     overflow: visible;
   }
 
-  &--ranking-page-mode-tabs {
+  &--ranking {
     background-color: transparent;
-    color: white;
-
-    padding: 10px 10px 0;
+    padding: 0;
+    text-align: inherit;
+    font-size: inherit;
   }
 
   &--search {
@@ -90,6 +82,12 @@
       margin-right: 10px;
       margin-top: 5px;
       vertical-align: middle;
+    }
+
+    @media @mobile {
+      &:last-child {
+        padding-right: 10px;
+      }
     }
   }
 

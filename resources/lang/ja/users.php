@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[削除されたユーザー]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "あなたのアカウントは長期間使用されていません。",
@@ -99,6 +88,7 @@ return [
         'failed' => 'ログインに失敗しました',
         'forgot' => 'パスワードを忘れましたか？',
         'info' => 'ログインして続行してください',
+        'invalid_captcha' => 'Captcha が無効です。ページを更新して再度お試し下さい。',
         'locked_ip' => 'あなたのIPアドレスはロックされています。数分後もう一度お試しください。',
         'password' => 'パスワード',
         'register' => "osu!アカウントを持っていませんか？新しいアカウントを作るにはこちらから",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => '現在オンライン',
         'missingtext' => '打ち間違いがないか確認してください！（ユーザーが削除されている可能性もあります）',
         'origin_country' => '所在国 :country',
-        'page_description' => 'osu! - :usernameについていろいろ！',
         'previous_usernames' => '以前の名前',
         'plays_with' => '使用デバイス :devices',
         'title' => ":usernameのプロフィール",
@@ -174,7 +163,7 @@ return [
                     'button' => '画像のアップロード',
                     'dropzone' => 'ここにドロップしてアップロード',
                     'dropzone_info' => 'ここにドラッグ＆ドロップでアップロードが可能です。',
-                    'size_info' => '推奨の画像サイズは2800x620です',
+                    'size_info' => '推奨の画像サイズは2400x620です',
                     'too_large' => 'アップロードファイルが大きすぎます。',
                     'unsupported_format' => 'サポートされていないフォーマットです。',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'by :artist',
-                'none' => 'まだ、空っぽ。',
                 'title' => 'ビートマップ',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => '他のイベントを見る',
             ],
             'historical' => [
-                'empty' => 'パフォーマンスの記録がありません。',
                 'title' => '履歴',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => '使用可能なKudosu',
-                'available_info' => "KudosuはKudosuスターと交換ができ、ビートマップに注目を集めるのに役立ちます。これは交換されていないKudosuの数です。",
                 'recent_entries' => '最近のKudosu履歴',
                 'title' => 'Kudosu!',
                 'total' => 'Kudosuの累計獲得数',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'リプレイをダウンロード',
-                'empty' => 'まだ記録がありません！',
                 'not_ranked' => 'Rankedビートマップのみがppを与えます。',
                 'pp_weight' => '割合 :percentage',
+                'view_details' => '詳細の表示',
                 'title' => 'ランク',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => '趣味',
-            'lastfm' => 'Last.fm',
             'location' => '現在地',
             'occupation' => '職業',
             'skype' => 'Skype',
@@ -428,13 +412,14 @@ return [
         'offline' => 'オフライン',
     ],
     'store' => [
-        'saved' => 'ユーザー作成',
+        'saved' => 'ユーザーが作成されました',
     ],
     'verify' => [
         'title' => 'アカウントの認証',
     ],
 
     'view_mode' => [
+        'brick' => 'ブリックビュー',
         'card' => 'カードビュー',
         'list' => '一覧表示',
     ],

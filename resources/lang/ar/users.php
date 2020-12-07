@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[مستخدم محذوف]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "لم تستعمل حسابك منذ وقتِِ طويل.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'تسجيل دخول غير صحيح',
         'forgot' => 'نسيت كلمة المرور؟',
         'info' => 'الرجاء تسجيل الدخول للاستمرار',
+        'invalid_captcha' => 'فَشِلت الكابتشا، قم بتحديث الصفحة وحاول مرة أخرى.',
         'locked_ip' => 'عنوان IP الخاص بك مؤمن. الرجاء الانتظار بضع دقائق.',
         'password' => 'كلمة السر',
         'register' => "ليس لديك حساب osu!؟ قم باِنشاء واحد",
@@ -108,7 +98,7 @@ return [
 
         'beta' => [
             'main' => 'وصول البيتا مقيد حالياََ للمستخدمين ذوي الاِمتيازات فقط.',
-            'small' => '(سوف يحصل عليه مؤيدو!osu قريبا)',
+            'small' => '(سوف يحصل عليه osu!supporters قريبا)',
         ],
     ],
 
@@ -154,13 +144,12 @@ return [
         'change_avatar' => 'غير صورتك!',
         'first_members' => 'هنا منذ البداية',
         'is_developer' => 'مطور!osu',
-        'is_supporter' => 'مؤيد!osu',
+        'is_supporter' => 'osu!supporter',
         'joined_at' => 'انضم في :date',
         'lastvisit' => 'اخر ظهور :date',
         'lastvisit_online' => 'متصل حالياً',
         'missingtext' => 'لقد ادخلت معلومات خاطئة! (او قد يكون المستخدم مقيد)',
         'origin_country' => 'من :country',
-        'page_description' => 'osu! - كل ما تريد معرفته عن :username!',
         'previous_usernames' => 'سابقاََ',
         'plays_with' => 'يستخدم :devices',
         'title' => "صفحة:username الشخصية",
@@ -174,13 +163,13 @@ return [
                     'button' => 'رفع صورة',
                     'dropzone' => 'اَسقط الملف هنا للرفع',
                     'dropzone_info' => 'يمكنك أيضا إسقاط الصورة هنا للرفع',
-                    'size_info' => 'حجم الغلاف يجب ان يكون 2800x620',
+                    'size_info' => 'حجم الغلاف يجب ان يكون 2400x620',
                     'too_large' => 'الملف المرفوع كبير جدا.',
                     'unsupported_format' => 'تنسيق غير مدعوم.',
 
                     'restriction_info' => [
                         '_' => 'الرفع متاح لـ :link فقط',
-                        'link' => 'مؤيدو!osu',
+                        'link' => 'osu!supporters',
                     ],
                 ],
             ],
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'بواسطة :artist',
-                'none' => 'لا شيء... حتى الآن.',
                 'title' => 'خرائط الايقاع',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'عرض المزيد من الأحداث',
             ],
             'historical' => [
-                'empty' => 'لا توجد سجلات الأداء. :(',
                 'title' => 'التاريخ',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'الكودوسو المتوفرة',
-                'available_info' => "الكودوسو يمكن ان تُتاجر لـ نجوم كودوسو, والتي ستساعد خريطتك للحصول على انتباه اكثر. هذا رقم الكودوسو التي لم تتاجر بها بعد.",
                 'recent_entries' => 'تاريخ الكودوسو الفائت',
                 'title' => 'كودوسو!',
                 'total' => 'عدد الكودوسو الحاصل عليها',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'تحميل النتيجة',
-                'empty' => 'لا توجد سجلات أداء ممتاز بعد. :(',
                 'not_ranked' => 'فقط الخرائط المصفوفة تعطي نقاط خبرة.',
                 'pp_weight' => 'موزون :percentage',
+                'view_details' => 'عرض التفاصيل',
                 'title' => 'النتائج',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'الاهتمامات',
-            'lastfm' => 'Last.fm',
             'location' => 'الموقع الحالي',
             'occupation' => 'المهنة',
             'skype' => '',
@@ -388,7 +372,7 @@ return [
 
             'restriction_info' => [
                 '_' => 'تحتاج ان تكون :link لفتح هذه الميزة.',
-                'link' => 'مؤيد!osu',
+                'link' => 'osu!supporter',
             ],
         ],
         'post_count' => [
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'عرض الطوب',
         'card' => 'العرض كبطاقة',
         'list' => 'عرض كلائحة',
     ],

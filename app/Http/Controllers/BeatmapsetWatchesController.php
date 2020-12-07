@@ -1,26 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
-use App\Events\UserSubscriptionChangeEvent;
 use App\Models\Beatmapset;
 use Auth;
 use Exception;
@@ -36,9 +20,11 @@ class BeatmapsetWatchesController extends Controller
 
     public function index()
     {
-        return ext_view('beatmapset_watches.index', [
-            'watches' => Auth::user()->beatmapsetWatches()->visible()->paginate(50),
-        ]);
+        $watches = Auth::user()->beatmapsetWatches()->visible()->paginate(50);
+        $totalCount = $watches->total();
+        $unreadCount = Auth::user()->beatmapsetWatches()->visible()->unread()->count();
+
+        return ext_view('beatmapset_watches.index', compact('watches', 'totalCount', 'unreadCount'));
     }
 
     public function update($beatmapsetId)
@@ -53,8 +39,6 @@ class BeatmapsetWatchesController extends Controller
             }
         }
 
-        event(new UserSubscriptionChangeEvent('add', Auth::user(), $beatmapset));
-
         return response([], 204);
     }
 
@@ -63,8 +47,6 @@ class BeatmapsetWatchesController extends Controller
         $beatmapset = Beatmapset::findOrFail($beatmapsetId);
 
         $beatmapset->watches()->where('user_id', '=', Auth::user()->getKey())->delete();
-
-        event(new UserSubscriptionChangeEvent('remove', Auth::user(), $beatmapset));
 
         return response([], 204);
     }

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -25,8 +10,8 @@ return [
 
         'avatar' => [
             'title' => 'Аватар',
-            'rules' => 'Пожалуйста, убедитесь, что ваш аватар придерживается :link.<br/>Это значит, что он должен <strong>подходить для всех возрастов</strong>, т.е.: никакой наготы, ругательств или вызывающего контента.',
-            'rules_link' => 'правил сообщества',
+            'rules' => 'Пожалуйста, убедитесь, что ваш аватар придерживается :link.<br/>Это значит, что он обязан <strong>подходить для всех возрастов</strong>, то есть, никакой наготы, ругательств или вызывающего контента.',
+            'rules_link' => 'правила сообщества',
         ],
 
         'email' => [
@@ -40,7 +25,7 @@ return [
             'current' => 'текущий пароль',
             'new' => 'новый пароль',
             'new_confirmation' => 'повторите пароль',
-            'title' => 'Смена пароля',
+            'title' => 'Пароль',
         ],
 
         'profile' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'получать уведомления о новых проблемах с квалифицированными картами у следующих режимов',
+        'beatmapset_disqualify' => 'получать уведомления, когда карты для следующих режимов будут дисквалифицированы',
+        'comment_reply' => 'получать уведомления об ответах на комментарии',
         'title' => 'Уведомления',
         'topic_auto_subscribe' => 'отслеживать созданные темы автоматически',
-        'beatmapset_discussion_qualified_problem' => 'получать уведомления о новых проблемах с квалифицированными картами у следующих режимов',
 
-        'mail' => [
-            '_' => 'получать уведомления по почте о',
-            'beatmapset:modding' => 'моддинге карт',
-            'forum_topic_reply' => 'ответах на темы',
+        'options' => [
+            '_' => 'способы доставки',
+            'beatmapset:modding' => 'моддинг карт',
+            'channel_message' => 'личные сообщения',
+            'comment_new' => 'новые комментарии',
+            'forum_topic_reply' => 'ответы на тему',
+            'mail' => 'почта',
+            'push' => 'рush',
+            'user_achievement_unlock' => 'открытие медали',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'подключенные',
         'own_clients' => 'мои клиенты',
         'title' => 'Приложения и доступ',
+    ],
+
+    'options' => [
+        'title' => 'Параметры',
+
+        'beatmapset_download' => [
+            '_' => 'тип загрузки карт по умолчанию',
+            'all' => 'с видео, если доступно',
+            'no_video' => 'без видео',
+            'direct' => 'открыть в osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'показывать метадату карт в оригинале',
     ],
 
     'playstyles' => [
@@ -101,7 +106,7 @@ return [
         'end_session_confirmation' => 'Сеанс на этом устройстве будет немедленно завершён. Вы уверены?',
         'last_active' => 'Был активен:',
         'title' => 'Безопасность',
-        'web_sessions' => 'последняя активность',
+        'web_sessions' => 'веб-сессии',
     ],
 
     'update_email' => [
@@ -109,7 +114,7 @@ return [
     ],
 
     'update_password' => [
-        'update' => 'сменить',
+        'update' => 'обновить',
     ],
 
     'verification_completed' => [

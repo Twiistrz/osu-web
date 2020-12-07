@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => '',
     'not_negative' => ':attribute nesmí být záporný.',
     'required' => ':attribute je vyžadován.',
     'too_long' => ':attribute přesáhl maximální délku - může mít maximálně :limit znaků.',
     'wrong_confirmation' => 'Potvrzení se neshoduje.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Diskuze je uzamčená.',
-        'first_post' => 'Počáteční příspěvek nelze odstranit.',
-
-        'attributes' => [
-            'message' => 'Zpráva',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Časová sekvence je specifikována, ale chybí beatmapa.',
@@ -42,11 +19,12 @@ return [
         'locked' => 'Diskuze je uzamčená.',
 
         'attributes' => [
-            'message_type' => '',
+            'message_type' => 'Typ zprávy',
             'timestamp' => 'Časové razítko',
         ],
 
         'hype' => [
+            'discussion_locked' => "",
             'guest' => 'Musíš být přihlášek k nadšení.',
             'hyped' => 'Tuto beatmapu již si nadchnul.',
             'limit_exceeded' => 'Využil jsi všechny svoje nadšení.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Diskuze je uzamčená.',
+        'first_post' => 'Počáteční příspěvek nelze odstranit.',
+
+        'attributes' => [
+            'message' => 'Zpráva',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Odpovídat na smazaný komentář není povoleno.',
-        'top_only' => '',
+        'top_only' => 'Připínání odpovědi není povoleno.',
 
         'attributes' => [
             'message' => 'Zpráva',
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Heslo nesmí obsahovat uživatelské jméno.',
         'email_already_used' => 'E-mailová adresa už byla použita.',
+        'email_not_allowed' => '',
         'invalid_country' => 'Stát není v databázi.',
         'invalid_discord' => 'Discord uživatelské jmeno je neplatné.',
         'invalid_email' => "Vypadá to na neplatnou e-mailovou adresu.",
+        'invalid_twitter' => '',
         'too_short' => 'Nové heslo je příliš krátké.',
         'unknown_duplicate' => 'Uživatelské jméno nebo e-mailová adresa je již použita.',
         'username_available_in' => 'Toto uživatelské jméno bude k dispozici za :duration.',

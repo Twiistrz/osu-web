@@ -1,26 +1,12 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .beatmapset-panel {
   @top: beatmapset-panel;
   @padding: 10px;
   @hover-transition-duration: 150ms;
   .own-layer();
+  --progress: 0;
 
   &__content {
     height: 75px;
@@ -31,6 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    margin-left: 16px;
   }
 
   &__count-number {
@@ -41,6 +28,7 @@
     position: absolute;
     right: @padding;
     top: @padding;
+    display: flex;
   }
 
   &__difficulties {
@@ -68,7 +56,7 @@
     .link-plain();
     .solid-text-shadow();
 
-    .at2x('/images/layout/beatmaps/default-bg.png');
+    .at2x('~@images/layout/beatmaps/default-bg.png');
     background-position: center;
     background-size: cover;
 
@@ -77,6 +65,7 @@
 
     border-radius: @border-radius-base @border-radius-base 0 0;
     overflow: hidden;
+    position: relative;
   }
 
   &__header-text {
@@ -136,7 +125,8 @@
   }
 
   &__play {
-    .link-white();
+    .reset-input();
+    .fas();
     .link-plain();
     .fade-element(@hover-transition-duration);
     position: absolute;
@@ -146,18 +136,26 @@
     opacity: 0;
     line-height: 1;
     padding: (@padding / 2) @padding @padding;
+    color: @osu-colour-c1;
+    --icon: @fa-var-play;
 
     &:hover {
       color: @yellow;
+    }
+
+    &::before {
+      content: var(--icon);
     }
 
     .@{top}:hover & {
       opacity: 1;
     }
 
-    .@{top}--previewing & {
+    .@{top}[data-audio-state="loading"] &,
+    .@{top}[data-audio-state="playing"] & {
       color: @yellow;
       opacity: 1;
+      --icon: @fa-var-pause;
     }
   }
 
@@ -166,9 +164,8 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0;
+    width: calc(var(--progress) * 100%);
     height: 3px;
-    transition-timing-function: linear;
   }
 
   &__row {
@@ -182,11 +179,9 @@
 
     .fade-element(@hover-transition-duration);
 
-    .@{top}:hover & {
-      opacity: 0;
-    }
-
-    .@{top}--previewing & {
+    .@{top}:hover &,
+    .@{top}[data-audio-state="loading"] &,
+    .@{top}[data-audio-state="playing"] & {
       opacity: 0;
     }
   }

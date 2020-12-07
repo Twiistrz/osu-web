@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
@@ -29,6 +14,7 @@ return [
         'discussion_unlock' => 'A discussão para este beatmap foi ativada.',
         'disqualify' => 'Desqualificado por :user. Motivo: :discussion (:text).',
         'disqualify_legacy' => 'Desqualificado por :user. Motivo: :text.',
+        'genre_edit' => 'Género alterado de :old para :new.',
         'issue_reopen' => 'O problema resolvido :discussion foi reaberto.',
         'issue_resolve' => 'O problema :discussion foi marcado como resolvido.',
         'kudosu_allow' => 'A rejeição de Kudosu para a discussão :discussion foi removida.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'A discussão :discussion por :user obteve votos suficientes para kudosu.',
         'kudosu_lost' => 'A discussão :discussion por :user perdeu votos e kudosu concedido foi removido.',
         'kudosu_recalculate' => 'A discussão :discussion teve o seu kudosu concedido recalculado.',
+        'language_edit' => 'Língua alterada de :old para :new.',
         'love' => 'Adorado por :user',
         'nominate' => 'Nomeado por :user.',
         'nomination_reset' => 'Um novo problema :discussion (:text) acionou um reinício de nomeação.',
         'qualify' => 'Este beatmap atingiu o número necessário de nomeações e foi qualificado.',
         'rank' => 'Classificado.',
+        'remove_from_loved' => 'Removido de Adorado por :user. (:text)',
     ],
 
     'index' => [
@@ -65,6 +53,7 @@ return [
         'discussion_post_restore' => 'Restauração da resposta da discussão',
         'discussion_restore' => 'Restauração da discussão',
         'disqualify' => 'Desqualificação',
+        'genre_edit' => 'Editar género',
         'issue_reopen' => 'Reabertura da discussão',
         'issue_resolve' => 'Resolução da discussão',
         'kudosu_allow' => 'Pensão de kudosu',
@@ -72,10 +61,12 @@ return [
         'kudosu_gain' => 'Ganho de kudosu',
         'kudosu_lost' => 'Perda de kudosu',
         'kudosu_recalculate' => 'Recalculação de kudosu',
+        'language_edit' => 'Editar língua',
         'love' => 'Adorar',
         'nominate' => 'Nomeação',
         'nomination_reset' => 'Reiniciação da nomeação',
         'qualify' => 'Qualificação',
         'rank' => 'Classificação',
+        'remove_from_loved' => 'Adorado removido',
     ],
 ];

@@ -1,28 +1,15 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'Všechna oznámení přečtena!',
-    'mark_all_read' => 'Vymazat vše',
-    'none' => '',
+    'delete' => '',
+    'mark_read' => '',
+    'none' => 'Žádná oznámení',
     'see_all' => '',
+    'see_channel' => '',
 
     'filters' => [
         '_' => 'vše',
@@ -46,6 +33,8 @@ return [
                 'beatmapset_discussion_post_new_empty' => 'Nový příspěvek v ":title" od :username',
                 'beatmapset_discussion_post_new_compact' => 'Nový příspěvek od :username ":content"',
                 'beatmapset_discussion_post_new_compact_empty' => 'Nový příspěvek od :username',
+                'beatmapset_discussion_review_new' => '',
+                'beatmapset_discussion_review_new_compact' => '',
                 'beatmapset_discussion_unlock' => 'Diskuze ":title" byla odemčena',
                 'beatmapset_discussion_unlock_compact' => 'Diskuze byla odemčena',
             ],
@@ -70,6 +59,8 @@ return [
                 'beatmapset_qualify_compact' => '',
                 'beatmapset_rank' => '',
                 'beatmapset_rank_compact' => '',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_remove_from_loved_compact' => '',
                 'beatmapset_reset_nominations' => '',
                 'beatmapset_reset_nominations_compact' => 'Nominace byla obnovena',
             ],
@@ -79,6 +70,8 @@ return [
 
                 'comment_new' => '',
                 'comment_new_compact' => ':username okomentoval ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -88,7 +81,7 @@ return [
             'channel' => [
                 '_' => 'Nová zpráva',
                 'pm' => [
-                    'channel_message' => '',
+                    'channel_message' => ':username říká ":title"',
                     'channel_message_compact' => ':title',
                     'channel_message_group' => 'od :username',
                 ],
@@ -101,8 +94,10 @@ return [
             'comment' => [
                 '_' => 'Nový komentář',
 
-                'comment_new' => '',
+                'comment_new' => ':username okomentoval ":content" v ":title"',
                 'comment_new_compact' => ':username okomentoval ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -114,6 +109,8 @@ return [
 
                 'comment_new' => ':username odpověděl ":content" v ":title"',
                 'comment_new_compact' => ':username okomentoval ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -143,6 +140,66 @@ return [
                 '_' => 'Nová medaile',
                 'user_achievement_unlock' => 'Odemčeno ":title"\'!',
                 'user_achievement_unlock_compact' => 'Odemčeno ":title"\'!',
+                'user_achievement_unlock_group' => '',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => '',
+                'beatmapset_discussion_post_new' => '',
+                'beatmapset_discussion_unlock' => '',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => '',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '',
+                'beatmapset_love' => '',
+                'beatmapset_nominate' => '',
+                'beatmapset_qualify' => '',
+                'beatmapset_rank' => '',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_reset_nominations' => '',
+            ],
+
+            'comment' => [
+                'comment_new' => '',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => '',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => '',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => '',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => '',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => '',
+                'user_achievement_unlock_self' => '',
             ],
         ],
     ],

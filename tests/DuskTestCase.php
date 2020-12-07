@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 namespace Tests;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
@@ -32,7 +35,7 @@ abstract class DuskTestCase extends BaseTestCase
      */
     protected function driver()
     {
-        $options = (new ChromeOptions)->addArguments([
+        $options = (new ChromeOptions())->addArguments([
             '--disable-gpu',
             '--headless',
         ]);

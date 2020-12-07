@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -25,7 +10,7 @@ return [
 
         'avatar' => [
             'title' => '아바타',
-            'rules' => '당신의 아바타가 :link를 지키도록 해주십시오.<br/>이는 아바타가 <strong>모든 연령에 적합해야 한다</strong>는 것을 의미합니다. 즉, 나체, 남에게 모욕적인 표현 또는 이러한 것을 암시하는 내용이 없어야 합니다.',
+            'rules' => '아바타는 :link을 따라야 합니다.<br/>이는 아바타가 <strong>모든 연령에 적합해야 한다</strong>는 것을 의미하므로, 나체, 남에게 모욕적인 표현 또는 이러한 것을 암시하는 내용이 없어야 합니다.',
             'rules_link' => '커뮤니티 규칙',
         ],
 
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'Qualified 비트맵에 문제가 생길 경우 알림을 수신할 모드',
+        'beatmapset_disqualify' => '비트맵이 Disqualified 처리됐을 때 알림을 수신할 모드',
+        'comment_reply' => '댓글에 답글이 달리면 알림 받기',
         'title' => '알림',
         'topic_auto_subscribe' => '새로 만드는 포럼 주제에 대한 알림을 자동으로 활성화',
-        'beatmapset_discussion_qualified_problem' => 'Qualified 비트맵에 문제가 생길 경우 알림을 수신할 모드',
 
-        'mail' => [
-            '_' => '다음 사항은 메일 알림 받기',
+        'options' => [
+            '_' => '수신 옵션',
             'beatmapset:modding' => '비트맵 모딩',
+            'channel_message' => '개인 채팅 메시지',
+            'comment_new' => '새 댓글',
             'forum_topic_reply' => '주제 답글',
+            'mail' => '메일',
+            'push' => '푸시 알림',
+            'user_achievement_unlock' => '메달 획득',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => '인증된 클라이언트',
         'own_clients' => '소유 중인 클라이언트',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => '설정',
+
+        'beatmapset_download' => [
+            '_' => '기본 비트맵 다운로드 형식',
+            'all' => '가능하면 영상이 있는 비트맵으로 받기',
+            'no_video' => '영상이 없는 비트맵으로 받기',
+            'direct' => 'osu!direct에서 열기',
+        ],
+
+        'beatmapset_title_show_original' => '원본 언어로 비트맵 메타데이터 표시',
     ],
 
     'playstyles' => [
@@ -98,7 +103,7 @@ return [
     'security' => [
         'current_session' => '현재 세션',
         'end_session' => '세션 종료',
-        'end_session_confirmation' => '이 작업은 그 장치의 세션을 즉시 종료합니다. 확실한가요?',
+        'end_session_confirmation' => '이 작업은 해당 장치의 세션을 즉시 종료합니다. 계속할까요?',
         'last_active' => '최근 활동:',
         'title' => '보안',
         'web_sessions' => '웹 세션',

@@ -1,37 +1,24 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'Всі сповіщення прочитані!',
-    'mark_all_read' => 'Очистити всі',
-    'none' => '',
-    'see_all' => '',
+    'delete' => '',
+    'mark_read' => 'Очистити :type',
+    'none' => 'Немає повідомлень',
+    'see_all' => 'див. всі сповіщення ',
+    'see_channel' => '',
 
     'filters' => [
-        '_' => '',
-        'user' => '',
-        'beatmapset' => '',
-        'forum_topic' => '',
-        'news_post' => '',
-        'build' => '',
-        'channel' => '',
+        '_' => 'усе',
+        'user' => 'профіль',
+        'beatmapset' => 'карти',
+        'forum_topic' => 'форум',
+        'news_post' => 'новини',
+        'build' => 'збiрки',
+        'channel' => 'чат',
     ],
 
     'item' => [
@@ -43,19 +30,21 @@ return [
                 'beatmapset_discussion_lock' => 'Карта ":title" заблокована для обговорень.',
                 'beatmapset_discussion_lock_compact' => 'Обговорення закрито',
                 'beatmapset_discussion_post_new' => ':username опублікував нове повідомлення в обговореннях карти ":title".',
-                'beatmapset_discussion_post_new_empty' => '',
+                'beatmapset_discussion_post_new_empty' => 'Новий пост в ":title" вiд :username',
                 'beatmapset_discussion_post_new_compact' => 'Нова публікація від :username',
-                'beatmapset_discussion_post_new_compact_empty' => '',
+                'beatmapset_discussion_post_new_compact_empty' => 'Нова публікація від :username',
+                'beatmapset_discussion_review_new' => 'Новий відгук на ":title" від :username, що містить проблеми: :problems, пропозиції: :suggestions, похвали: :praises',
+                'beatmapset_discussion_review_new_compact' => 'Новий відгук від :username, що містить проблеми: :problems, пропозиції: :suggestions, похвали: :praises',
                 'beatmapset_discussion_unlock' => 'Карта ":title" розблокована для обговорень.',
                 'beatmapset_discussion_unlock_compact' => 'Обговорення відкрито',
             ],
 
             'beatmapset_problem' => [
-                '_' => '',
-                'beatmapset_discussion_qualified_problem' => '',
-                'beatmapset_discussion_qualified_problem_empty' => '',
-                'beatmapset_discussion_qualified_problem_compact' => '',
-                'beatmapset_discussion_qualified_problem_compact_empty' => '',
+                '_' => 'Проблема з кваліфікованої картою',
+                'beatmapset_discussion_qualified_problem' => 'Скарга від :username на ":title": ":content"',
+                'beatmapset_discussion_qualified_problem_empty' => 'Скарга від :username на ":title"',
+                'beatmapset_discussion_qualified_problem_compact' => 'Скарга від :username: ":content"',
+                'beatmapset_discussion_qualified_problem_compact_empty' => 'Скарга від :username',
             ],
 
             'beatmapset_state' => [
@@ -69,16 +58,20 @@ return [
                 'beatmapset_qualify' => 'Карта ":title" отримала достатньо номінацій, і очікує отримання рейтингу.',
                 'beatmapset_qualify_compact' => 'Карта увійшла до черги рейтингу',
                 'beatmapset_rank' => '":title" оцінено',
-                'beatmapset_rank_compact' => '',
+                'beatmapset_rank_compact' => 'Карта була ранкнута',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_remove_from_loved_compact' => '',
                 'beatmapset_reset_nominations' => 'Проблема опублікована :username викликала скидання процесу номінації карти ":title" ',
-                'beatmapset_reset_nominations_compact' => '',
+                'beatmapset_reset_nominations_compact' => 'Номінацію було скинуто',
             ],
 
             'comment' => [
                 '_' => 'Новий коментар',
 
-                'comment_new' => '',
-                'comment_new_compact' => '',
+                'comment_new' => ':username прокоментував ":content" у ":title"',
+                'comment_new_compact' => ':username прокоментував ":content"',
+                'comment_reply' => ':username відповів ":content" на ":title"',
+                'comment_reply_compact' => ':username відповів ":content"',
             ],
         ],
 
@@ -101,8 +94,10 @@ return [
             'comment' => [
                 '_' => 'Новий коментар',
 
-                'comment_new' => '',
-                'comment_new_compact' => '',
+                'comment_new' => ':username прокоментував ":content" на ":title"',
+                'comment_new_compact' => ':username прокоментував ":content"',
+                'comment_reply' => ':username відповів ":content" на ":title"',
+                'comment_reply_compact' => ':username відповів: ":content"',
             ],
         ],
 
@@ -112,8 +107,10 @@ return [
             'comment' => [
                 '_' => 'Новий коментар',
 
-                'comment_new' => '',
-                'comment_new_compact' => '',
+                'comment_new' => ':username прокоментував ":content" на ":title"',
+                'comment_new_compact' => ':username прокоментував ":content"',
+                'comment_reply' => ':username відповів ":content" на ":title"',
+                'comment_reply_compact' => ':username відповів: ":content"',
             ],
         ],
 
@@ -123,7 +120,7 @@ return [
             'forum_topic_reply' => [
                 '_' => 'Нова відповідь на форумі',
                 'forum_topic_reply' => ':username відповів в темі ":title".',
-                'forum_topic_reply_compact' => '',
+                'forum_topic_reply_compact' => ':username відповів',
             ],
         ],
 
@@ -140,9 +137,69 @@ return [
             '_' => 'Досягнення',
 
             'user_achievement_unlock' => [
-                '_' => '',
-                'user_achievement_unlock' => '',
-                'user_achievement_unlock_compact' => '',
+                '_' => 'Нова медаль',
+                'user_achievement_unlock' => 'Розблоковано ":title"!',
+                'user_achievement_unlock_compact' => 'Розблоковано ":title"!',
+                'user_achievement_unlock_group' => '',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'Обговорення в ":title" закрито',
+                'beatmapset_discussion_post_new' => 'Обговорення на ":title" має нові оновлення',
+                'beatmapset_discussion_unlock' => 'Тема ":title" була розблокована',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => 'Повідомлено про нову проблему на ":title"',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '":title" було дискваліфіковано',
+                'beatmapset_love' => '":title" підвищено до коханого',
+                'beatmapset_nominate' => '":title" було номіновано',
+                'beatmapset_qualify' => '":title" отримав достатню кількість номінацій і увійшов до черги рейтингу',
+                'beatmapset_rank' => '":title" було оцінено',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_reset_nominations' => 'Номінація ":title" була скинута',
+            ],
+
+            'comment' => [
+                'comment_new' => 'У карті ":title" були знайдені нові коментарі',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => 'Ви отримали нове повідомлення від :username',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => 'У changelog\'а ":title" були знайдені нові коментарі',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'У новини ":title" були знайдені нові комментарі',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => 'Є нові відповіді в ":title"',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':username розблокував нову медаль, ":title"!',
+                'user_achievement_unlock_self' => 'Ви розблокували нову медаль, ":title"!',
             ],
         ],
     ],

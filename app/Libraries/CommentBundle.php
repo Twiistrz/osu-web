@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
@@ -27,7 +12,6 @@ use App\Models\User;
 class CommentBundle
 {
     public $depth;
-    public $includeCommentableMeta;
     public $includeDeleted;
     public $includePinned;
     public $params;
@@ -38,10 +22,7 @@ class CommentBundle
 
     public static function forComment(Comment $comment, bool $includeNested = false)
     {
-        $options = [
-            'comment' => $comment,
-            'includeCommentableMeta' => true,
-        ];
+        $options = ['comment' => $comment];
 
         if ($includeNested) {
             $options['params'] = ['parent_id' => $comment->getKey()];
@@ -65,7 +46,6 @@ class CommentBundle
 
         $this->comment = $options['comment'] ?? null;
         $this->depth = $options['depth'] ?? 2;
-        $this->includeCommentableMeta = $options['includeCommentableMeta'] ?? false;
         $this->includeDeleted = isset($commentable);
         $this->includePinned = isset($commentable);
     }
@@ -132,17 +112,20 @@ class CommentBundle
             'user_follow' => $this->getUserFollow(),
             'users' => json_collection($this->getUsers($comments->concat($allComments)), 'UserCompact'),
             'sort' => $this->params->sort,
+            'cursor' => $this->params->cursorHelper->next($comments),
         ];
+
+        if ($this->params->userId !== null) {
+            $result['user'] = json_item(User::find($this->params->userId), 'UserCompact');
+        }
 
         if ($this->params->parentId === 0 || $this->params->parentId === null) {
             $result['top_level_count'] = $this->commentsQuery()->whereNull('parent_id')->count();
             $result['total'] = $this->commentsQuery()->count();
         }
 
-        if ($this->includeCommentableMeta) {
-            $commentables = $comments->pluck('commentable')->concat([null]);
-            $result['commentable_meta'] = json_collection($commentables, 'CommentableMeta');
-        }
+        $commentables = $comments->pluck('commentable')->concat([null]);
+        $result['commentable_meta'] = json_collection($commentables, 'CommentableMeta');
 
         return $result;
     }
@@ -150,10 +133,16 @@ class CommentBundle
     public function commentsQuery()
     {
         if (isset($this->commentable)) {
-            return $this->commentable->comments();
+            $query = $this->commentable->comments();
         } else {
-            return Comment::select();
+            $query = Comment::select();
         }
+
+        if ($this->params->userId !== null) {
+            $query->where('user_id', $this->params->userId);
+        }
+
+        return $query;
     }
 
     // This is named explictly for the paginator because there's another count
@@ -161,17 +150,17 @@ class CommentBundle
     public function countForPaginator()
     {
         $query = $this->commentsQuery();
+
         if (!$this->includeDeleted) {
             $query->withoutTrashed();
         }
 
-        return $query->count();
+        return min($query->count(), config('osu.pagination.max_count'));
     }
 
     private function getComments($query, $isChildren = true, $pinnedOnly = false)
     {
-        $sort = $pinnedOnly ? CommentBundleParams::SORTS['new'] : $this->params->sortDbOptions();
-        $sorted = false;
+        $sort = $pinnedOnly ? Comment::SORTS['new'] : $this->params->cursorHelper->getSort();
         $queryLimit = $this->params->limit;
 
         if (!$isChildren) {
@@ -180,40 +169,17 @@ class CommentBundle
             }
 
             $queryLimit++;
-            $queryCursor = [];
-            $hasValidCursor = true;
+            $cursor = $this->params->cursor;
 
-            foreach ($sort as $column => $order) {
-                $key = $column === 'votes_count_cache' ? 'votesCount' : camel_case($column);
-                $value = $this->params->cursor[$key];
-                if (isset($value)) {
-                    $queryCursor[] = compact('column', 'order', 'value');
-                } else {
-                    $hasValidCursor = false;
-                    break;
-                }
-            }
-
-            if ($hasValidCursor) {
-                $query->cursorWhere($queryCursor);
-                $sorted = true;
-            } else {
-                $query->offset($this->params->limit * ($this->params->page - 1));
+            if ($cursor === null) {
+                $query->offset(max_offset($this->params->page, $this->params->limit));
             }
         }
 
-        if ($this->includeCommentableMeta) {
-            $query->with('commentable');
-        }
+        $query->with('commentable')->cursorSort($sort, $cursor ?? null);
 
         if (!$this->includeDeleted) {
             $query->whereNull('deleted_at');
-        }
-
-        if (!$sorted) {
-            foreach ($sort as $column => $order) {
-                $query->orderBy($column, $order);
-            }
         }
 
         if (!$pinnedOnly) {

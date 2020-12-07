@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { BeatmapPlaycount } from './beatmap-playcount'
 import { ExtraHeader } from './extra-header'
@@ -37,7 +22,7 @@ export class Historical extends React.PureComponent
 
 
   componentDidMount: =>
-    $(window).on "throttled-resize.#{@id}", @resizeCharts
+    $(window).on "resize.#{@id}", @resizeCharts
     @monthlyPlaycountsChartUpdate()
     @replaysWatchedCountsChartUpdate()
 
@@ -58,26 +43,27 @@ export class Historical extends React.PureComponent
       el ExtraHeader, name: @props.name, withEdit: @props.withEdit
 
       if @hasMonthlyPlaycounts()
-        div null,
+        el React.Fragment, null,
           h3
             className: 'title title--page-extra-small'
             osu.trans('users.show.extra.historical.monthly_playcounts.title')
 
-          div
-            className: 'page-extra__chart'
-            ref: @monthlyPlaycountsChartArea
+          div className: 'page-extra__chart',
+            div ref: @monthlyPlaycountsChartArea
 
 
       h3
         className: 'title title--page-extra-small'
         osu.trans('users.show.extra.historical.most_played.title')
+        span className: 'title__count', osu.formatNumber(@props.user.beatmap_playcounts_count)
 
-      if @props.beatmapPlaycounts?.length
-        [
+      if (@props.beatmapPlaycounts?.length ? 0) != 0
+        el React.Fragment, null,
           for playcount in @props.beatmapPlaycounts
             el BeatmapPlaycount,
               key: playcount.beatmap.id
               playcount: playcount
+              currentMode: @props.currentMode
           el ShowMoreLink,
             key: 'show-more-row'
             modifiers: ['profile-page', 't-greyseafoam-dark']
@@ -89,17 +75,14 @@ export class Historical extends React.PureComponent
               url: laroute.route 'users.beatmapsets',
                   user: @props.user.id
                   type: 'most_played'
-        ]
-
-      else
-        p null, osu.trans('users.show.extra.historical.empty')
 
       h3
         className: 'title title--page-extra-small'
         osu.trans('users.show.extra.historical.recent_plays.title')
+        span className: 'title__count', osu.formatNumber(@props.user.scores_recent_count)
 
-      if @props.scoresRecent?.length
-        [
+      if (@props.scoresRecent?.length ? 0) != 0
+        el React.Fragment, null,
           el PlayDetailList, key: 'play-detail-list', scores: @props.scoresRecent
 
           el ShowMoreLink,
@@ -114,20 +97,15 @@ export class Historical extends React.PureComponent
                   user: @props.user.id
                   type: 'recent'
                   mode: @props.currentMode
-        ]
-
-      else
-        p null, osu.trans('users.show.extra.historical.empty')
 
       if @hasReplaysWatchedCounts()
-        div null,
+        el React.Fragment, null,
           h3
             className: 'title title--page-extra-small'
             osu.trans('users.show.extra.historical.replays_watched_counts.title')
 
-          div
-            className: 'page-extra__chart'
-            ref: @replaysWatchedCountsChartArea
+          div className: 'page-extra__chart',
+            div ref: @replaysWatchedCountsChartArea
 
 
   chartUpdate: (attribute, area) =>

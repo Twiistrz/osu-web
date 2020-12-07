@@ -1,28 +1,47 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .contest-userentry {
+  @_top: contest-userentry;
+
+  position: relative;
   height: 150px;
   background: @osu-colour-b4;
   margin: 10px;
   width: calc(50% - 20px);
   .default-box-shadow();
   transition: 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+  &--disabled {
+    display: none;
+  }
+
+  &--dragndrop-active {
+    background-color: @osu-colour-b3;
+  }
+
+  &--new {
+    &:hover, .@{_top}--dragndrop-hover& {
+      background-color: @osu-colour-b3;
+      transform: scale(1.01);
+    }
+
+    &:active {
+      transform: scale(0.99);
+    }
+  }
+
+  &--ok {
+    border-bottom: hsl(var(--hsl-green-3)) 5px solid;
+  }
+
+  &__delete {
+    .reset-input();
+    color: hsl(var(--hsl-c1));
+    position: absolute;
+    right: 0;
+    padding: 5px 10px;
+  }
 
   &__fileicon {
     font-size: 32px;
@@ -46,34 +65,15 @@
     font-size: 16px;
   }
 
-  &--ok {
-    border-bottom: #A4CA01 5px solid;
-  }
-
-  &--disabled {
-    display: none;
-  }
-
-
-  &--dragndrop-active {
-    background-color: @osu-colour-b3;
-  }
-
-  &--new:hover, &--dragndrop-hover {
-    background-color: @osu-colour-b3;
-    transform: scale(1.01);
-  }
-
-  &--new:active {
-    transform: scale(0.99);
-  }
-
-  &--uploader {
+  &__uploader {
     margin: 0;
     width: 100%;
+    height: 100%;
     align-items: center;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    overflow: hidden;
+    position: relative;
   }
 }

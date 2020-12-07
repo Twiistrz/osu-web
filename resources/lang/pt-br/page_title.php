@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'admin' => [
@@ -30,46 +15,53 @@ return [
     ],
     'error' => [
         'error' => [
-            '_' => 'erro',
+            '400' => 'solicitação inválida',
             '404' => 'não encontrado',
-            '403' => 'acesso negado',
+            '403' => 'proibido',
             '401' => 'não autorizado',
+            '401-verification' => 'verificação de conta',
             '405' => 'não encontrado',
+            '422' => 'solicitação inválida',
             '500' => 'algo quebrou',
             '503' => 'manutenção',
         ],
     ],
     'forum' => [
-        '_' => 'Fórum',
+        '_' => 'fórum',
         'topic_watches_controller' => [
-            'index' => 'dashboard',
+            'index' => 'painel de controle',
         ],
     ],
     'main' => [
         'account_controller' => [
-            'edit' => 'dashboard',
-        ],
-        'beatmapset_watches_controller' => [
-            'index' => 'dashboard',
-        ],
-        'friends_controller' => [
-            'index' => 'dashboard',
-        ],
-        'home_controller' => [
-            'index' => 'dashboard',
-            'get_download' => 'baixar',
-            'search' => 'busca',
-            'support_the_game' => 'apoie o jogo',
-            'testflight' => 'vôo de teste',
+            'edit' => 'painel de controle',
+            'verify_link' => 'verificação de conta',
         ],
         'artists_controller' => [
             '_' => 'artistas em destaque',
         ],
+        'beatmap_discussion_posts_controller' => [
+            '_' => 'votos de discussão do beatmap',
+        ],
         'beatmap_discussions_controller' => [
             '_' => 'discussões de beatmaps',
         ],
-        'beatmap_discussion_posts_controller' => [
-            '_' => 'postagens de discussão sobre beatmaps',
+        'beatmap_packs_controller' => [
+            '_' => 'pacotes de beatmaps',
+        ],
+        'beatmapset_discussion_votes_controller' => [
+            '_' => 'votos de discussão do beatmap',
+        ],
+        'beatmapset_events_controller' => [
+            '_' => 'histórico do beatmap',
+        ],
+        'beatmapset_watches_controller' => [
+            'index' => 'painel de controle',
+        ],
+        'beatmapsets_controller' => [
+            'discussion' => 'discussão do beatmap',
+            'index' => 'lista de beatmaps',
+            'show' => 'informação do beatmap',
         ],
         'changelog_controller' => [
             '_' => 'registro de alterações',
@@ -83,14 +75,42 @@ return [
         'contests_controller' => [
             '_' => 'concursos',
         ],
+        'friends_controller' => [
+            'index' => 'painel de controle',
+        ],
+        'groups_controller' => [
+            'show' => 'grupos',
+        ],
+        'home_controller' => [
+            'get_download' => 'baixar',
+            'index' => 'painel de controle',
+            'search' => 'pesquisar',
+            'support_the_game' => 'apoie o jogo',
+            'testflight' => 'testflight',
+        ],
         'legal_controller' => [
             '_' => 'informação',
         ],
         'livestreams_controller' => [
             '_' => 'transmissões ao vivo',
         ],
+        'matches_controller' => [
+            '_' => 'partidas',
+        ],
+        'news_controller' => [
+            '_' => 'notícias',
+        ],
+        'notifications_controller' => [
+            '_' => 'histórico de notificações',
+        ],
+        'password_reset_controller' => [
+            '_' => 'redefinição de senha',
+        ],
         'ranking_controller' => [
-            '_' => 'classificação',
+            '_' => 'ranking',
+        ],
+        'scores_controller' => [
+            '_' => 'desempenho',
         ],
         'store_controller' => [
             '_' => 'osu!store',
@@ -99,13 +119,24 @@ return [
             '_' => 'torneios',
         ],
         'users_controller' => [
+            '_' => 'informações do jogador',
             'disabled' => 'aviso',
         ],
         'wiki_controller' => [
-            'show' => 'Base de Conhecimento',
+            '_' => 'base de conhecimento',
+        ],
+    ],
+    'multiplayer' => [
+        'rooms_controller' => [
+            '_' => 'classificação',
         ],
     ],
     'store' => [
         '_' => 'osu!store',
+    ],
+    'users' => [
+        'modding_history_controller' => [
+            '_' => 'informação do modder',
+        ],
     ],
 ];

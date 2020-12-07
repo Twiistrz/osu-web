@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,21 +49,41 @@ return [
     ],
 
     'notifications' => [
-        'title' => 'Ilmoitukset',
-        'topic_auto_subscribe' => '',
         'beatmapset_discussion_qualified_problem' => '',
+        'beatmapset_disqualify' => '',
+        'comment_reply' => '',
+        'title' => 'Ilmoitukset',
+        'topic_auto_subscribe' => 'automaattisesti salli ilmoitukset uusille foorumiaiheille jotka luot',
 
-        'mail' => [
+        'options' => [
             '_' => '',
-            'beatmapset:modding' => '',
-            'forum_topic_reply' => '',
+            'beatmapset:modding' => 'beatmapin modaus',
+            'channel_message' => 'yksityisviestit',
+            'comment_new' => 'uudet kommentit',
+            'forum_topic_reply' => 'aihevastaus',
+            'mail' => 'posti',
+            'push' => 'push',
+            'user_achievement_unlock' => 'käyttäjämitali avattu',
         ],
     ],
 
     'oauth' => [
-        'authorized_clients' => '',
-        'own_clients' => '',
+        'authorized_clients' => 'valtuutetut clientit',
+        'own_clients' => 'omat clientit',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Asetukset',
+
+        'beatmapset_download' => [
+            '_' => 'oletus beatmap-lataus tyyppi',
+            'all' => 'videon kanssa jos saatavilla',
+            'no_video' => 'ilman videota',
+            'direct' => 'avaa osu!directissä',
+        ],
+
+        'beatmapset_title_show_original' => 'näytä beatmap-metadata alkuperäisellä kielellä',
     ],
 
     'playstyles' => [
@@ -114,10 +119,11 @@ return [
 
     'verification_completed' => [
         'text' => 'Tämän välilehden/ikkunan voi nyt sulkea',
-        'title' => '',
+        'title' => 'Vahvistaminen on valmis',
     ],
 
     'verification_invalid' => [
-        'title' => '',
+        'title' => 'Kelvoton tai vanhentunut vahvistuslinkki
+',
     ],
 ];

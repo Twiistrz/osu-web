@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 /**
  * This is a port of HttpAcceptLanguage::Parser from the http_accept_language gem
@@ -90,7 +75,8 @@ class Parser
      */
     public function compatibleLanguageFrom(array $availableLanguages)
     {
-        $compatible = array_map(function ($preferred) use ($availableLanguages) { // en-US
+        $compatible = array_map(function ($preferred) use ($availableLanguages) {
+            // en-US
             $preferred = strtolower($preferred);
             $preferredLanguage = explode('-', $preferred, 2)[0];
 
@@ -133,11 +119,13 @@ class Parser
     public function languageRegionCompatibleFrom($availableLanguages)
     {
         $availableLanguages = $this->sanitizeAvailableLocales($availableLanguages);
-        $array = array_map(function ($preferred) use ($availableLanguages) { // en-US
+        $array = array_map(function ($preferred) use ($availableLanguages) {
+            // en-US
             $preferred = strtolower($preferred);
             $preferredLanguage = explode('-', $preferred, 2)[0] ?? null;
 
-            $langGroup = array_values(array_filter($availableLanguages, function ($available) use ($preferredLanguage) { // en
+            $langGroup = array_values(array_filter($availableLanguages, function ($available) use ($preferredLanguage) {
+                // en
                 return $preferredLanguage === explode('-', strtolower($available), 2)[0] ?? null;
             }));
 

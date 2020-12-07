@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'landing' => [
@@ -25,7 +10,7 @@ return [
         'peak' => 'Връхна точка, :count потребители онлайн',
         'players' => '<strong>:count</strong> регистрирани играчи',
         'title' => 'добре дошли',
-        'see_more_news' => '',
+        'see_more_news' => 'виж повече новини',
 
         'slogan' => [
             'main' => 'най-добрата безплатна ритъм игра',
@@ -37,12 +22,12 @@ return [
         'advanced_link' => 'Разширено търсене',
         'button' => 'Търсене',
         'empty_result' => 'Нищо не бе открито!',
-        'keyword_required' => '',
+        'keyword_required' => 'Необходима е ключова дума за търсене',
         'placeholder' => 'Пишете тук за търсене…',
         'title' => 'Търсене',
 
         'beatmapset' => [
-            'login_required' => '',
+            'login_required' => 'Влезте в профила си, за да търсите бийтмапове',
             'more' => 'още :count бийтмап резултата от търсенето',
             'more_simple' => 'Виж повече бийтмап резултати от търсенето',
             'title' => 'Бийтмапове',
@@ -51,7 +36,7 @@ return [
         'forum_post' => [
             'all' => 'Всички форуми',
             'link' => 'Търсене в форума',
-            'login_required' => '',
+            'login_required' => 'Влезте в профила си, за да търсите във форума',
             'more_simple' => 'Виж повече форум резултати от търсенето',
             'title' => 'Форум',
 
@@ -72,7 +57,7 @@ return [
         ],
 
         'user' => [
-            'login_required' => '',
+            'login_required' => 'Влезте в профила си, за да търсите потребители',
             'more' => 'още :count резултата на играчи от търсенето',
             'more_simple' => 'Виж повече резултати на играчи от търсенето',
             'more_hidden' => 'Търсенето на играчи е ограничено до :max играчи. Опитайте да доусъвършенствате заявката за търсене.',
@@ -90,6 +75,13 @@ return [
         'tagline' => "нека ти помогнем<br>
 с основите да започнеш!",
         'action' => 'Изтеглете osu!',
+
+        'help' => [
+            '_' => '',
+            'help_forum_link' => '',
+            'support_button' => '',
+        ],
+
         'os' => [
             'windows' => 'за Windows',
             'macos' => 'за macOS',
@@ -133,7 +125,7 @@ return [
         'beatmaps' => [
             'new' => 'Нови класирани бийтмапове',
             'popular' => 'Популярни бийтмапове',
-            'by_user' => '',
+            'by_user' => 'от :user',
         ],
         'buttons' => [
             'download' => 'Изтеглете osu!',

@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 $factory->define(App\Models\Comment::class, function (Faker\Generator $faker) {
     return [
         'user_id' => function () {
@@ -8,7 +11,9 @@ $factory->define(App\Models\Comment::class, function (Faker\Generator $faker) {
         'message' => function () use ($faker) {
             return $faker->paragraph();
         },
-        'commentable_type' => 'build', // TODO: add support for more types
+        'commentable_type' => function () {
+            return 'build'; // TODO: add support for more types
+        },
         'commentable_id' => function () {
             return factory(App\Models\Build::class)->create()->build_id;
         },

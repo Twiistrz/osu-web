@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,13 +18,13 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'odstraněno',
-        'none_found' => '',
+        'none_found' => 'Nenalezeny žádné diskuze, odpovídající zadaným požadavkům.',
         'title' => 'Diskuze o beatmapě',
 
         'form' => [
             '_' => 'Hledat',
             'deleted' => 'Zahrnout smazané diskuze',
-            'only_unresolved' => '',
+            'only_unresolved' => 'Ukaž pouze nerozluštěné diskuze',
             'types' => 'Typy zpráv',
             'username' => 'Uživatelské jméno',
 
@@ -47,7 +32,7 @@ return [
                 '_' => 'Stav Beatmapy',
                 'all' => 'Všechny',
                 'disqualified' => 'Diskvalifikovaný',
-                'never_qualified' => '',
+                'never_qualified' => 'Nikdy nekvalifikované',
                 'qualified' => 'Kvalifikovaný',
                 'ranked' => 'Hodnocené',
             ],
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Žádný z příspěvků neřeší mé obavy',
         'notice' => 'Poblíž :timestamp (:existing_timestamps) se už nějaké příspěvky nacházejí. Prosím zkontroluj je před zveřejněním tvého přispěvku.',
+        'unsaved' => ':count v této recenzi',
     ],
 
     'reply' => [
@@ -79,14 +65,17 @@ return [
     ],
 
     'review' => [
-        'go_to_parent' => '',
-        'go_to_child' => '',
+        'block_count' => ':used z :max bloků použito',
+        'go_to_parent' => 'Zobrazit příspěvek recenze',
+        'go_to_child' => 'Zobrazit diskuzi',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => 'každý blok může obsahovat maximálně :limit znaků',
+            'external_references' => 'recenze obsahuje odkazy na problémy, které nepatří do této recenze',
+            'invalid_block_type' => 'neplatný typ bloku',
+            'invalid_document' => 'neplatná recenze',
+            'minimum_issues' => 'recenze musí obsahovat minimálně :count problém|recenze musí obsahovat minimálně :count problémů',
+            'missing_text' => 'bloku chybí text',
+            'too_many_blocks' => 'recenze mohou obsahovat pouze :count odstavec/problém|recenze mohou obsahovat pouze :count odstavců/problémů',
         ],
     ],
 
@@ -99,7 +88,7 @@ return [
 
     'timestamp_display' => [
         'general' => 'obecné',
-        'general_all' => '',
+        'general_all' => 'obecné (všechny)',
     ],
 
     'user_filter' => [

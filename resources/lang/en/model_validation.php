@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Invalid :attribute specified.',
     'not_negative' => ':attribute cannot be negative.',
     'required' => ':attribute is required.',
     'too_long' => ':attribute exceeded maximum length - can only be up to :limit characters.',
     'wrong_confirmation' => 'Confirmation does not match.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Discussion is locked.',
-        'first_post' => 'Can not delete starting post.',
-
-        'attributes' => [
-            'message' => 'The message',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Timestamp is specified but beatmap is missing.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "This beatmap is currently locked for discussion and can't be hyped",
             'guest' => 'Must be signed in to hype.',
             'hyped' => 'You have already hyped this beatmap.',
             'limit_exceeded' => 'You have used all your hype.',
@@ -57,6 +35,15 @@ return [
         'timestamp' => [
             'exceeds_beatmapset_length' => 'Specified timestamp is beyond the length of the beatmap.',
             'negative' => "Timestamp can't be negative.",
+        ],
+    ],
+
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Discussion is locked.',
+        'first_post' => 'Can not delete starting post.',
+
+        'attributes' => [
+            'message' => 'The message',
         ],
     ],
 
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Password may not contain username.',
         'email_already_used' => 'Email address already used.',
+        'email_not_allowed' => 'Email address not allowed.',
         'invalid_country' => 'Country not in database.',
         'invalid_discord' => 'Discord username invalid.',
         'invalid_email' => "Doesn't seem to be a valid email address.",
+        'invalid_twitter' => 'Twitter username invalid.',
         'too_short' => 'New password is too short.',
         'unknown_duplicate' => 'Username or email address already used.',
         'username_available_in' => 'This username will be available for use in :duration.',

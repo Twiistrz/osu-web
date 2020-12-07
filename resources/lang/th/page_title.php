@@ -1,37 +1,33 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'admin' => [
+        '_' => 'ผู้ดูแล',
+    ],
+    'admin_forum' => [
+        '_' => 'ผู้ดูแล',
+    ],
+    'admin_store' => [
+        '_' => 'ผู้ดูแล',
+    ],
     'error' => [
         'error' => [
-            '_' => 'ข้อผิดพลาด',
-            '404' => 'หายไป',
-            '403' => 'ต้องห้าม',
-            '401' => 'ไม่ได้รับอนุญาต',
-            '405' => 'หายไป',
-            '500' => 'อะไรสักอย่างพัง',
+            '400' => 'คำร้องขอไม่ถูกต้อง',
+            '404' => 'สิ่งที่ท่านร้องขอไม่มีอยู่',
+            '403' => 'เขตหวงห้าม',
+            '401' => 'คุณไม่ได้รับอนุญาตให้เข้าถึง',
+            '401-verification' => 'ยืนยันตัวตนบัญชี',
+            '405' => 'สิ่งที่ท่านร้องขอไม่มีอยู่',
+            '422' => 'คำร้องขอไม่ถูกต้อง',
+            '500' => 'อะไรบางอย่างพัง',
             '503' => 'การบำรุงรักษาระบบ',
         ],
     ],
     'forum' => [
-        '_' => 'ฟอรั่ม',
+        '_' => 'ฟอรัม',
         'topic_watches_controller' => [
             'index' => 'หน้าหลัก',
         ],
@@ -39,30 +35,109 @@ return [
     'main' => [
         'account_controller' => [
             'edit' => 'หน้าหลัก',
+            'verify_link' => 'การยืนยันบัญชี',
         ],
-        'beatmapset_watches_controller' => [
-            'index' => 'หน้าหลัก',
-        ],
-        'friends_controller' => [
-            'index' => 'หน้าหลัก',
-        ],
-        'home_controller' => [
-            'index' => 'หน้าหลัก',
-            'get_download' => 'ดาวน์โหลด',
-            'search' => 'ค้นหา',
-            'support_the_game' => 'สนับสนุนเกม',
-        ],
-        'beatmap_discussions_controller' => [
-            '_' => 'การสนทนาเกี่ยวกับ Beatmap',
+        'artists_controller' => [
+            '_' => 'ศิลปินที่โดดเด่น',
         ],
         'beatmap_discussion_posts_controller' => [
             '_' => 'โพสต์การสนทนาเกี่ยวกับ Beatmap',
         ],
+        'beatmap_discussions_controller' => [
+            '_' => 'การสนทนาเกี่ยวกับ Beatmap',
+        ],
+        'beatmap_packs_controller' => [
+            '_' => 'บีทแมพแพ็ค',
+        ],
+        'beatmapset_discussion_votes_controller' => [
+            '_' => 'โหวตการสนทนา Beatmap',
+        ],
+        'beatmapset_events_controller' => [
+            '_' => 'ประวัติ Beatmap',
+        ],
+        'beatmapset_watches_controller' => [
+            'index' => 'หน้าหลัก',
+        ],
+        'beatmapsets_controller' => [
+            'discussion' => 'การสนทนาเกี่ยวกับ Beatmap',
+            'index' => 'รายการ Beatmap',
+            'show' => 'ข้อมูลบีทแมพ',
+        ],
+        'changelog_controller' => [
+            '_' => 'การเปลี่ยนแปลง',
+        ],
         'chat_controller' => [
             '_' => 'แชท',
         ],
+        'comments_controller' => [
+            '_' => 'ความคิดเห็น',
+        ],
+        'contests_controller' => [
+            '_' => 'การแข่งขัน',
+        ],
+        'friends_controller' => [
+            'index' => 'หน้าหลัก',
+        ],
+        'groups_controller' => [
+            'show' => 'กลุ่ม',
+        ],
+        'home_controller' => [
+            'get_download' => 'ดาวน์โหลด',
+            'index' => 'หน้าหลัก',
+            'search' => 'ค้นหา',
+            'support_the_game' => 'สนับสนุนเกมนี้',
+            'testflight' => 'TestFlight',
+        ],
         'legal_controller' => [
             '_' => 'ข้อมูล',
+        ],
+        'livestreams_controller' => [
+            '_' => 'การถ่ายทอดสด',
+        ],
+        'matches_controller' => [
+            '_' => 'แมตซ์',
+        ],
+        'news_controller' => [
+            '_' => 'ข่าวสาร',
+        ],
+        'notifications_controller' => [
+            '_' => 'ประวัติการแจ้งเตือน',
+        ],
+        'password_reset_controller' => [
+            '_' => 'ตั้งรหัสผ่านใหม่',
+        ],
+        'ranking_controller' => [
+            '_' => 'การจัดอันดับ',
+        ],
+        'scores_controller' => [
+            '_' => 'ค่าศักยภาพ',
+        ],
+        'store_controller' => [
+            '_' => 'osu!store',
+        ],
+        'tournaments_controller' => [
+            '_' => '
+ทัวร์นาเมนต์',
+        ],
+        'users_controller' => [
+            '_' => 'ข้อมูลผู้เล่น',
+            'disabled' => 'การแจ้งเตือน',
+        ],
+        'wiki_controller' => [
+            '_' => 'ฐานความรู้',
+        ],
+    ],
+    'multiplayer' => [
+        'rooms_controller' => [
+            '_' => 'การจัดอันดับ',
+        ],
+    ],
+    'store' => [
+        '_' => 'osu!store',
+    ],
+    'users' => [
+        'modding_history_controller' => [
+            '_' => 'ข้อมูลผู้ให้คำวิจารณ์',
         ],
     ],
 ];

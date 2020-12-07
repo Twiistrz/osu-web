@@ -1,32 +1,17 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
 use App\Exceptions\ModelNotSavedException;
+use App\Jobs\Notifications\CommentNew;
 use App\Libraries\CommentBundle;
-use App\Libraries\CommentBundleParams;
 use App\Libraries\MorphMap;
 use App\Models\Comment;
 use App\Models\Log;
-use App\Models\Notification;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -96,6 +81,16 @@ class CommentsController extends Controller
     {
         $params = request()->all();
 
+        $userId = $params['user_id'] ?? null;
+
+        if ($userId !== null) {
+            $user = User::lookup($userId, 'id', true);
+
+            if ($user === null || !priv_check('UserShow', $user)->can()) {
+                abort(404);
+            }
+        }
+
         $id = $params['commentable_id'] ?? null;
         $type = $params['commentable_type'] ?? null;
 
@@ -108,7 +103,7 @@ class CommentsController extends Controller
             $commentable = $class::findOrFail($id);
         }
 
-        $params['sort'] = $params['sort'] ?? CommentBundleParams::DEFAULT_SORT;
+        $params['sort'] = $params['sort'] ?? Comment::DEFAULT_SORT;
         $commentBundle = new CommentBundle(
             $commentable ?? null,
             ['params' => $params]
@@ -118,7 +113,6 @@ class CommentsController extends Controller
             return $commentBundle->toArray();
         } else {
             $commentBundle->depth = 0;
-            $commentBundle->includeCommentableMeta = true;
             $commentBundle->includePinned = false;
 
             $commentPagination = new LengthAwarePaginator(
@@ -197,7 +191,7 @@ class CommentsController extends Controller
     {
         $user = auth()->user();
 
-        $params = get_params(request(), 'comment', [
+        $params = get_params(request()->all(), 'comment', [
             'commentable_id:int',
             'commentable_type',
             'message',
@@ -215,7 +209,7 @@ class CommentsController extends Controller
             return error_popup($e->getMessage());
         }
 
-        broadcast_notification(Notification::COMMENT_NEW, $comment, $user);
+        (new CommentNew($comment, $user))->dispatch();
 
         return CommentBundle::forComment($comment)->toArray();
     }
@@ -241,7 +235,7 @@ class CommentsController extends Controller
 
         priv_check('CommentUpdate', $comment)->ensureCan();
 
-        $params = get_params(request(), 'comment', ['message']);
+        $params = get_params(request()->all(), 'comment', ['message']);
         $params['edited_by_id'] = auth()->user()->getKey();
         $params['edited_at'] = Carbon::now();
         $comment->update($params);

@@ -1,48 +1,55 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
+use App\Libraries\LocaleMeta;
 use App\Models\Wiki;
 
 class LegalController extends Controller
 {
-    public function show($page)
+    public function show($locale = null, $path = null)
     {
-        switch ($page) {
-            case 'copyright':
-                $path = 'Legal/Copyright';
-                break;
-            case 'privacy':
-                $path = 'Legal/Privacy';
-                break;
-            case 'terms':
-                $path = 'Legal/Terms';
-                break;
-            default:
-                abort(404);
+        if (!LocaleMeta::isValid($locale)) {
+            $redirect = concat_path(['Legal', $locale, $path]);
+
+            return ujs_redirect(wiki_url($redirect));
         }
 
-        $locale = $this->locale();
-        $page = Wiki\Page::lookupForController($path, $locale);
+        if (substr(request()->getPathInfo(), -1) === '/') {
+            return ujs_redirect(route('legal', ['path' => rtrim($path, '/'), 'locale' => $locale]));
+        }
 
-        return ext_view('wiki.show', compact('locale', 'page'));
+        switch ($path) {
+            case 'copyright':
+                $redirect = 'Copyright';
+                break;
+            case 'privacy':
+                $redirect = 'Privacy';
+                break;
+            case 'terms':
+                $redirect = 'Terms';
+                break;
+        }
+
+        if (isset($redirect)) {
+            return ujs_redirect(wiki_url("Legal/{$redirect}"));
+        }
+
+        $page = Wiki\Page::lookupForController("Legal/{$path}", $locale);
+        $legal = true;
+
+        return ext_view('wiki.show', compact('legal', 'locale', 'page'));
+    }
+
+    public function update($locale, $path)
+    {
+        priv_check('WikiPageRefresh')->ensureCan();
+
+        (new Wiki\Page("Legal/{$path}", $locale))->sync(true);
+
+        return ext_view('layout.ujs-reload', [], 'js');
     }
 }

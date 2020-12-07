@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Libraries\Fulfillments;
 
@@ -25,7 +10,6 @@ use App\Mail\DonationThanks;
 use App\Mail\SupporterGift;
 use App\Models\Store\Order;
 use App\Models\Store\OrderItem;
-use App\Models\SupporterTag;
 use App\Models\User;
 use App\Models\UserDonation;
 use Carbon\Carbon;
@@ -102,9 +86,9 @@ class SupporterTagFulfillmentTest extends TestCase
             $params = $this->invokeProperty($mail, 'params');
 
             if ($params['giftee']->is($giftee1)) {
-                return $params['duration'] === SupporterTag::getDurationText(2);
+                return $params['duration'] === 2;
             } elseif ($params['giftee']->is($giftee2)) {
-                return $params['duration'] === SupporterTag::getDurationText(1);
+                return $params['duration'] === 1;
             }
         });
 

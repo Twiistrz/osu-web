@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import mapperGroup from 'beatmap-discussions/mapper-group'
 import * as React from 'react'
@@ -27,10 +12,24 @@ allUsers =
   text: osu.trans('beatmap_discussions.user_filter.everyone')
 
 export class UserFilter extends React.PureComponent
+  mapUserProperties: (user) ->
+    groups: user.groups
+    id: user.id
+    text: user.username
+
+
+  handleChange: (option) =>
+    $.publish 'beatmapsetDiscussions:update', selectedUserId: option.id
+
+
+  isOwner: (user) =>
+    user? && user.id == @props.ownerId
+
+
   render: =>
-    options = [allUsers]
-    for own _id, user of @props.users
-      options.push @mapUserProperties(user)
+    options = for own _id, user of @props.users when user.id?
+      @mapUserProperties(user)
+    options.unshift(allUsers)
 
     selected = if @props.selectedUser?
                  @mapUserProperties(@props.selectedUser)
@@ -39,34 +38,20 @@ export class UserFilter extends React.PureComponent
 
     el SelectOptions,
       bn: 'beatmap-discussions-user-filter'
-      renderItem: @renderItem
-      onItemSelected: @onItemSelected
+      renderOption: @renderOption
+      onChange: @handleChange
       options: options
       selected: selected
 
 
-  mapUserProperties: (user) ->
-    group_badge: user.group_badge
-    id: user.id
-    text: user.username
-
-
-  renderItem: ({ cssClasses, children, item, onClick }) =>
-    userBadge = if @isOwner(item) then mapperGroup else item.group_badge
-    style = osu.groupColour(userBadge)
+  renderOption: ({ cssClasses, children, onClick, option }) =>
+    group = if @isOwner(option) then mapperGroup else option.groups?[0]
+    style = osu.groupColour(group)
 
     a
       className: cssClasses
-      href: BeatmapDiscussionHelper.url user: item?.id, true
-      key: item?.id
+      href: BeatmapDiscussionHelper.url user: option?.id, true
+      key: option?.id
       onClick: onClick
       style: style
       children
-
-
-  isOwner: (user) =>
-    user? && user.id == @props.ownerId
-
-
-  onItemSelected: (item) ->
-    $.publish 'beatmapsetDiscussions:update', selectedUserId: item.id

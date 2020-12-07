@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Érvénytelen :attribute megadva.',
     'not_negative' => ':attribute nem lehet negatív.',
     'required' => ':attribute kötelező.',
     'too_long' => ':attribute elérte a maximális hosszt - csak :limit karakter hosszú lehet.',
     'wrong_confirmation' => 'A megerősítés nem egyezik.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'A megbeszélés zárolva van.',
-        'first_post' => 'Nem lehet a kezdő posztot törölni.',
-
-        'attributes' => [
-            'message' => 'Az üzenet',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Időbélyeg meg van adva, de a beatmap hiányzik.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Ez a beatmap jelenleg nem elérhető kommentelésre és hypolásra",
             'guest' => 'A hype-oláshoz bejelentkezve kell lenned.',
             'hyped' => 'Már hype-oltad ezt a beatmap-et.',
             'limit_exceeded' => 'Az összes hype-odat elhasználtad.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'A megbeszélés zárolva van.',
+        'first_post' => 'Nem lehet a kezdő posztot törölni.',
+
+        'attributes' => [
+            'message' => 'Az üzenet',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Törölt hozzászólásokra nem lehet válaszolni.',
-        'top_only' => '',
+        'top_only' => 'Visszajátszási kommentek kitűzése nem engedélyezett.',
 
         'attributes' => [
             'message' => 'Az üzenet',
@@ -89,7 +76,7 @@ return [
             'only_quote' => 'A válaszod csak egy idézetet tartalmaz.',
 
             'attributes' => [
-                'post_text' => '',
+                'post_text' => 'Poszt felület',
             ],
         ],
 
@@ -121,12 +108,12 @@ return [
 
     'oauth' => [
         'client' => [
-            'too_many' => '',
+            'too_many' => 'Elérted a maximum OAuth applikációk számát.',
             'url' => 'Kérjük adjon meg egy helyes URL-t.',
 
             'attributes' => [
                 'name' => 'Alkalmazás neve',
-                'redirect' => '',
+                'redirect' => 'Alkalmazás Visszahívási URL',
             ],
         ],
     ],
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'A jelszó nem tartalmazhat felhasználónevet.',
         'email_already_used' => 'Ez az e-mail cím már használatban van.',
+        'email_not_allowed' => 'Nem megengedett e-mail cím.',
         'invalid_country' => 'Az ország nincs az adatbázisban.',
         'invalid_discord' => 'Érvénytelen Discord felhasználónév.',
         'invalid_email' => "Nem úgy néz ki, hogy ez érvényes e-mail cím lenne.",
+        'invalid_twitter' => 'Érvénytelen Twitter felhasználónév.',
         'too_short' => 'Az új jelszó túl rövid.',
         'unknown_duplicate' => 'Ez a felhasználónév vagy e-mail cím már használatban van.',
         'username_available_in' => 'Ez a felhasználónév elérhető lesz :duration időn belül.',
@@ -172,7 +161,7 @@ return [
     ],
 
     'user_report' => [
-        'reason_not_valid' => '',
+        'reason_not_valid' => 'ez a jelentés nem megfelelő, ehhez a jelentés fajtához.:reason.',
         'self' => "Nem jelentheted magadat!",
     ],
 

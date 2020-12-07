@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
@@ -29,6 +14,7 @@ return [
         'discussion_unlock' => 'A beatmap megbeszélése engedélyezve lett.',
         'disqualify' => 'Diszkvalifikálva :user által. Indok: :discussion (:text).',
         'disqualify_legacy' => 'Diszkvalifikálva :user által. Indok: :text.',
+        'genre_edit' => 'Műfaj megváltoztatva erről :old erre :new.',
         'issue_reopen' => 'Megoldott probléma :discussion újranyitva.',
         'issue_resolve' => 'A :discussion problémát megoldottnak jelölték.',
         'kudosu_allow' => 'Kudosu megtagadás a :discussion megbeszélésre el lett távolítva.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'A :discussion megbeszélés :user által elég szavazatot szerzett kudosu-ra.',
         'kudosu_lost' => 'A :discussion megbeszélés :user által szavazatokat vesztett, így a megszerzett kudosu vissza lett vonva.',
         'kudosu_recalculate' => 'A :discussion megbeszélés kudosu értékei újra lettek kalkulálva.',
+        'language_edit' => 'Nyelv megváltoztatva erről :old erre :new.',
         'love' => 'Kedvelte :user',
         'nominate' => 'Nominálva :user által.',
         'nomination_reset' => 'Új probléma :discussion (:text) miatt a nominálás alaphelyzetbe állt.',
         'qualify' => 'Ez a beatmap elérte az elegendő számú nominálást és kvalifikálva lett.',
         'rank' => 'Rangsorolt.',
+        'remove_from_loved' => '',
     ],
 
     'index' => [
@@ -65,6 +53,7 @@ return [
         'discussion_post_restore' => 'Megbeszélés válaszának visszaállítása',
         'discussion_restore' => 'Megbeszélés visszaállítása',
         'disqualify' => 'Diszkvalifikáció',
+        'genre_edit' => 'Műfaj szerkesztése',
         'issue_reopen' => 'Megbeszélés újranyitás',
         'issue_resolve' => 'Megbeszélés megoldás',
         'kudosu_allow' => 'Kudosu engedélyezés',
@@ -72,10 +61,12 @@ return [
         'kudosu_gain' => 'Kudosu nyereség',
         'kudosu_lost' => 'Kudosu veszteség',
         'kudosu_recalculate' => 'Kudosu újraszámítás',
+        'language_edit' => 'Nyelv szerkesztése',
         'love' => 'Love',
         'nominate' => 'Nominálás',
         'nomination_reset' => 'Nominálás visszaállítás',
         'qualify' => 'Kvalifikáció',
         'rank' => 'Rangsorolás',
+        'remove_from_loved' => '',
     ],
 ];

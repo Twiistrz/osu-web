@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[odstraněný uživatel]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Nesprávné přihlášení',
         'forgot' => 'Zapoměl jsi heslo?',
         'info' => 'Prosím přihlaste se pro pokračování',
+        'invalid_captcha' => '',
         'locked_ip' => 'vaše IP adresa je uzamčena. Počkejte, prosím, několik minut.',
         'password' => 'Heslo',
         'register' => "Nemáš osu! účet? Vytvoř si ho",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Momentálně aktivní',
         'missingtext' => 'Možná jste se přepsal! (nebo byl uživatel zabanován)',
         'origin_country' => 'Z :country',
-        'page_description' => 'osu! - Všechno co jste kdy chtěli vědět o :username!',
         'previous_usernames' => 'dříve znám jako',
         'plays_with' => 'Hraje s :devices',
         'title' => "profil uživatele :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Nahrát obrázek',
                     'dropzone' => 'Přetáhni sem pro nahrání',
                     'dropzone_info' => 'Můžeš také přetánout sem pro nahrání',
-                    'size_info' => 'Velikost záhlaví by měla být 2800x620',
+                    'size_info' => 'Velikost záhlaví by měla být 2400x620',
                     'too_large' => 'Nahraný soubor je příliš velký.',
                     'unsupported_format' => 'Nepodporovaný formát.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'autora :artist',
-                'none' => 'Žádná... zatím.',
                 'title' => 'Beatmapy',
 
                 'favourite' => [
@@ -224,15 +212,14 @@ return [
             'discussions' => [
                 'title' => 'Diskuze',
                 'title_longer' => 'Poslední diskuze',
-                'show_more' => '',
+                'show_more' => 'zobrazit více diskuzí',
             ],
             'events' => [
                 'title' => 'Události',
                 'title_longer' => 'Poslední údálosti',
-                'show_more' => '',
+                'show_more' => 'zobrazit více eventů',
             ],
             'historical' => [
-                'empty' => 'Žádné výkonnostní záznamy. :(',
                 'title' => 'Historické',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu k dispozici',
-                'available_info' => "Kudosu mohou být směněny za kudosu hvězdy, které pomohou Vaší mapě získat víc pozornosti. Toto je počet kudosu které jste ještě nesměnili.",
                 'recent_entries' => 'Nedávná Kudosu historie',
                 'title' => 'Kudosu!',
                 'total' => 'Celkově získané Kudosu',
@@ -314,16 +299,16 @@ return [
             'posts' => [
                 'title' => 'Příspěvky',
                 'title_longer' => 'Poslední příspěvky',
-                'show_more' => '',
+                'show_more' => 'zobrazit více příspěvků',
             ],
             'recent_activity' => [
                 'title' => 'Nedávné',
             ],
             'top_ranks' => [
                 'download_replay' => 'Stáhnout záznam',
-                'empty' => 'Zatím žádné záznamy o úžasném výkonu. :(',
                 'not_ranked' => 'Pouze hodnocené mapy vydávají pp.',
                 'pp_weight' => 'váženo na :percentage',
+                'view_details' => '',
                 'title' => 'Umístění',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Zájmy',
-            'lastfm' => 'Last.fm',
             'location' => 'Současná poloha',
             'occupation' => 'Povolání',
             'skype' => '',
@@ -388,7 +372,7 @@ return [
 
             'restriction_info' => [
                 '_' => '',
-                'link' => '',
+                'link' => 'osu!supporter',
             ],
         ],
         'post_count' => [
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '',
         'card' => '',
         'list' => '',
     ],

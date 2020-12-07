@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmapy',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'stáhnout',
+            'video' => 'stáhnout s videem',
+            'no_video' => 'stáhnout bez videa',
+            'direct' => 'otevřít v osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Diskuze',
 
         'details' => [
-            'approved' => 'schváleno:',
             'favourite' => 'Přidat do mých oblíbených',
             'logged-out' => 'Pro stahování beatmap musíš být přihlášen!',
-            'loved' => 'amorem zasažené:',
             'mapped_by' => 'beatmapu vytvořil :mapper',
-            'qualified' => 'kvalifikováno:',
-            'ranked' => 'hodnocené od:',
-            'submitted' => 'nahráno:',
             'unfavourite' => 'Odebrat z mých oblíbených',
-            'updated' => 'naposledy upraveno:',
             'updated_timeago' => 'naposledy aktualizováno :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'pro přístup k dalším funkcím',
                 'top' => 'Přihlašte se',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'schváleno :timeago',
+            'loved' => '',
+            'qualified' => 'kvalifikováno :timeago',
+            'ranked' => '',
+            'submitted' => 'odesláno :timeago',
+            'updated' => 'naposledy aktualizováno :timeago',
         ],
 
         'favourites' => [
@@ -77,14 +74,12 @@ return [
             ],
 
             'disqualify' => [
-                '_' => '',
-                'button_title' => '',
+                '_' => 'Pokud najdete problém s touto mapou, diskvalifikujte ji prosím :link.',
             ],
 
             'report' => [
-                '_' => '',
+                '_' => 'Pokud najdete problém s touto mapou, nahlaste jej :link k upozornění týmu.',
                 'button' => 'Nahlásit problém',
-                'button_title' => '',
                 'link' => 'zde',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Zdroj',
             'success-rate' => 'Úspěšnost',
             'tags' => 'Tagy',
-            'unranked' => 'Nehodnocená beatmapa',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Umístění',
                 'score_total' => 'Celkové skóre',
                 'score' => 'Skóre',
+                'time' => 'Čas',
             ],
 
             'no_scores' => [

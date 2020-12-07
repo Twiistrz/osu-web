@@ -1,28 +1,15 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'تم قراءة جميع الإشعارات!',
-    'mark_all_read' => 'مسح الكل',
+    'delete' => '',
+    'mark_read' => 'مَحو :type',
     'none' => 'لا إشعارات',
     'see_all' => 'أِظهار جميع الإشعارات',
+    'see_channel' => '',
 
     'filters' => [
         '_' => 'الكل',
@@ -46,6 +33,8 @@ return [
                 'beatmapset_discussion_post_new_empty' => 'منشور جديد على ":title" من قبل :username',
                 'beatmapset_discussion_post_new_compact' => 'منشور جديد بواسطة :username',
                 'beatmapset_discussion_post_new_compact_empty' => 'منشور جديد بواسطة :username',
+                'beatmapset_discussion_review_new' => 'مراجعة جديدة على ":title" من قبل :username تحتوي على مشاكل: :problems, اقتراحات: :suggestions, تشجيع: :praises',
+                'beatmapset_discussion_review_new_compact' => 'مراجعة جديدة من قبل :username تحتوي على مشاكل: :problems, اقتراحات: :suggestions, تشجيع: :praises',
                 'beatmapset_discussion_unlock' => 'تم فتح قفل مناقشة على ":title"',
                 'beatmapset_discussion_unlock_compact' => 'تم الغاء قفل المناقشة',
             ],
@@ -70,6 +59,8 @@ return [
                 'beatmapset_qualify_compact' => 'دخلت الخريطة قائمة التصنيف',
                 'beatmapset_rank' => 'اصبحت ":title" مصنفة',
                 'beatmapset_rank_compact' => 'تم تصنيف الخريطة',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_remove_from_loved_compact' => '',
                 'beatmapset_reset_nominations' => 'تم اعادة تعيين ترشيحات ":title"',
                 'beatmapset_reset_nominations_compact' => 'تم اعادة ضبط الترشيح',
             ],
@@ -79,6 +70,8 @@ return [
 
                 'comment_new' => 'علق :username ":content" على ":title"',
                 'comment_new_compact' => 'علق :username ":content"',
+                'comment_reply' => ':username رد ":content" على ":title"',
+                'comment_reply_compact' => ':username رد ":content"',
             ],
         ],
 
@@ -103,6 +96,8 @@ return [
 
                 'comment_new' => 'علق :username ":content" في ":title"',
                 'comment_new_compact' => 'علق:username ":content"',
+                'comment_reply' => ':username رد ":content" على ":title"',
+                'comment_reply_compact' => ':username رد ":content"',
             ],
         ],
 
@@ -114,6 +109,8 @@ return [
 
                 'comment_new' => 'علق :username ":content" في ":title"',
                 'comment_new_compact' => 'علق :username ":content"',
+                'comment_reply' => ':username رد ":content" على ":title"',
+                'comment_reply_compact' => ':username رد ":content"',
             ],
         ],
 
@@ -143,6 +140,66 @@ return [
                 '_' => 'ميدالية جديدة',
                 'user_achievement_unlock' => 'تم فتح !:title',
                 'user_achievement_unlock_compact' => 'تم فتح ":title"!',
+                'user_achievement_unlock_group' => '',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'تم اقفال المناقشة على ":title"',
+                'beatmapset_discussion_post_new' => 'المناقشة حول ":title" تحتوي على تحديثات جديدة',
+                'beatmapset_discussion_unlock' => 'تم فتح قفل المناقشة على ":title"',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => 'تم الإبلاغ عن مشكلة جديدة على ":title"',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => 'حُرِمَت ":title" من التأهُل',
+                'beatmapset_love' => 'اصبحت ":title" محبوبة',
+                'beatmapset_nominate' => 'اصبحت ":title" مرشحة',
+                'beatmapset_qualify' => '":title" حصلت على ترشيحات كافية ودخلت حالة التصنيف',
+                'beatmapset_rank' => 'اصبحت ":title" مصنفة',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_reset_nominations' => 'تم اعادة تعيين ترشيحات ":title"',
+            ],
+
+            'comment' => [
+                'comment_new' => ' الخريطة ":title" تحتوي على تعليقات جديدة',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => 'لقد تلقيت رسالة جديدة من :username',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => 'سجل ":title" يحتوي على تعليقات جديدة',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'الأخبار ":title" تحتوي على تعليقات جديدة',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => 'هناك ردود جديدة في ":title"',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':username فتح ميدالية جديدة، ":title"!',
+                'user_achievement_unlock_self' => 'لقد فتحت ميدالية جديدة، ":title"!',
             ],
         ],
     ],

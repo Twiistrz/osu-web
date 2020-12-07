@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Карты',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'скачать',
+            'video' => 'скачать с видео',
+            'no_video' => 'скачать без видео',
+            'direct' => 'открыть в osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Обсуждение',
 
         'details' => [
-            'approved' => 'одобрена ',
             'favourite' => 'Добавить в избранное',
             'logged-out' => 'Вы должны войти для загрузки карты!',
-            'loved' => 'стала любимой ',
             'mapped_by' => 'сделана :mapper',
-            'qualified' => 'квалифицирована ',
-            'ranked' => 'получила рейтинг ',
-            'submitted' => 'опубликована ',
             'unfavourite' => 'Удалить из избранного',
-            'updated' => 'обновлена ',
             'updated_timeago' => 'обновлена :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'чтобы скачать',
                 'top' => 'Войдите',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'одобрена :timeago',
+            'loved' => 'стала любимой :timeago',
+            'qualified' => 'квалифицирована :timeago',
+            'ranked' => 'стала рейтинговой :timeago',
+            'submitted' => 'загружена :timeago',
+            'updated' => 'обновлена :timeago',
         ],
 
         'favourites' => [
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => 'Если Вы обнаружили проблему у этой карты, пожалуйста, дисквалифицируйте её :link.',
-                'button_title' => 'Дисквалифицировать квалифицированную карту.',
             ],
 
             'report' => [
                 '_' => 'Если вы обнаружили проблему, связанную с этой картой, пожалуйста, сообщите об этом :link, чтобы оповестить команду osu!.',
                 'button' => 'Сообщить о проблеме',
-                'button_title' => 'Сообщить о проблеме с квалифицированной картой.',
                 'link' => 'здесь',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Источник',
             'success-rate' => 'Шанс успеха',
             'tags' => 'Теги',
-            'unranked' => 'Безрейтинговая карта',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Ранг',
                 'score_total' => 'Всего очков',
                 'score' => 'Очки',
+                'time' => 'Время',
             ],
 
             'no_scores' => [

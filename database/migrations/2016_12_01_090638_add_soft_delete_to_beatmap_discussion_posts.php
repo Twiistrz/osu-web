@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
@@ -12,7 +15,6 @@ class AddSoftDeleteToBeatmapDiscussionPosts extends Migration
      */
     public function up()
     {
-        //
         Schema::table('beatmap_discussion_posts', function ($table) {
             $table->softDeletes();
             $table->unsignedMediumInteger('deleted_by_id')->nullable();
@@ -30,7 +32,6 @@ class AddSoftDeleteToBeatmapDiscussionPosts extends Migration
      */
     public function down()
     {
-        //
         Schema::table('beatmap_discussion_posts', function ($table) {
             $table->dropSoftDeletes();
             $table->dropForeign(['deleted_by_id']);

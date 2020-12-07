@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Ungültiges :attribute angegeben.',
     'not_negative' => ':attribute kann nicht negativ sein.',
     'required' => ':attribute ist erforderlich.',
     'too_long' => ':attribute hat die maximale Länge überschritten - höchstens :limit Zeichen.',
     'wrong_confirmation' => 'Bestätigung stimmt nicht überein.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Diskussion ist gesperrt.',
-        'first_post' => 'Der erste Beitrag kann nicht gelöscht werden.',
-
-        'attributes' => [
-            'message' => 'Die Nachricht',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Ein Zeitpunkt ist angegeben, aber die Beatmap fehlt.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Diese Beatmap ist momentan zur Diskussion gesperrt und kann nicht gehypt werden",
             'guest' => 'Zum Hypen muss man eingeloggt sein.',
             'hyped' => 'Du hast diese Beatmap bereits gehypt.',
             'limit_exceeded' => 'Du hast all dein Hype verbraucht.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Diese Diskussion ist gesperrt.',
+        'first_post' => 'Der erste Beitrag kann nicht gelöscht werden.',
+
+        'attributes' => [
+            'message' => 'Die Nachricht',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Das Antworten auf den gelöschten Kommentar ist nicht erlaubt.',
-        'top_only' => '',
+        'top_only' => 'Kommentarantworten anzuheften ist nicht erlaubt.',
 
         'attributes' => [
             'message' => 'Die Nachricht',
@@ -84,8 +71,8 @@ return [
         ],
 
         'post' => [
-            'beatmapset_post_no_delete' => 'Den Metadaten-Post einer Beatmap kann man nicht löschen.',
-            'beatmapset_post_no_edit' => 'Den Metadaten-Post einer Beatmap kann man nicht bearbeiten.',
+            'beatmapset_post_no_delete' => 'Den Metadaten-Beitrag einer Beatmap kann man nicht löschen.',
+            'beatmapset_post_no_edit' => 'Den Metadaten-Beitrag einer Beatmap kann man nicht bearbeiten.',
             'only_quote' => 'In deiner Antwort ist nur ein Zitat enthalten.',
 
             'attributes' => [
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Das Passwort darf den Nutzernamen nicht enthalten.',
         'email_already_used' => 'E-Mail-Adresse wird bereits verwendet.',
+        'email_not_allowed' => 'E-Mail-Adresse nicht erlaubt.',
         'invalid_country' => 'Das Land ist nicht in der Datenbank.',
         'invalid_discord' => 'Discordname ungültig.',
         'invalid_email' => "Scheint keine gültige E-Mail-Adresse zu sein.",
+        'invalid_twitter' => 'Twitter-Benutzername ungültig.',
         'too_short' => 'Das neue Passwort ist zu kurz.',
         'unknown_duplicate' => 'Nutzername oder E-Mail-Adresse wird bereits verwendet.',
         'username_available_in' => 'Dieser Nutzername wird in :duration verfügbar sein.',
@@ -144,7 +133,7 @@ return [
         'username_invalid_characters' => 'Der angeforderte Nutzername enthält ungültige Zeichen.',
         'username_in_use' => 'Dieser Nutzername wird bereits verwendet!',
         'username_locked' => 'Dieser Nutzername wird bereits verwendet!', // TODO: language for this should be slightly different.
-        'username_no_space_userscore_mix' => 'Bitte verwende nur Unterstricht ODER Leerzeichen, und nicht beides zusammen!',
+        'username_no_space_userscore_mix' => 'Bitte verwende entweder Unterstrich oder Leerzeichen, nicht beides zusammen!',
         'username_no_spaces' => "Nutzernamen können nicht mit Leerzeichen beginnen oder enden.",
         'username_not_allowed' => 'Dieser Nutzername ist nicht erlaubt.',
         'username_too_short' => 'Der angeforderte Nutzername ist zu kurz.',

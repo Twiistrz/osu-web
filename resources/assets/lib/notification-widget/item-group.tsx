@@ -1,30 +1,17 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import { observer } from 'mobx-react';
 import Notification from 'models/notification';
 import NotificationStack from 'models/notification-stack';
 import { categoryToIcons } from 'notification-maps/icons';
+import { formatMessageGroup } from 'notification-maps/message';
 import { urlGroup } from 'notification-maps/url';
 import { NotificationContext } from 'notifications-context';
+import NotificationDeleteButton from 'notifications/notification-delete-button';
+import NotificationReadButton from 'notifications/notification-read-button';
 import * as React from 'react';
 import { ShowMoreLink } from 'show-more-link';
-import { Spinner } from 'spinner';
 import Item from './item';
 import ItemCompact from './item-compact';
 
@@ -51,12 +38,14 @@ export default class ItemGroup extends React.Component<Props, State> {
       <div className='notification-popup-item-group'>
         <Item
           canMarkAsRead={this.props.stack.canMarkAsRead}
-          markRead={this.handleMarkAsRead}
-          markingAsRead={this.props.stack.isMarkingAsRead}
+          delete={this.handleDelete}
           expandButton={this.renderExpandButton()}
           icons={categoryToIcons[item.category]}
+          isDeleting={this.props.stack.isDeleting}
+          isMarkingAsRead={this.props.stack.isMarkingAsRead}
           item={item}
-          message={item.messageGroup}
+          markRead={this.handleMarkAsRead}
+          message={formatMessageGroup(item)}
           modifiers={['group']}
           url={urlGroup(item)}
           withCategory={true}
@@ -65,6 +54,10 @@ export default class ItemGroup extends React.Component<Props, State> {
         {this.renderItems()}
       </div>
     );
+  }
+
+  private handleDelete = () => {
+    this.props.stack.delete();
   }
 
   private handleMarkAsRead = () => {
@@ -117,40 +110,23 @@ export default class ItemGroup extends React.Component<Props, State> {
     return (
       <div className='notification-popup-item-group__items'>
         {this.props.stack.orderedNotifications.map(this.renderItem)}
-        <div className='notification-popup__show-more'>
-          <div className='notification-popup__expand'>
+        <div className='notification-popup-item-group__show-more'>
+          <div className='notification-popup-item-group__expand'>
             {this.renderShowMore()}
           </div>
-          <div className='notification-popup__collapse'>
+          <div className='notification-popup-item-group__collapse'>
             {this.renderShowLess()}
-            <div className='notification-popup__mark-as-read'>
-              {this.renderMarkAsReadButton()}
-            </div>
+            <NotificationReadButton isMarkingAsRead={this.props.stack.isMarkingAsRead} onMarkAsRead={this.handleMarkAsRead} />
+            {!this.context.isWidget && (
+              <NotificationDeleteButton
+                isDeleting={this.props.stack.isDeleting}
+                onDelete={this.handleDelete}
+              />
+            )}
           </div>
         </div>
-
       </div>
     );
-  }
-
-  private renderMarkAsReadButton() {
-    if (this.props.stack.isMarkingAsRead) {
-      return (
-        <div className='notification-popup-item__read-button'>
-          <Spinner />
-        </div>
-      );
-    } else {
-      return (
-        <button
-          type='button'
-          className='notification-popup-item__read-button'
-          onClick={this.handleMarkAsRead}
-        >
-          <span className='fas fa-times' />
-        </button>
-      );
-    }
   }
 
   private renderShowLess() {

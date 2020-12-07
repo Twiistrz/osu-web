@@ -1,49 +1,32 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'limitation_notice' => '',
     'talking_in' => 'pratar i :channel',
     'talking_with' => 'pratar med :name',
     'title_compact' => 'chatt',
 
     'cannot_send' => [
-        'channel' => '',
-        'user' => '',
+        'channel' => 'Du kan inte meddela denna kanal just nu. Detta kan bero på någon av följande skäl:',
+        'user' => 'Du kan inte meddela användaren just nu. Detta kan bero på någon av följande skäl:',
         'reasons' => [
-            'blocked' => '',
-            'channel_moderated' => '',
-            'friends_only' => '',
-            'restricted' => '',
-            'target_restricted' => '',
+            'blocked' => 'Du blockerades av mottagaren',
+            'channel_moderated' => 'Kanalen har modererats',
+            'friends_only' => 'Mottagaren accepterar endast meddelanden från personer på sin vänlista',
+            'restricted' => 'Du är för närvarande begränsad',
+            'target_restricted' => 'Mottagaren är för närvarande begränsad',
         ],
     ],
     'input' => [
-        'disabled' => '',
+        'disabled' => 'kan inte skicka meddelande...',
         'placeholder' => 'skriv ett meddelande...',
         'send' => 'Skicka',
     ],
     'no-conversations' => [
-        'howto' => "",
-        'lazer' => '',
-        'pm_limitations' => '',
-        'title' => '',
+        'howto' => "Starta konversationer från en användares profil eller en usercard popup.",
+        'lazer' => 'Offentliga kanaler du går med via <a href=":link">osu!lazer</a> kommer också att synas här.',
+        'title' => 'inga konversationer ännu',
     ],
 ];

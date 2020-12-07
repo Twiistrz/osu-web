@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .simple-menu {
   @_top: simple-menu;
@@ -23,6 +8,11 @@
   @_padding-vertical: 20px;
   @_gutter: 5px;
   @_border-radius: 20px;
+
+  --item-colour: inherit;
+  --item-hover-bg: hsl(var(--hsl-b5));
+  --item-hover-colour: var(--item-colour);
+  --stripe-bg: hsl(var(--hsl-h1));
 
   .own-layer();
   .default-box-shadow();
@@ -36,6 +26,8 @@
   font-size: @font-size--title-small;
   overflow: hidden;
   z-index: @z-index--simple-menu;
+  position: relative;
+  color: hsl(var(--hsl-c1));
 
   &--beatmapset-watch {
     position: absolute;
@@ -49,6 +41,15 @@
     top: 100%;
     right: 0;
     margin-top: 5px;
+  }
+
+  &--forum-topic-moderation {
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 10px;
+    right: 0;
+    padding-left: @_padding-vertical;
+    padding-right: $padding-left;
   }
 
   &--forum-topic-watch {
@@ -78,6 +79,7 @@
     will-change: transform, opacity;
     transition: none;
     border-radius: @border-radius-large;
+    position: relative;
   }
 
   &--nav2-left-aligned {
@@ -85,6 +87,7 @@
   }
 
   &--nav2-transparent {
+    --item-hover-bg: hsl(var(--hsl-b6));
     background-color: transparent;
     box-shadow: none;
   }
@@ -92,6 +95,11 @@
   &--popup-menu {
     border-radius: 10px;
     padding: 10px @_gutter;
+  }
+
+  &--popup-menu-compact {
+    border-radius: 10px;
+    padding: @_gutter;
   }
 
   &--profile-page-bar {
@@ -106,11 +114,37 @@
     }
   }
 
+  &--wiki-locales {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    // manually calculated for roughly twice the actual button padding
+    margin-top: 20px;
+
+    --item-hover-bg: hsl(var(--hsl-h1));
+    --item-hover-colour: hsl(var(--hsl-b6));
+    --stripe-bg: hsl(var(--hsl-b6));
+    background-color: hsl(var(--hsl-h2));
+    color: hsl(var(--hsl-c1));
+    border-radius: @border-radius-large;
+    padding: 10px;
+  }
+
   &__content {
     margin: 0 -@_gutter;
     padding: 0 @_gutter;
     display: flex;
     flex-direction: column;
+
+    .@{_top}--forum-topic-moderation & {
+      // hopefully 25px is enough to account for scrollbar (when exists)
+      max-width: calc(100vw - (2 * @forum-topic-nav-item--gutter + 2 * @_padding-vertical + 25px));
+      width: max-content;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, @btn-circle-diameter);
+      grid-template-rows: @btn-circle-diameter;
+      grid-gap: @forum-topic-nav-item--gutter * 2;
+    }
 
     .@{_top}--nav2 & {
       min-height: 100px;
@@ -140,6 +174,7 @@
     flex-direction: column;
     align-items: center;
     color: #fff;
+    position: relative;
 
     &::before {
       .full-size();
@@ -154,7 +189,9 @@
   }
 
   &__header-icon {
-    width: 60px;
+    width: 40px;
+    position: relative;
+    padding: 10px 0;
   }
 
   &__item {
@@ -167,7 +204,7 @@
         left: 10px;
         width: 3px;
         height: calc(100% - (@_item-padding-vertical * 2 + 4px));
-        background-color: @osu-colour-h1;
+        background-color: var(--stripe-bg);
       }
     }
 
@@ -175,21 +212,20 @@
     .link-white();
     .link-plain();
     .default-border-radius();
+    // undo <a> default transition, mainly for when the text also changes color on hover
+    transition: none;
     white-space: nowrap;
-    line-height: normal;
     padding: @_item-padding-vertical @_item-padding-horizontal;
-    color: #fff;
+    color: var(--item-colour);
     cursor: pointer;
     text-align: left;
     flex: none;
+    position: relative;
 
     &:hover {
-      background-color: @osu-colour-b5;
       .highlight-stripe();
-
-      .@{_top}--nav2-transparent & {
-        background-color: @osu-colour-b6;
-      }
+      background-color: var(--item-hover-bg);
+      color: var(--item-hover-colour);
     }
 
     &--active {
@@ -200,10 +236,37 @@
       width: 50%;
     }
 
+    .@{_top}--popup-menu-compact & {
+      display: flex;
+      align-items: center;
+      padding: @_gutter @_gutter * 2;
+
+      &::before {
+        display: none;
+      }
+
+      &--active {
+        background: @osu-colour-b5;
+
+        &:hover {
+          background: @osu-colour-b4;
+        }
+      }
+    }
+
     &[disabled], &--disabled {
       color: #999;
       // disable hover
       pointer-events: none;
+    }
+  }
+
+  &__item-icon {
+    display: flex;
+    justify-content: center;
+
+    &--icon-dropdown-menu {
+      width: 22px;
     }
   }
 
@@ -215,5 +278,9 @@
     .js-forum-topic-watch-ajax--loading & {
       opacity: 1;
     }
+  }
+
+  &__label {
+    padding-left: 5px;
   }
 }

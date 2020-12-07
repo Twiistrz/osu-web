@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'Co si místo toho zahrát osu!?',
     'require_login' => 'Pro pokračování se prosím přihlašte.',
-    'require_verification' => '',
+    'require_verification' => 'Prosím ověřte se pro pokračování.',
     'restricted' => "Toto nelze provést, když jste omezeni.",
     'silenced' => "Toto nelze provést, když jste umlčeni.",
     'unauthorized' => 'Přístup odepřen.',
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Musíte být nominátor k nominaci setů map s více než jedním herním módem.',
             'incorrect_state' => 'Nastala chyba při provádění akce, zkuste stránku obnovit.',
             'owner' => "Nelze nominovat vlastní beatmapu.",
+            'set_metadata' => 'Před jmenováním musíte nastavit žánr a jazyk.',
         ],
         'resolve' => [
             'not_owner' => 'Pouze zakladatel vlákna a vlastník beatmapy může označit diskusi za vyřešenou.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Nelze hlasovat pro diskuzi vytvořenou botem",
             'limit_exceeded' => 'Chvíli počkej, než budeš zasílat další hlasy',
             'owner' => "Ve vlastní diskusi nemůžeš hlasovat.",
             'wrong_beatmapset_state' => 'Hlasovat lze pouze v diskusích čekajících beatmap.',
@@ -61,12 +49,18 @@ return [
 
         'edit' => [
             'not_owner' => 'Pouze autor může příspěvek upravovat.',
-            'resolved' => '',
+            'resolved' => 'Nemůžete upravit příspěvek ve vyřešené diskusi.',
             'system_generated' => 'Nelze upravovat automaticky generovaný příspěvek.',
         ],
 
         'store' => [
             'beatmapset_locked' => 'Tato beatmapa je zablokována od diskuze.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Nemůžete změnit informace nominované mapy. Pokud si myslíte že je nastavena nesprávně, kontaktujte BN nebo NAT člena.',
         ],
     ],
 
@@ -159,7 +153,7 @@ return [
                 'not_owner' => 'Pouze vlastník může upravit záhlaví.',
             ],
             'store' => [
-                'forum_not_allowed' => '',
+                'forum_not_allowed' => 'Toto fórum nepřijímá náhledy témat.',
             ],
         ],
 

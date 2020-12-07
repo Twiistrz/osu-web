@@ -1,27 +1,20 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 @polyfills ?= new Polyfills
 
+Turbolinks.start()
 Turbolinks.setProgressBarDelay(0)
 
 Lang.setLocale(@currentLocale)
-jQuery.timeago.settings.allowFuture = true
+moment.relativeTimeThreshold('ss', 44)
+moment.relativeTimeThreshold('s', 120)
+moment.relativeTimeThreshold('m', 120)
+moment.relativeTimeThreshold('h', 48)
+moment.relativeTimeThreshold('d', 62)
+moment.relativeTimeThreshold('M', 24)
+jQuery.timeago.inWords = (distanceMillis) ->
+  moment.duration(-1 * distanceMillis).humanize(true)
 
 # loading animation overlay
 # fired from turbolinks
@@ -38,14 +31,15 @@ $(document).on 'turbolinks:load', ->
 
 # ensure currentUser is updated early enough.
 @currentUserObserver ?= new CurrentUserObserver
-@throttledWindowEvents ?= new ThrottledWindowEvents
 @syncHeight ?= new SyncHeight
 @stickyHeader ?= new StickyHeader
 
 @accountEdit ?= new AccountEdit
 @accountEditAvatar ?= new AccountEditAvatar
 @accountEditBlocklist ?= new AccountEditBlocklist
+@bbcodePreview ?= new BbcodePreview
 @beatmapsetDownloadObserver ?= new BeatmapsetDownloadObserver
+@captcha ?= new _exported.Captcha
 @changelogChartLoader ?= new ChangelogChartLoader
 @checkboxValidation ?= new CheckboxValidation
 @clickMenu ?= new _exported.ClickMenu
@@ -58,16 +52,16 @@ $(document).on 'turbolinks:load', ->
 @forumAutoClick ?= new ForumAutoClick
 @forumCover ?= new ForumCover
 @forumPoll ?= new _exported.ForumPoll(@)
-@forumPostPreview ?= new ForumPostPreview
 @forumTopicTitle ?= new ForumTopicTitle
 @forumTopicWatchAjax ?= new ForumTopicWatchAjax
-@gallery ?= new Gallery
 @globalDrag ?= new GlobalDrag
 @landingGraph ?= new LandingGraph
+@localtime ?= new _exported.Localtime
 @menu ?= new Menu
+@mobileToggle ?= new _exported.MobileToggle
 @navButton ?= new NavButton
-@osuAudio ?= new OsuAudio
-@osuLayzr ?= new OsuLayzr
+@osuAudio ?= new _exported.OsuAudio
+@osuLayzr ?= new _exported.OsuLayzr
 @postPreview ?= new PostPreview
 @scale ?= new Scale
 @search ?= new Search
@@ -82,7 +76,7 @@ $(document).on 'turbolinks:load', ->
 @formConfirmation ?= new FormConfirmation(@formError)
 @forumPostsSeek ?= new ForumPostsSeek(@forum)
 @forumTopicPostJump ?= new ForumTopicPostJump(@forum)
-@forumTopicReply ?= new ForumTopicReply({ @forum, @forumPostPreview, @stickyFooter })
+@forumTopicReply ?= new ForumTopicReply({ @bbcodePreview, @forum, @stickyFooter })
 @nav2 ?= new Nav2(@clickMenu)
 @osuEnchant ?= new _exported.Enchant(@, @turbolinksReload)
 @twitchPlayer ?= new TwitchPlayer(@turbolinksReload)

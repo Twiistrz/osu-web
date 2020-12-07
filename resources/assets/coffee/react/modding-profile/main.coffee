@@ -1,34 +1,20 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { Events } from './events'
 import { ExtraTab } from '../profile-page/extra-tab'
-import { Discussions} from './discussions'
+import { Discussions } from './discussions'
 import { Header } from './header'
 import { Kudosu } from '../profile-page/kudosu'
 import { Votes } from './votes'
 import { BeatmapsContext } from 'beatmap-discussions/beatmaps-context'
 import { DiscussionsContext } from 'beatmap-discussions/discussions-context'
+import { ReviewEditorConfigContext } from 'beatmap-discussions/review-editor-config-context'
 import { BlockButton } from 'block-button'
 import { NotificationBanner } from 'notification-banner'
 import { Posts } from "./posts"
 import * as React from 'react'
-import { a, button, div, i, span} from 'react-dom-factories'
+import { a, button, div, i, span } from 'react-dom-factories'
 el = React.createElement
 
 pages = document.getElementsByClassName("js-switchable-mode-page--scrollspy")
@@ -53,6 +39,7 @@ export class Main extends React.PureComponent
       @initialPage = page if page?
 
       @state =
+        beatmaps: props.beatmaps
         discussions: props.discussions
         events: props.events
         user: props.user
@@ -81,7 +68,7 @@ export class Main extends React.PureComponent
     $.subscribe 'profile:page:jump.moddingProfilePage', @pageJump
     $.subscribe 'beatmapsetDiscussions:update.moddingProfilePage', @discussionUpdate
     $(document).on 'ajax:success.moddingProfilePage', '.js-beatmapset-discussion-update', @ujsDiscussionUpdate
-    $(window).on 'throttled-scroll.moddingProfilePage', @pageScan
+    $(window).on 'scroll.moddingProfilePage', @pageScan
 
     osu.pageChange()
 
@@ -118,9 +105,12 @@ export class Main extends React.PureComponent
         discussion = _.find discussions, id: newDiscussion.id
         discussions = _.reject discussions, id: newDiscussion.id
         newDiscussion = _.merge(discussion, newDiscussion)
-        # The discussion list shows discussions started by the current user, so it can be assumed that the first post is theirs
-        newDiscussion.starting_post = newDiscussion.posts[0]
-        discussions.push(newDiscussion)
+      else
+        # if this is a new discussion, it won't have beatmapset included ('cuz the parent is the beatmapset)
+        newDiscussion.beatmapset = beatmapset
+
+      newDiscussion.starting_post = newDiscussion.posts[0]
+      discussions.push(newDiscussion)
 
       _.each newDiscussion.posts, (newPost) ->
         if postIds.includes(newPost.id)
@@ -134,7 +124,7 @@ export class Main extends React.PureComponent
 
       users.push(newUser)
 
-    @cache.users = @cache.discussions = @cache.beatmaps = null
+    @cache.users = @cache.discussions = @cache.userDiscussions = @cache.beatmaps = null
     @setState
       discussions: _.reverse(_.sortBy(discussions, (d) -> Date.parse(d.starting_post.created_at)))
       posts: _.reverse(_.sortBy(posts, (p) -> Date.parse(p.created_at)))
@@ -152,81 +142,74 @@ export class Main extends React.PureComponent
 
 
   beatmaps: =>
-    beatmaps = _.map(@discussions(), (d) => d.beatmap)
-                .filter((b) => b != undefined)
-
-    @cache.beatmaps ?= _.keyBy(beatmaps, 'id')
+    @cache.beatmaps ?= _.keyBy(this.state.beatmaps, 'id')
 
 
   render: =>
     profileOrder = @state.profileOrder
     isBlocked = _.find(currentUser.blocks, target_id: @state.user.id)
 
-    el DiscussionsContext.Provider,
-      value: @discussions()
-      el BeatmapsContext.Provider,
-        value: @beatmaps()
-        div
-          className: 'osu-layout__no-scroll' if isBlocked && !@state.forceShow
-          if isBlocked
-            div className: 'osu-page',
-              el NotificationBanner,
-                type: 'warning'
-                title: osu.trans('users.blocks.banner_text')
-                message:
-                  div className: 'grid-items grid-items--notification-banner-buttons',
-                    div null,
-                      el BlockButton, userId: @props.user.id
-                    div null,
-                      button
-                        type: 'button'
-                        className: 'textual-button'
-                        onClick: =>
-                          @setState forceShow: !@state.forceShow
-                        span {},
-                          i className: 'textual-button__icon fas fa-low-vision'
-                          " "
-                          if @state.forceShow
-                            osu.trans('users.blocks.hide_profile')
-                          else
-                            osu.trans('users.blocks.show_profile')
-
-          div className: "osu-layout osu-layout--full#{if isBlocked && !@state.forceShow then ' osu-layout--masked' else ''}",
-            el Header,
-              user: @state.user
-              stats: @state.user.statistics
-              rankHistory: @props.rankHistory
-              userAchievements: @props.userAchievements
-
-            div
-              className: 'hidden-xs page-extra-tabs page-extra-tabs--profile-page js-switchable-mode-page--scrollspy-offset'
+    el ReviewEditorConfigContext.Provider, value: @props.reviewsConfig,
+      el DiscussionsContext.Provider, value: @discussions(),
+        el BeatmapsContext.Provider, value: @beatmaps(),
+          div
+            className: 'osu-layout__no-scroll' if isBlocked && !@state.forceShow
+            if isBlocked
               div className: 'osu-page',
-                div
-                  className: 'page-mode page-mode--profile-page-extra'
-                  ref: @tabs
-                  for m in profileOrder
-                    a
-                      className: 'page-mode__item'
-                      key: m
-                      'data-page-id': m
-                      onClick: @tabClick
-                      href: "##{m}"
-                      el ExtraTab,
-                        page: m
-                        currentPage: @state.currentPage
-                        currentMode: @state.currentMode
+                el NotificationBanner,
+                  type: 'warning'
+                  title: osu.trans('users.blocks.banner_text')
+                  message:
+                    div className: 'grid-items grid-items--notification-banner-buttons',
+                      div null,
+                        el BlockButton, userId: @props.user.id
+                      div null,
+                        button
+                          type: 'button'
+                          className: 'textual-button'
+                          onClick: =>
+                            @setState forceShow: !@state.forceShow
+                          span {},
+                            i className: 'textual-button__icon fas fa-low-vision'
+                            " "
+                            if @state.forceShow
+                              osu.trans('users.blocks.hide_profile')
+                            else
+                              osu.trans('users.blocks.show_profile')
 
-            div
-              className: 'osu-layout__section osu-layout__section--users-extra'
+            div className: "osu-layout osu-layout--full#{if isBlocked && !@state.forceShow then ' osu-layout--masked' else ''}",
+              el Header,
+                user: @state.user
+                stats: @state.user.statistics
+                userAchievements: @props.userAchievements
+
               div
-                className: 'osu-layout__row'
+                className: 'hidden-xs page-extra-tabs page-extra-tabs--profile-page js-switchable-mode-page--scrollspy-offset'
+                div className: 'osu-page',
+                  div
+                    className: 'page-mode page-mode--profile-page-extra'
+                    ref: @tabs
+                    for m in profileOrder
+                      a
+                        className: 'page-mode__item'
+                        key: m
+                        'data-page-id': m
+                        onClick: @tabClick
+                        href: "##{m}"
+                        el ExtraTab,
+                          page: m
+                          currentPage: @state.currentPage
+                          currentMode: @state.currentMode
+
+              div
+                className: 'user-profile-pages'
                 ref: @pages
                 @extraPage name for name in profileOrder
 
 
   extraPage: (name) =>
     {extraClass, props, component} = @extraPageParams name
-    classes = 'js-switchable-mode-page--scrollspy js-switchable-mode-page--page'
+    classes = 'user-profile-pages__item js-switchable-mode-page--scrollspy js-switchable-mode-page--page'
     classes += " #{extraClass}" if extraClass?
     props.name = name
 
@@ -244,7 +227,7 @@ export class Main extends React.PureComponent
     switch name
       when 'discussions'
         props:
-          discussions: @state.discussions
+          discussions: @userDiscussions()
           user: @state.user
           users: @users()
         component: Discussions
@@ -276,6 +259,7 @@ export class Main extends React.PureComponent
           user: @state.user
           users: @users()
         component: Votes
+
 
   showMore: (e, {name, url, perPage = 50}) =>
     offset = @state[name].length
@@ -373,11 +357,13 @@ export class Main extends React.PureComponent
 
     @pageJump null, e.currentTarget.dataset.pageId
 
+
   userUpdate: (_e, user) =>
     return @forceUpdate() if user?.id != @state.user.id
 
     # this component needs full user object but sometimes this event only sends part of it
     @setState user: _.assign({}, @state.user, user)
+
 
   users: =>
     if !@cache.users?
@@ -386,6 +372,12 @@ export class Main extends React.PureComponent
         username: osu.trans 'users.deleted'
 
     @cache.users
+
+  userDiscussions: =>
+    if !@cache.userDiscussions
+      @cache.userDiscussions = _.filter @state.discussions, (d) => d.user_id == @state.user.id
+
+    @cache.userDiscussions
 
 
   ujsDiscussionUpdate: (_e, data) =>

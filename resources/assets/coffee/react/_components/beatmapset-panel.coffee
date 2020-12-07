@@ -1,52 +1,16 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { BeatmapIcon } from 'beatmap-icon'
 import { Img2x } from 'img2x'
 import * as React from 'react'
-import { a, div, i, span, strong } from 'react-dom-factories'
+import { a, button, div, i, span, strong } from 'react-dom-factories'
 import { StringWithComponent } from 'string-with-component'
+import OsuUrlHelper from 'osu-url-helper'
+import * as BeatmapHelper from 'utils/beatmap-helper'
 el = React.createElement
 
 export class BeatmapsetPanel extends React.PureComponent
-  constructor: (props) ->
-    super props
-
-    @eventId = "beatmapsetPanel-#{props.beatmap.beatmapset_id}-#{osu.uuid()}"
-
-    @state =
-      preview: 'ended'
-      previewDuration: 0
-
-
-  componentDidMount: =>
-    $.subscribe "osuAudio:initializing.#{@eventId}", @previewInitializing
-    $.subscribe "osuAudio:playing.#{@eventId}", @previewStart
-    $.subscribe "osuAudio:ended.#{@eventId}", @previewStop
-    $(document).on "turbolinks:before-cache.#{@eventId}", @componentWillUnmount
-
-
-  componentWillUnmount: =>
-    @previewStop()
-    $.unsubscribe ".#{@eventId}"
-    $(document).off ".#{@eventId}"
-
-
   hideImage: (e) ->
     # hides img elements that have errored (hides native browser broken-image icons)
     e.currentTarget.style.display = 'none'
@@ -56,12 +20,21 @@ export class BeatmapsetPanel extends React.PureComponent
     # this is actually "beatmapset"
     beatmapset = @props.beatmap
 
-    showHypeCounts = _.includes ['wip', 'pending', 'graveyard'], beatmapset.status
+    showHypeCounts = beatmapset.hype?
     if showHypeCounts
-      currentHype = osu.formatNumber(beatmapset.hype.current)
-      requiredHype = osu.formatNumber(beatmapset.hype.required)
-      currentNominations = osu.formatNumber(beatmapset.nominations.current)
-      requiredNominations = osu.formatNumber(beatmapset.nominations.required)
+      currentHype = osu.formatNumber(beatmapset.hype?.current)
+      requiredHype = osu.formatNumber(beatmapset.hype?.required)
+
+      if beatmapset.nominations_summary?
+        currentNominations = osu.formatNumber beatmapset.nominations_summary.current
+        requiredNominations = osu.formatNumber beatmapset.nominations_summary.required
+      else if beatmapset.nominations?
+        if beatmapset.nominations.legacy_mode
+          currentNominations = osu.formatNumber beatmapset.nominations.current
+          requiredNominations = osu.formatNumber beatmapset.nominations.required
+        else
+          currentNominations = osu.formatNumber _.sum(_.values(beatmapset.nominations?.current))
+          requiredNominations = osu.formatNumber _.sum(_.values(beatmapset.nominations?.required))
 
     playCount = osu.formatNumber(beatmapset.play_count)
 
@@ -95,7 +68,8 @@ export class BeatmapsetPanel extends React.PureComponent
               el BeatmapIcon, beatmap: b
 
     div
-      className: "beatmapset-panel#{if @state.preview != 'ended' then ' beatmapset-panel--previewing' else ''}"
+      className: 'beatmapset-panel js-audio--player'
+      'data-audio-url': beatmapset.preview_url
       div className: 'beatmapset-panel__panel',
         a
           href: laroute.route('beatmapsets.show', beatmapset: beatmapset.id)
@@ -116,9 +90,9 @@ export class BeatmapsetPanel extends React.PureComponent
 
           div className: 'beatmapset-panel__title-artist-box',
             div className: 'u-ellipsis-overflow beatmapset-panel__header-text beatmapset-panel__header-text--title',
-              beatmapset.title
-            div className: 'beatmapset-panel__header-text',
-              beatmapset.artist
+              BeatmapHelper.getTitle(beatmapset)
+            div className: 'u-ellipsis-overflow beatmapset-panel__header-text',
+              BeatmapHelper.getArtist(beatmapset)
 
           div className: 'beatmapset-panel__counts-box',
             if showHypeCounts
@@ -129,20 +103,16 @@ export class BeatmapsetPanel extends React.PureComponent
                 div className: 'beatmapset-panel__count', title: osu.trans('beatmaps.nominations.required_text', {current: currentNominations, required: requiredNominations}),
                   span className: 'beatmapset-panel__count-number', currentNominations
                   i className: 'fas fa-thumbs-up fa-fw'
-            else
+
+            div null,
               div className: 'beatmapset-panel__count', title: osu.trans('beatmaps.panel.playcount', count: playCount),
                 span className: 'beatmapset-panel__count-number', playCount
                 i className: 'fas fa-fw fa-play-circle'
+              div className: 'beatmapset-panel__count', title: osu.trans('beatmaps.panel.favourites', count: favouriteCount),
+                span className: 'beatmapset-panel__count-number', favouriteCount
+                i className: 'fas fa-fw fa-heart'
 
-            div className: 'beatmapset-panel__count', title: osu.trans('beatmaps.panel.favourites', count: favouriteCount),
-              span className: 'beatmapset-panel__count-number', favouriteCount
-              i className: 'fas fa-fw fa-heart'
-
-          div
-            className: 'beatmapset-panel__preview-bar'
-            style:
-              transitionDuration: "#{@state.previewDuration}s"
-              width: "#{if @state.preview == 'playing' then '100%' else 0}"
+          div className: 'beatmapset-panel__preview-bar'
 
         div className: 'beatmapset-panel__content',
           div className: 'beatmapset-panel__row',
@@ -169,50 +139,49 @@ export class BeatmapsetPanel extends React.PureComponent
                   beatmapset.source
 
             div className: 'beatmapset-panel__icons-box',
-              if currentUser?.id
-                if beatmapset.availability.download_disabled
-                  div
-                    title: osu.trans('beatmapsets.availability.disabled')
-                    className: 'beatmapset-panel__icon beatmapset-panel__icon--disabled'
-                    i className: 'fas fa-lg fa-download'
-                else
-                  a
-                    href: laroute.route 'beatmapsets.download', beatmapset: beatmapset.id
-                    title: osu.trans('beatmapsets.show.details.download._')
-                    className: 'beatmapset-panel__icon js-beatmapset-download-link'
-                    'data-turbolinks': 'false'
-                    i className: 'fas fa-lg fa-download'
+              @renderDownloadLink()
 
           div className: 'beatmapset-panel__difficulties', difficulties
-      a
-        href: '#'
+      button
+        type: 'button'
         className: 'beatmapset-panel__play js-audio--play'
-        'data-audio-url': beatmapset.preview_url
-        i className: "fas fa-#{if @state.preview == 'ended' then 'play' else 'stop'}"
       div className: 'beatmapset-panel__shadow'
 
 
-  previewInitializing: (_e, {url, player}) =>
-    if url != @props.beatmap.preview_url
-      return @previewStop()
+  renderDownloadLink: =>
+    return null unless currentUser.id?
 
-    @setState
-      preview: 'initializing'
-      previewDuration: 0
+    beatmapset = @props.beatmap
 
+    if beatmapset.availability.download_disabled
+      return div
+        title: osu.trans('beatmapsets.availability.disabled')
+        className: 'beatmapset-panel__icon beatmapset-panel__icon--disabled'
+        i className: 'fas fa-lg fa-download'
 
-  previewStart: (_e, {url, player}) =>
-    if url != @props.beatmap.preview_url
-      return @previewStop()
+    type = currentUser.user_preferences.beatmapset_download
+    type = 'all' if type == 'direct' && !currentUser.is_supporter
 
-    @setState
-      preview: 'playing'
-      previewDuration: player.duration
+    switch type
+      when 'direct'
+        url = OsuUrlHelper.beatmapsetDownloadDirect beatmapset.id
+        title = osu.trans 'beatmapsets.panel.download.direct'
+      else
+        if beatmapset.video
+          switch type
+            when 'no_video'
+              url = laroute.route 'beatmapsets.download', beatmapset: beatmapset.id, noVideo: 1
+              title = osu.trans 'beatmapsets.panel.download.no_video'
+            else
+              url = laroute.route 'beatmapsets.download', beatmapset: beatmapset.id
+              title = osu.trans 'beatmapsets.panel.download.video'
+        else
+          url = laroute.route 'beatmapsets.download', beatmapset: beatmapset.id
+          title = osu.trans 'beatmapsets.panel.download.all'
 
-
-  previewStop: =>
-    return if @state.preview == 'ended'
-
-    @setState
-      preview: 'ended'
-      previewDuration: 0
+    a
+      href: url
+      title: title
+      className: 'beatmapset-panel__icon js-beatmapset-download-link'
+      'data-turbolinks': 'false'
+      i className: 'fas fa-lg fa-download'

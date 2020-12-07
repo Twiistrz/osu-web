@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'beatmapset_update_notice' => [
@@ -34,15 +19,15 @@ return [
 
     'donation_thanks' => [
         'benefit_more' => 'خدمات الداعم الجديدة ستظهر قريبا مع الوقت!',
-        'feedback' => "ان كانت لديك اي اسألة او مراجعات, لا تتردد في الرد على هذه الرسالة; سوف نتفقدها في اقرب فرصة!",
+        'feedback' => "ان كانت لديك اي اسألة او مراجعات, لا تتردد في الرد على هذه الرسالة; سوف نتحقق منها في اقرب فرصة!",
         'keep_free' => 'انه بفضل الناس امثالك الذين يقومون بجعل osu! ومجتمعها قادرين على العمل بسلاسة دون اي اعلانات او دفعات اجبارية.',
         'keep_running' => 'دعمك يجعل osu! قيد العمل لحوالي لـ:minutes! قد لا يبدو رقما كبيرا, لكنه يفي بالغرض :).',
         'subject' => 'شكرا, osu! تحبك <3',
-        'translation' => 'ترجمة معطاه بواسطة-المستخدم للأغراض الأِعلامية تتبع:',
+        'translation' => 'ألترجمة ألمقدمة من المجتمع المحلي لأغراض الإعلام تتبع:',
 
         'benefit' => [
             'gift' => 'الأن مع هديتك(هداياك) ستحصل على اذن وصول الى osu!direct والعديد من الأفضليات الأُخرى.',
-            'self' => 'الأن ستحصل على اذن وصول الى osu!direct والعديد من الأفضليات الأُخرى لـ:duration.',
+            'self' => 'الأن ستحصل على اذن الوصول الى osu!direct والعديد من الأفضليات الأُخرى لـ:duration.',
         ],
 
         'support' => [
@@ -70,18 +55,18 @@ return [
         'processing' => 'لقد تلقينا دفعتك ونحن الأن نقوم بمعالجة طلبك. يمكنك متابعة نشاط طلبيتك من هنا:',
         'questions' => "إن كان لديك أي أسئلة, لا تترد في الرد على هذه الرسالة.",
         'shipping' => 'الشحن',
-        'subject' => 'تلقينا طلب متجر!osu الخاص بك!',
-        'thank_you' => 'شكرا لطلبك من متجر!osu!',
+        'subject' => 'تلقينا طلب osu!store الخاص بك!',
+        'thank_you' => 'شكرا لطلبك من osu!store!',
         'total' => 'المجموع',
     ],
 
     'supporter_gift' => [
         'anonymous_gift' => 'قد يفضل الشخص الذي وَهَبَك الهدية ان يبقى مُتخفِياََ, لذلك لم يذكروا في هذا الاِشعار.',
         'anonymous_gift_maybe_not' => 'ولكِنَك غالِباََ تَعرِفُه ;).',
-        'duration' => 'بفضلِهِم, لديك وصول الى osu!direct و فوائِد مؤيد!osu الأخرى لمدة :duration.',
+        'duration' => 'بفضلِهِم, لديك وصول الى osu!direct و فوائِد osu!supporter الأخرى لمدة :duration.',
         'features' => 'يمكنك معرفة مزيد من التفاصيل عن هذهِ المميزات هنا:',
-        'gifted' => 'قام احدُهٌم بهِبتِكَ شارة مؤيد!osu للتو!',
-        'subject' => 'لقد حصلت على شارة مؤيد!osu كهدية!',
+        'gifted' => 'قام احدُهٌم بهِبتِكَ شارة osu!supporter للتو!',
+        'subject' => 'لقد حصلت على شارة osu!supporter كهدية!',
     ],
 
     'user_email_updated' => [
@@ -96,6 +81,12 @@ return [
         'perform_reset' => 'يمكنك طلب الأستعادة من :url',
         'reason' => 'السبب:',
         'subject' => 'حساب osu! يحتاج لأعادة تفعيل',
+    ],
+
+    'user_notification_digest' => [
+        'new' => 'لمعلوماتك, يوجد تحديثات جديدة عن عناصر تتابعها.',
+        'settings' => 'تغيير تفضيلات إشعار البريد الإلكتروني:',
+        'subject' => 'إشعار osu! جديد',
     ],
 
     'user_password_updated' => [

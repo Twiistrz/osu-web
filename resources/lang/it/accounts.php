@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -24,8 +9,8 @@ return [
         'username' => 'nome utente',
 
         'avatar' => [
-            'title' => 'Avatar',
-            'rules' => 'Assicurati che il tuo avatar aderisca alle :link.<br/>Questo significa che deve essere <strong>adatto a tutte le età</strong>. es. nessun contenuto di nudità, profanità o provocante.',
+            'title' => 'Immagine di profilo',
+            'rules' => 'Assicurati che la tua immagine di profilo aderisca alle :link.<br/>Questo significa che deve essere <strong>adatto a tutte le età</strong> (ad esempio: niente nudità, profanità o contenuti provocanti).',
             'rules_link' => 'regole della comunità',
         ],
 
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'ricevi notifiche per nuovi problemi sulle beatmap qualificate delle seguenti modalità',
+        'beatmapset_disqualify' => 'ricevi notifiche quando le beatmap delle seguenti modalità vengono squalificate',
+        'comment_reply' => 'ricevi notifiche per le risposte ai tuoi commenti',
         'title' => 'Notifiche',
         'topic_auto_subscribe' => 'attiva automaticamente le notifiche sui nuovi topic del forum che crei',
-        'beatmapset_discussion_qualified_problem' => 'ricevi notifiche per nuovi problemi sulle beatmap qualificate per le seguenti modalità',
 
-        'mail' => [
-            '_' => 'ricevi notifiche via mail per',
+        'options' => [
+            '_' => 'opzioni di notifica',
             'beatmapset:modding' => 'modding delle beatmap',
-            'forum_topic_reply' => 'risposte ai topic',
+            'channel_message' => 'messaggi privati',
+            'comment_new' => 'nuovi commenti',
+            'forum_topic_reply' => 'risposta al topic',
+            'mail' => 'mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'medaglie sbloccate',
         ],
     ],
 
@@ -81,12 +73,25 @@ return [
         'title' => 'OAuth',
     ],
 
+    'options' => [
+        'title' => 'Opzioni',
+
+        'beatmapset_download' => [
+            '_' => 'tipo di download predefinito per le beatmap',
+            'all' => 'con video, se disponibile',
+            'no_video' => 'senza video',
+            'direct' => 'apri in osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'mostra i metadati della beatmap in lingua originale',
+    ],
+
     'playstyles' => [
         'keyboard' => 'tastiera',
         'mouse' => 'mouse',
         'tablet' => 'tavoletta grafica',
         'title' => 'Stili di gioco',
-        'touch' => 'schermo touch',
+        'touch' => 'touchscreen',
     ],
 
     'privacy' => [

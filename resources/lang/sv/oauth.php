@@ -1,68 +1,61 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'cancel' => '',
+    'cancel' => 'Avbryt',
 
     'authorise' => [
-        'request' => '',
-        'scopes_title' => '',
-        'title' => '',
+        'request' => 'begär behörighet att komma åt ditt konto.',
+        'scopes_title' => 'Denna applikation kommer att kunna:',
+        'title' => 'Auktoriseringsbegäran.',
     ],
 
     'authorized_clients' => [
-        'confirm_revoke' => '',
-        'scopes_title' => '',
-        'owned_by' => '',
-        'none' => '',
+        'confirm_revoke' => 'Är du säker på att du vill återkalla denna klients behörigheter?',
+        'scopes_title' => 'Den här applikationen kan:',
+        'owned_by' => 'Ägs av :user',
+        'none' => 'Inga klienter',
 
         'revoked' => [
-            'false' => '',
-            'true' => '',
+            'false' => 'Återkalla åtkomst',
+            'true' => 'Åtkomst återkallats',
         ],
     ],
 
     'client' => [
-        'id' => '',
-        'name' => '',
-        'redirect' => '',
-        'secret' => '',
+        'id' => 'Klient-ID',
+        'name' => 'Applikationsnamn',
+        'redirect' => 'URL för appens uppringning',
+        'reset' => 'Återställ klienthemligheten',
+        'reset_failed' => 'Kunde inte återställa klienthemligheten',
+        'secret' => 'Klienthemlighet',
+
+        'secret_visible' => [
+            'false' => 'Visa klienthemligheten',
+            'true' => 'Göm klienthemligheten',
+        ],
     ],
 
     'new_client' => [
-        'header' => '',
-        'register' => '',
+        'header' => 'Registrera en ny OAuth applikation',
+        'register' => 'Registrera applikationen',
         'terms_of_use' => [
-            '_' => '',
-            'link' => '',
+            '_' => 'Genom att använda API godkänner du :link.',
+            'link' => 'Användarvillkor',
         ],
     ],
 
     'own_clients' => [
-        'confirm_delete' => '',
-        'new' => '',
-        'none' => '',
+        'confirm_delete' => 'Är du säker på att du vill radera denna klient?',
+        'confirm_reset' => 'Är du säger på att du vill återställa klient hemligheten? Detta kommer att återkalla alla befintliga polletter.',
+        'new' => 'Ny OAuth Applikation ',
+        'none' => 'Inga klienter',
 
         'revoked' => [
-            'false' => '',
-            'true' => '',
+            'false' => 'Radera',
+            'true' => 'Raderad',
         ],
     ],
 ];

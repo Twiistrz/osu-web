@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 namespace Tests\Controllers;
 
 use App\Models\Country;
@@ -8,6 +11,20 @@ use Tests\TestCase;
 
 class UsersControllerTest extends TestCase
 {
+    public function testIndexForApi()
+    {
+        $user = factory(User::class)->create();
+        $userB = factory(User::class)->create();
+
+        $this->actAsScopedUser($user, ['*']);
+
+        $this
+            ->get(route('api.users.index', ['ids' => [$user->getKey(), $userB->getKey()]]))
+            ->assertSuccessful()
+            ->assertJsonPath('users.0.id', $user->getKey())
+            ->assertJsonPath('users.1.id', $userB->getKey());
+    }
+
     /**
      * Checks whether an OK status is returned when the
      * profile order update request is valid.
@@ -183,5 +200,25 @@ class UsersControllerTest extends TestCase
         $this
             ->get(route('users.show', ['user' => $oldUsername]))
             ->assertRedirect(route('users.show', ['user' => $user2->getKey(), 'mode' => null]));
+    }
+
+    public function testUsernameRedirectToId()
+    {
+        $user = factory(User::class)->create();
+
+        $this
+            ->get(route('users.show', ['user' => $user->username]))
+            ->assertRedirect(route('users.show', ['user' => $user->getKey()]));
+    }
+
+    public function testUsernameRedirectToIdForApi()
+    {
+        $user = factory(User::class)->create();
+
+        $this->actAsScopedUser($user, ['public']);
+
+        $this
+            ->get(route('api.users.show', ['user' => $user->username]))
+            ->assertRedirect(route('api.users.show', ['user' => $user->getKey()]));
     }
 }

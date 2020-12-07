@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,8 +18,8 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'eliminado',
-        'none_found' => '',
-        'title' => 'Discusiones del beatmap',
+        'none_found' => 'No se encontraron discusiones que coincidieran con ese criterio de búsqueda.',
+        'title' => 'Discusiones del mapa',
 
         'form' => [
             '_' => 'Buscar',
@@ -68,7 +53,8 @@ return [
 
     'nearby_posts' => [
         'confirm' => 'Ninguna de las publicaciones aborda mi asunto',
-        'notice' => 'Hay publicaciones cerca de la :timestamp (:existing_timestamps). Por favor revíselas antes de publicar.',
+        'notice' => 'Ya hay publicaciones cerca de :timestamp (:existing_timestamps). Por favor revíselas antes de publicar.',
+        'unsaved' => ':count en esta revisión',
     ],
 
     'reply' => [
@@ -79,13 +65,16 @@ return [
     ],
 
     'review' => [
+        'block_count' => ':used / :max bloques usados',
         'go_to_parent' => 'Ver publicación de revisión',
         'go_to_child' => 'Ver discusión',
         'validation' => [
+            'block_too_large' => 'cada bloque sólo puede contener hasta :limit caracteres',
+            'external_references' => 'la revisión contiene referencias a problemas que no pertenecen a esta revisión',
             'invalid_block_type' => 'tipo de bloque no válido',
             'invalid_document' => 'revisión no válida',
             'minimum_issues' => 'la revisión debe contener un mínimo de :count problema|la revisión debe contener un mínimo de :count problemas',
-            'missing_text' => 'el bloque no tiene texto',
+            'missing_text' => 'le falta texto al bloque',
             'too_many_blocks' => 'las revisiones sólo pueden contener :count párrafo/problema|las revisiones sólo pueden contener hasta :count párrafos/problemas',
         ],
     ],

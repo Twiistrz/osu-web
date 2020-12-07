@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[已刪除的使用者]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "你的帳號已經一段時間沒有登入了",
@@ -99,6 +88,7 @@ return [
         'failed' => '登入失敗',
         'forgot' => '忘記密碼？',
         'info' => '請先登入以繼續',
+        'invalid_captcha' => '登入失敗的次數過多，請完成Captcha挑戰後再試。 (如果看不見Captcha請重新載入頁面)',
         'locked_ip' => '您的 IP 位址已被鎖定。請稍候幾分鐘。',
         'password' => '密碼',
         'register' => "沒有 osu! 帳號嗎？現在就註冊一個吧！",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => '上線中',
         'missingtext' => '未找到的使用者！（或者該使用者已經被封鎖）',
         'origin_country' => '來自 :country',
-        'page_description' => 'osu! - 您想知道關於 :username 的資訊!',
         'previous_usernames' => '前一個的使用者名稱',
         'plays_with' => '慣用 :devices',
         'title' => ":username 的個人簡介",
@@ -174,7 +163,7 @@ return [
                     'button' => '上傳圖片',
                     'dropzone' => '拖動到此處以上傳',
                     'dropzone_info' => '您也可以將圖片拉到此處上傳',
-                    'size_info' => '圖片尺寸應為2800x620',
+                    'size_info' => '圖片尺寸應為2400x620',
                     'too_large' => '上傳的圖片檔案過大.',
                     'unsupported_format' => '不支援的檔案格式.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => '作者：:artist',
-                'none' => '暫時沒有...',
                 'title' => '圖譜',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => '顯示更多活動',
             ],
             'historical' => [
-                'empty' => '尚無遊戲分數。:(',
                 'title' => '歷史記錄',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => '可使用的 kudosu',
-                'available_info' => "kudosu 點數可以兌換成 kudosu 星星點數，該點數可以讓您的圖譜更引人注目。這是您尚未兌換的 kudosu 點數。",
                 'recent_entries' => '近期 Kudosu 記錄',
                 'title' => 'Kudosu!',
                 'total' => '總共獲得 kudosu',
@@ -299,7 +284,7 @@ return [
                 ],
 
                 'total_info' => [
-                    '_' => '基於使用者對圖譜審核的貢獻量。請看 :link 以獲得更多信息。',
+                    '_' => '基於使用者對圖譜審核的貢獻量。請看 :link 以獲得更多資訊。',
                     'link' => '這個頁面',
                 ],
             ],
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => '下載重播',
-                'empty' => '尚未有好成績。 :(',
                 'not_ranked' => '僅被列入排名的圖譜才能獲得 pp。',
                 'pp_weight' => '權重 :percentage',
+                'view_details' => '查看資訊',
                 'title' => '排名',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => '興趣愛好',
-            'lastfm' => 'Last.fm',
             'location' => '所在地',
             'occupation' => '職業',
             'skype' => 'Skype',
@@ -397,7 +381,7 @@ return [
         ],
         'rank' => [
             'country' => ':mode 模式的國內排名',
-            'country_simple' => '地區排名',
+            'country_simple' => '國內排名',
             'global' => ':mode 模式的全球排名',
             'global_simple' => '全球排名',
         ],
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '方塊檢視',
         'card' => '卡片檢視',
         'list' => '列表檢視',
     ],

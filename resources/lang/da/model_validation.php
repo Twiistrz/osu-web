@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Ugyldigt :attribute angivet.',
     'not_negative' => ':attribute kan ikke være negativ.',
     'required' => ':attribute er påkrævet.',
     'too_long' => ':attribute overskrider maksimal længde - kan højest være op til :limit karakterer.',
     'wrong_confirmation' => 'Bekræftelseskoden matchede ikke.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Diskussion er låst.',
-        'first_post' => 'Kan ikke slette det startende opslag.',
-
-        'attributes' => [
-            'message' => 'Beskeden',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Tidsstempel er angivet, men beatmap mangler.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Denne beatmap er i øjeblikket låst og kan ikke blive hyped",
             'guest' => 'Du skal være logget ind for at kunne hype.',
             'hyped' => 'Du har allerede hypet dette beatmap.',
             'limit_exceeded' => 'Du har brugt alt dit hype.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Diskussion er låst.',
+        'first_post' => 'Kan ikke slette det startende opslag.',
+
+        'attributes' => [
+            'message' => 'Beskeden',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Besvarelse af slettede kommentar er ikke tilladt.',
-        'top_only' => '',
+        'top_only' => 'At fastgøre kommentar svar er ikke tilladt. ',
 
         'attributes' => [
             'message' => 'Beskeden',
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Adgangskoden må ikke indholde et brugernavn.',
         'email_already_used' => 'Email-adressen er allerede i brug.',
+        'email_not_allowed' => '',
         'invalid_country' => 'Landet er ikke i databasen.',
         'invalid_discord' => 'Ugyldigt Discord brugernavn.',
         'invalid_email' => "Dette ligner ikke en email-adresse...",
+        'invalid_twitter' => 'Ugyldigt Twitter brugernavn.',
         'too_short' => 'Den nye adgangskode er for kort.',
         'unknown_duplicate' => 'Brugernavnet eller email-adressen er allerede i brug.',
         'username_available_in' => 'Dette brugernavn vil være til rådighed om :duration.',

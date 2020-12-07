@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[выдалены карыстальнік]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Няправільны ўваход',
         'forgot' => 'Забылі свой пароль?',
         'info' => '',
+        'invalid_captcha' => '',
         'locked_ip' => 'ваш IP-адрас заблакаваны. Пачакайце некалькі хвілін.',
         'password' => 'Пароль',
         'register' => "Вы яшчэ не маеце ўліковага запісу osu!? Стварыце новы",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Зараз у сетцы',
         'missingtext' => 'Магчыма, вы памыліліся! (або карыстальнік заблакаваны)',
         'origin_country' => 'Адкуль: :country',
-        'page_description' => 'osu! - Усё, што вы хацелі ведаць пра :username!',
         'previous_usernames' => 'таксама вядомы як',
         'plays_with' => 'Гуляе з :devices',
         'title' => "Профіль :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Запампаваць выяву',
                     'dropzone' => 'Перацягніце сюды, каб запампаваць',
                     'dropzone_info' => 'Вы таксама можаце перацягнуць сюды, каб запампаваць',
-                    'size_info' => 'Памер фону павінен быць 2800x620',
+                    'size_info' => 'Памер фону павінен быць 2400x620',
                     'too_large' => 'Запампаваны файл надта вялікі.',
                     'unsupported_format' => 'Фармат не падтрымліваецца.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'ад :artist',
-                'none' => 'Няма... пакуль што.',
                 'title' => 'Бітмапы',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => '',
             ],
             'historical' => [
-                'empty' => 'Няма прадукцыйных спісаў. :(',
                 'title' => 'Храналогія',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Кудосу даступна',
-                'available_info' => "Кудосу могуць быць выкарыстаны для абмену паміж іншымі ўладальнікамі бітмап, якія могуць дапамагчы вам прыцягнуць да вашай бітмапы больш увагі. Гэта колькасць кудосу, якую вы не выкарыстоўвалі.",
                 'recent_entries' => 'Нядаўняя гісторыя кудосу',
                 'title' => 'Кудосу!',
                 'total' => 'Агулам зароблена кудосу',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Спампаваць паўтор',
-                'empty' => 'Яшчэ няма запісаў пра цудоўную прадукцыйнасць. :(',
                 'not_ranked' => 'Адзінкі прадукцыйнасці даюцца толькі бітмапам, якія набылі ранг.',
                 'pp_weight' => 'узважана :percentage',
+                'view_details' => '',
                 'title' => 'Рэйтынгі',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Цікаўнасці',
-            'lastfm' => 'Last.fm',
             'location' => 'Бягучае месцазнаходжанне',
             'occupation' => 'Занятак',
             'skype' => '',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '',
         'card' => 'Картачны выгляд',
         'list' => 'У выглядзе спіса',
     ],

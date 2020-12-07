@@ -1,27 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
         'convinced' => [
-            'title' => 'Ik ben overgehaald! :D',
+            'title' => 'Ik ben overtuigd! :D',
             'support' => 'support osu!',
             'gift' => 'of gun het iemand anders',
             'instructions' => 'klik op het hartje om naar de osu!store te gaan',
@@ -39,12 +24,12 @@ return [
             ],
             'featured-artists' => [
                 'title' => 'Aanbevolen Artiesten',
-                'description' => 'Met jou steun kunnen we nog meer geweldige artiesten benaderen en meer geweldige muziek voor gebruik in osu! toestaan!',
+                'description' => 'Met jouw steun kunnen we nog meer geweldige artiesten benaderen en meer geweldige muziek voor gebruik in osu! toestaan!',
                 'link_text' => 'Bekijk het huidige rooster &raquo;',
             ],
             'ads' => [
                 'title' => 'Hou osu! zelfvoorzienend',
-                'description' => 'Uw bijdragen helpen het spel onafhankelijk te houden en volledig vrij van advertenties en externe sponsors.',
+                'description' => 'Jouw bijdragen helpen om het spel onafhankelijk en volledig vrij van advertenties en externe sponsors te houden.',
             ],
             'tournaments' => [
                 'title' => 'Officiële toernooien',

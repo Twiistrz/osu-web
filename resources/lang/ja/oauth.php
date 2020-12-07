@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'キャンセル',
@@ -43,7 +28,14 @@ return [
         'id' => 'クライアントID',
         'name' => 'アプリケーション名',
         'redirect' => 'アプリケーションコールバックURL',
-        'secret' => 'Client Secret',
+        'reset' => 'クライアントシークレットをリセット',
+        'reset_failed' => 'クライアントシークレットのリセットに失敗',
+        'secret' => 'クライアントシークレット',
+
+        'secret_visible' => [
+            'false' => 'クライアントシークレットを表示',
+            'true' => 'クライアントシークレットを非表示',
+        ],
     ],
 
     'new_client' => [
@@ -56,7 +48,8 @@ return [
     ],
 
     'own_clients' => [
-        'confirm_delete' => 'あなたは本当にクライアントを削除しますか？',
+        'confirm_delete' => '本当にこのクライアントを削除しますか？',
+        'confirm_reset' => '本当にクライアントシークレットをリセットしてもいいですか？これにより全てのトークンが取り消されます。',
         'new' => '新しいOAuthアプリケーション',
         'none' => 'クライアントがありません',
 

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -39,17 +24,17 @@ return [
             ],
             'featured-artists' => [
                 'title' => 'ศิลปินโดดเด่น',
-                'description' => '',
-                'link_text' => '',
+                'description' => 'ด้วยการสนับสนุนของคุณ ทางเราจะสามารถซื้อสิทธิ์จากค่ายเพลงสุดมันส์มาใช้ใน osu! ได้มากขึ้น',
+                'link_text' => 'ดูรายการค่ายเพลงปัจจุบันที่ทางเราซื้อสิทธิ์มาอย่างถูกต้อง &raquo; ',
             ],
             'ads' => [
                 'title' => 'ช่วยให้ osu! อยู่ได้',
                 'description' => 'ความช่วยเหลือของคุณช่วยให้เกมนี้ไม่พึ่งพาใคร และไร้โฆษณาจากคนภายนอก',
             ],
             'tournaments' => [
-                'title' => '',
+                'title' => 'ทัวร์นาเมนต์แข่งขันอย่างเป็นทางการ',
                 'description' => 'ช่วยเงินค่าดำเนินการ (และรางวัล) ทัวร์นาเมนต์ osu! World Cup',
-                'link_text' => '',
+                'link_text' => 'ดูรายการทัวร์นาเมนต์ทั้งหมด &raquo;',
             ],
             'bounty-program' => [
                 'title' => 'โครงการเขียนโค้ดล่ารางวัล',
@@ -61,12 +46,12 @@ return [
             'title' => 'โอ? ฉันได้อะไรบ้างเหรอ?!',
             'osu_direct' => [
                 'title' => 'osu!direct',
-                'description' => 'ระบบหาบีตแมปที่ง่ายและเร็วโดยไม่ต้องออกจากเกม',
+                'description' => 'ระบบหาบีทแมพที่ง่ายและเร็วโดยไม่ต้องออกจากเกม',
             ],
 
             'friend_ranking' => [
                 'title' => 'อันดับคะแนนของเพื่อน',
-                'description' => "ดูว่าคะแนนบีตแมปของตัวเองกับเพื่อนใครเจ๋งกว่ากัน ทั้งในเกมและบนเว็บ",
+                'description' => "ดูว่าคะแนนบีทแมพของตัวเองกับเพื่อนใครเจ๋งกว่ากัน ทั้งในเกมและบนเว็บ",
             ],
 
             'country_ranking' => [
@@ -81,12 +66,12 @@ return [
 
             'auto_downloads' => [
                 'title' => 'การดาวน์โหลดอัตโนมัติ',
-                'description' => 'โหลดบีตแมปอัตโนมัติตอนเล่นหลายคน ดูคนอื่นเล่น หรือแค่กดลิงก์ในช่องแชต',
+                'description' => 'โหลดบีทแมพอัตโนมัติตอนเล่นหลายคน ดูคนอื่นเล่น หรือแค่กดลิงก์ในช่องแชต',
             ],
 
             'upload_more' => [
                 'title' => 'อัปโหลดบีตแมปเพิ่ม',
-                'description' => 'ช่องอัพโหลด beatmap เพิ่มเติม (ต่อแมพจัดอันดับที่มีอยู่) มากถึง 10 แมพ',
+                'description' => 'ช่องอัปโหลดบีทแมพเพิ่มเติม (ต่อแมพจัดอันดับที่มีอยู่) มากถึง 10 แมพ',
             ],
 
             'early_access' => [
@@ -100,8 +85,8 @@ return [
             ],
 
             'beatmap_filters' => [
-                'title' => 'ตัวกรองบีตแมป',
-                'description' => 'กรองบีตแมปที่เล่นแล้ว/ยังไม่เล่น และแรงก์ที่เคยได้ (ถ้ามี)',
+                'title' => 'ตัวกรองบีทแมพ',
+                'description' => 'กรองบีทแมพที่เล่นแล้ว/ยังไม่เล่น และแรงก์ที่เคยได้',
             ],
 
             'yellow_fellow' => [
@@ -135,16 +120,16 @@ return [
             ],
 
             'more_favourites' => [
-                'title' => '',
-                'description' => 'จำนวนบีตแมปที่คุณชื่นชอบได้เพิ่มจาก :normally เป็น :supporter',
+                'title' => 'เพิ่มจำนวนบีทแมพที่คุณสามารถเลือกเป็นรายการโปรด',
+                'description' => 'จำนวนบีทแมพที่คุณชื่นชอบได้เพิ่มจาก :normally &rarr; :supporter',
             ],
             'more_friends' => [
-                'title' => '',
+                'title' => 'เพิ่มจำนวนเพื่อนที่คุณสามารถมีได้',
                 'description' => 'จำนวนเพื่อนที่คุณมีได้สูงสุดเพิ่มจาก :normally &rarr; :supporter',
             ],
             'more_beatmaps' => [
-                'title' => 'อัปโหลดบีตแมปเพิ่ม',
-                'description' => 'จำนวนบีตแมปที่ไม่ได้จัดอันดับ ณ เวลาใด ๆ จะขึ้นกับค่าเริ่มต้น + โบนัสต่อจำนวนบีตแมปที่ได้จัดอันดับ (สูงสุดตามขีดจำกัดที่มี)<br/><br/>ปกติแล้วคือ 4 + 1 บีตแมปต่อบีตแมปที่ได้จัดอันดับ (สูงสุด 2) หากเป็นผู้สนับสนุน จะกลายเป็น 8 + 1 บีตแมป (สูงสุด 12)',
+                'title' => 'อัปโหลดบีทแมพเพิ่ม',
+                'description' => 'จำนวนบีทแมพที่ไม่ได้จัดอันดับ ณ เวลาใด ๆ จะขึ้นกับค่าเริ่มต้น + โบนัสต่อจำนวนบีทแมพที่ได้จัดอันดับ (สูงสุดตามขีดจำกัดที่มี)<br/><br/>ปกติแล้วคือ :base + :bonus บีทแมพต่อบีทแมพที่ได้จัดอันดับ (สูงสุด :bonus_max) หากเป็นผู้สนับสนุน จะกลายเป็น :supporter_base + :supporter_bonus บีทแมพ (สูงสุด :supporter_bonus_max)',
             ],
             'friend_filtering' => [
                 'title' => 'อันดับคะแนนเพื่อน',

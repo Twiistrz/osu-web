@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Bạn có chắc không?',
@@ -35,11 +20,13 @@ return [
 
     'buttons' => [
         'admin' => 'Admin',
-        'authorise' => '',
+        'authorise' => 'Cho phép',
+        'authorising' => '',
         'back_to_previous' => 'Trở về vị trí trước',
         'back_to_top' => 'Quay lại đầu trang',
         'cancel' => 'Hủy',
         'change' => 'đổi',
+        'clear' => '',
         'click_to_copy' => 'click để sao chép vào bộ nhớ tạm',
         'click_to_copy_copied' => 'đã sao chép vào bộ nhớ tạm!',
         'close' => 'Đóng',
@@ -49,8 +36,9 @@ return [
         'expand' => 'mở rộng',
         'hide' => 'ẩn',
         'permalink' => 'permalink',
-        'pin' => '',
+        'pin' => 'ghim',
         'post' => 'Đăng',
+        'read_more' => '',
         'reply' => 'Trả lời',
         'reply_reopen' => 'Trả lời và mở lại',
         'reply_resolve' => 'Trả lời và giải quyết',
@@ -138,6 +126,21 @@ return [
         'count_geki' => 'MAX',
         'count_katu' => '200',
         'count_miss' => 'Miss',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '',
+        'dd' => '',
+        'h' => '',
+        'hh' => '',
+        'M' => '',
+        'm' => '',
+        'MM' => '',
+        'mm' => '',
+        'past' => '',
+        's' => '',
+        'y' => '',
+        'yy' => '',
     ],
 
     'time' => [

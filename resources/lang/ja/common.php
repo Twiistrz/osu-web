@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => '本当によろしいですか？',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => '管理者',
         'authorise' => '承認',
+        'authorising' => '承認...',
         'back_to_previous' => '直前の状態に戻す',
         'back_to_top' => 'トップに戻る',
         'cancel' => 'キャンセル',
         'change' => '変更',
+        'clear' => '消去',
         'click_to_copy' => 'クリックしてクリップボードにコピー',
         'click_to_copy_copied' => 'クリップボードにコピーされました！',
         'close' => '閉じる',
@@ -51,6 +38,7 @@ return [
         'permalink' => 'パーマリンク',
         'pin' => 'ピン',
         'post' => '投稿',
+        'read_more' => '続きを読む',
         'reply' => '返信',
         'reply_reopen' => '返信して再開',
         'reply_resolve' => '返信して解決',
@@ -138,6 +126,21 @@ return [
         'count_geki' => 'MAX',
         'count_katu' => '200',
         'count_miss' => 'Miss',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '%d 日',
+        'dd' => '%d 日',
+        'h' => '%d 時間',
+        'hh' => '%d 時間',
+        'M' => '%d 月',
+        'm' => '%d 分',
+        'MM' => '%d 月',
+        'mm' => '%d 分',
+        'past' => '%s',
+        's' => '%d 秒',
+        'y' => '%d 年',
+        'yy' => '%d 年',
     ],
 
     'time' => [

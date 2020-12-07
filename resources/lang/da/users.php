@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[slettet bruger]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Din account har ikke været i brug i lang tid.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Ugyldigt login',
         'forgot' => 'Glemt din adgangskode?',
         'info' => 'Log ind for at fortsætte',
+        'invalid_captcha' => '',
         'locked_ip' => 'din IP-adresse er låst. Vent venligst et par minutter.',
         'password' => 'Adgangskode',
         'register' => "Har du ikke en osu! konto? Opret en ny én!",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Online nu',
         'missingtext' => 'Du har formentlig lavet en stavefejl! (eller også er brugeren blevet bannet)',
         'origin_country' => 'Fra :country',
-        'page_description' => 'osu! - Alt hvad du nogensinde kunne have brug for at vide om :username!',
         'previous_usernames' => 'tidligere kendt som',
         'plays_with' => 'Spiller med :devices',
         'title' => ":username´s profil",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Upload billede',
                     'dropzone' => 'Smid her for at uploade',
                     'dropzone_info' => 'Du kan også smide dit billede her for at uploade',
-                    'size_info' => 'Coverbilledet burde være 2800x620',
+                    'size_info' => 'Coverbilledet burde være 2400x620',
                     'too_large' => 'Den uploadede fil er for stor.',
                     'unsupported_format' => 'Ikke-understøttet format.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'af :artist',
-                'none' => 'Ingen... endnu.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'se flere begivenheder',
             ],
             'historical' => [
-                'empty' => 'Ingen præstationsrekorder endnu. :(',
                 'title' => 'Historik',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu Tilgængelig',
-                'available_info' => "Kudosu kan blive omdannet til kudosu-stjerner, som giver dine beatmaps mere opmærksomhed. Dette er antallet af kudosu, som du ikke har brugt endnu.",
                 'recent_entries' => 'Seneste Kudosu Historie',
                 'title' => 'Kudosu!',
                 'total' => 'Total Kudosu Optjent',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Download Replay',
-                'empty' => 'Ingen fede præstationsrekorder endnu. :(',
                 'not_ranked' => 'Kun rangerede beatmaps giver pp.',
                 'pp_weight' => 'vejede: :percentage',
+                'view_details' => '',
                 'title' => 'Ranks',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Interesser',
-            'lastfm' => 'Last.fm',
             'location' => 'Nuværende Position',
             'occupation' => 'Stilling',
             'skype' => 'Skype',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Klods visning',
         'card' => 'Kortvisning',
         'list' => 'Listevisning',
     ],

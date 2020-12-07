@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Gönderi kaydetme başarısız',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Oy güncelleme başarısız',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Kudosu almaktan mahrum bırakıldı.',
         'message_placeholder_deleted_beatmap' => 'Bu zorluk seviyesi silindi o yüzden hakkında daha fazla tartışılamaz.',
         'message_placeholder_locked' => 'Bu beatmap için tartışma devre dışı bırakıldı.',
+        'message_placeholder_silenced' => "Susturulduğunuzda tartışma gönderisi gönderemezsiniz.",
         'message_type_select' => 'Yorum Türünü Seçin',
         'reply_notice' => 'Cevaplamak için Enter tuşuna basın.',
         'reply_placeholder' => 'Yanıtınızı buraya yazın',
@@ -69,7 +49,7 @@ return [
 
             'prompt' => [
                 'lock' => 'Kilitleme sebebi',
-                'unlock' => 'Kilidi açmak istediğinizden emin misiniz?',
+                'unlock' => 'Tartışmanın kilidini açmak istediğine emin misin?',
             ],
         ],
 
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Genel\'e yazmak için burayı kullanın (:version)',
             'generalAll' => 'Genel\'e yazmak için burayı kullanın (tüm zorluklar)',
+            'review' => 'İnceleme göndermek için buraya yazın',
             'timeline' => 'Timeline\'a yazmak için burayı kullanın (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'bir zaman damgası eklemek için editörde ctrl-c\'ye basıp mesajınıza yapıştırın!',
             'title' => 'Yeni Tartışma',
             'unpin' => 'Sabitlemeyi kaldır',
+        ],
+
+        'review' => [
+            'new' => 'Yeni İnceleme',
+            'embed' => [
+                'delete' => 'Sil',
+                'missing' => '[TARTIŞMA SİLİNDİ]',
+                'unlink' => 'Bağlantıyı kaldır',
+                'unsaved' => 'Kaydedilmemiş',
+                'timestamp' => [
+                    'all-diff' => '"Tüm zorluklar" kısmındaki gönderilere zaman damgası yerleştirilemez.',
+                    'diff' => 'Eğer bu :type bir zaman damgasıyla başlıyorsa, Zaman çizgisi altında gösterilecektir.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'paragraf ekle',
+                'praise' => 'övgü ekle',
+                'problem' => 'sorun ekle',
+                'suggestion' => 'öneri ekle',
+            ],
         ],
 
         'show' => [
@@ -148,8 +149,8 @@ return [
                 'up' => 'Henüz pozitif oy yok',
             ],
             'latest' => [
-                'down' => '',
-                'up' => '',
+                'down' => 'En son eksi oylar',
+                'up' => 'En son artı oylar',
             ],
         ],
     ],
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Beatmap aday gösterilsin mi?',
         'nominated_by' => ':users tarafından aday gösterildi',
         'not_enough_hype' => "Yeterince gaz yok.",
-        'qualified' => 'Eğer bir sorun bulunmazsa, :date tarihinde dereceli olacağı tahmin ediliyor.',
-        'qualified_soon' => 'Eğer bir sorun bulunmazsa, yakında dereceli olacağı tahmin ediliyor.',
+        'remove_from_loved' => 'Sevilenlerden Çıkar',
+        'remove_from_loved_prompt' => 'Sevilenlerden çıkarılma sebebi:',
         'required_text' => 'Aday Göstermeler: :current/:required',
         'reset_message_deleted' => 'silindi',
         'title' => 'Adaylık Durumu',
         'unresolved_issues' => 'Halen çözülmesi gereken sorunlar mevcut.',
+
+        'rank_estimate' => [
+            '_' => 'Herhangi bir sorun bulunmazsa mapin tahminen dereceli olacağı vakit :date. :queue :position. sırada bulunuyor.',
+            'queue' => 'derecelendirme sırasında',
+            'soon' => 'çok yakın',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Adaylık süreci :time_ago :user tarafından yeni :discussion (:message) sorunu sebebiyle sıfırlandı.',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Dönüştürülmüş beatmapleri dahil et',
     ],
     'mode' => [
+        'all' => 'Hepsi',
         'any' => 'Hepsi',
         'osu' => '',
         'taiko' => '',
@@ -255,7 +263,7 @@ return [
         'any' => 'Hepsi',
         'approved' => 'Onaylı',
         'favourites' => 'Favoriler',
-        'graveyard' => 'Mezarlık',
+        'graveyard' => 'Mezarlıkta',
         'leaderboard' => 'Liderlik tablosu olanlar',
         'loved' => 'Sevilen',
         'mine' => 'Benim haritalarım',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elektronik',
+        'metal' => 'Metal',
+        'classical' => 'Klasik',
+        'folk' => 'Folk',
+        'jazz' => 'Caz',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Skor V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Korece',
         'spanish' => 'İspanyolca',
         'swedish' => 'İsveççe',
-        'instrumental' => 'Enstrümental',
+        'russian' => 'Rusça',
+        'polish' => 'Lehçe',
+        'instrumental' => 'Enstrümantal',
         'other' => 'Diğer',
+        'unspecified' => 'Belirtilmemiş',
     ],
     'played' => [
         'any' => 'Hepsi',
@@ -335,7 +351,14 @@ return [
         'D' => '',
     ],
     'panel' => [
-        'playcount' => 'Oynanma sayısı',
-        'favourites' => 'Favoriler',
+        'playcount' => 'Oynanma sayısı: :count',
+        'favourites' => 'Favoriler: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Tümü',
+        ],
     ],
 ];

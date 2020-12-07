@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers\Multiplayer;
 
@@ -28,39 +13,23 @@ class RoomsController extends BaseController
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'show']);
+        $this->middleware('require-scopes:public', ['only' => ['index', 'leaderboard', 'show']]);
     }
 
     public function index()
     {
-        $rooms = Room::query();
-        $limit = clamp(get_int(request('limit')) ?? 250, 1, 250);
+        $params = request()->all();
+        $params['user'] = auth()->user();
 
-        $mode = request('mode');
-        if ($mode === 'ended') {
-            $rooms->ended()->orderBy('ends_at', 'desc');
-        } else {
-            if ($mode === 'participated') {
-                // TODO: should probably do some kind of caching on this.
-                $rooms->hasParticipated(auth()->user());
-            } elseif ($mode === 'owned') {
-                $rooms->startedBy(auth()->user());
-            } else {
-                $rooms->active();
-            }
-
-            $rooms->orderBy('id', 'desc');
-        }
-
-        return json_collection(
-            $rooms
-                ->with('host.country')
-                ->with('playlist.beatmap.beatmapset')
-                ->paginate($limit),
-            'Multiplayer\Room',
+        return Room::search(
+            $params,
+            ['host.country', 'playlist.beatmap.beatmapset', 'playlist.beatmap.baseMaxCombo'],
             [
                 'host.country',
                 'playlist.beatmap.beatmapset',
+                'playlist.beatmap.checksum',
+                'playlist.beatmap.max_combo',
             ]
         );
     }
@@ -80,14 +49,23 @@ class RoomsController extends BaseController
     public function leaderboard($roomId)
     {
         $limit = clamp(get_int(request('limit')) ?? 50, 1, 50);
+        $room = Room::findOrFail($roomId);
 
-        return json_collection(
-            Room::findOrFail($roomId)
-                ->topScores()
-                ->paginate($limit),
-            'Multiplayer\UserScoreAggregate',
-            ['user.country']
-        );
+        // leaderboard currently requires auth so auth()->check() is not required.
+        $userScore = $room->topScores()->where('user_id', auth()->id())->first();
+
+        return [
+            'leaderboard' => json_collection(
+                $room->topScores()->paginate($limit),
+                'Multiplayer\UserScoreAggregate',
+                ['user.country']
+            ),
+            'user_score' => $userScore !== null ? json_item(
+                $userScore,
+                'Multiplayer\UserScoreAggregate',
+                ['position', 'user.country']
+            ) : null,
+        ];
     }
 
     public function part($roomId, $userId)
@@ -106,34 +84,65 @@ class RoomsController extends BaseController
         return response([], 204);
     }
 
-    public function show($roomId)
+    public function show($id)
     {
-        return json_item(
-            Room::findOrFail($roomId)
-                ->load('host.country')
-                ->load('playlist.beatmap.beatmapset'),
-            'Multiplayer\Room',
-            [
-                'host.country',
-                'playlist.beatmap.beatmapset',
-                'recent_participants',
-            ]
-        );
+        if ($id === 'latest') {
+            $room = Room::where('category', 'spotlight')->last();
+
+            if ($room === null) {
+                abort(404);
+            }
+        } else {
+            $room = Room::findOrFail($id);
+        }
+
+        if (is_api_request()) {
+            return json_item(
+                $room
+                    ->load('host.country')
+                    ->load('playlist.beatmap.beatmapset')
+                    ->load('playlist.beatmap.baseMaxCombo'),
+                'Multiplayer\Room',
+                [
+                    'host.country',
+                    'playlist.beatmap.beatmapset',
+                    'playlist.beatmap.checksum',
+                    'playlist.beatmap.max_combo',
+                    'recent_participants',
+                ]
+            );
+        }
+
+        $beatmaps = $room->playlist()->with('beatmap.beatmapset.beatmaps')->get()->pluck('beatmap');
+        $beatmapsets = $beatmaps->pluck('beatmapset');
+        $highScores = $room->topScores()->paginate(50);
+        $spotlightRooms = Room::where('category', 'spotlight')->orderBy('id', 'DESC')->get();
+
+        return ext_view('multiplayer.rooms.show', [
+            'beatmaps' => $beatmaps,
+            'beatmapsets' => $beatmapsets,
+            'room' => $room,
+            'rooms' => $spotlightRooms,
+            'scores' => $highScores,
+        ]);
     }
 
     public function store()
     {
         try {
-            $room = (new Room)->startGame(auth()->user(), request()->all());
+            $room = (new Room())->startGame(auth()->user(), request()->all());
 
             return json_item(
                 $room
                     ->load('host.country')
-                    ->load('playlist.beatmap.beatmapset'),
+                    ->load('playlist.beatmap.beatmapset')
+                    ->load('playlist.beatmap.baseMaxCombo'),
                 'Multiplayer\Room',
                 [
                     'host.country',
                     'playlist.beatmap.beatmapset',
+                    'playlist.beatmap.checksum',
+                    'playlist.beatmap.max_combo',
                     'recent_participants',
                 ]
             );

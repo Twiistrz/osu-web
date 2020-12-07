@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,18 +18,18 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'törölve',
-        'none_found' => '',
+        'none_found' => 'Nem található a keresési feltételeknek megfelelő beszélgetés.',
         'title' => 'Beatmap Megbeszélés',
 
         'form' => [
             '_' => 'Keresés',
             'deleted' => 'Törölt beszélgetések mellékelése',
-            'only_unresolved' => '',
+            'only_unresolved' => 'Csak a megoldatlan beszélgetéseket mutasd',
             'types' => 'Üzenettípusok',
             'username' => 'Felhasználónév',
 
             'beatmapset_status' => [
-                '_' => '',
+                '_' => 'Beatmap státusz',
                 'all' => 'Mind',
                 'disqualified' => 'Diszkvalifikálva',
                 'never_qualified' => 'Minősítetlen',
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Egy poszt sem foglalkozik a problémámmal',
         'notice' => 'Már vannak posztok :timestamp (:existing_timestamps) körül. Kérlek nézd meg posztolás előtt.',
+        'unsaved' => '',
     ],
 
     'reply' => [
@@ -79,14 +65,17 @@ return [
     ],
 
     'review' => [
-        'go_to_parent' => '',
-        'go_to_child' => '',
+        'block_count' => '',
+        'go_to_parent' => 'Legújabb posztok mutatása',
+        'go_to_child' => 'Megbeszélés megtekintése',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => 'a maximális karakter szám :limit',
+            'external_references' => 'az áttekintés olyan kérdésekre hivatkozik, amelyek nem tartoznak ehhez a felülvizsgálathoz',
+            'invalid_block_type' => 'érvénytelen blokk típus',
+            'invalid_document' => 'érévnytelen értékelés',
+            'minimum_issues' => 'az áttekintésnek tartalmaznia kell legalább :count problémát|Az áttekintésnek tartalmaznia kell legalább :count problémákat',
+            'missing_text' => 'hiányzó szöveg',
+            'too_many_blocks' => 'a beszámolók csak :count bekezdés/problémát tartalmazhatnak|a beszámolók legfeljebb :count bekezdést/problémát tartalmazhatnak',
         ],
     ],
 
@@ -98,8 +87,8 @@ return [
     ],
 
     'timestamp_display' => [
-        'general' => '',
-        'general_all' => '',
+        'general' => 'általános',
+        'general_all' => 'általános (mind)',
     ],
 
     'user_filter' => [

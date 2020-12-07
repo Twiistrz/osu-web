@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Transformers;
 
@@ -24,25 +9,31 @@ use App\Models\Country;
 
 class CountryTransformer extends TransformerAbstract
 {
-    protected $availableIncludes = ['ranking'];
+    protected $availableIncludes = [
+        'display',
+        'ranking',
+    ];
 
-    public function transform(Country $country = null)
+    public function transform(Country $country)
     {
         return [
-            'code' => $country->acronym ?? null,
-            'name' => $country->name ?? null,
+            'code' => $country->acronym,
+            'name' => $country->name,
         ];
+    }
+
+    public function includeDisplay(Country $country)
+    {
+        return $this->primitive($country->display);
     }
 
     public function includeRanking(Country $country)
     {
-        return $this->item($country, function ($country) {
-            return [
-                'active_users' => $country->usercount,
-                'play_count' => $country->playcount,
-                'ranked_score' => $country->rankedscore,
-                'performance' => $country->pp,
-            ];
-        });
+        return $this->primitive([
+            'active_users' => $country->usercount,
+            'play_count' => $country->playcount,
+            'ranked_score' => $country->rankedscore,
+            'performance' => $country->pp,
+        ]);
     }
 }

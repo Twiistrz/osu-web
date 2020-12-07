@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
@@ -27,17 +12,25 @@ use App\Libraries\Search\PostSearchRequestParams;
 use App\Libraries\UserRegistration;
 use App\Models\Achievement;
 use App\Models\Beatmap;
+use App\Models\BeatmapDiscussion;
 use App\Models\Country;
 use App\Models\IpBan;
 use App\Models\Log;
 use App\Models\User;
 use App\Models\UserAccountHistory;
 use App\Models\UserNotFound;
+use App\Transformers\UserCompactTransformer;
+use App\Transformers\UserTransformer;
 use Auth;
 use Elasticsearch\Common\Exceptions\ElasticsearchException;
 use Illuminate\Cache\RateLimiter;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Request;
+use Sentry\State\Scope;
 
+/**
+ * @group Users
+ */
 class UsersController extends Controller
 {
     protected $maxResults = 100;
@@ -49,21 +42,20 @@ class UsersController extends Controller
             'checkUsernameAvailability',
             'checkUsernameExists',
             'report',
+            'me',
             'updatePage',
         ]]);
 
         $this->middleware('throttle:60,10', ['only' => ['store']]);
 
-        if (is_api_request()) {
-            $this->middleware('require-scopes:identify', ['only' => ['me']]);
-            $this->middleware('require-scopes:users.read', ['only' => [
-                'beatmapsets',
-                'kudosu',
-                'recentActivity',
-                'scores',
-                'show',
-            ]]);
-        }
+        $this->middleware('require-scopes:identify', ['only' => ['me']]);
+        $this->middleware('require-scopes:public', ['only' => [
+            'beatmapsets',
+            'kudosu',
+            'recentActivity',
+            'scores',
+            'show',
+        ]]);
 
         $this->middleware(function ($request, $next) {
             $this->parsePaginationParams();
@@ -78,11 +70,9 @@ class UsersController extends Controller
 
     public function card($id)
     {
-        // FIXME: if there's a username with the id of a restricted user,
-        // it'll show the card of the non-restricted user.
-        $user = User::lookup($id) ?? UserNotFound::instance();
+        $user = $this->lookupUser($id) ?? UserNotFound::instance();
 
-        return json_item($user, 'UserCompact', ['cover', 'country']);
+        return json_item($user, 'UserCompact', UserCompactTransformer::CARD_INCLUDES);
     }
 
     public function disabled()
@@ -135,8 +125,9 @@ class UsersController extends Controller
             return error_popup('Wrong client', 403);
         }
 
-        $params = get_params(request(), 'user', ['username', 'user_email', 'password']);
-        $country = Country::find(request_country());
+        $params = get_params(request()->all(), 'user', ['username', 'user_email', 'password']);
+        $countryCode = request_country();
+        $country = Country::find($countryCode);
         $params['user_ip'] = $ip;
         $params['country_acronym'] = $country === null ? '' : $country->getKey();
 
@@ -158,6 +149,17 @@ class UsersController extends Controller
             $registration->save();
             app(RateLimiter::class)->hit($throttleKey, 600);
 
+            if ($country === null) {
+                app('sentry')->getClient()->captureMessage(
+                    'User registered from unknown country: '.$countryCode,
+                    null,
+                    (new Scope())
+                        ->setExtra('country', $countryCode)
+                        ->setExtra('ip', $ip)
+                        ->setExtra('user_id', $registration->user()->getKey())
+                );
+            }
+
             return $registration->user()->fresh()->defaultJson();
         } catch (ValidationException $e) {
             return response(['form_error' => [
@@ -166,6 +168,43 @@ class UsersController extends Controller
         }
     }
 
+    /**
+     * Get User Beatmaps
+     *
+     * Returns the beatmaps of specified user.
+     *
+     * | Type                |
+     * |---------------------|
+     * | favourite           |
+     * | graveyard           |
+     * | loved               |
+     * | most_played         |
+     * | ranked_and_approved |
+     * | unranked            |
+     *
+     * ---
+     *
+     * ### Response format
+     *
+     * Array of [Beatmapset](#beatmapset).
+     *
+     * @urlParam user required Id of the user. Example: 1
+     * @urlParam type required Beatmap type. Example: favourite
+     *
+     * @queryParam limit Maximum number of results.
+     * @queryParam offset Result offset for pagination. Example: 1
+     *
+     * @response [
+     *   {
+     *     "id": 1,
+     *     "other": "attributes..."
+     *   },
+     *   {
+     *     "id": 2,
+     *     "other": "attributes..."
+     *   }
+     * ]
+     */
     public function beatmapsets($_userId, $type)
     {
         static $mapping = [
@@ -185,6 +224,51 @@ class UsersController extends Controller
         return $this->getExtra($this->user, $page, [], $perPage, $this->offset);
     }
 
+    /**
+     * Get Users
+     *
+     * Returns list of users.
+     *
+     * ---
+     *
+     * ### Response format
+     *
+     * Field | Type                          | Description
+     * ----- | ----------------------------- | ---------------------------------
+     * users | [UserCompact](#usercompact)[] | Includes: country, cover, groups.
+     *
+     * @queryParam ids[] User id to be returned. Specify once for each user id requested. Up to 50 users can be requested at once. Example: 1
+     *
+     * @response {
+     *   "users": [
+     *     {
+     *       "id": 1,
+     *       "other": "attributes..."
+     *     },
+     *     {
+     *       "id": 2,
+     *       "other": "attributes..."
+     *     }
+     *   ]
+     * }
+     */
+    public function index()
+    {
+        $params = get_params(request()->all(), null, ['ids:int[]']);
+
+        if (isset($params['ids'])) {
+            $users = User
+                ::whereIn('user_id', array_slice($params['ids'], 0, 50))
+                ->default()
+                ->with(UserCompactTransformer::CARD_INCLUDES_PRELOAD)
+                ->get();
+        }
+
+        return [
+            'users' => json_collection($users ?? [], 'UserCompact', UserCompactTransformer::CARD_INCLUDES),
+        ];
+    }
+
     public function posts($id)
     {
         $user = User::lookup($id, 'id', true);
@@ -198,16 +282,108 @@ class UsersController extends Controller
         return ext_view('users.posts', compact('search', 'user'));
     }
 
+    /**
+     * Get User Kudosu
+     *
+     * Returns kudosu history.
+     *
+     * ---
+     *
+     * ### Response format
+     *
+     * Array of [KudosuHistory](#kudosuhistory).
+     *
+     * @urlParam user required Id of the user. Example: 1
+     *
+     * @queryParam limit Maximum number of results.
+     * @queryParam offset Result offset for pagination. Example: 1
+     *
+     * @response [
+     *   {
+     *     "id": 1,
+     *     "other": "attributes..."
+     *   },
+     *   {
+     *     "id": 2,
+     *     "other": "attributes..."
+     *   }
+     * ]
+     */
     public function kudosu($_userId)
     {
         return $this->getExtra($this->user, 'recentlyReceivedKudosu', [], $this->perPage, $this->offset);
     }
 
+    /**
+     * Get User Recent Activity
+     *
+     * Returns recent activity.
+     *
+     * ---
+     *
+     * ### Response format
+     *
+     * Array of [Event](#event).
+     *
+     * @urlParam user required Id of the user. Example: 1
+     *
+     * @queryParam limit Maximum number of results.
+     * @queryParam offset Result offset for pagination. Example: 1
+     *
+     * @response [
+     *   {
+     *     "id": 1,
+     *     "other": "attributes..."
+     *   },
+     *   {
+     *     "id": 2,
+     *     "other": "attributes..."
+     *   }
+     * ]
+     */
     public function recentActivity($_userId)
     {
         return $this->getExtra($this->user, 'recentActivity', [], $this->perPage, $this->offset);
     }
 
+    /**
+     * Get User Scores
+     *
+     * This endpoint returns the scores of specified user.
+     *
+     * ---
+     *
+     * ### Response format
+     *
+     * Array of [Score](#score).
+     * Following attributes are included in the response object when applicable.
+     *
+     * Attribute  | Notes
+     * -----------|----------------------
+     * beatmap    | |
+     * beatmapset | |
+     * weight     | Only for type `best`.
+     * user       | |
+     *
+     * @urlParam user required Id of the user. Example: 1
+     * @urlParam type required Score type. Must be one of these: `best`, `firsts`, `recent`. Example: best
+     *
+     * @queryParam include_fails Only for recent scores, include scores of failed plays. Set to 1 to include them. Defaults to 0. Example: 0
+     * @queryParam mode [GameMode](#gamemode) of the scores to be returned. Defaults to the specified `user`'s mode. Example: osu
+     * @queryParam limit Maximum number of results.
+     * @queryParam offset Result offset for pagination. Example: 1
+     *
+     * @response [
+     *   {
+     *     "id": 1,
+     *     "other": "attributes..."
+     *   },
+     *   {
+     *     "id": 2,
+     *     "other": "attributes..."
+     *   }
+     * ]
+     */
     public function scores($_userId, $type)
     {
         static $mapping = [
@@ -225,25 +401,85 @@ class UsersController extends Controller
             $perPage = $this->sanitizedLimitParam();
         }
 
-        $json = $this->getExtra($this->user, $page, ['mode' => $this->mode], $perPage, $this->offset);
+        $options = [
+            'mode' => $this->mode,
+            'includeFails' => get_bool(request('include_fails')) ?? false,
+        ];
+
+        $json = $this->getExtra($this->user, $page, $options, $perPage, $this->offset);
 
         return response($json, is_null($json['error'] ?? null) ? 200 : 504);
     }
 
+    /**
+     * Get Own Data
+     *
+     * Similar to [Get User](#get-user) but with authenticated user (token owner) as user id.
+     *
+     * ---
+     *
+     * ### Response format
+     *
+     * See [Get User](#get-user).
+     *
+     * @authenticated
+     *
+     * @urlParam mode [GameMode](#gamemode). User default mode will be used if not specified. Example: osu
+     *
+     * @response "See User object section"
+     */
     public function me($mode = null)
     {
         return static::show(auth()->user()->user_id, $mode);
     }
 
+    /**
+     * Get User
+     *
+     * This endpoint returns the detail of specified user.
+     *
+     * ---
+     *
+     * ### Response format
+     *
+     * Returns [User](#user) object.
+     * Following attributes are included in the response object when applicable.
+     *
+     * Attribute                            | Notes
+     * -------------------------------------|------
+     * account_history                      | |
+     * active_tournament_banner             | |
+     * badges                               | |
+     * beatmap_playcounts_count             | |
+     * favourite_beatmapset_count           | |
+     * follower_count                       | |
+     * graveyard_beatmapset_count           | |
+     * groups                               | |
+     * loved_beatmapset_count               | |
+     * monthly_playcounts                   | |
+     * page                                 | |
+     * previous_usernames                   | |
+     * rank_history                         | For specified mode.
+     * ranked_and_approved_beatmapset_count | |
+     * replays_watched_counts               | |
+     * scores_best_count                    | For specified mode.
+     * scores_first_count                   | For specified mode.
+     * scores_recent_count                  | For specified mode.
+     * statistics                           | For specified mode. Inluces `rank` and `variants` attributes.
+     * support_level                        | |
+     * unranked_beatmapset_count            | |
+     * user_achievements                    | |
+     *
+     * @urlParam user required Id of the user. Example: 1
+     * @urlParam mode [GameMode](#gamemode). User default mode will be used if not specified. Example: osu
+     *
+     * @response "See User object section"
+     */
     public function show($id, $mode = null)
     {
-        // Find matching id or username
-        // If no user is found, search for a previous username
-        // only if parameter is not a number (assume number is an id lookup).
+        $user = $this->lookupUser($id);
 
-        $user = User::lookupWithHistory($id, null, true);
-
-        if ($user === null || !priv_check('UserShow', $user)->can()) {
+        if ($user === null) {
             if (is_json_request()) {
                 abort(404);
             }
@@ -252,7 +488,9 @@ class UsersController extends Controller
         }
 
         if ((string) $user->user_id !== (string) $id) {
-            return ujs_redirect(route('users.show', ['user' => $user, 'mode' => $mode]));
+            $route = is_api_request() ? 'api.users.show' : 'users.show';
+
+            return ujs_redirect(route($route, compact('user', 'mode')));
         }
 
         $currentMode = $mode ?? $user->playmode;
@@ -262,22 +500,28 @@ class UsersController extends Controller
         }
 
         $userIncludes = [
-            "scores_first_count:mode({$currentMode})",
-            "statistics:mode({$currentMode})",
             'account_history',
             'active_tournament_banner',
             'badges',
+            'beatmap_playcounts_count',
             'favourite_beatmapset_count',
             'follower_count',
             'graveyard_beatmapset_count',
-            'group_badge',
+            'groups',
             'loved_beatmapset_count',
             'monthly_playcounts',
             'page',
             'previous_usernames',
+            'rankHistory',
+            'rank_history',
             'ranked_and_approved_beatmapset_count',
             'replays_watched_counts',
+            'scores_best_count',
+            'scores_first_count',
+            'scores_recent_count',
+            'statistics',
             'statistics.rank',
+            'statistics.variants',
             'support_level',
             'unranked_beatmapset_count',
             'user_achievements',
@@ -288,21 +532,15 @@ class UsersController extends Controller
             $userIncludes[] = 'account_history.supporting_url';
         }
 
+        $transformer = new UserTransformer();
+        $transformer->mode = $currentMode;
         $userArray = json_item(
             $user,
-            'User',
+            $transformer,
             $userIncludes
         );
 
-        $rankHistoryData = $user->rankHistories()
-            ->where('mode', Beatmap::modeInt($currentMode))
-            ->first();
-
-        $rankHistory = $rankHistoryData ? json_item($rankHistoryData, 'RankHistory') : null;
-
         if (is_api_request()) {
-            $userArray['rankHistory'] = $rankHistory;
-
             return $userArray;
         } else {
             $achievements = json_collection(
@@ -343,7 +581,6 @@ class UsersController extends Controller
                 'currentMode' => $currentMode,
                 'extras' => $extras,
                 'perPage' => $perPage,
-                'rankHistory' => $rankHistory,
                 'user' => $userArray,
             ];
 
@@ -377,6 +614,20 @@ class UsersController extends Controller
         } catch (ModelNotSavedException $e) {
             return error_popup($e->getMessage());
         }
+    }
+
+    // Find matching id or username
+    // If no user is found, search for a previous username
+    // only if parameter is not a number (assume number is an id lookup).
+    private function lookupUser($id)
+    {
+        $user = User::lookupWithHistory($id, null, true);
+
+        if ($user === null || !priv_check('UserShow', $user)->can()) {
+            return null;
+        }
+
+        return $user;
     }
 
     private function parsePaginationParams()
@@ -462,7 +713,10 @@ class UsersController extends Controller
                 case 'recentlyReceivedKudosu':
                     $transformer = 'KudosuHistory';
                     $query = $user->receivedKudosu()
-                        ->with('post', 'post.topic', 'giver', 'kudosuable')
+                        ->with('post', 'post.topic', 'giver')
+                        ->with(['kudosuable' => function (MorphTo $morphTo) {
+                            $morphTo->morphWith([BeatmapDiscussion::class => ['beatmap', 'beatmapset']]);
+                        }])
                         ->orderBy('exchange_id', 'desc');
                     break;
 
@@ -484,6 +738,7 @@ class UsersController extends Controller
                     $transformer = 'Score';
                     $includes = ['beatmap', 'beatmapset', 'user'];
                     $query = $user->scores($options['mode'], true)
+                        ->includeFails($options['includeFails'] ?? false)
                         ->with('beatmap', 'beatmap.beatmapset', 'best', 'user');
                     break;
             }

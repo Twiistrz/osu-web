@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .show-more-link {
   @_top: show-more-link;
@@ -32,6 +17,8 @@
   line-height: normal;
 
   background-color: @osu-colour-b2;
+  cursor: pointer;
+  position: relative;
 
   .link-hover({
     color: white;
@@ -44,6 +31,17 @@
 
   &--changelog-index {
     margin: 40px 0;
+  }
+
+  &--chat-conversation-earlier-messages {
+    margin: 20px auto 0;
+  }
+
+  &--comment-replies {
+    text-align: left;
+    padding-left: 10px;
+    padding-right: $padding-left;
+    font-weight: normal;
   }
 
   &--comments {
@@ -67,10 +65,10 @@
   }
 
   &--profile-page {
-    margin: 10px auto 0;
+    margin: 5px auto 0;
   }
 
-  &[disabled], &.js-disabled {
+  &[data-disabled='1'], &.js-disabled {
     background-color: @osu-colour-b2;
   }
 
@@ -80,7 +78,7 @@
     position: absolute;
     display: none;
 
-    .@{_top}[disabled] &, .@{_top}.js-disabled & {
+    .@{_top}[data-disabled='1'] &, .@{_top}.js-disabled & {
       display: flex;
     }
   }
@@ -90,7 +88,7 @@
     margin: 0 -5px;
     display: flex;
 
-    .@{_top}[disabled] &, .@{_top}.js-disabled & {
+    .@{_top}[data-disabled='1'] &, .@{_top}.js-disabled & {
       opacity: 0;
     }
   }
@@ -106,10 +104,25 @@
     .@{_top}--notification-group & {
       color: #fff;
     }
+
+    .@{_top}--no-icon & {
+      display: none;
+    }
+
+    &--left {
+      .@{_top}--comment-replies & {
+        display: none;
+      }
+    }
   }
 
   &__label-text {
     margin: 0 5px;
     text-transform: uppercase;
+
+    .@{_top}--comment-replies & {
+      padding-right: 10px;
+      text-transform: none;
+    }
   }
 }

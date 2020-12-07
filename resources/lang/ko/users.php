@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[삭제된 사용자]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '게임 모드 별 멤버',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "당신의 계정은 오랫동안 사용되지 않았네요.",
@@ -99,6 +88,7 @@ return [
         'failed' => '계정 정보가 올바르지 않습니다',
         'forgot' => '비밀번호를 잊어버리셨나요?',
         'info' => '계속 하시려면 로그인 해주세요',
+        'invalid_captcha' => 'Captcha가 올바르지 않습니다. 페이지를 새로 고친 후 다시 시도해주세요.',
         'locked_ip' => 'IP 주소가 잠겨있습니다. 잠시 기다려주세요.',
         'password' => 'Password',
         'register' => "osu!계정이 없으신가요? 새로 하나 만들어보세요",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => '현재 온라인',
         'missingtext' => '오타가 있는 것 같은데요! (또는 차단된 사용자일 수 있습니다)',
         'origin_country' => ':country에 거주',
-        'page_description' => 'osu! - :username님에 대해 궁금했던 모든 것!',
         'previous_usernames' => '이전 사용자명',
         'plays_with' => '플레이 장비: :devices',
         'title' => ":username님의 프로필",
@@ -173,13 +162,13 @@ return [
                     'broken_file' => '이미지 처리 실패. 업로드하려는 이미지를 확인하시고 다시 시도해주세요.',
                     'button' => '이미지 업로드',
                     'dropzone' => '업로드하려면 여기에 끌어놓으세요',
-                    'dropzone_info' => '이쪽에 이미지를 끌어놓아 업로드할수도 있습니다',
-                    'size_info' => '표지 크기는 2800x620 이여야 합니다',
+                    'dropzone_info' => '여기에 이미지를 끌어놓아 업로드할 수도 있습니다.',
+                    'size_info' => '표지 크기는 2400x640 이여야 합니다.',
                     'too_large' => '업로드된 파일이 너무 큽니다.',
                     'unsupported_format' => '지원되지 않는 확장자입니다.',
 
                     'restriction_info' => [
-                        '_' => '업로드는 :link만 가능합니다',
+                        '_' => '업로드는 :link만 가능합니다.',
                         'link' => 'osu! 서포터',
                     ],
                 ],
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'by :artist',
-                'none' => '아직... 없네요...',
                 'title' => '비트맵',
 
                 'favourite' => [
@@ -215,7 +203,7 @@ return [
                     'title' => 'Loved 비트맵',
                 ],
                 'ranked_and_approved' => [
-                    'title' => 'Ranked / Approved 된 비트맵',
+                    'title' => 'Ranked 및 Approved 상태의 비트맵',
                 ],
                 'unranked' => [
                     'title' => 'Pending 비트맵',
@@ -232,7 +220,6 @@ return [
                 'show_more' => '이벤트 더 보기',
             ],
             'historical' => [
-                'empty' => '기록된 플레이가 없습니다. :(',
                 'title' => '통계',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => '사용 가능한 Kudosu',
-                'available_info' => "Kudosu는 제작자가 만든 비트맵의 노출 순위를 올리는 kudosu 별(★) 로 교환될 수 있습니다. 위에 적힌 수는 아직 교환되지 않은 kudosu 수를 나타냅니다.",
                 'recent_entries' => '최근 Kudosu 기록',
                 'title' => 'Kudosu!',
                 'total' => '총 획득한 Kudosu 수',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => '리플레이 다운로드',
-                'empty' => '아직 이렇다 할 플레이 기록이 없네요. :(',
                 'not_ranked' => '랭크된 비트맵만 pp를 줍니다.',
                 'pp_weight' => '가중치 :percentage',
+                'view_details' => '자세히 보기',
                 'title' => '랭크',
 
                 'best' => [
@@ -342,8 +327,8 @@ return [
             ],
             'account_standing' => [
                 'title' => '계정 상태',
-                'bad_standing' => "<strong>:username</strong>님의 계정이 룰을 위반하였습니다 :(",
-                'remaining_silence' => '<strong>:username</strong>님은 :duration 후에 말할 수 있습니다.',
+                'bad_standing' => "<strong>:username</strong> 님이 규칙을 위반하셨습니다. :(",
+                'remaining_silence' => '<strong>:username</strong> 님은 :duration 후에 말할 수 있습니다.',
 
                 'recent_infringements' => [
                     'title' => '최근 사건',
@@ -356,7 +341,7 @@ return [
 
                     'actions' => [
                         'restriction' => 'Ban',
-                        'silence' => 'Silence',
+                        'silence' => '침묵',
                         'note' => '알림',
                     ],
                 ],
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '디스코드',
             'interests' => '관심 분야',
-            'lastfm' => 'Last.fm',
             'location' => '거주지',
             'occupation' => '직업',
             'skype' => '스카이프',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '벽돌 형식 보기',
         'card' => '카드 형식 보기',
         'list' => '목록으로 보기',
     ],

@@ -1,35 +1,20 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Sabitlenmiş Konular',
     'slogan' => "yalnız başına oynamak tehlikeli.",
-    'subforums' => 'Alt Başlıklar',
+    'subforums' => 'Alt forumlar',
     'title' => 'osu! forumları',
 
     'covers' => [
-        'edit' => '',
+        'edit' => 'Kapak resmini düzenle',
 
         'create' => [
-            '_' => 'Kapak fotoğrafı ekle',
-            'button' => 'Resim yükle',
+            '_' => 'Kapak resmi ekle',
+            'button' => 'Kapak resmi yükle',
             'info' => 'Kapak boyutları :dimensions olmalıdır. Görselleri yüklemek için buraya da sürükleyebilirsin.',
         ],
 
@@ -47,7 +32,7 @@ return [
         ],
 
         'topics' => [
-            'empty' => 'Başlık yok!',
+            'empty' => 'Konu yok!',
         ],
     ],
 
@@ -60,13 +45,14 @@ return [
     'post' => [
         'confirm_destroy' => 'Gerçekten gönderiyi silmek istiyor musun?',
         'confirm_restore' => 'Gönderiyi geri yükle?',
-        'edited' => 'En son :user tarafından :when, toplamda :count defa düzenlendi.',
+        'edited' => 'En son :user tarafından :when, toplamda :count_delimited defa düzenlendi.|En son :user tarafından :when, toplamda :count_delimited defa düzenlendi.',
         'posted_at' => ':when gönderildi',
 
         'actions' => [
             'destroy' => 'Gönderiyi sil',
-            'restore' => 'Gönderiyi geri getir',
             'edit' => 'Gönderiyi düzenle',
+            'report' => '',
+            'restore' => 'Gönderiyi geri getir',
         ],
 
         'create' => [
@@ -76,8 +62,8 @@ return [
         ],
 
         'info' => [
-            'post_count' => ': sınırlandırılmış mesaj sayısı |: sınırlandırılmış mesaj sayıları',
-            'topic_starter' => 'Konu Başlığı',
+            'post_count' => ':count_delimited gönderi|:count_delimited gönderi',
+            'topic_starter' => 'Konuyu Başlatan',
         ],
     ],
 
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'silinmiş konu',
         'go_to_latest' => 'son yazılan mesajı göster',
+        'has_replied' => 'Bu konuyu yanıtladınız',
+        'in_forum' => ':forum da',
         'latest_post' => ':user tarafından :when',
         'latest_reply_by' => 'son cevap :user tarafından',
         'new_topic' => 'Yeni konu aç',
@@ -102,7 +90,7 @@ return [
 
         'create' => [
             'close' => 'Kapat',
-            'preview' => 'Ön izleme ',
+            'preview' => 'Önizleme ',
             // TL note: this is used in the topic reply preview, when
             // the user goes back from previewing to editing the reply
             'preview_hide' => 'Yaz',
@@ -171,9 +159,9 @@ return [
         ],
 
         'create' => [
-            'create_poll' => 'Anket oluşturma',
+            'create_poll' => 'Anket Oluşturma',
 
-            'preview' => 'Yazı önizleme',
+            'preview' => 'Gönderi Önizleme',
 
             'create_poll_button' => [
                 'add' => 'Anket oluştur',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Bu konu kilitli ve yanıtlanamaz',
             'to_0' => 'Konu kilidini aç',
+            'to_0_confirm' => 'Konunun kilidini aç?',
             'to_0_done' => 'Konu kilidi açıldı',
             'to_1' => 'Konuyu kilitle',
+            'to_1_confirm' => 'Konuyu kilitle?',
             'to_1_done' => 'Konu kilitlendi',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Başlığı sabitleme',
+            'to_0_confirm' => 'Konuyu sabitlemeden kaldır?',
             'to_0_done' => 'Başlık artık sabitli değil',
             'to_1' => 'Başlığı sabitle',
+            'to_1_confirm' => 'Konuyu sabitle?',
             'to_1_done' => 'Başlık sabitlendi',
             'to_2' => 'Başlığı sabitle ve duyuru olarak işaretle',
+            'to_2_confirm' => 'Konuyu sabitle ve duyuru olarak işaretle?',
             'to_2_done' => 'Başlık sabitlendi ve duyuru olarak işaretlendi',
         ],
 
@@ -283,26 +276,26 @@ return [
                 'do' => 'Bu isteği destekle',
 
                 'info' => [
-                    '_' => 'Bu bir: özellik isteğidir. Özellik istekleri aşağıdakiler tarafından oylanabilir: destek Personeli.',
-                    'feature_request' => 'özellik isteği',
-                    'supporters' => 'destek Personeli',
+                    '_' => 'Bu bir :feature_request. Özellik talepleri :supporters tarafından oylanabilir.',
+                    'feature_request' => 'özellik talebi',
+                    'supporters' => 'supporter\'lar',
                 ],
 
                 'user' => [
-                    'count' => '{0} oy yok|{1} :count oy|[2,*] :count oy',
+                    'count' => '{0} oy yok|{1} :count_delimited oy|[2,*] :count_delimited oy',
                     'current' => ':votes oyunuz var.',
                     'not_enough' => "Başka oyunuz kalmadı",
                 ],
             ],
 
             'poll' => [
-                'edit' => '',
+                'edit' => 'Anket Düzenleme',
                 'edit_warning' => 'Bir anketi düzenlemek mevcut sonuçlarını siler!',
                 'vote' => 'Oyla',
 
                 'button' => [
-                    'change_vote' => '',
-                    'edit' => '',
+                    'change_vote' => 'Oyu değiştir',
+                    'edit' => 'Anketi düzenle',
                     'view_results' => 'Sonuçlara geç',
                     'vote' => 'Oy ver',
                 ],

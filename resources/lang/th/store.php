@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'admin' => [
@@ -25,7 +10,7 @@ return [
 
     'cart' => [
         'checkout' => 'ชำระเงิน',
-        'info' => '',
+        'info' => ':count_delimited รายการในตะกร้า ($:subtotal)|:count_delimited รายการในตะกร้า ($:subtotal)',
         'more_goodies' => 'ฉันอยากจะดูของอยากอื่นก่อนที่จะดําเนินการสั่งซื้อ',
         'shipping_fees' => 'ค่าส่ง',
         'title' => 'ตะกร้าสินค้า',
@@ -49,9 +34,10 @@ return [
         'cart_problems' => 'ตายแล้ว มีปัญหาบางอย่างกับตะกร้าสินค้าของคุณ!',
         'cart_problems_edit' => 'กดที่นี่เพื่อแก้ไข',
         'declined' => 'การชำระเงินถูกยกเลิก',
-        'delayed_shipping' => 'ขณะนี้เราได้รับการสั่งสินค้าเป็นจำนวนมาก เราขอขอบคุณที่คุณซื้อสินค้ากับเรา แต่สินค้าอาจจะถึงมือคุณ**ช้าลง 1-2 สัปดาห์** เพื่อเราจะสามารถจัดการกับรายการสั่งสินค้าที่มีอยู่ก่อนได้',
+        'delayed_shipping' => 'ขณะนี้เราได้รับการสั่งสินค้าเป็นจำนวนมาก เราขอขอบคุณที่คุณซื้อสินค้ากับเรา แต่สินค้าอาจจะถึงมือคุณ**ช้าลง 1-2 สัปดาห์** เพื่อที่เราจะสามารถจัดการกับรายการสั่งสินค้าที่มีอยู่ก่อนได้',
         'old_cart' => 'เหมือนว่าตะกร้าสินค้าของคุณจะเก่าและได้ทำการรีโหลดให้แล้ว กรุณาลองใหม่อีกครั้ง',
         'pay' => 'ชำระด้วย PayPal',
+        'title_compact' => 'ชำระเงิน',
 
         'has_pending' => [
             '_' => 'คุณยังมีการชำระเงินที่ค้างอยู่ คลิกที่นี่ :link เพื่อตรวจสอบ',
@@ -68,6 +54,8 @@ return [
 
     'invoice' => [
         'echeck_delay' => 'เนื่องจากการชำระเงินของคุณเป็น eCheck โปรดรอเพิ่มอีก 10 วันเพื่อให้การชำระเงินผ่าน PayPal!',
+        'title_compact' => 'ใบกำกับสินค้า',
+
         'status' => [
             'processing' => [
                 'title' => 'การชำระเงินของคุณยังไม่ได้รับการยืนยัน!',
@@ -95,10 +83,10 @@ return [
         ],
 
         'not_modifiable_exception' => [
-            'cancelled' => 'คุณไม่สามารถแก้ไขคำสั่งซื้อของคุณเนื่องจากมันถูกยกเลิกไปแล้ว',
+            'cancelled' => 'คุณไม่สามารถแก้ไขคำสั่งซื้อของคุณเนื่องจากได้ถูกยกเลิกไปแล้ว',
             'checkout' => 'คุณไม่สามารถแก้ไขออเดอร์ของคุณได้ในระหว่างที่กำลังประมวลผลอยู่', // checkout and processing should have the same message.
             'default' => 'คำสั่งซื้อนี้ไม่สามารถแก้ไขได้',
-            'delivered' => 'คุณไม่สามารถแก้ไขออเดอร์ของคุณได้เพราะมันถูกจัดส่งเรียบร้อยแล้ว',
+            'delivered' => 'คุณไม่สามารถแก้ไขออเดอร์ของคุณได้เพราะถูกจัดส่งเรียบร้อยแล้ว',
             'paid' => 'คุณไม่สามารถแก้ไขออเดอร์ของคุณได้เพราะคุณได้จ่ายเงินไปแล้ว',
             'processing' => 'คุณไม่สามารถแก้ไขออเดอร์ของคุณได้ในระหว่างที่กำลังประมวลผลอยู่',
             'shipped' => 'คุณไม่สามารถแก้ไขออเดอร์ของคุณได้เพราะมันถูกจัดส่งเรียบร้อยแล้ว',
@@ -118,14 +106,14 @@ return [
         'name' => 'ชื่อ',
 
         'stock' => [
-            'out' => 'สินค้านี้หมดแล้ว มาตอนหลังนะ',
+            'out' => 'สินค้านี้หมด กลับมาดูอีกรอบในภายหลัง!',
             'out_with_alternative' => 'สินค้านี้หมดแล้ว ลองกดปุ่ม Dropdown เพื่อดูรูปแบบสินค้าอื่น หรือมาดูอีกทีตอนหลังก็ได้',
         ],
 
         'add_to_cart' => 'เพิ่มไปยังตะกร้า',
-        'notify' => 'แจ้งเตือนฉันด้วยเมื่อมีสินค้า!',
+        'notify' => 'แจ้งเตือนฉันเมื่อมีสินค้า!',
 
-        'notification_success' => 'เราจะแจ้งเตือนคุณทันทีเมื่อสินค้าเข้าแล้ว คลิก :link เพื่อยกเลิก',
+        'notification_success' => 'เราจะแจ้งเตือนคุณทันทีเมื่อมีสินค้าเข้า คลิก :link เพื่อยกเลิก',
         'notification_remove_text' => 'ที่นี่',
 
         'notification_in_stock' => 'สินค้านี้มีในคลังเราอยู่แล้ว!',
@@ -140,11 +128,11 @@ return [
     ],
 
     'username_change' => [
-        'check' => 'ใส่ชื่อผู้ใช้เพื่อตรวจสอบความพร้อมการใช้งาน!',
-        'checking' => 'กำลังตรวจความพร้อมใช้งานของ :username...',
+        'check' => 'ใส่ชื่อผู้ใช้เพื่อตรวจสอบสถานะ!',
+        'checking' => 'กำลังตรวจสถานะของ :username...',
         'require_login' => [
             '_' => 'คุณจะต้อง:linkจึงจะเปลี่ยนชื่อได้!',
-            'link_text' => 'เข้าสู่ระบบ',
+            'link_text' => 'ลงชื่อเข้าใช้แล้ว',
         ],
     ],
 

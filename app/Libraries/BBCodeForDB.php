@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
 use App\Models\Smiley;
+use App\Models\User;
 
 class BBCodeForDB
 {
@@ -49,11 +35,16 @@ class BBCodeForDB
 
     public function parseAudio($text)
     {
-        return preg_replace(
-            ",\[(audio)\](.+?\.mp3)\[(/audio)\],",
-            "[\\1:{$this->uid}]\\2[\\3:{$this->uid}]",
-            $text
-        );
+        preg_match_all("#\[audio\](?<url>.*?)\[/audio\]#", $text, $audio, PREG_SET_ORDER);
+
+        foreach ($audio as $a) {
+            $escapedUrl = $this->extraEscapes($a['url']);
+
+            $audioTag = "[audio:{$this->uid}]{$escapedUrl}[/audio:{$this->uid}]";
+            $text = str_replace($a[0], $audioTag, $text);
+        }
+
+        return $text;
     }
 
     /**
@@ -75,8 +66,10 @@ class BBCodeForDB
 
     public function parseBox($text)
     {
-        $text = preg_replace("#(\[box=.*?)\](.*?)(\[/box)\]#s", "\\1:{$this->uid}]\\2\\3:{$this->uid}]", $text);
-        $text = preg_replace("#(\[spoilerbox)\](.*?)(\[/spoilerbox)\]#s", "\\1:{$this->uid}]\\2\\3:{$this->uid}]", $text);
+        $text = preg_replace("#\[box=([^]]*?)\]#s", "[box=\\1:{$this->uid}]", $text);
+        $text = str_replace('[/box]', "[/box:{$this->uid}]", $text);
+        $text = str_replace('[spoilerbox]', "[spoilerbox:{$this->uid}]", $text);
+        $text = str_replace('[/spoilerbox]', "[/spoilerbox:{$this->uid}]", $text);
 
         return $text;
     }
@@ -168,7 +161,15 @@ class BBCodeForDB
 
     public function parseLinks($text)
     {
-        $spaces = ["(^|\s)", "((?:\.|\))?(?:$|\s|\n|\r))"];
+        $spaces = ["(^|\[.+?\]|\s(?:&lt;|[.:([])*)", "((?:\[.+?\]|&gt;|[.:)\]])*(?:$|\s|\n|\r))"];
+        $internalUrl = rtrim(preg_quote(config('app.url'), '#'), '/');
+
+        // internal url
+        $text = preg_replace(
+            "#{$spaces[0]}({$internalUrl}/([^\s]+?)){$spaces[1]}#",
+            "\\1<!-- m --><a href='\\2' rel='nofollow'>\\3</a><!-- m -->\\4",
+            $text
+        );
 
         // plain http/https/ftp
         $text = preg_replace(
@@ -179,14 +180,14 @@ class BBCodeForDB
 
         // www
         $text = preg_replace(
-            "/{$spaces[0]}(www\.[^\s]+){$spaces[1]}/",
+            "#{$spaces[0]}(www\.[^\s]+){$spaces[1]}#",
             "\\1<!-- w --><a href='http://\\2' rel='nofollow'>\\2</a><!-- w -->\\3",
             $text
         );
 
         // emails
         $text = preg_replace(
-            "/{$spaces[0]}([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z-]+){$spaces[1]}/",
+            "#{$spaces[0]}([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z-]+){$spaces[1]}#",
             "\\1<!-- e --><a href='mailto:\\2' rel='nofollow'>\\2</a><!-- e -->\\3",
             $text
         );
@@ -217,20 +218,53 @@ class BBCodeForDB
         return preg_replace(
             "#\[(notice)\](.*?)\[/\\1\]#s",
             "[\\1:{$this->uid}]\\2[/\\1:{$this->uid}]",
-            $text);
+            $text
+        );
     }
 
     public function parseProfile($text)
     {
-        return preg_replace_callback(
-            "#\[profile\](.+?)\[/profile\]#",
-            function ($m) {
-                $name = $this->extraEscapes($m[1]);
+        preg_match_all('#\[profile(?:=(?<id>[0-9]+))?\](?<name>.+?)\[/profile\]#', $text, $tags);
 
-                return "[profile:{$this->uid}]{$name}[/profile:{$this->uid}]";
-            },
-            $text
-        );
+        $count = count($tags[0]);
+
+        if ($count > 0) {
+            $users = User
+                ::whereIn('user_id', $tags['id'])
+                ->orWhereIn('username', $tags['name'])
+                ->orWhereIn('username_clean', $tags['name'])
+                ->get();
+
+            $usersBy = [];
+
+            foreach ($users as $user) {
+                foreach (['user_id', 'username', 'username_clean'] as $key) {
+                    $usersBy[$key][mb_strtolower($user->$key)] = $user;
+                }
+            }
+
+            for ($i = 0; $i < $count; $i++) {
+                $tag = presence($tags[0][$i]);
+                $name = $tags['name'][$i];
+                $nameNormalized = mb_strtolower($name);
+                $id = presence($tags['id'][$i]);
+
+                $user = $usersBy['user_id'][$id] ?? $usersBy['username'][$nameNormalized] ?? $usersBy['username_clean'][$nameNormalized] ?? null;
+
+                if ($user === null || !$user->hasProfileVisible()) {
+                    $idText = '';
+                } else {
+                    $idText = "={$user->getKey()}";
+                    $name = $user->username;
+                }
+
+                $name = $this->extraEscapes($name);
+
+                $text = str_replace($tag, "[profile{$idText}:{$this->uid}]{$name}[/profile:{$this->uid}]", $text);
+            }
+        }
+
+        return $text;
     }
 
     // this is quite different and much more dumb than the one in phpbb
@@ -320,6 +354,7 @@ class BBCodeForDB
     {
         $text = htmlentities($this->text, ENT_QUOTES, 'UTF-8', true);
 
+        $text = $this->unifyNewline($text);
         $text = $this->parseCode($text);
         $text = $this->parseNotice($text);
         $text = $this->parseBox($text);
@@ -327,6 +362,7 @@ class BBCodeForDB
         $text = $this->parseList($text);
 
         $text = $this->parseBlockSimple($text);
+        $text = $this->parseProfile($text);
         $text = $this->parseImage($text);
         $text = $this->parseInlineSimple($text);
         $text = $this->parseHeading($text);
@@ -336,11 +372,15 @@ class BBCodeForDB
         $text = $this->parseSize($text);
         $text = $this->parseColour($text);
         $text = $this->parseYoutube($text);
-        $text = $this->parseProfile($text);
 
         $text = $this->parseSmiley($text);
         $text = $this->parseLinks($text);
 
         return $text;
+    }
+
+    public function unifyNewline($text)
+    {
+        return str_replace(["\r\n", "\r"], ["\n", "\n"], $text);
     }
 }

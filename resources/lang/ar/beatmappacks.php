@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'index' => [
@@ -27,7 +12,10 @@ return [
         'blurb' => [
             'important' => 'اقرأ هذا قبل التحميل',
             'instruction' => [
-                '_' => "التثبيت: عندما يتم تحميل الحزمة, استخرج ملف .rar الى مجلد اغاني osu! الخاص بك.                     كل الأغاني لا تزال مضغوطة و/أو بصيفة osz. داخل الحزمة, لذا osu! سوق تحتاج الى اسخراج الخرائط بذاتها في المرة القادمة عندما تفتح اللعبة.                    :scary استخرج ملفات zip/osz بنفسك,                    او الخرائط سوف تظهر بشكل خاطئ في osu! ولم تقوم بأداء وظيفتها بالشكل المطلوب.",
+                '_' => "التثبيت: عندما يتم تحميل الحزمة, استخرج ملف .rar الى مجلد اغاني osu! الخاص بك.
+                    كل الأغاني لا تزال مضغوطة و/أو بصيفة osz. داخل الحزمة, لذا osu! سوق تحتاج الى اسخراج الخرائط بذاتها في المرة القادمة عندما تفتح اللعبة.
+                    :scary استخرج ملفات zip/osz بنفسك,
+                    او الخرائط سوف تظهر بشكل خاطئ في osu! ولم تقوم بأداء وظيفتها بالشكل المطلوب.",
                 'scary' => 'لا تقم',
             ],
             'note' => [
@@ -42,6 +30,10 @@ return [
         'item' => [
             'cleared' => 'ممحو',
             'not_cleared' => 'غير ممحو',
+        ],
+        'no_diff_reduction' => [
+            '_' => '',
+            'link' => '',
         ],
     ],
 

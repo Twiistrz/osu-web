@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'admin' => [
@@ -30,45 +15,56 @@ return [
     ],
     'error' => [
         'error' => [
-            '_' => 'помилка',
-            '404' => 'відсутні',
-            '403' => 'заборонено',
-            '401' => 'error 401 Unauthorized',
-            '405' => '405 Method Not Allowed',
+            '400' => 'неправильний запит',
+            '404' => 'не знайдено',
+            '403' => 'доступ заборонено',
+            '401' => 'ви не авторизовані',
+            '401-verification' => 'підтвердження аккаунта',
+            '405' => 'не знайдено',
+            '422' => 'невірний запит',
             '500' => 'щось зламалося',
-            '503' => 'обслуговування',
+            '503' => 'технічне обслуговування',
         ],
     ],
     'forum' => [
         '_' => 'форум',
         'topic_watches_controller' => [
-            'index' => 'стільниця',
+            'index' => 'головна',
         ],
     ],
     'main' => [
         'account_controller' => [
-            'edit' => 'стільниця',
+            'edit' => 'головна',
+            'verify_link' => 'підтвердження аккаунта',
         ],
-        'beatmapset_watches_controller' => [
-            'index' => 'стільниця',
+        'artists_controller' => [
+            '_' => 'вибрані виконавці',
         ],
-        'friends_controller' => [
-            'index' => 'стільниця',
-        ],
-        'home_controller' => [
-            'index' => 'стільниця',
-            'get_download' => 'завантажити',
-            'search' => 'пошук',
-            'support_the_game' => 'підтримати гру',
+        'beatmap_discussion_posts_controller' => [
+            '_' => 'публікації в обговореннях біткарти',
         ],
         'beatmap_discussions_controller' => [
             '_' => 'обговорення біткарти',
         ],
-        'beatmap_discussion_posts_controller' => [
-            '_' => 'публікації в обговореннях карти',
+        'beatmap_packs_controller' => [
+            '_' => 'збірки карт',
+        ],
+        'beatmapset_discussion_votes_controller' => [
+            '_' => 'голоса в обговоренні бтікарти',
+        ],
+        'beatmapset_events_controller' => [
+            '_' => 'історія біткарти',
+        ],
+        'beatmapset_watches_controller' => [
+            'index' => 'головна',
+        ],
+        'beatmapsets_controller' => [
+            'discussion' => 'обговорення біткарти',
+            'index' => 'бібліотека біткарт',
+            'show' => 'інформація о біткарті',
         ],
         'changelog_controller' => [
-            '_' => 'список змін',
+            '_' => 'історія змін',
         ],
         'chat_controller' => [
             '_' => 'чат',
@@ -76,14 +72,71 @@ return [
         'comments_controller' => [
             '_' => 'коментарі',
         ],
+        'contests_controller' => [
+            '_' => 'конкурси',
+        ],
+        'friends_controller' => [
+            'index' => 'панель керування',
+        ],
+        'groups_controller' => [
+            'show' => 'групи',
+        ],
+        'home_controller' => [
+            'get_download' => 'завантажити',
+            'index' => 'головна',
+            'search' => 'пошук',
+            'support_the_game' => 'підтримайте гру',
+            'testflight' => 'testflight',
+        ],
         'legal_controller' => [
             '_' => 'інформація',
         ],
         'livestreams_controller' => [
             '_' => 'прямі трансляції',
         ],
+        'matches_controller' => [
+            '_' => 'матчі',
+        ],
+        'news_controller' => [
+            '_' => 'новини',
+        ],
+        'notifications_controller' => [
+            '_' => 'історія сповіщень',
+        ],
+        'password_reset_controller' => [
+            '_' => 'відновлення паролю',
+        ],
+        'ranking_controller' => [
+            '_' => 'рейтинг',
+        ],
+        'scores_controller' => [
+            '_' => 'продуктивність',
+        ],
+        'store_controller' => [
+            '_' => 'osu!store',
+        ],
+        'tournaments_controller' => [
+            '_' => 'турніри',
+        ],
+        'users_controller' => [
+            '_' => 'інформація про гравця',
+            'disabled' => 'увага',
+        ],
         'wiki_controller' => [
-            'show' => 'база знань',
+            '_' => 'база знань',
+        ],
+    ],
+    'multiplayer' => [
+        'rooms_controller' => [
+            '_' => 'рейтинг',
+        ],
+    ],
+    'store' => [
+        '_' => 'osu!store',
+    ],
+    'users' => [
+        'modding_history_controller' => [
+            '_' => 'інформація про модера',
         ],
     ],
 ];

@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Kunde ej spara inlägg',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Kunde ej uppdatera röst',
@@ -33,19 +12,20 @@ return [
 
     'discussions' => [
         'allow_kudosu' => 'tillåt kudosu',
-        'beatmap_information' => '',
+        'beatmap_information' => 'Beatmap Sida',
         'delete' => 'radera',
         'deleted' => 'Raderad av :editor :delete_time.',
         'deny_kudosu' => 'neka kudosu',
         'edit' => 'redigera',
         'edited' => 'Senast redigerad av :editor :update_time.',
-        'kudosu_denied' => 'Kudosu nekad.',
-        'message_placeholder_deleted_beatmap' => 'Denna svårighetsgrad har blivit borttagen så den kan inte längre diskuteras.',
-        'message_placeholder_locked' => '',
-        'message_type_select' => 'Välj Kommentar Typ',
+        'kudosu_denied' => 'Nekad från att skaffa kudosu.',
+        'message_placeholder_deleted_beatmap' => 'Denna svårighetsgrad har tagits bort så den kan inte längre diskuteras.',
+        'message_placeholder_locked' => 'Diskussioner för denna beatmap har inaktiverats.',
+        'message_placeholder_silenced' => "Kan inte lägga upp diskussionen som tystad.",
+        'message_type_select' => 'Välj Kommentarstyp',
         'reply_notice' => 'Tryck enter för att svara.',
         'reply_placeholder' => 'Skriv ditt svar här',
-        'require-login' => 'Var vänlig logga in för att lägga upp inlägg eller svara',
+        'require-login' => 'Var vänlig logga in för att skicka inlägg eller svara',
         'resolved' => 'Löst',
         'restore' => 'återställ',
         'show_deleted' => 'Visa borttagna',
@@ -57,7 +37,7 @@ return [
         ],
 
         'empty' => [
-            'empty' => 'Inga diskussioner än!',
+            'empty' => 'Inga diskussioner ännu!',
             'hidden' => 'Inga diskussioner matchar valt filter.',
         ],
 
@@ -68,19 +48,20 @@ return [
             ],
 
             'prompt' => [
-                'lock' => '',
+                'lock' => 'Orsak till låsning',
                 'unlock' => 'Är du säker på att du vill låsa upp diskussionen?',
             ],
         ],
 
         'message_hint' => [
-            'in_general' => 'Detta inlägg kommer läggas upp på allmän beatmapset diskussion. För att modda denna beatmap, börja meddelandet med en tidsstämpel (e.x. 00:12:345).',
+            'in_general' => 'Detta inlägg kommer att gå till allmän beatmapset diskussion. För att modifiera denna beatmap, starta meddelande med tidsstämpel (t.ex. 00:12:345).',
             'in_timeline' => 'För att modda flera tidsstämplar, lägg upp flera inlägg (ett inlägg för varje tidsstämpel).',
         ],
 
         'message_placeholder' => [
             'general' => 'Skriv här för att posta till General (:version)',
             'generalAll' => 'Skriv här för att posta till General (Alla svårighetsgrader)',
+            'review' => 'Skriv här för att posta en recension',
             'timeline' => 'Skriv här för att posta till Tidslinjen (:version)',
         ],
 
@@ -91,14 +72,14 @@ return [
             'nomination_reset' => 'Återställ Nominering',
             'praise' => 'Beröm',
             'problem' => 'Problem',
-            'review' => '',
+            'review' => 'Recension',
             'suggestion' => 'Förslag',
         ],
 
         'mode' => [
             'events' => 'Historik',
             'general' => 'Allmänt :scope',
-            'reviews' => '',
+            'reviews' => 'Recensioner',
             'timeline' => 'Tidslinje',
             'scopes' => [
                 'general' => 'Denna svårighetsgrad',
@@ -111,7 +92,27 @@ return [
             'timestamp' => 'Tidsstämpel',
             'timestamp_missing' => 'Tryck ctrl-c i redigeringsläget och klistra in ditt meddelande för att lägga till en tidsstämpel!',
             'title' => 'Ny Diskussion',
-            'unpin' => '',
+            'unpin' => 'Lossa',
+        ],
+
+        'review' => [
+            'new' => 'Ny Recension',
+            'embed' => [
+                'delete' => 'Radera',
+                'missing' => '[DISKUSSION RADERAD]',
+                'unlink' => 'Ta bort länk',
+                'unsaved' => 'Ej sparad',
+                'timestamp' => [
+                    'all-diff' => 'Inlägg med "Alla svårighetsgrader" kan inte tidsstämplas.',
+                    'diff' => 'Om denna :type börjar med en tidsstämpel, visas den under Tidslinje.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'infoga paragraf',
+                'praise' => 'infoga beröm',
+                'problem' => 'infoga problem',
+                'suggestion' => 'infoga förslag',
+            ],
         ],
 
         'show' => [
@@ -119,9 +120,9 @@ return [
         ],
 
         'sort' => [
-            'created_at' => '',
-            'timeline' => '',
-            'updated_at' => '',
+            'created_at' => 'Skapelsedatum',
+            'timeline' => 'Tidslinje',
+            'updated_at' => 'Senaste uppdatering',
         ],
 
         'stats' => [
@@ -144,12 +145,12 @@ return [
 
         'votes' => [
             'none' => [
-                'down' => '',
-                'up' => '',
+                'down' => 'Inga nedröster ännu',
+                'up' => 'Inga uppröster ännu',
             ],
             'latest' => [
-                'down' => '',
-                'up' => '',
+                'down' => 'Senaste nedröster',
+                'up' => 'Senaste uppröster',
             ],
         ],
     ],
@@ -172,9 +173,9 @@ return [
     ],
 
     'nominations' => [
-        'delete' => '',
-        'delete_own_confirm' => '',
-        'delete_other_confirm' => '',
+        'delete' => 'Radera',
+        'delete_own_confirm' => 'Är du säker? Beatmapen kommer att raderas och du kommer att omdirigeras tillbaka till din profil.',
+        'delete_other_confirm' => 'Är du säker? Beatmapen kommer att raderas och du kommer att omdirigeras tillbaka till användarens profil.',
         'disqualification_prompt' => 'Anledning för diskvalificering?',
         'disqualified_at' => 'Diskvalificerad :time_ago (:reason).',
         'disqualified_no_reason' => 'inget anledning specificerad',
@@ -185,13 +186,19 @@ return [
         'nominate' => 'Nominera',
         'nominate_confirm' => 'Nominera denna beatmap?',
         'nominated_by' => 'nominerad av :users',
-        'not_enough_hype' => "",
-        'qualified' => 'Beräknad tid när den är rankad är :date, om inga fel hittas.',
-        'qualified_soon' => 'Beräknat att den rankas snart, om inga fel hittas.',
+        'not_enough_hype' => "Det finns inte tillräckligt med hype.",
+        'remove_from_loved' => 'Ta bort från Älskad',
+        'remove_from_loved_prompt' => 'Anledning till borttagandet från Älskad:',
         'required_text' => 'Nomineringar: :current/:required',
         'reset_message_deleted' => 'raderad',
         'title' => 'Nominering Status',
         'unresolved_issues' => 'Det finns fortfarande olösta problem som måste tas hand om först.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => 'rankkö',
+            'soon' => 'snart',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Nomineringsprocessen återställdes :time_ago av :user med ett nytt problem :discussion (:message).',
@@ -200,7 +207,7 @@ return [
 
         'reset_confirm' => [
             'nomination_reset' => 'Är du säker? Lägga upp ett nytt problem kommer återställa nomineringar.',
-            'disqualify' => '',
+            'disqualify' => 'Är du säker? Detta kommer att ta bort beatmap från kvalificering och återställa nomineringsprocessen.',
         ],
     ],
 
@@ -232,7 +239,7 @@ return [
                 'rating' => 'Omdöme',
                 'plays' => 'Spelningar',
                 'relevance' => 'Relevans',
-                'nominations' => '',
+                'nominations' => 'Nomineringar',
             ],
             'supporter_filter_quote' => [
                 '_' => 'Filtrering av :filters kräver en aktiv :link',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Inkludera konverterade beatmaps',
     ],
     'mode' => [
+        'all' => 'Alla',
         'any' => 'Alla',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -254,14 +262,14 @@ return [
     'status' => [
         'any' => 'Alla',
         'approved' => 'Godkänd',
-        'favourites' => '',
+        'favourites' => 'Favoriter',
         'graveyard' => 'Kyrkogård',
         'leaderboard' => 'Har Topplista',
         'loved' => 'Älskad',
-        'mine' => '',
+        'mine' => 'Mina Maps',
         'pending' => 'Pågående & WIP',
         'qualified' => 'Kvalificerad',
-        'ranked' => '',
+        'ranked' => 'Rankad',
     ],
     'genre' => [
         'any' => 'Alla',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elektronisk',
+        'metal' => 'Metal',
+        'classical' => 'Klassisk',
+        'folk' => 'Folk',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spinnat Ut',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => 'Alla',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Koreanska',
         'spanish' => 'Spanska',
         'swedish' => 'Svenska',
+        'russian' => 'Ryska',
+        'polish' => 'Polska',
         'instrumental' => 'Instrumental',
         'other' => 'Annat',
+        'unspecified' => 'Ospecificerat',
     ],
     'played' => [
         'any' => 'Alla',
@@ -335,7 +351,14 @@ return [
         'D' => 'D',
     ],
     'panel' => [
-        'playcount' => '',
-        'favourites' => '',
+        'playcount' => 'Antal spelade: :count',
+        'favourites' => 'Favoriter: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Alla',
+        ],
     ],
 ];

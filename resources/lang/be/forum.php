@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Замацаваныя тэмы',
@@ -25,7 +10,7 @@ return [
     'title' => 'osu! Форум',
 
     'covers' => [
-        'edit' => '',
+        'edit' => 'Змяніць вокладку',
 
         'create' => [
             '_' => 'Усталяваць фонавы відарыс',
@@ -40,7 +25,7 @@ return [
     ],
 
     'forums' => [
-        'latest_post' => '',
+        'latest_post' => 'Апошні допіс',
 
         'index' => [
             'title' => '',
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => 'Выдаліць допіс',
-            'restore' => 'Аднавіць допіс',
             'edit' => 'Рэдагаваць допіс',
+            'report' => '',
+            'restore' => 'Аднавіць допіс',
         ],
 
         'create' => [
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'выдаленая тэма',
         'go_to_latest' => 'праглядзець апошні допіс',
+        'has_replied' => '',
+        'in_forum' => '',
         'latest_post' => ':when ад :user',
         'latest_reply_by' => 'апошні адказ ад :user',
         'new_topic' => 'Новая тэма',
@@ -101,7 +89,7 @@ return [
         'started_by_verbose' => 'пачата :user',
 
         'create' => [
-            'close' => '',
+            'close' => 'Закрыць',
             'preview' => 'Перадпрагляд',
             // TL note: this is used in the topic reply preview, when
             // the user goes back from previewing to editing the reply
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Гэтая тэма заблакаваная і адказваць у ёй немагчыма',
             'to_0' => 'Адкрыць тэму',
+            'to_0_confirm' => '',
             'to_0_done' => 'Тэма была адкрыта',
             'to_1' => 'Закрыць тэму',
+            'to_1_confirm' => 'Закрыць тэму?',
             'to_1_done' => 'Тэма была закрыта',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Адмацаваць тэму',
+            'to_0_confirm' => '',
             'to_0_done' => 'Тэма была адмацавана',
             'to_1' => 'Замацаваць тэму',
+            'to_1_confirm' => 'Замацаваць тэму?',
             'to_1_done' => 'Тэма была замацавана',
             'to_2' => 'Замацаваць тэму і пазначыць як апавяшчэнне',
+            'to_2_confirm' => '',
             'to_2_done' => 'Тэма была замацавана і пазначана як абвяшчэння',
         ],
 
@@ -301,10 +294,10 @@ return [
                 'vote' => 'Галасаваць',
 
                 'button' => [
-                    'change_vote' => '',
+                    'change_vote' => 'Змяніць голас',
                     'edit' => '',
                     'view_results' => '',
-                    'vote' => '',
+                    'vote' => 'Галасаваць',
                 ],
 
                 'detail' => [

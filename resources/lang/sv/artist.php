@@ -1,35 +1,20 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'page_description' => 'Utvalda artister på osu!',
-    'title' => 'Utvalda Artister',
+    'title' => 'Utvalda artister',
 
     'admin' => [
-        'hidden' => 'ARTIST ÄR FÖR NÄRVARANDE GÖMD',
+        'hidden' => 'ARTISTEN ÄR FÖR NÄRVARANDE GÖMD',
     ],
 
     'beatmaps' => [
         '_' => 'Beatmaps',
-        'download' => 'Ladda ner Beatmap Mall',
-        'download-na' => 'Beatmap Mall är inte tillgänglig än',
+        'download' => 'Ladda ner Beatmapmall',
+        'download-na' => 'Beatmapmallen är inte tillgänglig ännu',
     ],
 
     'index' => [
@@ -38,13 +23,13 @@ return [
 
     'links' => [
         'osu' => 'osu! profil',
-        'site' => 'Officiell Hemsida',
+        'site' => 'Officiell hemsida',
     ],
 
     'songs' => [
         '_' => 'Låtar',
         'count' => ':count låt|:count låtar',
-        'exclusive' => 'osu! exklusiva',
+        'exclusive' => 'osu! exklusivt',
     ],
 
     'tracklist' => [

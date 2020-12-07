@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
-        'title' => 'Notificaciones',
-        'topic_auto_subscribe' => 'activa automáticamente las notificaciones en nuevos temas del foro que crees',
         'beatmapset_discussion_qualified_problem' => 'recibir notificaciones de nuevos problemas en mapas calificados de los siguientes modos',
+        'beatmapset_disqualify' => 'recibir notificaciones para cuando se descalifiquen los mapas de los siguientes modos',
+        'comment_reply' => 'recibir notificaciones de respuestas a sus comentarios',
+        'title' => 'Notificaciones',
+        'topic_auto_subscribe' => 'activar automáticamente las notificaciones en nuevos temas del foro que cree',
 
-        'mail' => [
-            '_' => 'recibir notifiaciones por correo',
+        'options' => [
+            '_' => 'opciones de entrega',
             'beatmapset:modding' => 'modding de mapas',
-            'forum_topic_reply' => 'respuesta al tema',
+            'channel_message' => 'mensajes de chat privados',
+            'comment_new' => 'nuevos comentarios',
+            'forum_topic_reply' => 'respuestas a temas',
+            'mail' => 'correo electrónico',
+            'push' => 'push',
+            'user_achievement_unlock' => 'medallas desbloqueadas',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'clientes autorizados',
         'own_clients' => 'clientes propios',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Opciones',
+
+        'beatmapset_download' => [
+            '_' => 'tipo de descarga de mapa predeterminado',
+            'all' => 'con vídeo si está disponible',
+            'no_video' => 'sin vídeo',
+            'direct' => 'abrir en osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'mostrar datos de mapas en su idioma original',
     ],
 
     'playstyles' => [
@@ -90,7 +95,7 @@ return [
     ],
 
     'privacy' => [
-        'friends_only' => 'bloquear los mensajes privados de usuarios que no están en tu lista de amigos',
+        'friends_only' => 'bloquear los mensajes privados de personas que no están en la lista de amigos',
         'hide_online' => 'mostrarse como desconectado',
         'title' => 'Privacidad',
     ],
@@ -98,8 +103,8 @@ return [
     'security' => [
         'current_session' => 'actual',
         'end_session' => 'Cerrar sesión',
-        'end_session_confirmation' => 'Esto cerrará inmediatamente su sesión en ese dispositivo. ¿Esta seguro?',
-        'last_active' => 'Última vez activo:',
+        'end_session_confirmation' => 'Esto cerrará inmediatamente su sesión en ese dispositivo. ¿Está seguro?',
+        'last_active' => 'Última conexión:',
         'title' => 'Seguridad',
         'web_sessions' => 'sesiones web',
     ],

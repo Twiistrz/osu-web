@@ -1,28 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
         'disabled' => '該圖譜現在無法下載。',
         'parts-removed' => '因作者或第三方版權擁有者的要求，故該圖譜已經下架。',
-        'more-info' => '點擊這裡查看更多訊息。',
+        'more-info' => '點擊這裡查看更多資訊。',
     ],
 
     'index' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => '圖譜',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => '下載',
+            'video' => '下載並包含影片',
+            'no_video' => '下載並不包含影片',
+            'direct' => '在osu!direct中查看',
+        ],
+    ],
+
     'show' => [
         'discussion' => '討論',
 
         'details' => [
-            'approved' => '核準於 ',
             'favourite' => '收藏這張圖譜',
             'logged-out' => '下載圖譜前請先登入！',
-            'loved' => 'loved 於 ',
             'mapped_by' => '由 :mapper 製作',
-            'qualified' => 'qualified 於 ',
-            'ranked' => '進榜於 ',
-            'submitted' => '發佈於 ',
             'unfavourite' => '取消收藏',
-            'updated' => '上次更新於 ',
             'updated_timeago' => '最後更新時間 :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => '以使用更多的功能',
                 'top' => '登入',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => '',
+            'loved' => '',
+            'qualified' => '',
+            'ranked' => '於:timeago進榜',
+            'submitted' => '於:timeago提交',
+            'updated' => '上次更新於:timeago',
         ],
 
         'favourites' => [
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => '如果你認為此圖譜有問題，可將之取消提名：:link',
-                'button_title' => '取消提名已被Qualified的圖譜',
             ],
 
             'report' => [
                 '_' => '如果您發現此圖譜有問題，請在 :link 通知團隊。',
                 'button' => '回報問題',
-                'button_title' => '在 qualified 的圖譜上回報問題。',
                 'link' => '這裡',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => '來源',
             'success-rate' => '成功率',
             'tags' => '標籤',
-            'unranked' => '未進榜圖譜',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => '排行榜',
                 'score_total' => '總分',
                 'score' => '得分',
+                'time' => '時間',
             ],
 
             'no_scores' => [

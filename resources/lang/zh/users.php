@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[被删除的用户]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '成员按游戏模式筛选',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "您已经很长时间没有使用您的账户了。",
@@ -99,6 +88,7 @@ return [
         'failed' => '登录失败',
         'forgot' => '忘记密码？',
         'info' => '请登录以继续',
+        'invalid_captcha' => '验证码无效，请刷新页面后重试。',
         'locked_ip' => 'IP 已被锁定，请稍等几分钟',
         'password' => '密码',
         'register' => "没有 osu! 账户？现在就注册一个！",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => '当前在线',
         'missingtext' => '未找到用户！（或者该用户已经被 ban）',
         'origin_country' => '来自 :country',
-        'page_description' => 'osu! - 你想知道的关于 :username 的一切!',
         'previous_usernames' => '曾用名',
         'plays_with' => '惯用 :devices',
         'title' => ":username 的个人资料",
@@ -174,7 +163,7 @@ return [
                     'button' => '上传图片',
                     'dropzone' => '拖拽到此处',
                     'dropzone_info' => '将图片拖动到这里也可以上传',
-                    'size_info' => '图片大小最好是 2800x620 像素',
+                    'size_info' => '图片大小最好是 2400x620 像素',
                     'too_large' => '上传的图片过大。',
                     'unsupported_format' => '不支持的格式。',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'by :artist',
-                'none' => '暂时没有...',
                 'title' => '谱面',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => '查看更多事件',
             ],
             'historical' => [
-                'empty' => '没有游戏记录。:(',
                 'title' => '历史记录',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => '可用 kudosu',
-                'available_info' => "kudosu 可以兑换为 kudosu 星,它可以让你的谱面更引人注意。这是你还没有兑换的 kudosu 数。",
                 'recent_entries' => '最近 Kudosu 记录',
                 'title' => 'Kudosu!',
                 'total' => '总共获得 kudosu',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => '下载回放',
-                'empty' => '还没有上传过成绩。 :(',
                 'not_ranked' => '只有 ranked 谱面才能得到 pp。',
                 'pp_weight' => '权重：:percentage',
+                'view_details' => '查看详情',
                 'title' => '成绩',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => '兴趣爱好',
-            'lastfm' => 'Last.fm',
             'location' => '所在地',
             'occupation' => '职业',
             'skype' => 'Skype',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '方块视图',
         'card' => '卡片检视',
         'list' => '列表检视',
     ],

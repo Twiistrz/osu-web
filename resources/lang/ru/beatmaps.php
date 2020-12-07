@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Не удалось сохранить публикацию',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Не удалось обновить ответ',
@@ -42,10 +21,11 @@ return [
         'kudosu_denied' => 'Отказано в получении кудосу.',
         'message_placeholder_deleted_beatmap' => 'Эта сложность была удалена, и поэтому обсуждать её больше нельзя.',
         'message_placeholder_locked' => 'Обсуждение этой карты было отключено.',
+        'message_placeholder_silenced' => "Запрещено публиковать обсуждение, пока вы заглушены.",
         'message_type_select' => 'Выбрать тип комментария',
-        'reply_notice' => 'Нажмите Enter для ответа.',
+        'reply_notice' => 'Нажмите Enter, чтобы ответить.',
         'reply_placeholder' => 'Введите тут ответ',
-        'require-login' => 'Чтобы оставить сообщение или ответить, пожалуйста, войдите в аккаунт',
+        'require-login' => 'Пожалуйста, войдите в аккаунт, чтобы оставить сообщение или ответить',
         'resolved' => 'Решено',
         'restore' => 'восстановить',
         'show_deleted' => 'Показать удалённые',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Введите здесь, чтобы запостить в Общий (:version)',
             'generalAll' => 'Введите здесь, чтобы запостить в Общий (Все сложности)',
+            'review' => 'Введите здесь, что бы оставить отзыв',
             'timeline' => 'Введите здесь, чтобы запостить в временную шкалу (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'нажмите Ctrl + C в режиме редактирования, чтобы скопировать временную отметку и вставить в сообщение!',
             'title' => 'Новый отзыв',
             'unpin' => 'Открепить',
+        ],
+
+        'review' => [
+            'new' => 'Новый отзыв',
+            'embed' => [
+                'delete' => 'Удалить',
+                'missing' => '[ТЕМА УДАЛЕНА]',
+                'unlink' => 'Отвязать',
+                'unsaved' => 'Не сохранено',
+                'timestamp' => [
+                    'all-diff' => 'Записи для всех сложностей не могут иметь временных отметок.',
+                    'diff' => 'Если :type начинается с временной отметки, оно будет показано в Временной шкале.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'вставить параграф',
+                'praise' => 'вставить похвалу',
+                'problem' => 'вставить проблему',
+                'suggestion' => 'вставить предложение',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Номинировать эту карту?',
         'nominated_by' => 'номинирована :users',
         'not_enough_hype' => "Недостаточно хайпа.",
-        'qualified' => 'Если проблем больше нет, карта получит статус «Рейтинговая» примерно :date.',
-        'qualified_soon' => 'Если проблем больше нет, карта скоро получит статус «Рейтинговая».',
-        'required_text' => 'Номинации: :current/:required',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => 'Причина удаления из Любимых:',
+        'required_text' => 'Номинаций: :current/:required',
         'reset_message_deleted' => 'удалено',
         'title' => 'Статус номинации',
         'unresolved_issues' => 'Ещё остались нерешенные проблемы, которые необходимо решить в первую очередь.',
+
+        'rank_estimate' => [
+            '_' => 'Эта карта будет ранкнута :date, если не будет найдено проблем. Она #:position в :queue.',
+            'queue' => 'очереди ранка',
+            'soon' => 'скоро',
+        ],
 
         'reset_at' => [
             'nomination_reset' => ':user сбросил прогресс номинаций :time_ago из-за новой проблемы :discussion (:message).',
@@ -206,7 +213,7 @@ return [
 
     'listing' => [
         'search' => [
-            'prompt' => 'начните вводить ключевые слова ...',
+            'prompt' => 'введите ключевые слова...',
             'login_required' => 'Войдите, чтобы искать.',
             'options' => 'Больше настроек поиска',
             'supporter_filter' => 'Фильтрация по :filters требует наличия osu!supporter',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Включить конвертированные карты',
     ],
     'mode' => [
+        'all' => 'Все',
         'any' => 'Все',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Новый',
         'hip-hop' => 'Хип-хоп',
         'electronic' => 'Электроника',
+        'metal' => 'Метал',
+        'classical' => 'Классика',
+        'folk' => 'Народная',
+        'jazz' => 'Джаз',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Touch Device',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => 'Все',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Корейский',
         'spanish' => 'Испанский',
         'swedish' => 'Шведский',
+        'russian' => 'Русский',
+        'polish' => 'Польский',
         'instrumental' => 'Инструментальный',
         'other' => 'Другой',
+        'unspecified' => 'Не определён',
     ],
     'played' => [
         'any' => 'Все',
@@ -336,6 +352,13 @@ return [
     ],
     'panel' => [
         'playcount' => 'Количество игр: :count',
-        'favourites' => 'В любимых: :count',
+        'favourites' => 'В избранном: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Все',
+        ],
     ],
 ];

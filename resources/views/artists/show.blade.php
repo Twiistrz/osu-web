@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @php
     $headerLinks = [
@@ -64,15 +51,18 @@
                 @if (count($albums) > 0)
                     <div class="artist__albums">
                         @foreach ($albums as $album)
-                            <div class="artist-album">
+                            <div class="artist-album js-audio--group">
                                 <a class="fragment-target" name="album-{{$album['id']}}" id="album-{{$album['id']}}"></a>
                                 <div class="artist-album__header">
                                     <div class="artist-album__header-overlay{{$album['is_new'] ? ' artist-album__header-overlay--new' : ''}}" style="background-image: url({{$album['cover_url']}});"></div>
                                     <img class="artist-album__cover" src="{{$album['cover_url']}}">
                                     <span class="artist-album__title">{{$album['title']}}</span>
-                                    <span class="artist-album__spacer"></span>
                                     @if ($album['is_new'])
-                                        <span class="pill-badge pill-badge--yellow pill-badge--with-shadow">{{trans('common.badges.new')}}</span>
+                                        <span class="artist-album__badge">
+                                            <span class="pill-badge pill-badge--yellow pill-badge--with-shadow">
+                                                {{trans('common.badges.new')}}
+                                            </span>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="js-react--artistTracklist" data-src="album-json-{{$album['id']}}"></div>

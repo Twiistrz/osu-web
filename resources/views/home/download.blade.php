@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @extends('master')
 
@@ -74,14 +61,31 @@
             </div>
             <div class="download-page__text download-page__text--description">
                 {!! trans('home.download.steps.beatmaps.description._', [
-                    'browse' =>
-                        '<a class="download-page__link" href="'.e(route('beatmapsets.index')).'" >'.
-                        trans('home.download.steps.beatmaps.description.browse').
-                        '</a>',
+                    'browse' => tag(
+                        'a',
+                        ['href' => route('beatmapsets.index')],
+                        trans('home.download.steps.beatmaps.description.browse')
+                    )
                 ]) !!}
             </div>
         </div>
-        <div class="download-page__accent"></div>
+
+        @if (config('services.enchant.id') !== null)
+            <div class="download-page__help">
+                {!! trans('home.download.help._', [
+                    'support_button' => tag('a', [
+                        'class' => 'js-enchant--show',
+                        'role' => 'button',
+                        'href' => '#',
+                    ], trans('home.download.help.support_button')),
+                    'help_forum_link' => tag('a', [
+                        'href' => route('forum.forums.show', ['forum' => config('osu.forum.help_forum_id')]),
+                    ], trans('home.download.help.help_forum_link')),
+                ]) !!}
+            </div>
+
+            @include('objects._enchant')
+        @endif
     </div>
 </div>
 

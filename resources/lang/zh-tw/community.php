@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -27,7 +12,7 @@ return [
             'instructions' => '點擊愛心前往 osu! 商店',
         ],
         'why-support' => [
-            'title' => '我為什麼要支持osu!? 錢都花到哪兒了?',
+            'title' => '我為什麼要支持 osu! ？錢都花到哪兒了？',
 
             'team' => [
                 'title' => '支持團隊',
@@ -105,7 +90,7 @@ return [
             ],
 
             'yellow_fellow' => [
-                'title' => '高亮用戶名',
+                'title' => '高亮使用者名稱',
                 'description' => '聊天時，用戶名會變成亮黃色。',
             ],
 
@@ -148,12 +133,12 @@ return [
             ],
             'friend_filtering' => [
                 'title' => '好友排行榜',
-                'description' => '和您的朋友一起競賽，看看你如何超越他們的排名!*<br/><br/><small>*此功能目前尚未在新網站啟用，即將上線(tm)</small>',
+                'description' => '和您的朋友一起競賽，看看你如何超越他們的排名!',
             ],
 
         ],
         'supporter_status' => [
-            'contribution' => '感謝您一直以來的支持！你已經捐贈了 :dollars 並購買了 :tags 次贊助者標籤！',
+            'contribution' => '感謝您一直以來的支持！您已經捐贈了 :dollars 並購買了 :tags 次贊助者標籤！',
             'gifted' => "您已經捐贈了 :giftedTags 次贊助者標籤（花費了 :giftedDollars ），真慷慨啊！",
             'not_yet' => "您還沒有贊助者標籤 :(",
             'valid_until' => '您的贊助者標籤將在 :date 到期',

@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @php
     $isRead = $topicReadStatus[$topic->topic_id] ?? false;
@@ -28,9 +15,13 @@
     "
     data-topic-id="{{ $topic->topic_id }}"
 >
-    <div class="forum-item-stripe u-forum--before-bg"><span class="fas fa-angle-right"></span></div>
+    <div class="forum-item-stripe u-forum--before-bg"><span class="u-relative fas fa-angle-right"></span></div>
 
     <div class="forum-topic-entry__col forum-topic-entry__col--icon">
+        @if (isset($topicReplyStatus[$topic->getKey()]))
+            <span class="forum-topic-entry__replied" title="{{ trans('forum.topic.has_replied') }}"></span>
+        @endif
+
         <a
             class="
                 forum-topic-entry__icon
@@ -69,17 +60,30 @@
             </a>
 
             <div>
-                {!! trans('forum.topic.started_by', [
-                    'user' => tag('span', [
-                        'class' => 'forum-topic-entry__user-icon',
-                        'style' => user_color_style($topic->topic_first_poster_colour, 'background-color'),
-                    ]).' '.link_to_user(
-                        $topic->topic_poster,
-                        $topic->topic_first_poster_name,
-                        null,
-                        ['forum-topic-entry__link']
-                    )
-                ]) !!}
+                @if ($includeForumName ?? false)
+                    <span class="forum-topic-entry__detail">
+                        {!! trans('forum.topic.in_forum', [
+                            'forum' => link_to(
+                                route('forum.forums.show', $topic->forum),
+                                $topic->forum->forum_name
+                            ),
+                        ]) !!}
+                    </span>
+                @endif
+
+                <span class="forum-topic-entry__detail">
+                    {!! trans('forum.topic.started_by', [
+                        'user' => tag('span', [
+                            'class' => 'forum-topic-entry__user-icon',
+                            'style' => user_color_style($topic->topic_first_poster_colour, 'background-color'),
+                        ]).' '.link_to_user(
+                            $topic->topic_poster,
+                            $topic->topic_first_poster_name,
+                            null,
+                            []
+                        )
+                    ]) !!}
+                </span>
             </div>
         </div>
 
@@ -134,7 +138,7 @@
                         $topic->topic_last_poster_id,
                         $topic->topic_last_poster_name,
                         null,
-                        ['forum-topic-entry__link']
+                        []
                     )]
                 ) !!}
             </div>

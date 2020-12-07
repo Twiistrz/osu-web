@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'index' => [
@@ -27,14 +12,14 @@ return [
         'blurb' => [
             'important' => 'BACA INI SEBELUM MENGUNDUH',
             'instruction' => [
-                '_' => "Pemasangan: Setelah paket beatmap diunduh, ekstrak .rar ke direktori osu! Songs.
-                    Semua lagu masih dalam bentuk .zip dan/atau .osz di dalam paket, osu! akan mengekstrak beatmap dengan sendirinya saat Anda masuk ke mode Play.
-                    :scary ekstrak zip/osz sendiri,
-                    atau beatmap akan ditampilkan secara tidak benar di dalam osu! dan tidak akan berfungsi dengan baik.",
+                '_' => "Petunjuk Pemasangan: Setelah paket beatmap selesai diunduh, ekstrak file .rar yang tersedia ke dalam folder Songs pada direktori osu! Anda.
+                    Seluruh beatmap yang terkandung di dalam paket yang Anda unduh telah disediakan dalam bentuk .zip dan/atau .osz, di mana osu! akan kemudian memproses berkas-berkas yang terkait dengan sendirinya ketika Anda masuk ke dalam mode Play.
+                    :scary ekstrak .zip/.osz yang ada secara manual,
+                    karena ada kemungkinan berkas-berkas beatmap yang bersangkutan nantinya tidak akan dapat dimuat oleh osu! dan dimainkan sebagaimana semestinya.",
                 'scary' => 'JANGAN',
             ],
             'note' => [
-                '_' => 'Mohon diingat bahwa sangat disarankan bagi Anda untuk :scary, mengingat map-map yang berasal dari era yang lebih lama pada umumnya cenderung memiliki kualitas yang jauh lebih rendah daripada map-map yang berasal dari era yang lebih modern.',
+                '_' => 'Di samping itu, Anda juga sangat disarankan untuk :scary mengingat pada umumnya map-map keluaran terdahulu memiliki kualitas yang jauh lebih rendah dibanding map-map keluaran terbaru.',
                 'scary' => 'mengunduh paket dari yang terbaru ke yang paling lama',
             ],
         ],
@@ -43,8 +28,12 @@ return [
     'show' => [
         'download' => 'Unduh',
         'item' => [
-            'cleared' => 'telah diselesaikan',
-            'not_cleared' => 'belum diselesaikan',
+            'cleared' => 'telah dimainkan',
+            'not_cleared' => 'belum dimainkan',
+        ],
+        'no_diff_reduction' => [
+            '_' => 'Anda tidak boleh menggunakan :link untuk dapat membuka medali yang terhubung dengan paket beatmap ini.',
+            'link' => 'mod-mod yang mempermudah permainan (EZ, NF, atau HT)',
         ],
     ],
 
@@ -52,7 +41,7 @@ return [
         'artist' => 'Artis/Album',
         'chart' => 'Spotlights',
         'standard' => 'Standar',
-        'theme' => 'Tema',
+        'theme' => 'Tematik',
     ],
 
     'require_login' => [

@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => '投稿の保存に失敗しました',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => '評価の更新に失敗しました',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'kudosuの入手を拒否されました。',
         'message_placeholder_deleted_beatmap' => 'この難易度は削除された為これ以上ディスカッションに投稿できません。',
         'message_placeholder_locked' => 'このビートマップに関するディスカッションは無効になっています。',
+        'message_placeholder_silenced' => "サイレンス中はディスカッションへ投稿できません。",
         'message_type_select' => 'コメントタイプを選択',
         'reply_notice' => 'Enterキーを押して送信',
         'reply_placeholder' => 'ここに入力してください',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => '一般（:version）への投稿をここに入力',
             'generalAll' => '一般 （全ての難易度）への投稿をここに入力',
+            'review' => 'レビューを投稿するにはここに入力してください',
             'timeline' => 'タイムライン（:version）へ投稿するにはここに入力',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'ゲーム内のEdit画面でCtrl+Cを押してメッセージに張り付けるとタイムスタンプになります！',
             'title' => '新しいディスカッション',
             'unpin' => 'ピン解除',
+        ],
+
+        'review' => [
+            'new' => '新しいレビュー',
+            'embed' => [
+                'delete' => '削除',
+                'missing' => '[削除されたディスカッション]',
+                'unlink' => 'リンク解除',
+                'unsaved' => '未保存',
+                'timestamp' => [
+                    'all-diff' => '「全ての難易度」に関する投稿はタイムスタンプできません。',
+                    'diff' => 'この:typeがタイムスタンプで始まる場合、タイムラインの下に表示されます。',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '段落の挿入',
+                'praise' => '称賛を挿入',
+                'problem' => '問題の挿入',
+                'suggestion' => '提案を挿入',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'このビートマップをノミネートしますか？',
         'nominated_by' => ':usersがノミネート',
         'not_enough_hype' => "Hypeが足りません",
-        'qualified' => '特に問題がなかった場合、:dateにランク予定です。',
-        'qualified_soon' => '特に問題がなかった場合、間もなくランクされる予定です。',
+        'remove_from_loved' => 'Lovedから削除',
+        'remove_from_loved_prompt' => 'Lovedから削除した理由：',
         'required_text' => 'ノミネート数: :current/:required',
         'reset_message_deleted' => '削除済み',
         'title' => 'ノミネートのステータス',
         'unresolved_issues' => 'まだ未解決の問題があります。',
+
+        'rank_estimate' => [
+            '_' => 'このマップは、問題が見つからなければ :date にrankedされると推定されます。:queue 内の #:position ',
+            'queue' => 'ランキングキュー',
+            'soon' => '間もなく',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'ノミネーション審査が:userによる新しい問題:discussion （:message）により、:time_agoにリセットされました。',
@@ -245,6 +252,7 @@ return [
         'converts' => 'コンバートビートマップを含める',
     ],
     'mode' => [
+        'all' => '',
         'any' => '全て',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -265,7 +273,7 @@ return [
     ],
     'genre' => [
         'any' => '全て',
-        'unspecified' => '未指定',
+        'unspecified' => '未分類',
         'video-game' => 'ゲーム',
         'anime' => 'アニメ',
         'rock' => 'ロック',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'ノベルティ',
         'hip-hop' => 'ヒップホップ',
         'electronic' => 'エレクトロニック',
+        'metal' => 'メタル',
+        'classical' => 'クラシカル',
+        'folk' => 'フォーク',
+        'jazz' => 'ジャズ',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => '液晶タブレット',
+        'V2' => 'スコア V2',
     ],
     'language' => [
         'any' => '全て',
@@ -311,8 +324,11 @@ return [
         'korean' => '韓国語',
         'spanish' => 'スペイン語',
         'swedish' => 'スウェーデン語',
+        'russian' => 'ロシア語',
+        'polish' => 'ポーランド語',
         'instrumental' => '楽器',
         'other' => 'その他',
+        'unspecified' => '未分類',
     ],
     'played' => [
         'any' => '全て',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'プレイ回数：:count',
         'favourites' => 'お気に入り：:count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => '全て',
+        ],
     ],
 ];

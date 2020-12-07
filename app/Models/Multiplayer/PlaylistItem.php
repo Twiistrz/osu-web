@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\Multiplayer;
 
@@ -37,7 +22,7 @@ use App\Models\Model;
  * @property Room $room
  * @property int $room_id
  * @property int|null $ruleset_id
- * @property \Illuminate\Database\Eloquent\Collection $scores RoomScore
+ * @property \Illuminate\Database\Eloquent\Collection $scores Score
  * @property \Carbon\Carbon|null $updated_at
  */
 class PlaylistItem extends Model
@@ -65,7 +50,7 @@ class PlaylistItem extends Model
 
     public static function fromJsonParams($json)
     {
-        $obj = new self;
+        $obj = new self();
         foreach (['beatmap_id', 'ruleset_id'] as $field) {
             $obj->$field = array_get($json, $field);
             if (!present($obj->$field)) {
@@ -96,46 +81,22 @@ class PlaylistItem extends Model
         return $this->belongsTo(Beatmap::class, 'beatmap_id')->withTrashed();
     }
 
+    public function highScores()
+    {
+        return $this->hasMany(PlaylistItemUserHighScore::class);
+    }
+
     public function scores()
     {
-        return $this->hasMany(RoomScore::class);
+        return $this->hasMany(Score::class);
     }
 
     public function topScores()
     {
-        $scores = $this->scores()->completed()->get();
-
-        // sort by total_score desc and then date asc if scores are equal
-        $baseResult = $scores->sort(function ($a, $b) {
-            if ($a->total_score === $b->total_score) {
-                if ($a->ended_at->timestamp === $b->ended_at->timestamp) {
-                    // On the rare chance that both were submitted in the same second, default to submission order
-                    return ($a->id < $b->id) ? -1 : 1;
-                }
-
-                return ($a->ended_at->timestamp < $b->ended_at->timestamp) ? -1 : 1;
-            }
-
-            return ($a->total_score > $b->total_score) ? -1 : 1;
-        });
-
-        $result = [];
-        $users = [];
-
-        foreach ($baseResult as $entry) {
-            if (isset($users[$entry->user_id])) {
-                continue;
-            }
-
-            // if (count($result) >= $limit) {
-            //     break;
-            // }
-
-            $users[$entry->user_id] = true;
-            $result[] = $entry;
-        }
-
-        return $result;
+        return $this->highScores()
+            ->with('score')
+            ->orderBy('total_score', 'desc')
+            ->orderBy('score_id', 'asc');
     }
 
     private function validateRuleset()

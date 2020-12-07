@@ -1,30 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\Chat;
 
+use App\Libraries\Notification\BatchIdentities;
 use App\Models\User;
 use App\Models\UserNotification;
-use App\Models\UserRelation;
 use DB;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @property Channel $channel
@@ -56,6 +40,12 @@ class UserChannel extends Model
         return $this->belongsTo(Channel::class, 'channel_id');
     }
 
+    // Laravel has own hidden property
+    public function isHidden()
+    {
+        return (bool) $this->getAttribute('hidden');
+    }
+
     public function markAsRead($messageId = null)
     {
         $maxId = get_int($messageId ?? Message::where('channel_id', $this->channel_id)->max('message_id'));
@@ -67,113 +57,138 @@ class UserChannel extends Model
         // this prevents the read marker from going backwards
         $this->update(['last_read_id' => DB::raw("GREATEST(COALESCE(last_read_id, 0), $maxId)")]);
 
-        $params = [
-            'category' => 'channel',
-            'object_type' => 'channel',
-            'object_id' => $this->channel_id,
-        ];
-        UserNotification::markAsReadByNotificationIdentifier($this->user, $params);
+        UserNotification::batchMarkAsRead($this->user, BatchIdentities::fromParams([
+            'identities' => [
+                [
+                    'category' => 'channel',
+                    'object_type' => 'channel',
+                    'object_id' => $this->channel_id,
+                ],
+            ],
+        ]));
     }
 
     public static function presenceForUser(User $user)
     {
-        $userId = $user->user_id;
-
         // retrieve all the channels the user is in and the metadata for each
-        $userChannels = self::where('user_channels.user_id', $userId)
-            ->where('hidden', false)
-            ->join('channels', 'channels.channel_id', '=', 'user_channels.channel_id')
-            ->selectRaw('channels.*')
-            ->selectRaw('user_channels.last_read_id')
+        $userChannels = static::forUser($user)
+            ->whereHas('channel')
+            ->with('channel')
             ->get();
 
         $channelIds = $userChannels->pluck('channel_id');
 
         // including MAX(message_id) in above query is slow for large channels.
-        $lastMessageIds = Message::whereIn('channel_id', $channelIds)
+        // TODO: last_message_id seems like something that can be handled client side?
+        $channelMessageIds = Message::whereIn('channel_id', $channelIds)
             ->groupBy('channel_id')
             ->select('channel_id')
+            ->selectRaw('MIN(message_id) as first_message_id')
             ->selectRaw('MAX(message_id) as last_message_id')
             ->get()
             ->keyBy('channel_id');
 
-        // fetch the users in each of the channels (and whether they're restricted and/or blocked)
-        $userRelationTableName = (new UserRelation)->tableName(true);
-        $userChannelMembers = self::whereIn('user_channels.channel_id', $channelIds)
-            ->selectRaw('user_channels.*')
-            ->selectRaw('phpbb_zebra.foe')
-            ->leftJoin($userRelationTableName, function ($join) use ($userRelationTableName, $userId) {
-                $join->on("{$userRelationTableName}.zebra_id", 'user_channels.user_id')
-                    ->where("{$userRelationTableName}.user_id", $userId);
+        // Getting user list; Limited to PM channels due to large size of public channels.
+        // FIXME: Chat needs reworking so it doesn't need to preload all this extra data every update.
+        $userPmChannels = static::whereIn('channel_id', $channelIds)
+            ->whereHas('channel', function ($q) {
+                $q->where('type', 'PM');
             })
-            ->join('channels', 'channels.channel_id', '=', 'user_channels.channel_id')
-            ->where('channels.type', '=', 'PM')
-            ->with('userScoped')
             ->get();
 
-        $byUserId = $userChannelMembers->keyBy('user_id');
-        // keyBy overrides existing values
-        $byChannelId = [];
-        foreach ($userChannelMembers as $userChannelMember) {
-            $channelId = $userChannelMember->channel_id;
-            if (!isset($byChannelId[$channelId])) {
-                $byChannelId[$channelId] = [];
-            }
-
-            if ($userChannelMember->userScoped) {
-                // TODO: Decided whether we want to return user objects everywhere or just user_ids
-                $byChannelId[$channelId][] = $userChannelMember->user_id;
-            }
+        $userIdsByChannelId = [];
+        $userIdsUnique = [];
+        foreach ($userPmChannels as $userPmChannel) {
+            $userIdsUnique[$userPmChannel->user_id] = null;
+            $userIdsByChannelId[$userPmChannel->channel_id][] = $userPmChannel->user_id;
         }
 
-        $collection = json_collection(
-            $userChannels,
-            function ($userChannel) use ($byChannelId, $byUserId, $lastMessageIds, $userId) {
-                $presence = [
-                    'channel_id' => $userChannel->channel_id,
-                    'type' => $userChannel->type,
-                    'name' => $userChannel->name,
-                    'description' => presence($userChannel->description),
-                    'last_read_id' => $userChannel->last_read_id,
-                    'last_message_id' => optional($lastMessageIds[$userChannel->channel_id] ?? null)->last_message_id,
-                ];
+        $users = User::default()
+            ->whereIn('user_id', array_keys($userIdsUnique))
+            ->with([
+                // only fetch data related to $user, to be used by ChatStart privilege check
+                'friends' => function ($query) use ($user) {
+                    $query->where('zebra_id', $user->getKey());
+                },
+                'blocks' => function ($query) use ($user) {
+                    $query->where('zebra_id', $user->getKey());
+                },
+            ])
+            ->get();
 
-                if ($userChannel->type !== Channel::TYPES['public']) {
-                    // filter out restricted users from the listing
-                    $filteredChannelMembers = $byChannelId[$userChannel->channel_id] ?? [];
-                    $presence['users'] = $filteredChannelMembers;
-                }
+        // If any channel users are blocked, preload the user groups of those users for the isModerator check.
+        $blockedIds = $users->pluck('user_id')->intersect($user->blocks->pluck('user_id'));
+        if ($blockedIds->isNotEmpty()) {
+            // Yes, the sql will look stupid.
+            $users->load(['userGroups' => function ($query) use ($blockedIds) {
+                $query->whereIn('user_id', $blockedIds);
+            }]);
+        }
 
-                if ($userChannel->type === Channel::TYPES['pm']) {
-                    // remove ourselves from $membersArray, leaving only the other party
-                    $members = array_diff($filteredChannelMembers, [$userId]);
-                    $targetUser = $byUserId[array_shift($members)] ?? null;
+        $usersById = $users->keyBy('user_id');
 
-                    // hide if target is restricted ($targetUser missing) or is blocked ($targetUser->foe)
-                    if (!$targetUser || $targetUser->foe) {
-                        return [];
+        // End getting user list.
+
+        $collection = json_collection($userChannels, function ($userChannel) use ($channelMessageIds, $user, $userIdsByChannelId, $usersById) {
+            $channel = $userChannel->channel;
+            $messageEnds = $channelMessageIds[$channel->getKey()] ?? null;
+
+            $presence = [
+                'channel_id' => $channel->channel_id,
+                'type' => $channel->type,
+                'name' => $channel->name,
+                'description' => presence($channel->description),
+                'last_read_id' => $userChannel->last_read_id,
+                'first_message_id' => optional($messageEnds)->first_message_id,
+                'last_message_id' => optional($messageEnds)->last_message_id,
+                'moderated' => $channel->moderated,
+            ];
+
+            $channelUserIds = [];
+            // filter out restricted users from the listing
+            // this says != PUBLIC but really is just == PM because of the data loaded.
+            if ($channel->type !== Channel::TYPES['public']) {
+                $userIds = $userIdsByChannelId[$channel->getKey()] ?? [];
+
+                foreach ($userIds as $userId) {
+                    if ($usersById[$userId] ?? null) {
+                        $channelUserIds[] = $userId;
                     }
+                }
+            }
 
-                    // override channel icon and display name in PMs to always show the other party
-                    $userActual = $targetUser->userScoped;
-                    $presence['icon'] = $userActual->user_avatar;
-                    $presence['name'] = $userActual->username;
+            $presence['users'] = $channelUserIds;
+
+            if ($channel->type === Channel::TYPES['pm']) {
+                // remove ourselves from $channelUserIds, leaving only the other party.
+                // array_shift doesn't require array_values to be called first.
+                $members = array_diff($channelUserIds, [$user->getKey()]);
+                $targetUser = $usersById[array_shift($members)] ?? null;
+
+                // hide if target is restricted or blocked unless blocked user is a moderator.
+                if (
+                    !$targetUser
+                    || $user->hasBlocked($targetUser) && !($targetUser->isModerator() || $targetUser->isAdmin())
+                ) {
+                    return [];
                 }
 
-                return $presence;
+                // override channel icon and display name in PMs to always show the other party
+                $presence['icon'] = $targetUser->user_avatar;
+                $presence['name'] = $targetUser->username;
+                // ideally this should be ChatChannelSend but it involves too many queries
+                $presence['moderated'] = $presence['moderated'] || !priv_check_user($user, 'ChatStart', $targetUser)->can();
             }
-        );
+
+            return $presence;
+        });
 
         // strip out the empty [] elements (from restricted/blocked users)
         return array_values(array_filter($collection));
     }
 
-    // Allows save/update/delete to work with composite primary keys.
-    protected function setKeysForSaveQuery(Builder $query)
+    private static function forUser(User $user)
     {
-        return $query->where([
-            'user_id' => $this->user_id,
-            'channel_id' => $this->channel_id,
-        ]);
+        return static::where('user_id', $user->getKey())->where('hidden', false);
     }
 }

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Карти',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'завантажити',
+            'video' => 'завантажити з вiдео',
+            'no_video' => 'завантажити без вiдео',
+            'direct' => 'відкрити в osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Обговорення',
 
         'details' => [
-            'approved' => 'одобрена ',
             'favourite' => 'Додати в обране',
             'logged-out' => 'Ви повинні увійти для завантаження карти!',
-            'loved' => 'улюблені ',
             'mapped_by' => 'створена :mapper',
-            'qualified' => 'кваліфікований ',
-            'ranked' => 'рангова від ',
-            'submitted' => 'опублікована ',
             'unfavourite' => 'Видалити з Обраного',
-            'updated' => 'останнє оновлення ',
             'updated_timeago' => 'оновлена :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'щоб завантажити',
                 'top' => 'Увійдіть',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'затверджено :timeago',
+            'loved' => 'улюблена :timeago',
+            'qualified' => 'кваліфікована :timeago',
+            'ranked' => 'рейтингова :timeago',
+            'submitted' => 'завантажена :timeago',
+            'updated' => 'оновлена :timeago',
         ],
 
         'favourites' => [
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => 'Якщо ви знайшли проблему в цій карті, будь ласка, позбавите її кваліфікації :link.',
-                'button_title' => 'Дискваліфікувати кваліфіковану карту.',
             ],
 
             'report' => [
                 '_' => 'Якщо ви знайшли проблему в цій карті, повідомте про це :link щоб наша команда дізналася.',
                 'button' => 'Повідомити про проблему',
-                'button_title' => 'Повідомити про проблему з кваліфікованою картою.',
                 'link' => 'тут',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Джерело',
             'success-rate' => 'Шанс успіху',
             'tags' => 'Теги',
-            'unranked' => 'Нерангова карта',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Ранг',
                 'score_total' => 'Всього очок',
                 'score' => 'Очки',
+                'time' => 'Час',
             ],
 
             'no_scores' => [

@@ -1,50 +1,32 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
-use App\Models\BeatmapsetEvent;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Libraries\ModdingHistoryEventsBundle;
 
 class BeatmapsetEventsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('require-scopes:public', ['only' => ['index']]);
+
+        return parent::__construct();
+    }
+
     public function index()
     {
-        $params = request()->all();
-        $params['is_moderator'] = priv_check('BeatmapDiscussionModerate')->can();
-        $params['is_kudosu_moderator'] = priv_check('BeatmapDiscussionAllowOrDenyKudosu')->can();
+        $bundle = ModdingHistoryEventsBundle::forListing(null, request()->all());
+        $jsonChunks = $bundle->toArray();
+        $paginator = $bundle->getPaginator();
+        $params = $bundle->getParams();
 
-        $search = BeatmapsetEvent::search($params);
-
-        return ext_view('beatmapset_events.index', [
-            'search' => $search,
-            'events' => new LengthAwarePaginator(
-                $search['query']->with(['user', 'beatmapset', 'beatmapset.user'])->get(),
-                $search['query']->realCount(),
-                $search['params']['limit'],
-                $search['params']['page'],
-                [
-                    'path' => LengthAwarePaginator::resolveCurrentPath(),
-                    'query' => $search['params'],
-                ]
-            ),
-        ]);
+        if (is_api_request()) {
+            return $jsonChunks;
+        } else {
+            return ext_view('beatmapset_events.index', compact('paginator', 'params', 'jsonChunks'));
+        }
     }
 }

@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .comment {
   @_avatar-margin: 10px;
@@ -28,8 +13,8 @@
 
   margin-top: @_spacing;
   font-size: @font-size--normal-2;
-  color: white;
   border-bottom: 0 solid @osu-colour-b6;
+  position: relative;
 
   &--top {
     border-bottom-width: 1px;
@@ -150,12 +135,9 @@
     }
   }
 
-  &__link {
-    .link-default();
-  }
-
   &__main {
     display: flex;
+    position: relative;
 
     &--deleted {
       opacity: 0.5;
@@ -164,6 +146,34 @@
 
   &__message {
     margin: 2px 0;
+
+    .@{_top}__main--clip & {
+      height: calc(var(--line-height) * var(--clip-lines));
+      overflow: hidden;
+      position: relative;
+
+      &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: calc(var(--line-height) * 3);
+        background-image: linear-gradient(to bottom, hsla(var(--comments-bg-hsl), 0), hsl(var(--comments-bg-hsl)));
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__owner-badge {
+    background-color: @osu-colour-l1;
+    color: @osu-colour-b6;
+    font-weight: bold;
+    font-size: @font-size--small;
+    bottom: 2px;
+    padding: $bottom 5px;
+    border-radius: 10000px;
   }
 
   &__replies {
@@ -214,15 +224,25 @@
       font-weight: normal;
     }
 
-    &--username-link {
-      .link-default();
-    }
-
     &--pinned {
       .fa {
         vertical-align: middle;
       }
     }
+
+    &--replies {
+      width: 100%;
+    }
+  }
+
+  &__toggle-clip {
+    .reset-input();
+    width: max-content;
+    color: @osu-colour-l2;
+
+    .link-hover({
+      color: @osu-colour-l1;
+    });
   }
 
   &__top-show-replies {

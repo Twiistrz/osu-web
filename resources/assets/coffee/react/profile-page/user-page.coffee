@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { ExtraHeader } from './extra-header'
 import { UserPageEditor } from './user-page-editor'
@@ -57,11 +42,14 @@ export class UserPage extends React.Component
 
   pageNew: =>
     div className: 'profile-extra-user-page profile-extra-user-page--new',
-      button
-        className: 'profile-extra-user-page__new-content  btn-osu btn-osu--lite btn-osu--profile-page-edit'
-        onClick: @editStart
-        disabled: !@props.user.has_supported
-        osu.trans 'users.show.page.edit_big'
+      p
+        className: 'profile-extra-user-page__new-content'
+        button
+          type: 'button'
+          className: 'btn-osu-big btn-osu-big--user-page-edit'
+          onClick: @editStart
+          disabled: !@props.user.has_supported
+          osu.trans 'users.show.page.edit_big'
 
       p className: 'profile-extra-user-page__new-content profile-extra-user-page__new-content--icon',
         span className: 'fas fa-edit'
@@ -85,5 +73,7 @@ export class UserPage extends React.Component
 
 
   pageShow: =>
-    div dangerouslySetInnerHTML:
-      __html: @props.userPage.html
+    div
+      className: 'js-audio--group'
+      dangerouslySetInnerHTML:
+        __html: @props.userPage.html

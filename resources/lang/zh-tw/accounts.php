@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => '在以下模式的 qualified 圖譜上接收新問題通知',
+        'beatmapset_disqualify' => '',
+        'comment_reply' => '',
         'title' => '通知',
         'topic_auto_subscribe' => '自動啟用自己創建的主題的通知',
-        'beatmapset_discussion_qualified_problem' => '在以下模式的 qualified 圖譜上接收新問題通知',
 
-        'mail' => [
-            '_' => '接收以下有關的電子郵件通知',
-            'beatmapset:modding' => '圖譜製作',
-            'forum_topic_reply' => '主題回復',
+        'options' => [
+            '_' => '傳送選項',
+            'beatmapset:modding' => '',
+            'channel_message' => '私人訊息',
+            'comment_new' => '新評論',
+            'forum_topic_reply' => '主題回覆',
+            'mail' => '郵箱',
+            'push' => '推送',
+            'user_achievement_unlock' => '',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => '已授權客戶端',
         'own_clients' => '擁有的客戶端',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => '選項',
+
+        'beatmapset_download' => [
+            '_' => '預設圖譜下載類型',
+            'all' => '包含影片',
+            'no_video' => '不包含影片',
+            'direct' => '在osu!direct中查看',
+        ],
+
+        'beatmapset_title_show_original' => '以原語言顯示譜面資料',
     ],
 
     'playstyles' => [

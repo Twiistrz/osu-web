@@ -1,36 +1,33 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'admin' => [
+        '_' => 'админ',
+    ],
+    'admin_forum' => [
+        '_' => 'админ',
+    ],
+    'admin_store' => [
+        '_' => 'админ',
+    ],
     'error' => [
         'error' => [
-            '_' => 'грешка',
-            '404' => 'липсващ',
+            '400' => 'невалидна заявка',
+            '404' => 'липсва',
             '403' => 'забранен',
             '401' => 'неоторизиран',
-            '405' => 'липсващ',
+            '401-verification' => 'потвърждение на акаунта',
+            '405' => 'липсва',
+            '422' => 'невалидна заявка',
             '500' => 'нещо се счупи',
             '503' => 'профилактика',
         ],
     ],
     'forum' => [
+        '_' => 'форум',
         'topic_watches_controller' => [
             'index' => 'главно табло',
         ],
@@ -38,30 +35,108 @@ return [
     'main' => [
         'account_controller' => [
             'edit' => 'главно табло',
+            'verify_link' => 'потвърждение на акаунта',
         ],
-        'beatmapset_watches_controller' => [
-            'index' => 'главно табло',
+        'artists_controller' => [
+            '_' => 'препоръчани изпълнители',
         ],
-        'friends_controller' => [
-            'index' => 'главно табло',
-        ],
-        'home_controller' => [
-            'index' => 'главно табло',
-            'get_download' => 'изтегли',
-            'search' => 'търсене',
-            'support_the_game' => 'подкрепи играта',
+        'beatmap_discussion_posts_controller' => [
+            '_' => 'бийтмап дискусии',
         ],
         'beatmap_discussions_controller' => [
             '_' => 'бийтмап дискусии',
         ],
-        'beatmap_discussion_posts_controller' => [
-            '_' => 'публикации за обсъждане на бийтмапове',
+        'beatmap_packs_controller' => [
+            '_' => 'бийтмап пакети',
+        ],
+        'beatmapset_discussion_votes_controller' => [
+            '_' => 'гласове от бийтмап дискусии',
+        ],
+        'beatmapset_events_controller' => [
+            '_' => 'бийтмап история',
+        ],
+        'beatmapset_watches_controller' => [
+            'index' => 'главно табло',
+        ],
+        'beatmapsets_controller' => [
+            'discussion' => 'бийтмап дискусия',
+            'index' => 'списък с бийтмапове',
+            'show' => 'бийтмап инфо',
+        ],
+        'changelog_controller' => [
+            '_' => 'списък на промените',
         ],
         'chat_controller' => [
             '_' => 'чат',
         ],
+        'comments_controller' => [
+            '_' => 'коментари',
+        ],
+        'contests_controller' => [
+            '_' => 'конкурси',
+        ],
+        'friends_controller' => [
+            'index' => 'главно табло',
+        ],
+        'groups_controller' => [
+            'show' => 'групи',
+        ],
+        'home_controller' => [
+            'get_download' => 'изтегли',
+            'index' => 'главно табло',
+            'search' => 'търсене',
+            'support_the_game' => 'подкрепи играта',
+            'testflight' => 'testflight',
+        ],
         'legal_controller' => [
             '_' => 'информация',
+        ],
+        'livestreams_controller' => [
+            '_' => 'живи потоци',
+        ],
+        'matches_controller' => [
+            '_' => 'мачове',
+        ],
+        'news_controller' => [
+            '_' => 'новини',
+        ],
+        'notifications_controller' => [
+            '_' => 'история на известията',
+        ],
+        'password_reset_controller' => [
+            '_' => 'въстановяване на парола',
+        ],
+        'ranking_controller' => [
+            '_' => 'класиране',
+        ],
+        'scores_controller' => [
+            '_' => 'изпълнение',
+        ],
+        'store_controller' => [
+            '_' => 'osu!store',
+        ],
+        'tournaments_controller' => [
+            '_' => 'турнири',
+        ],
+        'users_controller' => [
+            '_' => 'инфо на играча',
+            'disabled' => 'известие',
+        ],
+        'wiki_controller' => [
+            '_' => 'база с познания',
+        ],
+    ],
+    'multiplayer' => [
+        'rooms_controller' => [
+            '_' => 'класиране',
+        ],
+    ],
+    'store' => [
+        '_' => 'osu!store',
+    ],
+    'users' => [
+        'modding_history_controller' => [
+            '_' => 'modder инфо',
         ],
     ],
 ];

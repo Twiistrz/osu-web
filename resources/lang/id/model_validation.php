@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => ':attribute yang ditentukan tidak valid.',
     'not_negative' => ':attribute tidak bisa negatif.',
     'required' => ':attribute diwajibkan.',
     'too_long' => ':attribute melebihi batas maksimum - hanya bisa hingga :limit karakter.',
     'wrong_confirmation' => 'Konfirmasi tidak cocok.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Diskusi terkunci',
-        'first_post' => 'Tidak dapat menghapus postingan awal.',
-
-        'attributes' => [
-            'message' => 'Isi pesan',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Keterangan waktu telah ditentukan tetapi beatmap tidak ada.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Anda tidak dapat memberikan hype karena fitur diskusi untuk beatmap ini sedang dibekukan oleh moderator",
             'guest' => 'Silakan masuk untuk dapat memberikan hype.',
             'hyped' => 'Anda telah memberikan hype untuk beatmap ini.',
             'limit_exceeded' => 'Anda telah menggunakan semua hype Anda.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Topik diskusi ini terkunci.',
+        'first_post' => 'Tidak dapat menghapus postingan awal.',
+
+        'attributes' => [
+            'message' => 'Pesan',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Membalas komentar yang sudah dihapus tidak diperbolehkan.',
-        'top_only' => '',
+        'top_only' => 'Tidak diperbolehkan menyemat balasan komentar.',
 
         'attributes' => [
             'message' => 'Isi pesan',
@@ -133,12 +120,14 @@ return [
 
     'user' => [
         'contains_username' => 'Nama pengguna tidak diperbolehkan untuk berada di dalam kata sandi.',
-        'email_already_used' => 'Alamat email sudah digunakan.',
+        'email_already_used' => 'Alamat email ini sudah digunakan sebelumnya.',
+        'email_not_allowed' => 'Alamat email ini tidak diperbolehkan.',
         'invalid_country' => 'Negara tidak ada dalam basis data.',
         'invalid_discord' => 'Nama pengguna Discord tidak valid.',
         'invalid_email' => "Tampaknya bukan alamat email yang valid.",
+        'invalid_twitter' => 'Nama pengguna Twitter tidak valid.',
         'too_short' => 'Kata sandi baru terlalu pendek.',
-        'unknown_duplicate' => 'Nama pengguna atau alamat email sudah digunakan.',
+        'unknown_duplicate' => 'Nama pengguna atau alamat email ini sudah digunakan sebelumnya.',
         'username_available_in' => 'Nama pengguna ini akan tersedia untuk digunakan dalam :duration.',
         'username_available_soon' => 'Nama pengguna ini dapat digunakan sekarang!',
         'username_invalid_characters' => 'Nama pengguna yang diminta mengandung karakter yang tidak valid.',
@@ -162,7 +151,7 @@ return [
         ],
 
         'change_username' => [
-            'restricted' => 'Anda tidak dapat mengganti nama pengguna Anda selama dibatasi.',
+            'restricted' => 'Anda tidak dapat mengganti nama pengguna ketika akun Anda sedang di-restrict.',
             'supporter_required' => [
                 '_' => 'Anda harus menjadi :link untuk mengubah nama Anda!',
                 'link_text' => 'osu!supporter',

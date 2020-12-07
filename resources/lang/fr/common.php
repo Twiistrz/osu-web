@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Êtes-vous sûr?',
@@ -36,10 +21,12 @@ return [
     'buttons' => [
         'admin' => 'Admin',
         'authorise' => 'Autoriser',
+        'authorising' => 'Autorisation...',
         'back_to_previous' => 'Retour à la position précédente',
         'back_to_top' => 'Retour en haut',
         'cancel' => 'Annuler',
         'change' => 'changer',
+        'clear' => 'Effacer',
         'click_to_copy' => 'cliquez pour copier dans le presse-papiers',
         'click_to_copy_copied' => 'copié dans le presse-papiers !',
         'close' => 'Fermer',
@@ -51,6 +38,7 @@ return [
         'permalink' => 'permalien',
         'pin' => 'épingler',
         'post' => 'Poster',
+        'read_more' => 'lire la suite',
         'reply' => 'Répondre',
         'reply_reopen' => 'Répondre et rouvrir',
         'reply_resolve' => 'Répondre et fermer',
@@ -138,6 +126,21 @@ return [
         'count_geki' => 'MAX',
         'count_katu' => '200',
         'count_miss' => 'Raté',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '%d j',
+        'dd' => '%d j',
+        'h' => '%d h',
+        'hh' => '%d h',
+        'M' => '%d mois',
+        'm' => '%d min',
+        'MM' => '%d mois',
+        'mm' => '%d min',
+        'past' => '%s',
+        's' => '%d sec',
+        'y' => '%d a',
+        'yy' => '%d a',
     ],
 
     'time' => [

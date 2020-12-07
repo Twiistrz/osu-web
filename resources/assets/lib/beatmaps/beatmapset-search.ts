@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import DispatcherAction from 'actions/dispatcher-action';
 import { UserLoginAction, UserLogoutAction } from 'actions/user-login-actions';
@@ -22,14 +7,14 @@ import { dispatchListener } from 'app-dispatcher';
 import ResultSet from 'beatmaps/result-set';
 import SearchResults from 'beatmaps/search-results';
 import { BeatmapsetSearchFilters } from 'beatmapset-search-filters';
-import { BeatmapsetJSON } from 'beatmapsets/beatmapset-json';
+import { BeatmapsetJson } from 'beatmapsets/beatmapset-json';
 import DispatchListener from 'dispatch-listener';
 import { route } from 'laroute';
 import { action, observable, runInAction } from 'mobx';
 import { BeatmapsetStore } from 'stores/beatmapset-store';
 
 export interface SearchResponse {
-  beatmapsets: BeatmapsetJSON[];
+  beatmapsets: BeatmapsetJson[];
   cursor: JSON;
   error?: string;
   recommended_difficulty: number;
@@ -59,7 +44,7 @@ export class BeatmapsetSearch implements DispatchListener {
 
     const key = filters.toKeyString();
     const resultSet = this.getOrCreate(key);
-    const sufficient = (from > 0 && from < resultSet.beatmapsetIds.length) || (from === 0 && !resultSet.isExpired);
+    const sufficient = (from > 0 && from < resultSet.beatmapsetIds.size) || (from === 0 && !resultSet.isExpired);
     if (sufficient) {
       return Promise.resolve(resultSet);
     }

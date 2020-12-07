@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -38,9 +23,9 @@ return [
                 'description' => 'Die Beiträge gehen an die Server, auf denen die Website, Multiplayer-Dienste, Online-Bestenlisten usw. ausgeführt werden.',
             ],
             'featured-artists' => [
-                'title' => 'Vorgestellte Künstler',
+                'title' => 'Featured Artists',
                 'description' => 'Mit Deiner Unterstützung können wir noch mehr großartige Künstler ansprechen und noch mehr großartige Musik für den Einsatz in osu! lizenzieren!',
-                'link_text' => 'Schaue den aktuellen Plan an &raquo;',
+                'link_text' => 'Sieh Dir die aktuelle Liste an &raquo;',
             ],
             'ads' => [
                 'title' => 'Halte osu! aufrecht',
@@ -65,12 +50,12 @@ return [
             ],
 
             'friend_ranking' => [
-                'title' => 'Freundes-Rangliste',
-                'description' => "Finde auf einer Beatmaps-Bestenliste im Spiel und auf der Website heraus, wie Du Dich gegen Deine Freunde behauptest.",
+                'title' => 'Freundesrangliste',
+                'description' => "Finde heraus, wie Du Dich auf der Bestenliste einer Beatmap gegen Deine Freunde behauptest, sowohl im Spiel als auch auf der Webseite.",
             ],
 
             'country_ranking' => [
-                'title' => 'Länder-Rangliste',
+                'title' => 'Landesrangliste',
                 'description' => 'Erobere dein Land, bevor du die Welt eroberst.',
             ],
 
@@ -86,7 +71,7 @@ return [
 
             'upload_more' => [
                 'title' => 'Mehr Hochladen',
-                'description' => 'Zusätzliche "ausstehende" Beatmapplätze (pro Ranked Beatmap), bis zu einem Maximum von 10.',
+                'description' => 'Zusätzliche "ausstehende" Beatmapplätze (pro ranked Beatmap), bis zu einem Maximum von 10.',
             ],
 
             'early_access' => [
@@ -121,7 +106,7 @@ return [
 
             'skinnables' => [
                 'title' => 'Skinbare Elemente',
-                'description' => 'Mehr skinbare Elemente im Spiel, z.B. der Menühintergrund',
+                'description' => 'Mehr skinbare Elemente im Spiel, z. B. der Menühintergrund.',
             ],
 
             'feature_votes' => [
@@ -144,11 +129,11 @@ return [
             ],
             'more_beatmaps' => [
                 'title' => 'Weitere Beatmaps hochladen',
-                'description' => 'Die Anzahl der nicht-ranked Beatmaps, die Du gleichzeitig haben kannst, wird aus einem Basiswert plus einem zusätzlichen Bonus für jede eingestufte Beatmap berechnet (bis zu einem Limit).<br/><br/>Normalerweise ist dies 4 plus 1 pro ranked Beatmap (bis zu 2). Mit Supporter erhöht sich dies auf 8 plus 1 pro ranked Beatmap (bis zu 12).',
+                'description' => 'Die Anzahl der non-ranked Beatmaps, die Du gleichzeitig haben kannst, wird aus einem Basiswert plus einem zusätzlichen Bonus für jede ranked Beatmap berechnet (bis zu einem Limit).<br/><br/>Normalerweise sind dies :base plus :bonus pro ranked Beatmap (bis zu :bonus_max). Mit Supporter erhöht sich dies auf :supporter_base plus :supporter_bonus pro ranked Beatmap (bis zu :supporter_bonus_max).',
             ],
             'friend_filtering' => [
-                'title' => 'Freundes-Rangliste',
-                'description' => 'Miss Dich mit Deinen Freunden und finde heraus, wie Du Dich gegen sie behauptest!*<br/><br/><small>* noch nicht auf der neuen Seite verfügbar, Demnächst(tm)</small>',
+                'title' => 'Freundesranglisten',
+                'description' => 'Miss Dich mit Deinen Freunden und finde heraus, wie Du Dich gegen sie behauptest!',
             ],
 
         ],

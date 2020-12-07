@@ -1,23 +1,11 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import * as React from 'react'
-import { a, div, h2, h3, img, p, small, span } from 'react-dom-factories'
+import { a, div, h2, h3, img, p, small, span, strong } from 'react-dom-factories'
+import { StringWithComponent } from 'string-with-component'
+import { UserLink } from 'user-link'
+import { getArtist, getTitle } from 'utils/beatmap-helper'
 el = React.createElement
 
 bn = 'beatmap-playcount'
@@ -26,12 +14,12 @@ export class BeatmapPlaycount extends React.PureComponent
   render: =>
     beatmap = @props.playcount.beatmap
     beatmapset = @props.playcount.beatmapset
-    beatmapsetUrl = laroute.route 'beatmaps.show', beatmap: beatmap.id
+    beatmapUrl = laroute.route 'beatmaps.show', beatmap: beatmap.id, mode: @props.currentMode
 
     div
       className: bn
       a
-        href: beatmapsetUrl
+        href: beatmapUrl
         className: "#{bn}__cover"
         style:
           backgroundImage: osu.urlPresence(beatmapset.covers.list)
@@ -45,27 +33,36 @@ export class BeatmapPlaycount extends React.PureComponent
             className: "#{bn}__info-row u-ellipsis-overflow"
             a
               className: "#{bn}__title"
-              href: beatmapsetUrl
-              "#{beatmapset.title} [#{beatmap.version}] "
+              href: beatmapUrl
+              "#{getTitle(beatmapset)} [#{beatmap.version}] "
               span
                 className: "#{bn}__title-artist"
-                osu.trans('users.show.extra.beatmaps.by_artist', artist: beatmapset.artist)
+                osu.trans('users.show.extra.beatmaps.by_artist', artist: getArtist(beatmapset))
           div
             className: "#{bn}__info-row u-ellipsis-overflow"
             span
               className: "#{bn}__artist"
-              dangerouslySetInnerHTML:
-                __html: osu.trans('users.show.extra.beatmaps.by_artist', artist: "<strong>#{_.escape(beatmapset.artist)}</strong>")
+              el StringWithComponent,
+                pattern: osu.trans 'users.show.extra.beatmaps.by_artist'
+                mappings:
+                  ':artist':
+                    strong
+                      key: 'artist'
+                      _.escape(getArtist(beatmapset))
             ' ' # separator for overflow tooltip
             span
               className: "#{bn}__mapper"
-              dangerouslySetInnerHTML:
-                __html: osu.trans 'beatmapsets.show.details.mapped_by',
-                  mapper: laroute.link_to_route 'users.show',
-                    beatmapset.creator
-                    { user: beatmapset.user_id }
-                    class: "#{bn}__mapper-link js-usercard"
-                    'data-user-id': beatmapset.user_id
+              el StringWithComponent,
+                pattern: osu.trans 'beatmapsets.show.details.mapped_by'
+                mappings:
+                  ':mapper':
+                    el UserLink,
+                      className: "#{bn}__mapper-link"
+                      key: 'mapper'
+                      user:
+                        id: beatmapset.user_id
+                        username: beatmapset.creator
+
         div
           className: "#{bn}__detail-count"
           @renderPlaycountText()

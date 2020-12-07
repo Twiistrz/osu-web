@@ -1,3 +1,8 @@
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
+type GroupJson = import('interfaces/group-json').default;
+
 // interfaces for using process.env
 interface Process {
   env: ProcessEnv;
@@ -9,21 +14,18 @@ interface ProcessEnv {
 
 declare var process: Process;
 
-declare var window: Window;
-
 // TODO: Turbolinks 5.3 is Typescript, so this should be updated then.
-declare var Turbolinks: TurbolinksStatic;
+declare var Turbolinks: import('turbolinks').default;
 
 // our helpers
 declare var tooltipDefault: TooltipDefault;
 declare var osu: OsuCommon;
-declare var currentUser: any;
+declare var currentUser: import('interfaces/current-user').default;
 declare var reactTurbolinks: any;
 declare var userVerification: any;
 
 // external (to typescript) classes
 declare var BeatmapsetFilter: any;
-declare var BeatmapHelper: BeatmapHelperInterface;
 declare var BeatmapDiscussionHelper: BeatmapDiscussionHelperClass;
 declare var LoadingOverlay: any;
 declare var Timeout: any;
@@ -38,13 +40,16 @@ interface Comment {
 
 interface DiscussionMessageType {
   icon: {[key: string]: string};
-  iconText: {[key: string]: string[]};
 }
 
 interface BeatmapDiscussionHelperClass {
   messageType: DiscussionMessageType;
+  TIMESTAMP_REGEX: RegExp;
   format(text: string, options?: any): string;
-  formatTimestamp(value: number): string;
+  formatTimestamp(value: number | null): string | undefined;
+  nearbyDiscussions(discussions: BeatmapsetDiscussionJson[], timestamp: number): BeatmapsetDiscussionJson[];
+  parseTimestamp(value: string): number | null;
+  previewMessage(value: string): string;
   url(options: any, useCurrent?: boolean): string;
 }
 
@@ -54,16 +59,19 @@ interface JQueryStatic {
   unsubscribe: (eventName: string) => void;
 }
 
+type AjaxError = (xhr: JQueryXHR) => void;
+
 interface OsuCommon {
-  ajaxError: (xhr: JQueryXHR) => void;
+  ajaxError: AjaxError;
   classWithModifiers: (baseName: string, modifiers?: string[]) => string;
-  groupColour: (group?: GroupJSON) => React.CSSProperties;
+  diffColour: (difficultyRating?: string | null) => React.CSSProperties;
+  emitAjaxError: (el?: HTMLElement | null) => AjaxError;
+  groupColour: (group?: GroupJson) => React.CSSProperties;
   isClickable: (el: HTMLElement) => boolean;
   jsonClone: (obj: any) => any;
   link: (url: string, text: string, options?: { classNames?: string[]; isRemote?: boolean }) => string;
   linkify: (text: string, newWindow?: boolean) => string;
   navigate: (url: string, keepScroll?: boolean, action?: object) => void;
-  parseJson: (id: string, remove?: boolean) => any;
   popup: (message: string, type: string) => void;
   popupShowing: () => boolean;
   presence: (str?: string | null) => string | null;
@@ -81,11 +89,8 @@ interface OsuCommon {
   formatNumber(num: null, precision?: number, options?: Intl.NumberFormatOptions, locale?: string): null;
   isDesktop(): boolean;
   isMobile(): boolean;
-  updateQueryString(url: string | null, params: { [key: string]: string | undefined }): string;
-}
-
-interface BeatmapHelperInterface {
-  getDiffRating(rating: number): string;
+  parseJson<T = any>(id: string, remove?: boolean): T;
+  updateQueryString(url: string | null, params: { [key: string]: string | null | undefined }): string;
 }
 
 interface ChangelogBuild {
@@ -95,9 +100,11 @@ interface ChangelogBuild {
   version: string;
 }
 
+// FIXME: make importable
 interface Country {
-  code?: string;
-  name?: string;
+  code: string;
+  display?: number;
+  name: string;
 }
 
 interface Cover {
@@ -106,113 +113,36 @@ interface Cover {
   url?: string;
 }
 
-interface Score {
-  id: string;
-  mode: string;
-  replay: boolean;
-  user: User;
-  user_id: number;
-}
-
 interface BeatmapFailTimesArray {
   exit: number[];
   fail: number[];
 }
 
 // TODO: incomplete
-interface Beatmap {
-  accuracy: number;
-  ar: number;
-  beatmapset_id: number;
-  convert: boolean | null;
-  count_circles: number;
-  count_sliders: number;
-  count_spinners: number;
-  count_total: number;
-  cs: number;
-  deleted_at: string | null;
-  difficulty_rating: number;
-  drain: number;
-  failtimes?: BeatmapFailTimesArray;
-  hit_length: number;
-  id: number;
-  last_updated: string;
-  mode: string;
-  mode_int: number;
-  passcount: number;
-  playcount: number;
-  ranked: number;
-  status: string;
-  total_length: number;
-  url: string;
-  version: string;
-}
-
-// TODO: incomplete
-interface BeatmapDiscussion {
+interface BeatmapsetDiscussionJson {
   beatmap_id: number | null;
   beatmapset_id: number;
+  deleted_at: string | null;
+  id: number;
   message_type: string;
   parent_id: number | null;
-  posts: BeatmapDiscussionPost[];
+  posts: BeatmapsetDiscussionPostJson[];
   resolved: boolean;
-  starting_post: BeatmapDiscussionPost;
+  starting_post: BeatmapsetDiscussionPostJson;
   timestamp: number | null;
 }
 
 // TODO: incomplete
-interface BeatmapDiscussionPost {
+interface BeatmapsetDiscussionPostJson {
   message: string;
 }
 
 interface LangClass {
-  _getPluralForm: (count: number) => number;
-  _origGetPluralForm: (count: number) => number;
-  locale: string;
-}
-
-// TODO: should look at combining with the other User.ts at some point.
-interface User {
-  avatar_url?: string;
-  country?: Country;
-  country_code?: string;
-  cover: Cover;
-  current_mode_rank?: number;
-  default_group: string;
-  follower_count?: number;
-  group_badge?: GroupJSON;
-  id: number;
-  is_active: boolean;
-  is_bot: boolean;
-  is_online: boolean;
-  is_supporter: boolean;
-  last_visit?: string;
-  pm_friends_only: boolean;
-  profile_colour?: string;
-  support_level?: number;
-  unread_pm_count?: number;
-  username: string;
+  _getPluralForm: (count: number, locale: string) => number;
+  _origGetPluralForm: (count: number, locale: string) => number;
+  has(key: string): boolean;
 }
 
 interface TooltipDefault {
   remove: (el: HTMLElement) => void;
-}
-
-interface TurbolinksAction {
-  action: 'advance' | 'replace' | 'restore';
-}
-
-interface TurbolinksLocation {
-    getPath(): string;
-    isHTML(): boolean;
-}
-
-interface TurbolinksStatic {
-  controller: any;
-  supported: boolean;
-
-  clearCache(): void;
-  setProgressBarDelay(delayInMilliseconds: number): void;
-  uuid(): string;
-  visit(location: string, options?: TurbolinksAction): void;
 }

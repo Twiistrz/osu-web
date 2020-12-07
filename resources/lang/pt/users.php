@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[utilizador eliminado]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => 'Membros por modo de jogo',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "A tua conta não foi usada há muito tempo.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Início de sessão incorreto',
         'forgot' => 'Esqueceste-te da palavra-passe?',
         'info' => 'Por favor inicia sessão para continuar',
+        'invalid_captcha' => 'Demasiadas tentativas falhadas de início de sessão, termina o captcha e tenta novamente. (Atualiza a página se o captcha não estiver visível)',
         'locked_ip' => 'o teu endereço de IP foi bloqueado. Por favor espera uns minutos.',
         'password' => 'Palavra-passe',
         'register' => "Não tens uma conta osu? Cria uma nova",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Atualmente online',
         'missingtext' => 'Poderás ter escrito mal! (ou o utilizador poderá ter sido banido)',
         'origin_country' => 'De :country',
-        'page_description' => 'osu! - Tudo o que sempre quiseste saber sobre :username!',
         'previous_usernames' => 'antigamente conhecido como',
         'plays_with' => 'Joga com :devices',
         'title' => "Perfil de :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Carregar imagem',
                     'dropzone' => 'Larga aqui para carregar',
                     'dropzone_info' => 'Também podes largar aqui a tua imagem para carregá-la',
-                    'size_info' => 'O tamanho da capa deverá ter 2800x620',
+                    'size_info' => 'O tamanho da capa deverá ter 2400x620',
                     'too_large' => 'O ficheiro carregado é demasiado grande.',
                     'unsupported_format' => 'Formato não suportado.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'por :artist',
-                'none' => 'Nenhuns... por agora.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'ver mais eventos',
             ],
             'historical' => [
-                'empty' => 'Sem registos de desempenho :(',
                 'title' => 'Historial',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu disponível',
-                'available_info' => "Os kudosus podem ser trocados por estrelas kudosu que irão ajudar o teu beatmap a ganhar mais atenção. Este é o número de kudosus que ainda não trocaste.",
                 'recent_entries' => 'Historial recente de kudosu',
                 'title' => 'Kudosu!',
                 'total' => 'Total de kudosu ganhos',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Transferir repetição',
-                'empty' => 'Nenhum registo de desempenhos espectaculares ainda :(',
                 'not_ranked' => 'Somente beatmaps classificados é que dão pp.',
                 'pp_weight' => ':percentage ponderada',
+                'view_details' => 'Ver detalhes',
                 'title' => 'Classificações',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Interesses',
-            'lastfm' => 'Last.fm',
             'location' => 'Localização atual',
             'occupation' => 'Ocupação',
             'skype' => '',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Vista em blocos',
         'card' => 'Vista do cartão',
         'list' => 'Vista da lista',
     ],

@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Kunne ikke gemme opslaget',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Kunne ikke afgive stemme',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Nægtet fra at kunne modtage kudosu.',
         'message_placeholder_deleted_beatmap' => 'Denne sværhedsgrad er blevet slettet så den kan ikke blive diskuteret længere.',
         'message_placeholder_locked' => 'Diskussion for dette beatmap er blevet deaktiveret.',
+        'message_placeholder_silenced' => "",
         'message_type_select' => 'Vælg kommentar-type',
         'reply_notice' => 'Tryk enter for at svare.',
         'reply_placeholder' => 'Skriv dit svar her',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Skriv her for at lave et opslag til General (:version)',
             'generalAll' => 'Skriv her for at lave et opslag til General (All difficulties)',
+            'review' => '',
             'timeline' => 'Skriv her for at lave et opslag til Tidslinjen (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'Tryk ctrl-c i edit mode og indsæt i din besked for at tilføje tidsstempel!',
             'title' => 'Ny diskussion',
             'unpin' => 'Frigør',
+        ],
+
+        'review' => [
+            'new' => '',
+            'embed' => [
+                'delete' => '',
+                'missing' => '',
+                'unlink' => '',
+                'unsaved' => '',
+                'timestamp' => [
+                    'all-diff' => '',
+                    'diff' => '',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '',
+                'praise' => '',
+                'problem' => '',
+                'suggestion' => '',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Nominér dette beatmap?',
         'nominated_by' => 'nomineret af :users',
         'not_enough_hype' => "Der er ikke nok hype.",
-        'qualified' => 'Forventes at blive ranked :date, hvis der ikke bliver fundet nogen problemer.',
-        'qualified_soon' => 'Forventes at blive ranked snart, hvis der ikke bliver fundet nogen problemer.',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Nomineringer: :current/:required',
         'reset_message_deleted' => 'slettet',
         'title' => 'Nomineringstatus',
         'unresolved_issues' => 'Der er stadig uløste problemer der skal tages fat på først.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Nominerings processen nulstillet :time_ago af :user med et nyt problem :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Inkluder konvertert beatmeaps',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Alle',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,11 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elektronisk',
+        'metal' => 'Metal',
+        'classical' => 'Klassisk
+',
+        'folk' => 'Folkemusik',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +312,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Touch Device',
+        'V2' => '',
     ],
     'language' => [
         'any' => 'Vilkårlig',
@@ -311,8 +325,11 @@ return [
         'korean' => 'Koreansk',
         'spanish' => 'Spansk',
         'swedish' => 'Svensk',
+        'russian' => 'Russisk',
+        'polish' => 'Polsk',
         'instrumental' => 'Instrumentalt',
         'other' => 'Andet',
+        'unspecified' => 'Uspecificeret',
     ],
     'played' => [
         'any' => 'Vilkårlig',
@@ -337,5 +354,12 @@ return [
     'panel' => [
         'playcount' => 'Antal Forsøg :count',
         'favourites' => 'Favoritter :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '',
+            '7k' => '',
+            'all' => '',
+        ],
     ],
 ];

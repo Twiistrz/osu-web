@@ -1,13 +1,13 @@
 # osu!web
 
-[![Build Status](https://travis-ci.com/ppy/osu-web.svg?branch=master)](https://travis-ci.com/ppy/osu-web) [![StyleCI](https://styleci.io/repos/41410580/shield)](https://styleci.io/repos/41410580) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/osu-web/localized.svg)](https://crowdin.com/project/osu-web) [![dev chat](https://discordapp.com/api/guilds/188630481301012481/widget.png?style=shield)](https://discord.gg/ppy)
+[![Build Status](https://travis-ci.com/ppy/osu-web.svg?branch=master)](https://travis-ci.com/ppy/osu-web) [![Crowdin](https://d322cqt584bo4o.cloudfront.net/osu-web/localized.svg)](https://crowdin.com/project/osu-web) [![dev chat](https://discordapp.com/api/guilds/188630481301012481/widget.png?style=shield)](https://discord.gg/ppy)
 
 The browser-facing portion of [osu!](https://osu.ppy.sh/home).
 
 ## Requirements
 
 - A PHP 7.2+ environment
-- MySQL 5.7
+- MySQL 8.0+
 - Elasticsearch
 
 ## Getting Started

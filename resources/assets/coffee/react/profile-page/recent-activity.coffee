@@ -1,26 +1,12 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { AchievementBadge } from './achievement-badge'
 import { ExtraHeader } from './extra-header'
 import * as React from 'react'
 import { div, li, p, ul } from 'react-dom-factories'
 import { ShowMoreLink } from 'show-more-link'
+import TimeWithTooltip from 'time-with-tooltip'
 el = React.createElement
 
 export class RecentActivity extends React.PureComponent
@@ -62,7 +48,7 @@ export class RecentActivity extends React.PureComponent
             modifiers: ['recent-activity']
             achievement: event.achievement
             userAchievement:
-              achieved_at: event.createdAt
+              achieved_at: event.created_at
               achievement_id: event.achievement.id
 
         text = div
@@ -85,7 +71,7 @@ export class RecentActivity extends React.PureComponent
           className: 'profile-extra-entries__text'
           dangerouslySetInnerHTML:
             __html: osu.trans 'events.beatmapset_approve',
-              approval: event.approval
+              approval: osu.trans "events.beatmapset_status.#{event.approval}"
               beatmapset: link(event.beatmapset.url, event.beatmapset.title)
               user: link(event.user.url, event.user.username)
 
@@ -194,5 +180,6 @@ export class RecentActivity extends React.PureComponent
         text
       div
         className: 'profile-extra-entries__time'
-        dangerouslySetInnerHTML:
-          __html: osu.timeago(event.createdAt)
+        el TimeWithTooltip,
+          dateTime: event.created_at
+          relative: true

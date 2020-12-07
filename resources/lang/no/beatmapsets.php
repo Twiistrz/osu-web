@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmaps',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'last ned',
+            'video' => 'last ned med video',
+            'no_video' => 'last ned med video',
+            'direct' => 'åpne i osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Diskusjon',
 
         'details' => [
-            'approved' => 'godjent den ',
             'favourite' => 'Marker dette beatmapsettet som en favoritt',
             'logged-out' => 'Du må logge inn før du kan laste ned beatmaps!',
-            'loved' => 'elsket den ',
             'mapped_by' => 'mappet av :mapper',
-            'qualified' => 'kvalifisert den ',
-            'ranked' => 'rangert den ',
-            'submitted' => 'innsendt den ',
             'unfavourite' => 'Fjern dette beatmapsettet som en favoritt',
-            'updated' => 'sist oppdatert på ',
             'updated_timeago' => 'sist oppdatert :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'for å få tilgang til flere funksjoner',
                 'top' => 'Logg inn',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'godkjent :timeago',
+            'loved' => 'elsket :timeago',
+            'qualified' => 'kvalifisert :timeago',
+            'ranked' => 'rangert :timeago',
+            'submitted' => 'sent inn :timeago',
+            'updated' => 'sist oppdatert :timeago',
         ],
 
         'favourites' => [
@@ -77,15 +74,13 @@ return [
             ],
 
             'disqualify' => [
-                '_' => '',
-                'button_title' => '',
+                '_' => 'Hvis du finner et problem med dette beatmappet, vennligst diskvalifiser det :link.',
             ],
 
             'report' => [
-                '_' => '',
-                'button' => '',
-                'button_title' => '',
-                'link' => '',
+                '_' => 'Hvis du finner et problem med dette beatmappet, vennligst rapporter det :link for å varsle teamet.',
+                'button' => 'Rapporter Problem',
+                'link' => 'her',
             ],
         ],
 
@@ -98,7 +93,6 @@ return [
             'source' => 'Kilde',
             'success-rate' => 'Suksessrate',
             'tags' => 'Stikkord',
-            'unranked' => 'Urangert beatmap',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Rang',
                 'score_total' => 'Total Poengsum',
                 'score' => 'Poengsum',
+                'time' => 'Tid',
             ],
 
             'no_scores' => [
@@ -138,7 +133,7 @@ return [
         'stats' => [
             'cs' => 'Sirkel Størrelse',
             'cs-mania' => 'Antall Tangenter',
-            'drain' => 'HP avløp',
+            'drain' => 'HP Drenering',
             'accuracy' => 'Presisjon',
             'ar' => 'Tilnærmingsrate',
             'stars' => 'Vanskelighetsgrad (*)',
@@ -153,13 +148,13 @@ return [
         ],
 
         'status' => [
-            'ranked' => '',
-            'approved' => '',
-            'loved' => '',
-            'qualified' => '',
-            'wip' => '',
-            'pending' => '',
-            'graveyard' => '',
+            'ranked' => 'Rangert',
+            'approved' => 'Godkjent',
+            'loved' => 'Elsket',
+            'qualified' => 'Kvalifisert',
+            'wip' => 'Arbeid pågår',
+            'pending' => 'Avventes',
+            'graveyard' => 'Gravplassert',
         ],
     ],
 ];

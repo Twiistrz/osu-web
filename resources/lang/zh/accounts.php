@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => '在以下模式的合格谱面上接收新问题通知：',
+        'beatmapset_disqualify' => '在以下模式的谱面被标记为不合格时接收通知：',
+        'comment_reply' => '在你的评论被回复时接收通知',
         'title' => '通知',
         'topic_auto_subscribe' => '自动启用自己创建的主题的通知',
-        'beatmapset_discussion_qualified_problem' => '在以下模式的合格谱面上接收新问题通知：',
 
-        'mail' => [
-            '_' => '接收有关下列项目中的邮件通知：',
-            'beatmapset:modding' => '谱面审核',
-            'forum_topic_reply' => '帖子回复',
+        'options' => [
+            '_' => '推送设置',
+            'beatmapset:modding' => '谱面摸图',
+            'channel_message' => '私信',
+            'comment_new' => '新评论',
+            'forum_topic_reply' => '主题回复',
+            'mail' => '邮件',
+            'push' => '推送',
+            'user_achievement_unlock' => '成就解锁',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => '已授权的第三应用',
         'own_clients' => '拥有的客户端',
         'title' => '开放授权',
+    ],
+
+    'options' => [
+        'title' => '选项',
+
+        'beatmapset_download' => [
+            '_' => '默认谱面下载类型',
+            'all' => '包含视频',
+            'no_video' => '不包含视频',
+            'direct' => '在 osu!direct 中查看',
+        ],
+
+        'beatmapset_title_show_original' => '以原语言显示谱面信息',
     ],
 
     'playstyles' => [

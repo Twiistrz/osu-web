@@ -1,34 +1,19 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'Cancelar',
 
     'authorise' => [
-        'request' => 'está pidiendo permiso para entrar en tu cuenta.',
+        'request' => 'está solicitando permiso para acceder a su cuenta.',
         'scopes_title' => 'Esta aplicación podrá:',
         'title' => 'Solicitud de autorización',
     ],
 
     'authorized_clients' => [
-        'confirm_revoke' => '¿Estás seguro que deseas revocar los permisos de este cliente?',
+        'confirm_revoke' => '¿Seguro que desea revocar los permisos de este cliente?',
         'scopes_title' => 'Esta aplicación puede:',
         'owned_by' => 'Propiedad de :user',
         'none' => 'No hay clientes',
@@ -43,7 +28,14 @@ return [
         'id' => 'ID cliente',
         'name' => 'Nombre de Aplicación',
         'redirect' => 'URL de llamada de Aplicación',
-        'secret' => 'Secreto del Cliente',
+        'reset' => 'Restablecer secreto de cliente',
+        'reset_failed' => 'No se pudo restablecer el secreto de cliente',
+        'secret' => 'Secreto de cliente',
+
+        'secret_visible' => [
+            'false' => 'Mostrar secreto de cliente',
+            'true' => 'Ocultar secreto de cliente',
+        ],
     ],
 
     'new_client' => [
@@ -51,14 +43,15 @@ return [
         'register' => 'Registro de aplicación',
         'terms_of_use' => [
             '_' => 'Al usar la API, usted acepta los :link.',
-            'link' => 'Términos de Uso',
+            'link' => 'términos de uso',
         ],
     ],
 
     'own_clients' => [
-        'confirm_delete' => '¿Está seguro que desea eliminar este cliente?',
+        'confirm_delete' => '¿Seguro que desea eliminar este cliente?',
+        'confirm_reset' => '¿Está seguro de que desea restablecer el secreto de cliente? Esto revocará todos los tokens existentes.',
         'new' => 'Nueva aplicación OAuth',
-        'none' => 'Sin Clientes',
+        'none' => 'No hay clientes',
 
         'revoked' => [
             'false' => 'Eliminar',

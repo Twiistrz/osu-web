@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
@@ -29,6 +14,7 @@ return [
         'discussion_unlock' => 'Обсуждение для этой карты было включено.',
         'disqualify' => 'Дисквалифицирована :user. Причина: :text.',
         'disqualify_legacy' => 'Дисквалифицирована :user. Причина: :text.',
+        'genre_edit' => 'Жанр изменен с :old на :new.',
         'issue_reopen' => 'Проблема в :discussion вновь решена.',
         'issue_resolve' => 'Проблема :discussion отмечена как решенная.',
         'kudosu_allow' => 'Кудосу из отзыва :discussion были удалены.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'Отзыв :discussion от :user получил достаточно голосов для получения кудосу.',
         'kudosu_lost' => 'Отзыв :discussion от :user потерял голоса и присуждённые кудосу были удалены.',
         'kudosu_recalculate' => 'Кудосу за отзыв :discussion были пересчитаны.',
+        'language_edit' => 'Язык изменен с :old на :new.',
         'love' => 'Добавлено :user в любимое',
         'nominate' => 'Номинирована :user.',
         'nomination_reset' => 'Из-за новой проблемы в :discussion статус номинации был сброшен.',
         'qualify' => 'Эта карта была номинирована достаточное количество раз для квалификации.',
         'rank' => 'Рейтинговая.',
+        'remove_from_loved' => ':user удалил карту из Любимых (:text)',
     ],
 
     'index' => [
@@ -65,6 +53,7 @@ return [
         'discussion_post_restore' => 'Восстановление ответов в обсуждении',
         'discussion_restore' => 'Восстановление обсуждения',
         'disqualify' => 'Дисквалификация',
+        'genre_edit' => 'Изменение жанра',
         'issue_reopen' => 'Возобновление обсуждения',
         'issue_resolve' => 'Обсуждение решения',
         'kudosu_allow' => 'Квота Kudosu',
@@ -72,10 +61,12 @@ return [
         'kudosu_gain' => 'Получение Kudosu',
         'kudosu_lost' => 'Потеря Kudosu',
         'kudosu_recalculate' => 'Перерасчет Kudosu',
+        'language_edit' => 'Изменение языка',
         'love' => 'Любовь',
         'nominate' => 'Номинация',
         'nomination_reset' => 'Сброс номинации',
         'qualify' => 'Квалификация',
         'rank' => 'Рейтинг',
+        'remove_from_loved' => 'Удаление из Любимых',
     ],
 ];

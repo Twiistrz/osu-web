@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'Отмени',
@@ -28,41 +13,49 @@ return [
     ],
 
     'authorized_clients' => [
-        'confirm_revoke' => '',
-        'scopes_title' => '',
-        'owned_by' => '',
-        'none' => '',
+        'confirm_revoke' => 'Сигурни ли сте, че искате да отмените правата на този клиент?',
+        'scopes_title' => 'Това приложение има право да:',
+        'owned_by' => 'Притежавано от :user',
+        'none' => 'Няма клиенти',
 
         'revoked' => [
-            'false' => '',
-            'true' => '',
+            'false' => 'Отнемане на достъпa',
+            'true' => 'Достъпът отнет',
         ],
     ],
 
     'client' => [
-        'id' => '',
-        'name' => '',
-        'redirect' => '',
-        'secret' => '',
+        'id' => 'ID на клиента',
+        'name' => 'Име на приложението',
+        'redirect' => 'Callback URL на приложението',
+        'reset' => 'Рестартиране на тайната на клиента',
+        'reset_failed' => 'Неуспешно рестартиране на тайната на клиента',
+        'secret' => 'Тайна на клиента',
+
+        'secret_visible' => [
+            'false' => 'Покажи тайната на клиента',
+            'true' => 'Скрий тайната на клиента',
+        ],
     ],
 
     'new_client' => [
-        'header' => '',
-        'register' => '',
+        'header' => 'Регистрирането на ново OAuth приложение',
+        'register' => 'Регистриране на приложение',
         'terms_of_use' => [
-            '_' => '',
-            'link' => '',
+            '_' => 'С ползването на този API, Вие се съгласявате на :link.',
+            'link' => 'Условия за ползване',
         ],
     ],
 
     'own_clients' => [
-        'confirm_delete' => '',
-        'new' => '',
-        'none' => '',
+        'confirm_delete' => 'Сигурни ли сте, че искате да изтриете този клиент?',
+        'confirm_reset' => 'Сигурни ли сте, че искате да рестартирате тайната на клиента? Това ще анулира всички съществуващи токени.',
+        'new' => 'Ново OAuth приложение',
+        'none' => 'Няма клиенти',
 
         'revoked' => [
-            'false' => '',
-            'true' => '',
+            'false' => 'Изтрий',
+            'true' => 'Изтрито',
         ],
     ],
 ];

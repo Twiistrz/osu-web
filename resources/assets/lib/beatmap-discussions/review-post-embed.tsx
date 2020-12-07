@@ -1,24 +1,9 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
+import { BeatmapIcon } from 'beatmap-icon';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { BeatmapIcon } from '../beatmap-icon';
 import { BeatmapsContext } from './beatmaps-context';
 import { DiscussionsContext } from './discussions-context';
 
@@ -29,21 +14,21 @@ interface Props {
 }
 
 export const ReviewPostEmbed: FunctionComponent<Props> = ({data}) => {
-  const bn = 'beatmap-discussion-review-post-embed';
+  const bn = 'beatmap-discussion-review-post-embed-preview';
   const discussions = React.useContext(DiscussionsContext);
   const beatmaps = React.useContext(BeatmapsContext);
   const discussion = discussions[data.discussion_id];
 
   if (!discussion) {
-    // this should never happen, but just in case...
+    // if a discussion has been deleted or is otherwise missing
     return (
-      <div className={bn}>
-        <div className={`${bn}__error`}>[DISCUSSION NOT LOADED]</div>
+      <div className={osu.classWithModifiers(bn, ['deleted', 'lighter'])}>
+        <div className={`${bn}__missing`}>{osu.trans('beatmaps.discussions.review.embed.missing')}</div>
       </div>
     );
   }
 
-  const additionalClasses = [];
+  const additionalClasses = ['lighter'];
   if (discussion.message_type === 'praise') {
     additionalClasses.push('praise');
   } else if (discussion.resolved) {
@@ -55,9 +40,14 @@ export const ReviewPostEmbed: FunctionComponent<Props> = ({data}) => {
     additionalClasses.push('general-all');
   }
 
+  if (discussion.deleted_at) {
+    additionalClasses.push('deleted');
+  }
+
   const messageTypeIcon = () => {
+    const type = discussion.message_type;
     return (
-      <div className={`beatmap-discussion-message-type beatmap-discussion-message-type--${discussion.message_type}`}><i className={BeatmapDiscussionHelper.messageType.icon[discussion.message_type]} /></div>
+      <div className={`beatmap-discussion-message-type beatmap-discussion-message-type--${type}`}><i className={BeatmapDiscussionHelper.messageType.icon[type]} title={osu.trans(`beatmaps.discussions.message_type.${type}`)} /></div>
     );
   };
 
@@ -67,46 +57,59 @@ export const ReviewPostEmbed: FunctionComponent<Props> = ({data}) => {
         {
           discussion.timestamp !== null
             ? BeatmapDiscussionHelper.formatTimestamp(discussion.timestamp)
-            : osu.trans(`beatmap_discussions.timestamp_display.${hasBeatmap ? 'general' : 'general_all'}`)
+            : osu.trans(`beatmap_discussions.timestamp_display.general`)
         }
+      </div>
+    );
+  };
+
+  const parentLink = () => {
+    if (!discussion.parent_id) {
+      return;
+    }
+
+    return (
+      <div className={`${bn}__link`}>
+        <a
+            href={BeatmapDiscussionHelper.url({discussion})}
+            className={`${bn}__link-text js-beatmap-discussion--jump`}
+            title={osu.trans('beatmap_discussions.review.go_to_child')}
+        >
+            <i className='fas fa-external-link-alt'/>
+        </a>
       </div>
     );
   };
 
   return (
     <div className={osu.classWithModifiers(bn, additionalClasses)}>
-      <div className={`${bn}__meta`}>
-        <div className={`${bn}__icon`}>
-          {/* if there's no associated beatmap, show the issue type icon here... otherwise show it below */}
+      <div className={`${bn}__content`}>
+        <div className={`${bn}__selectors`}>
+          <div className='icon-dropdown-menu icon-dropdown-menu--disabled'>
             {discussion.beatmap_id &&
               <BeatmapIcon
                 beatmap={beatmaps[discussion.beatmap_id]}
               />
             }
             {!discussion.beatmap_id &&
-              messageTypeIcon()
+              <i className='fas fa-fw fa-star-of-life' title={osu.trans('beatmaps.discussions.mode.scopes.generalAll')} />
             }
+          </div>
+          <div className='icon-dropdown-menu icon-dropdown-menu--disabled'>
+            {messageTypeIcon()}
+          </div>
+          <div className={`${bn}__timestamp`}>
+            {timestamp()}
+          </div>
+          <div className={`${bn}__stripe`} />
+          {parentLink()}
         </div>
-        <div>
-          {discussion.beatmap_id &&
-            messageTypeIcon()
-          }
-          {timestamp()}
+        <div className={`${bn}__stripe`} />
+        <div className={`${bn}__message-container`}>
+          <div className={`${bn}__body`} dangerouslySetInnerHTML={{__html: BeatmapDiscussionHelper.format((discussion.starting_post || discussion.posts[0]).message)}} />
         </div>
+        {parentLink()}
       </div>
-      <div className={`${bn}__stripe`} />
-      <div className={`${bn}__body`} dangerouslySetInnerHTML={{__html: BeatmapDiscussionHelper.format((discussion.starting_post || discussion.posts[0]).message)}} />
-      {discussion.parent_id &&
-        <div className={`${bn}__link`}>
-          <a
-              href={BeatmapDiscussionHelper.url({discussion})}
-              className={`${bn}__link-text`}
-              title={osu.trans('beatmap_discussions.review.go_to_child')}
-          >
-              <i className='fas fa-external-link-alt'/>
-          </a>
-        </div>
-      }
     </div>
   );
 };

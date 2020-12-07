@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'Може краще пограємо osu?',
     'require_login' => 'Увійдіть, щоб продовжити.',
     'require_verification' => 'Будь ласка, пройдіть перевірку, щоб продовжити.',
     'restricted' => "Не можна це робити поки ваші права обмежені.",
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Ви повинні бути повноправним номінатором, щоб номінувати карти з більш ніж одним режимом гри.',
             'incorrect_state' => 'Помилка під час виконання цих дій, спробуйте оновити сторінку.',
             'owner' => "Не можна номінувати власну біткарту.",
+            'set_metadata' => 'Ви повинні вказати жанр і мову перед номінування.',
         ],
         'resolve' => [
             'not_owner' => 'Тільки автор теми та власник біткарти може завершити спір.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Не можу проголосувати за обговорення, проведене ботом",
             'limit_exceeded' => 'Будь ласка, зачекайте деякий час перед повторним голосуванням',
             'owner' => "Не можна голосувати в власному обговоренні.",
             'wrong_beatmapset_state' => 'Можна голосувати тільки в обговореннях очікуючих біткарт.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'Обговорення цієї карти закриті.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Ви не можете змінювати метадані номінованим карти. Зв\'яжіться з членом BN або NAT, якщо вважаєте що вони вказані невірно.',
         ],
     ],
 

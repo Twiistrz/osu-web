@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => '保存失败',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => '更新投票失败',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'kudosu 被收回',
         'message_placeholder_deleted_beatmap' => '该难度已被删除，无法继续讨论',
         'message_placeholder_locked' => '该谱面下的讨论已关闭。',
+        'message_placeholder_silenced' => "禁言时无法发布讨论。",
         'message_type_select' => '选择回复类型',
         'reply_notice' => '按下回车以提交',
         'reply_placeholder' => '在此处输入您的回复',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => '在此处输入以发布到常规 (:version)',
             'generalAll' => '在此处输入以发布到常规 (所有难度)',
+            'review' => '在此处输入以发布审阅',
             'timeline' => '在此处输入以发布到时间轴 (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => '在编辑模式下按 Ctrl+C 然后在您的输入框中粘贴以添加时间戳！',
             'title' => '新的讨论',
             'unpin' => '取消置顶',
+        ],
+
+        'review' => [
+            'new' => '新的审阅',
+            'embed' => [
+                'delete' => '删除',
+                'missing' => '[该讨论已删除]',
+                'unlink' => '取消链接',
+                'unsaved' => '尚未保存',
+                'timestamp' => [
+                    'all-diff' => '你不能在“所有难度”中发布时间戳。',
+                    'diff' => '如果此 :type 以时间戳开头，它将显示在时间轴下。',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '插入段落',
+                'praise' => '插入赞',
+                'problem' => '插入问题',
+                'suggestion' => '加入建议',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => '提名这张谱面？',
         'nominated_by' => '由 :users 提名',
         'not_enough_hype' => "没有足够的推荐。",
-        'qualified' => '如果没有问题，预计将于 :date 被 Ranked 。',
-        'qualified_soon' => '如果没有问题，预计不久将被 Ranked 。',
+        'remove_from_loved' => '从 Loved 中移除',
+        'remove_from_loved_prompt' => '从 Loved 中移除的原因：',
         'required_text' => '提名数: :current/:required',
         'reset_message_deleted' => '已删除',
         'title' => '提名状态',
         'unresolved_issues' => '仍然有需解决的问题 。',
+
+        'rank_estimate' => [
+            '_' => '如果没有问题，该谱面将于 :date ranked。位于 :queue 中的第 :position 位。',
+            'queue' => 'ranking 队列',
+            'soon' => '不久后',
+        ],
 
         'reset_at' => [
             'nomination_reset' => '由于 :user 提出的新问题 :discussion（:message），提名过程于 :time_ago 被重置。',
@@ -245,6 +252,7 @@ return [
         'converts' => '包括转谱',
     ],
     'mode' => [
+        'all' => '全部',
         'any' => '所有',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => '新奇',
         'hip-hop' => '嘻哈',
         'electronic' => '电子',
+        'metal' => '金属',
+        'classical' => '古典',
+        'folk' => '民谣',
+        'jazz' => '爵士',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Touch Device',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => '所有',
@@ -311,8 +324,11 @@ return [
         'korean' => '韩语',
         'spanish' => '西班牙语',
         'swedish' => '瑞典语',
+        'russian' => '俄语',
+        'polish' => '波兰语',
         'instrumental' => '器乐',
         'other' => '其他',
+        'unspecified' => '未指定',
     ],
     'played' => [
         'any' => '任意',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => '游戏次数：:count',
         'favourites' => '收藏次数：:count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => '全部',
+        ],
     ],
 ];

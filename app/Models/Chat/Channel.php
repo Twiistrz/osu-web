@@ -1,29 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\Chat;
 
-use App\Events\UserSubscriptionChangeEvent;
 use App\Exceptions\API;
-use App\Models\Multiplayer\Match;
-use App\Models\Notification;
+use App\Jobs\Notifications\ChannelMessage;
+use App\Models\Match\Match;
 use App\Models\User;
 use Carbon\Carbon;
 use ChaseConey\LaravelDatadogHelper\Datadog;
@@ -43,6 +27,11 @@ use LaravelRedis as Redis;
 class Channel extends Model
 {
     protected $primaryKey = 'channel_id';
+
+    protected $casts = [
+        'moderated' => 'boolean',
+    ];
+
     protected $dates = [
         'creation_time',
     ];
@@ -56,6 +45,30 @@ class Channel extends Model
         'pm' => 'PM',
         'group' => 'GROUP',
     ];
+
+    public static function createPM($user1, $user2)
+    {
+        $channel = new static([
+            'name' => static::getPMChannelName($user1, $user2),
+            'type' => static::TYPES['pm'],
+            'description' => '', // description is not nullable
+        ]);
+
+        $channel->getConnection()->transaction(function () use ($channel, $user1, $user2) {
+            $channel->save();
+            $channel->addUser($user1);
+            $channel->addUser($user2);
+        });
+
+        return $channel;
+    }
+
+    public static function findPM($user1, $user2)
+    {
+        $channelName = static::getPMChannelName($user1, $user2);
+
+        return static::where('name', $channelName)->first();
+    }
 
     /**
      * @param User $user1
@@ -87,6 +100,11 @@ class Channel extends Model
         // TODO: additional message filtering
 
         return $messages;
+    }
+
+    public function userChannels()
+    {
+        return $this->hasMany(UserChannel::class);
     }
 
     public function users()
@@ -186,7 +204,7 @@ class Channel extends Model
             throw new API\ExcessiveChatMessagesException(trans('api.error.chat.limit_exceeded'));
         }
 
-        $content = trim($content);
+        $content = str_replace(["\r", "\n"], ' ', trim($content));
 
         if (mb_strlen($content, 'UTF-8') >= config('osu.chat.message_length_limit')) {
             throw new API\ChatMessageTooLongException(trans('api.error.chat.too_long'));
@@ -215,7 +233,7 @@ class Channel extends Model
 
         if ($this->isPM()) {
             $this->unhide();
-            broadcast_notification(Notification::CHANNEL_MESSAGE, $message, $sender);
+            (new ChannelMessage($message, $sender))->dispatch();
         }
 
         Datadog::increment('chat.channel.send', 1, ['target' => $this->type]);
@@ -231,16 +249,16 @@ class Channel extends Model
         ])->first();
 
         if ($userChannel) {
+            if (!$userChannel->isHidden()) {
+                return;
+            }
+
             $userChannel->update(['hidden' => false]);
         } else {
             $userChannel = new UserChannel();
             $userChannel->user()->associate($user);
             $userChannel->channel()->associate($this);
             $userChannel->save();
-        }
-
-        if ($this->isPM()) {
-            event(new UserSubscriptionChangeEvent('add', $user, $this));
         }
 
         Datadog::increment('chat.channel.join', 1, ['type' => $this->type]);
@@ -259,7 +277,6 @@ class Channel extends Model
         }
 
         if ($this->isPM()) {
-            event(new UserSubscriptionChangeEvent('remove', $user, $this));
             $userChannel->update(['hidden' => true]);
         } else {
             $userChannel->delete();
@@ -283,16 +300,10 @@ class Channel extends Model
             return;
         }
 
-        $hiddenUserChannels = UserChannel::where([
+        UserChannel::where([
             'channel_id' => $this->channel_id,
             'hidden' => true,
-        ]);
-
-        foreach ($hiddenUserChannels->get() as $userChannel) {
-            event(new UserSubscriptionChangeEvent('add', $userChannel->user, $this));
-        }
-
-        $hiddenUserChannels->update([
+        ])->update([
             'hidden' => false,
         ]);
     }

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Καρφιτσωμένα Θέματα',
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => 'Διαγραφή δημοσίευσης',
-            'restore' => 'Επαναφορά δημοσίευσης',
             'edit' => 'Επεξεργασία δημοσίευσης',
+            'report' => '',
+            'restore' => 'Επαναφορά δημοσίευσης',
         ],
 
         'create' => [
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'διαγραμμένο θέμα',
         'go_to_latest' => 'δείτε την πιο πρόσφατη δημοσίευση',
+        'has_replied' => '',
+        'in_forum' => '',
         'latest_post' => ':when από τον :user',
         'latest_reply_by' => 'τελευταία απάντηση από τον :user',
         'new_topic' => 'Δημοσιεύστε νέο θέμα',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Η συζήτηση κλειδώθηκε και δεν δέχεται άλλες απαντήσεις',
             'to_0' => 'Ξεκλειδώστε το θέμα',
+            'to_0_confirm' => '',
             'to_0_done' => 'Το θέμα ξεκλειδώθηκε',
             'to_1' => 'Κλειδώστε το θέμα',
+            'to_1_confirm' => '',
             'to_1_done' => 'Το θέμα κλειδώθηκε',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Ξεκαρφίτσωμα θέματος',
+            'to_0_confirm' => '',
             'to_0_done' => 'Το θέμα ξεκαρφιτσώθηκε',
             'to_1' => 'Καρφίτσωμα θέματος',
+            'to_1_confirm' => '',
             'to_1_done' => 'Το θέμα καρφιτσώθηκε',
             'to_2' => 'Καρφίτσωμα θέματος και σήμανση ως ανακοίνωση',
+            'to_2_confirm' => '',
             'to_2_done' => 'Το θέμα καρφιτσώθηκε και σημάνθηκε ως ανακοίνωση',
         ],
 

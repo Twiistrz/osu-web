@@ -1,36 +1,22 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
+use App\Libraries\User\DatadogLoginAttempt;
 use App\Libraries\User\ForceReactivation;
 use App\Models\User;
 use Auth;
-use Request;
+use NoCaptcha;
 
 class SessionsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('guest', ['only' => [
-            'login',
+            'store',
         ]]);
 
         return parent::__construct();
@@ -39,13 +25,47 @@ class SessionsController extends Controller
     public function store()
     {
         $request = request();
-        $params = get_params($request->all(), null, ['username:string', 'password:string', 'remember:bool']);
-        $username = trim($params['username'] ?? null);
-        $password = $params['password'] ?? null;
+
+        if ($request->attributes->get('csrf') === false) {
+            DatadogLoginAttempt::log('invalid_csrf');
+
+            abort(403, 'Reload page and try again');
+        }
+
+        $params = get_params($request->all(), null, ['username:string', 'password:string', 'remember:bool', 'g-recaptcha-response:string']);
+        $username = presence(trim($params['username'] ?? null));
+        $password = presence($params['password'] ?? null);
         $remember = $params['remember'] ?? false;
 
-        if (!present($username) || !present($password)) {
+        if ($username === null) {
+            DatadogLoginAttempt::log('missing_username');
+
             abort(422);
+        }
+
+        if ($password === null) {
+            DatadogLoginAttempt::log('missing_password');
+
+            abort(422);
+        }
+
+        if (captcha_triggered()) {
+            $token = presence($params['g-recaptcha-response'] ?? null);
+            $validCaptcha = false;
+
+            if ($token !== null) {
+                $validCaptcha = NoCaptcha::verifyResponse($token);
+            }
+
+            if (!$validCaptcha) {
+                if ($token === null) {
+                    DatadogLoginAttempt::log('missing_captcha');
+                } else {
+                    DatadogLoginAttempt::log('invalid_captcha');
+                }
+
+                return $this->triggerCaptcha(trans('users.login.invalid_captcha'), 422);
+            }
         }
 
         $ip = $request->getClientIp();
@@ -74,9 +94,13 @@ class SessionsController extends Controller
                 'header_popup' => view('layout._popup_user')->render(),
                 'user' => Auth::user()->defaultJson(),
             ];
-        } else {
-            return error_popup($authError);
         }
+
+        if (captcha_triggered()) {
+            return $this->triggerCaptcha($authError);
+        }
+
+        return error_popup($authError, 403);
     }
 
     public function destroy()
@@ -89,6 +113,14 @@ class SessionsController extends Controller
             return ujs_redirect(route('home'));
         }
 
-        return [];
+        return captcha_triggered() ? ['captcha_triggered' => true] : [];
+    }
+
+    private function triggerCaptcha($message, $returnCode = 403)
+    {
+        return response([
+            'error' => $message,
+            'captcha_triggered' => true,
+        ], $returnCode);
     }
 }

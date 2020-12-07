@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Бітмапы',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'спампаваць',
+            'video' => '',
+            'no_video' => '',
+            'direct' => '',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Абмеркаванне',
 
         'details' => [
-            'approved' => 'ухваліны ',
             'favourite' => 'Дадаць да абраных',
             'logged-out' => 'Каб спампаваць нейкую бітмапу, вам трэба ўвайсці!',
-            'loved' => 'абраны ',
             'mapped_by' => 'створана :mapper',
-            'qualified' => 'кваліфікаваны ',
-            'ranked' => 'ранкаваны ',
-            'submitted' => 'апублікаваны ',
             'unfavourite' => 'Выдаліць з абраных',
-            'updated' => 'абноўлены ',
             'updated_timeago' => 'абноўлены :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'каб атрымаць доступ да іншых функцый',
                 'top' => 'Увайсці',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => '',
+            'loved' => '',
+            'qualified' => '',
+            'ranked' => '',
+            'submitted' => '',
+            'updated' => '',
         ],
 
         'favourites' => [
@@ -78,14 +75,12 @@ return [
 
             'disqualify' => [
                 '_' => '',
-                'button_title' => '',
             ],
 
             'report' => [
                 '_' => '',
-                'button' => '',
-                'button_title' => '',
-                'link' => '',
+                'button' => 'Паведаміць аб праблеме',
+                'link' => 'тут',
             ],
         ],
 
@@ -98,7 +93,6 @@ return [
             'source' => 'Крыніца',
             'success-rate' => 'Шанц поспеху',
             'tags' => 'Тэгі',
-            'unranked' => 'Unranked бітмапа',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Ранг',
                 'score_total' => 'Усяго ачкоў',
                 'score' => 'Ачкі',
+                'time' => '',
             ],
 
             'no_scores' => [
@@ -153,13 +148,13 @@ return [
         ],
 
         'status' => [
-            'ranked' => '',
+            'ranked' => 'Ранкавана',
             'approved' => '',
-            'loved' => '',
-            'qualified' => '',
+            'loved' => 'Любімая',
+            'qualified' => 'Кваліфікавана',
             'wip' => '',
-            'pending' => '',
-            'graveyard' => '',
+            'pending' => 'У чаканні',
+            'graveyard' => 'Закінутая',
         ],
     ],
 ];

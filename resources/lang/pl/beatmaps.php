@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Nie udało się zapisać posta',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Aktualizacja oceny nie powiodła się',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Odmówiono uzyskania kudosu.',
         'message_placeholder_deleted_beatmap' => 'Ten poziom trudności został usunięty, więc nie można umieszczać w nim postów.',
         'message_placeholder_locked' => 'Tworzenie dyskusji dla tej beatmapy zostało wyłączone.',
+        'message_placeholder_silenced' => "Nie możesz zamieszczać dyskusji podczas uciszenia.",
         'message_type_select' => 'Wybierz typ komentarza',
         'reply_notice' => 'Naciśnij Enter, aby odpowiedzieć.',
         'reply_placeholder' => 'Napisz tutaj swoją odpowiedź',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Utwórz post w ogólnej dyskusji (:version)',
             'generalAll' => 'Utwórz post w ogólnej dyskusji (wszystkie poziomy trudności)',
+            'review' => 'Pisz tutaj, by zamieścić recenzję',
             'timeline' => 'Utwórz post dla osi czasu (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'Naciśnij Ctrl+C w edytorze i wklej swoją wiadomość, aby dodać znacznik czasu!',
             'title' => 'Nowa dyskusja',
             'unpin' => 'Odepnij',
+        ],
+
+        'review' => [
+            'new' => 'Nowa recenzja',
+            'embed' => [
+                'delete' => 'Usuń',
+                'missing' => '[DYSKUSJA USUNIĘTA]',
+                'unlink' => 'Usuń powiązanie',
+                'unsaved' => 'Niezapisana',
+                'timestamp' => [
+                    'all-diff' => 'Posty dla wszystkich poziomów trudności nie mogą zawierać znaczników czasu.',
+                    'diff' => 'Jeżeli ten post typu „:type” rozpoczyna się od znacznika czasu, zostanie on wyświetlony w zakładce osi czasu.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'wstaw akapit',
+                'praise' => 'wstaw pochwałę',
+                'problem' => 'wstaw problem',
+                'suggestion' => 'wstaw sugestię',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Nominować tę beatmapę?',
         'nominated_by' => 'nominowana przez :users',
         'not_enough_hype' => "Beatmapa nie jest wystarczająco nagłośniona.",
-        'qualified' => 'Otrzyma status rankingowy :date, jeżeli nie zostaną wykryte żadne błędy.',
-        'qualified_soon' => 'Wkrótce otrzyma status rankingowy, jeżeli nie zostaną wykryte żadne błędy.',
+        'remove_from_loved' => 'Usuń z ulubionych beatmap społeczności',
+        'remove_from_loved_prompt' => 'Powód usunięcia z ulubionych beatmap społeczności:',
         'required_text' => 'Nominacje: :current/:required',
         'reset_message_deleted' => 'usunięta',
         'title' => 'Status nominacji',
         'unresolved_issues' => 'Nadal występują nierozwiązane problemy, do których musisz się odnieść.',
+
+        'rank_estimate' => [
+            '_' => 'Ta beatmapa uzyska status rankingowy :date, jeżeli nie zostaną zgłoszone żadne problemy. Obecnie jest ona na :position. miejscu w :queue.',
+            'queue' => 'kolejce rankingowej',
+            'soon' => 'wkrótce',
+        ],
 
         'reset_at' => [
             'nomination_reset' => ':user zresetował(a) proces nominacji :time_ago z powodu nowego problemu :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Uwzględnij przekonwertowane beatmapy',
     ],
     'mode' => [
+        'all' => 'Wszyscy',
         'any' => 'Jakikolwiek',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Oryginalny',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Muzyka elektroniczna',
+        'metal' => 'Metal',
+        'classical' => 'Muzyka klasyczna',
+        'folk' => 'Muzyka folkowa',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Urządzenie dotykowe',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => 'Jakikolwiek',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Koreański',
         'spanish' => 'Hiszpański',
         'swedish' => 'Szwedzki',
+        'russian' => 'Rosyjski',
+        'polish' => 'Polski',
         'instrumental' => 'Instrumentalny',
         'other' => 'Inny',
+        'unspecified' => 'Nieokreślony',
     ],
     'played' => [
         'any' => 'Jakikolwiek',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Liczba zagrań: :count',
         'favourites' => 'Liczba polubień: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Wszystkie',
+        ],
     ],
 ];

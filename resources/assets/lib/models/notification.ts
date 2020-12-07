@@ -1,32 +1,22 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import NotificationJson from 'interfaces/notification-json';
 import { camelCase, forEach } from 'lodash';
 import { computed, observable } from 'mobx';
+import NotificationDetails, { newEmptyNotificationDetails } from 'models/notification-details';
+import { Name } from 'models/notification-type';
 import { categoryFromName, categoryGroupKey } from 'notification-maps/category';
 import { displayType } from 'notification-maps/type';
+import NotificationDeletable from 'notifications/notification-deletable';
 import { NotificationIdentity } from 'notifications/notification-identity';
 import NotificationReadable from 'notifications/notification-readable';
+import core from 'osu-core-singleton';
 
-export default class Notification implements NotificationReadable {
+export default class Notification implements NotificationReadable, NotificationDeletable {
   createdAtJson?: string;
-  details?: any;
+  details: NotificationDetails = newEmptyNotificationDetails();
+  @observable isDeleting = false;
   @observable isMarkingAsRead = false;
   @observable isRead = false;
   name?: string;
@@ -58,26 +48,19 @@ export default class Notification implements NotificationReadable {
     };
   }
 
-  @computed get messageGroup() {
-    if (this.objectType === 'channel') {
-      const replacements = {
-        title: this.details.title,
-        username: this.details.username,
-      };
+  @computed get stackId() {
+    return `${this.objectType}-${this.objectId}-${this.category}`;
+  }
 
-      const key = `notifications.item.${this.objectType}.${this.category}.${this.details.type}.${this.name}_group`;
-
-      return osu.trans(key, replacements);
+  @computed get title() {
+    if (core.currentUser?.user_preferences.beatmapset_title_show_original) {
+      return osu.presence(this.details.titleUnicode) ?? this.details.title;
     }
 
     return this.details.title;
   }
 
-  @computed get stackId() {
-    return `${this.objectType}-${this.objectId}-${this.category}`;
-  }
-
-  constructor(readonly id: number, readonly objectType: string) {}
+  constructor(readonly id: number, readonly objectType: Name) {}
 
   static fromJson(json: NotificationJson): Notification {
     const obj = new Notification(json.id, json.object_type);
@@ -91,12 +74,16 @@ export default class Notification implements NotificationReadable {
     this.objectId = json.object_id;
     this.sourceUserId = json.source_user_id;
 
-    this.details = {};
+    this.details = newEmptyNotificationDetails();
 
     if (typeof json.details === 'object') {
       forEach(json.details, (value, key) => {
         this.details[camelCase(key)] = value;
       });
+
+      if (json.name === 'comment_new' && json.details.reply_to?.user_id === currentUser.id) {
+        this.name = 'comment_reply';
+      }
     }
 
     return this;

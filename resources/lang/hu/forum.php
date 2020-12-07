@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Kitűzött Témák',
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => 'Poszt törlése',
-            'restore' => 'Poszt visszaállítása',
             'edit' => 'Poszt szerkesztése',
+            'report' => '',
+            'restore' => 'Poszt visszaállítása',
         ],
 
         'create' => [
@@ -77,7 +63,7 @@ return [
 
         'info' => [
             'post_count' => ':count_delimited poszt|-:count_delimited poszt',
-            'topic_starter' => '',
+            'topic_starter' => 'Beszélgetés indítok',
         ],
     ],
 
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'törölt téma',
         'go_to_latest' => 'utolsó poszt megtekintése',
+        'has_replied' => 'Feliratkoztál erre a témára',
+        'in_forum' => 'ide :forum',
         'latest_post' => ':when :user által',
         'latest_reply_by' => 'legutóbbi hozzászólás: :user',
         'new_topic' => 'Új téma',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Ez a téma zárva van és nem lehet rá válaszolni',
             'to_0' => 'Téma feloldása',
+            'to_0_confirm' => 'Feloldod a témát?',
             'to_0_done' => 'A téma fel lett oldva',
             'to_1' => 'Téma zárolása',
+            'to_1_confirm' => 'Lezárod a témát?',
             'to_1_done' => 'A téma zárolva lett',
         ],
 
@@ -262,16 +252,19 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Téma kitűzésének visszavonása',
+            'to_0_confirm' => 'Vissza vonod a téma kitűzését?',
             'to_0_done' => 'A téma kitűzése visszavonva',
             'to_1' => 'Téma kitűzése',
+            'to_1_confirm' => 'Kitűződ a témát?',
             'to_1_done' => 'A téma ki lett tűzve',
             'to_2' => 'Téma kitűzése és bejelentésnek jelölése',
+            'to_2_confirm' => 'Kitűződ a témát és megjelölőd bejelentésként?',
             'to_2_done' => 'Téma kitűzve és bejelentésnek jelölve',
         ],
 
         'moderate_toggle_deleted' => [
-            'show' => '',
-            'hide' => '',
+            'show' => 'Törölt posztok mutatása',
+            'hide' => 'Törölt posztok elrejtése',
         ],
 
         'show' => [
@@ -301,9 +294,9 @@ return [
                 'vote' => 'Szavazat',
 
                 'button' => [
-                    'change_vote' => '',
+                    'change_vote' => 'Szavazás megváltoztatása',
                     'edit' => 'Kérdőív szerkesztése',
-                    'view_results' => '',
+                    'view_results' => 'Ugrás az eredményekhez',
                     'vote' => 'Szavaz',
                 ],
 

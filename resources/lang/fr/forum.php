@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Sujets épinglés',
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => 'Supprimer le post',
-            'restore' => 'Restaurer le post',
             'edit' => 'Modifier le post',
+            'report' => '',
+            'restore' => 'Restaurer le post',
         ],
 
         'create' => [
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'sujet supprimé',
         'go_to_latest' => 'voir le dernier post',
+        'has_replied' => 'Vous avez répondu à ce sujet',
+        'in_forum' => 'dans :forum',
         'latest_post' => ':when par :user',
         'latest_reply_by' => 'dernière réponse par :user',
         'new_topic' => 'Poster un nouveau sujet',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Ce sujet est verrouillé, vous ne pouvez pas y répondre',
             'to_0' => 'Déverrouiller le sujet',
+            'to_0_confirm' => 'Déverrouiller le sujet ?',
             'to_0_done' => 'Le sujet a été déverrouillé',
             'to_1' => 'Verrouiller le sujet',
+            'to_1_confirm' => 'Verrouiller le sujet ?',
             'to_1_done' => 'Le sujet a été verrouillé',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Désépingler le sujet',
+            'to_0_confirm' => 'Désépingler le sujet ?',
             'to_0_done' => 'Le sujet a été désépinglé',
             'to_1' => 'Épingler le sujet',
+            'to_1_confirm' => 'Épingler le sujet ?',
             'to_1_done' => 'Le sujet a été épinglé',
             'to_2' => 'Épingler le sujet et marquer en tant qu\'annonce',
+            'to_2_confirm' => 'Épingler le sujet et le marquer en tant qu\'annonce ?',
             'to_2_done' => 'Le sujet a été épinglé et marqué en tant qu\'annonce',
         ],
 

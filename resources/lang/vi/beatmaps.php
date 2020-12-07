@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Lưu bài viết thất bại',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Cập nhật vote thất bại',
@@ -33,7 +12,7 @@ return [
 
     'discussions' => [
         'allow_kudosu' => 'cho phép kudosu',
-        'beatmap_information' => '',
+        'beatmap_information' => 'Trang Beatmap',
         'delete' => 'xóa',
         'deleted' => 'Đã xóa bởi :editor :delete_time.',
         'deny_kudosu' => 'từ chối kudosu',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Đã từ chối nhận kudosu.',
         'message_placeholder_deleted_beatmap' => 'Difficulty này đã bị xóa nên nó có thể sẽ không còn được thảo luận nữa.',
         'message_placeholder_locked' => 'Chức năng bàn luận của beatmap này đã bị vô hiệu hóa.',
+        'message_placeholder_silenced' => "",
         'message_type_select' => 'Chọn Loại Nhận Xét',
         'reply_notice' => 'Nhấn enter để trả lời.',
         'reply_placeholder' => 'Nhập câu trả lời của bạn tại đây',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Nhập vào đây để đăng vào Chung (:version)',
             'generalAll' => 'Nhập vào đây để đăng vào Chung (Tất cả difficulties)',
+            'review' => '',
             'timeline' => 'Nhập vào đây để đăng vào Timeline (:version)',
         ],
 
@@ -91,14 +72,14 @@ return [
             'nomination_reset' => 'Thiết Lập Lại Đề Cử',
             'praise' => 'Khen Ngợi',
             'problem' => 'Vấn Đề',
-            'review' => '',
+            'review' => 'Đánh giá',
             'suggestion' => 'Đề Nghị',
         ],
 
         'mode' => [
             'events' => 'Lịch sử',
             'general' => 'Chung :scope',
-            'reviews' => '',
+            'reviews' => 'Các đánh giá',
             'timeline' => 'Timeline',
             'scopes' => [
                 'general' => 'Difficulty này',
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'ctrl-c trong chế độ chỉnh sửa (edit mode) và dán trong bài đăng của bạn để thêm một mốc thời gian!',
             'title' => 'Cuộc Thảo Luận Mới',
             'unpin' => 'Bỏ ghim',
+        ],
+
+        'review' => [
+            'new' => '',
+            'embed' => [
+                'delete' => '',
+                'missing' => '',
+                'unlink' => '',
+                'unsaved' => '',
+                'timestamp' => [
+                    'all-diff' => '',
+                    'diff' => '',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '',
+                'praise' => '',
+                'problem' => '',
+                'suggestion' => '',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Đề cử (nominate) beatmap này?',
         'nominated_by' => 'Được :users đề cử',
         'not_enough_hype' => "",
-        'qualified' => 'Dự tính sẽ xếp hạng (rank) vào :date, nếu không tìm thấy vấn đề gì.',
-        'qualified_soon' => 'Dự tính sẽ sớm được xếp hạng (rank), nếu không tìm thấy vấn đề gì.',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Trạng thái đề cử: :current/:required',
         'reset_message_deleted' => 'đã xóa',
         'title' => 'Trạng Thái Đề Cử',
         'unresolved_issues' => 'Vẫn còn một số vấn đề chưa giải quyết cần được xem lại trước.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Quá trình đề cử (nomination) thiết lập lại vào :time_ago bởi :user với vấn đề mới :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Bao gồm beatmap được chuyển đổi',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Bất Kì',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Mới Lạ',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Điện Tử',
+        'metal' => 'Metal',
+        'classical' => 'Cổ điển',
+        'folk' => 'Dân ca',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Touch Device',
+        'V2' => '',
     ],
     'language' => [
         'any' => 'Bất Kì',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Tiếng Hàn',
         'spanish' => 'Tiếng Tây Ban Nha',
         'swedish' => 'Tiếng Thụy Điển',
+        'russian' => 'Tiếng Nga',
+        'polish' => 'Tiếng Ba Lan',
         'instrumental' => 'Nhạc Cụ',
         'other' => 'Khác',
+        'unspecified' => 'Không xác định',
     ],
     'played' => [
         'any' => 'Bất Kì',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Số lượt chơi: :count',
         'favourites' => 'Yêu thích: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '',
+            '7k' => '',
+            'all' => '',
+        ],
     ],
 ];

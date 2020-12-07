@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'Értesítések kérése minősített beatmapok problémáival kapcsolatban a következő módokból',
+        'beatmapset_disqualify' => 'értesíts, ha a következő játékmódok egy beatmapje diszkvalifikálva lett',
+        'comment_reply' => 'értesítések küldése a kommentjeidre érkezett válaszokról',
         'title' => 'Értesítések',
         'topic_auto_subscribe' => 'az általad létrehozott új fórum témák értesítéseinek automatikus bekapcsolása',
-        'beatmapset_discussion_qualified_problem' => '',
 
-        'mail' => [
-            '_' => '',
-            'beatmapset:modding' => '',
-            'forum_topic_reply' => '',
+        'options' => [
+            '_' => 'Szállítási lehetőségek',
+            'beatmapset:modding' => 'beatmap modolás',
+            'channel_message' => 'Privát üzenetek',
+            'comment_new' => 'Új megjegyzések',
+            'forum_topic_reply' => 'Válaszolj erre a témára',
+            'mail' => 'e-mail',
+            'push' => 'Elöjövő',
+            'user_achievement_unlock' => 'Medál feloldva',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'felhatalmazott kliensek',
         'own_clients' => 'külső alkalmazások',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Beállítások',
+
+        'beatmapset_download' => [
+            '_' => 'Alapértelmezett beatmap letöltés típusa',
+            'all' => 'Videóval, ha elérhető',
+            'no_video' => 'Videó nélkül',
+            'direct' => 'Megnyitás osu!direct-ben',
+        ],
+
+        'beatmapset_title_show_original' => 'A beatmap metaadatai megjelenítése eredeti nyelven',
     ],
 
     'playstyles' => [

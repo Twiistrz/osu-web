@@ -1,41 +1,28 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '¿Qué tal si en vez de eso jugamos un poco de osu!?',
     'require_login' => 'Por favor, inicia sesión para continuar.',
     'require_verification' => 'Por favor verifica para proceder.',
-    'restricted' => "No puedes hacer eso mientras estés restringido.",
-    'silenced' => "No puedes hacer eso mientras estés silenciado.",
+    'restricted' => "No puede hacer eso mientras esté restringido.",
+    'silenced' => "No puede hacer eso mientras esté silenciado.",
     'unauthorized' => 'Acceso denegado.',
 
     'beatmap_discussion' => [
         'destroy' => [
-            'is_hype' => 'No puedes deshacer el hyping.',
+            'is_hype' => 'No se puede deshacer el hyping.',
             'has_reply' => 'No se puede eliminar una discusión con respuestas',
         ],
         'nominate' => [
             'exhausted' => 'Has alcanzado tu límite de nominaciones diarias, por favor inténtalo de nuevo mañana.',
-            'full_bn_required' => 'Debes ser un nominador para realizar esta nominación.',
-            'full_bn_required_hybrid' => 'Debes ser un nominador para nominar conjuntos de beatmaps con más de un modo de juego.',
-            'incorrect_state' => 'Error al realizar esa acción, intenta actualizando la página.',
+            'full_bn_required' => 'Debe ser un nominador completo para realizar esta nominación calificada.',
+            'full_bn_required_hybrid' => 'Debe ser un nominador completo para nominar sets de mapas con más de un modo de juego.',
+            'incorrect_state' => 'Error al realizar esa acción, intente actualizar la página.',
             'owner' => "No puedes nominar tu propio mapa.",
+            'set_metadata' => 'Debe establecer el género y el idioma antes de nominar.',
         ],
         'resolve' => [
             'not_owner' => 'Solo el creador del tema y el dueño del mapa pueden resolver una discusión.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "No puede votar en una discusión hecha por un bot",
             'limit_exceeded' => 'Espera un poco antes de seguir votando',
             'owner' => "No puedes votar tus propias discusiones.",
             'wrong_beatmapset_state' => 'Solo puedes votar en discusiones de mapas pendientes.',
@@ -70,12 +58,18 @@ return [
         ],
     ],
 
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'No puedes cambiar los metadatos de un mapa nominado. Contacta con un miembro de los BN o del NAT si crees que están establecidos incorrectamente.',
+        ],
+    ],
+
     'chat' => [
         'blocked' => 'No puedes enviar mensajes a un usuario que bloqueaste o que te haya bloqueado.',
-        'friends_only' => 'Este usuario está bloqueando mensajes de usuarios que no estén en su lista de amigos.',
+        'friends_only' => 'Este usuario está bloqueando los mensajes de personas que no están en su lista de amigos.',
         'moderated' => 'Ese canal está actualmente siendo moderado.',
         'no_access' => 'No tienes acceso a ese canal.',
-        'restricted' => 'No puedes enviar mensajes mientras estés silenciado, restringido o baneado.',
+        'restricted' => 'No puede enviar mensajes mientras esté silenciado, restringido o baneado.',
     ],
 
     'comment' => [
@@ -124,8 +118,8 @@ return [
 
                 'user' => [
                     'require_login' => 'Por favor, inicia sesión para responder.',
-                    'restricted' => "No puedes responder mientras estés restringido.",
-                    'silenced' => "No puedes responder mientras estés silenciado.",
+                    'restricted' => "No puede responder mientras esté restringido.",
+                    'silenced' => "No puede responder mientras esté silenciado.",
                 ],
             ],
 
@@ -143,8 +137,8 @@ return [
 
                 'user' => [
                     'require_login' => 'Por favor, Inicia sesión para votar.',
-                    'restricted' => "No puedes votar mientras estés restringido.",
-                    'silenced' => "No puedes votar mientras estés silenciado.",
+                    'restricted' => "No puede votar mientras esté restringido.",
+                    'silenced' => "No puede votar mientras esté silenciado.",
                 ],
             ],
 
@@ -173,7 +167,7 @@ return [
             'edit' => [
                 'locked' => 'La página de usuario está bloqueada.',
                 'not_owner' => 'Solo puedes editar tu página de usuario.',
-                'require_supporter_tag' => 'Se requiere el osu!supporter tag.',
+                'require_supporter_tag' => 'Se requiere el tag de osu!supporter.',
             ],
         ],
     ],

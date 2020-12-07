@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Не атрымалася захаваць допіс',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Не атрымалася абнавіць голас',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Адмоўлена ў атрыманні кудосу.',
         'message_placeholder_deleted_beatmap' => 'Гэтая цяжкасць была выдалена і абмяркоўваць у ёй больш нельга.',
         'message_placeholder_locked' => 'Абмеркаванні для гэтай бітмапы былі адключаныя.',
+        'message_placeholder_silenced' => "",
         'message_type_select' => 'Выбраць тып каментарыя',
         'reply_notice' => 'Каб адказаць, націсніце «Enter».',
         'reply_placeholder' => 'Напішыце свой адказ тут',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Каб апублікаваць у агульных, напішыце тут (:version)',
             'generalAll' => 'Каб апублікаваць у агульных, напішыце тут (Усе цяжкасці)',
+            'review' => '',
             'timeline' => 'Каб размясціць у шкале часу, напішыце тут (:version)',
         ],
 
@@ -91,7 +72,7 @@ return [
             'nomination_reset' => 'Скід намінацыі',
             'praise' => 'Пахвала',
             'problem' => 'Праблема',
-            'review' => '',
+            'review' => 'Адказ',
             'suggestion' => 'Прапанова',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'націсніце «ctrl-c» у рэдактары, каб скапіяваць пазнаку часу!',
             'title' => 'Новые абмеркаванне',
             'unpin' => 'Адмацаваць',
+        ],
+
+        'review' => [
+            'new' => '',
+            'embed' => [
+                'delete' => '',
+                'missing' => '',
+                'unlink' => '',
+                'unsaved' => '',
+                'timestamp' => [
+                    'all-diff' => '',
+                    'diff' => '',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '',
+                'praise' => '',
+                'problem' => '',
+                'suggestion' => '',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Намінаваць гэту бітмапу?',
         'nominated_by' => 'намінавана :users',
         'not_enough_hype' => "",
-        'qualified' => 'Калі больш няма праблем, то бітмапа атрымае статус ракнутой прыблізна :date.',
-        'qualified_soon' => 'Калі больш няма праблем, то бітмапа атрымае статус ракнутой вельмі хутка.',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Намінацыі: :current/:required',
         'reset_message_deleted' => 'выдалена',
         'title' => 'Стан намінацыі',
         'unresolved_issues' => 'Усё яшчэ ёсць нявырашаныя праблемы, якія трэбы вырашыць у першую чаргу.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => ':user скінуў прагрэс намінацый :time_ago з-за новай праблемы :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Уключыць канвертаваныя бітмапы',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Усе',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Новый',
         'hip-hop' => 'Хіп-хоп',
         'electronic' => 'Электронная музыка',
+        'metal' => '',
+        'classical' => '',
+        'folk' => '',
+        'jazz' => '',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => '',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Карэйская',
         'spanish' => 'Іспанская',
         'swedish' => 'Шведская',
+        'russian' => '',
+        'polish' => '',
         'instrumental' => 'Інструментал',
         'other' => 'Іншае',
+        'unspecified' => '',
     ],
     'played' => [
         'any' => 'Усе',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Колькасць гульняў: :count',
         'favourites' => 'У абраных: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '',
+            '7k' => '',
+            'all' => '',
+        ],
     ],
 ];

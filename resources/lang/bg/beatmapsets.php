@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Бийтмапове',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'изтегли',
+            'video' => 'изтегли с видео',
+            'no_video' => 'изтегли без видео',
+            'direct' => 'отвори в osu!direct',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Дискусия',
 
         'details' => [
-            'approved' => 'одобрен на ',
             'favourite' => 'Харесай този бийтмап сет',
             'logged-out' => 'Трябва да сте влезли в акаунта си преди да е възможно да теглите бийтмапове!',
-            'loved' => 'обичан на ',
             'mapped_by' => 'съпоставено от :mapper',
-            'qualified' => 'квалифициран на ',
-            'ranked' => 'класиран на ',
-            'submitted' => 'публикуван на ',
             'unfavourite' => 'Премахни от харесани бийтмап сетове',
-            'updated' => 'последно актуализиран на ',
             'updated_timeago' => 'последно актуализиран :timeago',
 
             'download' => [
@@ -59,6 +47,15 @@ return [
             ],
         ],
 
+        'details_date' => [
+            'approved' => 'одобрен :timeago',
+            'loved' => 'обичан :timeago',
+            'qualified' => 'квалифициран :timeago',
+            'ranked' => 'класиран :timeago',
+            'submitted' => 'публикуван :timeago',
+            'updated' => 'последно актуализиран :timeago',
+        ],
+
         'favourites' => [
             'limit_reached' => 'Имате прекалено много харесани бийтмапове. Моля махнете няколко от списъка и опитайте отново.',
         ],
@@ -72,20 +69,18 @@ return [
                 'status' => [
                     'pending' => 'изчакващ',
                     'qualified' => 'квалифициран',
-                    'wip' => 'работа в процес',
+                    'wip' => 'в процес на разработка',
                 ],
             ],
 
             'disqualify' => [
-                '_' => '',
-                'button_title' => '',
+                '_' => 'Ако откриете проблем с този бийтмап, моля дисквалифицирайте го :link.',
             ],
 
             'report' => [
-                '_' => '',
-                'button' => '',
-                'button_title' => '',
-                'link' => '',
+                '_' => 'Ако откриете проблем с този бийтмап, моля докладвайте го :link, за да уведомите отбора ни.',
+                'button' => 'Докладвай проблем',
+                'link' => 'тук',
             ],
         ],
 
@@ -98,12 +93,11 @@ return [
             'source' => 'Източник',
             'success-rate' => 'Степен на успех (%)',
             'tags' => 'Тагове',
-            'unranked' => 'Некласиран бийтмап',
         ],
 
         'scoreboard' => [
             'achieved' => 'постигнато на :when',
-            'country' => 'Държавно класиране',
+            'country' => 'Класиране в страната',
             'friend' => 'Приятелско класиране',
             'global' => 'Глобално класиране',
             'supporter-link' => 'Щракнете <a href=":link">тук</a>, за да видите всички хубави екстри, които получаваш!',
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Ранг',
                 'score_total' => 'Общ брой точки',
                 'score' => 'Точки',
+                'time' => 'Време',
             ],
 
             'no_scores' => [
@@ -153,13 +148,13 @@ return [
         ],
 
         'status' => [
-            'ranked' => '',
-            'approved' => '',
-            'loved' => '',
-            'qualified' => '',
-            'wip' => '',
-            'pending' => '',
-            'graveyard' => '',
+            'ranked' => 'Класиран',
+            'approved' => 'Одобрени',
+            'loved' => 'Обичан',
+            'qualified' => 'Квалифициран',
+            'wip' => 'WIP',
+            'pending' => 'Предстоящ',
+            'graveyard' => 'Гробище',
         ],
     ],
 ];

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -30,20 +15,20 @@ return [
             'title' => 'Neden osu!\'yu desteklemeliyim? Para nereye gidiyor?',
 
             'team' => [
-                'title' => 'Takımı Destekle',
-                'description' => 'osu!\'yu küçük bir takım geliştirip yönetiyor. Senin desteğin onları, bilirsin... hayatta tutar.',
+                'title' => 'Ekibi Destekle',
+                'description' => 'osu!\'yu küçük bir ekip geliştirip yönetiyor. Senin desteğin onları, bilirsin... hayatta tutar.',
             ],
             'infra' => [
                 'title' => 'Sunucu Altyapısı',
-                'description' => 'Katkılar, websitesini, çok oyunculu servisleri, çevrimiçi sıralamaları vb. sürdürmek için doğrudan sunuculara gider.',
+                'description' => 'Web sitesinin, çok oyunculu servislerin, çevrimiçi sıralamaların, vs. çalışabilmesi için yapılan katkılar doğrudan sunuculara gider.',
             ],
             'featured-artists' => [
-                'title' => 'Seçkin Sanatçılar',
+                'title' => 'Featured Artist\'ler',
                 'description' => 'Sizin desteğinizle, daha çok müzisyen ile iletişim kurabilir ve onların güzel şarkılarını osu! için lisanslayabiliriz!',
-                'link_text' => '',
+                'link_text' => 'Güncel listeyi görüntüleyin &raquo;',
             ],
             'ads' => [
-                'title' => '',
+                'title' => 'osu!\'nun kendi kendine devam etmesini sağlayın',
                 'description' => 'Sizin yardımlarınız oyunu bağımsız; tamamen reklamlardan, sponsorlardan barındırabilir.',
             ],
             'tournaments' => [
@@ -52,7 +37,7 @@ return [
                 'link_text' => 'Turnuvaları Keşfet &raquo;',
             ],
             'bounty-program' => [
-                'title' => '',
+                'title' => 'Açık Kaynak Ödül Programı',
                 'description' => 'Topluluğa katkı sağlamış ve kendi efor ve zamanlarını harcamış insanlara osu!\'yu daha iyi yapmak için destek verin.',
                 'link_text' => 'Daha fazlasını öğren &raquo;',
             ],
@@ -66,7 +51,7 @@ return [
 
             'friend_ranking' => [
                 'title' => 'Arkadaş Sıralaması',
-                'description' => "",
+                'description' => "Hem oyun içinde hem de websitede, bir beatmapin sıralamasında arkadaşlarınız ile karşılaştırıldığında nasıl olduğunuzu görün.",
             ],
 
             'country_ranking' => [
@@ -81,7 +66,7 @@ return [
 
             'auto_downloads' => [
                 'title' => 'Otomatik İndirme',
-                'description' => 'Multiplayer oynarken, başkalarını izlerken veya chatteki linklere tıkladığınızda mapleri otomatik indirir!',
+                'description' => 'Çok oyunculu oyunlardayken, başkalarını seyrederken, veya sohbetteki linklere tıkladığınızda beatmapler otomatik olarak indirilir!',
             ],
 
             'upload_more' => [

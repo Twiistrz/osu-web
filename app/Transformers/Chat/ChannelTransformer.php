@@ -1,32 +1,19 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Transformers\Chat;
 
 use App\Models\Chat\Channel;
 use App\Transformers\TransformerAbstract;
-use App\Transformers\UserCompactTransformer;
 
 class ChannelTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
+        'first_message_id',
+        'last_message_id',
+        'recent_messages',
         'users',
     ];
 
@@ -34,14 +21,43 @@ class ChannelTransformer extends TransformerAbstract
     {
         return [
             'channel_id' => $channel->channel_id,
-            'name' => $channel->name,
             'description' => $channel->description,
+            'moderated' => $channel->moderated,
+            'name' => $channel->name,
             'type' => $channel->type,
         ];
     }
 
+    public function includeFirstMessageId(Channel $channel)
+    {
+        return $this->primitive($channel->messages()->select('message_id')->orderBy('message_id')->first()->message_id ?? null);
+    }
+
+    public function includeLastMessageId(Channel $channel)
+    {
+        return $this->primitive($channel->messages()->select('message_id')->last()->message_id ?? null);
+    }
+
+    public function includeRecentMessages(Channel $channel)
+    {
+        if ($channel->exists) {
+            $messages = $channel
+                ->filteredMessages()
+                // assumes sender will be included by the Message transformer
+                ->with('sender')
+                ->orderBy('message_id', 'desc')
+                ->limit(50)
+                ->get()
+                ->reverse();
+        } else {
+            $messages = [];
+        }
+
+        return $this->collection($messages, new MessageTransformer());
+    }
+
     public function includeUsers(Channel $channel)
     {
-        return $this->collection($channel->users()->get(), new UserCompactTransformer);
+        return $this->primitive($channel->userChannels()->pluck('user_id'));
     }
 }

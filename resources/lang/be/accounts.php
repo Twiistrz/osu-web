@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -25,7 +10,7 @@ return [
 
         'avatar' => [
             'title' => 'Аватар',
-            'rules' => 'Калі ласка, упэўніцеся, што ваш аватар прытрымліваецца :link.<br/>Гэта значыць, што ён павінен<strong>падыходзіць для любога ўзросту</strong>, то-бок: ніякай галізны, лаянкі або задзірлівага змесціва.',
+            'rules' => 'Калі ласка, упэўніцеся, што ваш аватар прытрымліваецца :link.<br/>Гэта значыць, што ён павінен <strong>падыходзіць для любога ўзросту</strong>. То-бок: ніякай галізны, лаянкі або задзірлівага змесціва.',
             'rules_link' => 'правілы супольнасці',
         ],
 
@@ -64,21 +49,41 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'атрымліваць апавяшчэнні аб новых праблемах кваліфікаваных мап наступных рэжымаў',
+        'beatmapset_disqualify' => 'атрымліваць апавяшчэння, калі карты для наступных рэжымаў будуць діскваліфікаваны',
+        'comment_reply' => 'атрымліваць апавяшчэнні аб адказах на каментарыі',
         'title' => 'Апавяшчэнні',
         'topic_auto_subscribe' => 'аўтаматычна ўключаць апавяшчэнні для вашых тэм з форума',
-        'beatmapset_discussion_qualified_problem' => '',
 
-        'mail' => [
-            '_' => '',
-            'beatmapset:modding' => '',
-            'forum_topic_reply' => '',
+        'options' => [
+            '_' => 'спосабы дастаўкі',
+            'beatmapset:modding' => 'модынг бітмап',
+            'channel_message' => 'асабістыя паведамленні',
+            'comment_new' => 'новыя каментарыі',
+            'forum_topic_reply' => 'адказы да тэмы',
+            'mail' => 'пошта',
+            'push' => 'push',
+            'user_achievement_unlock' => 'адкрыццё медаля',
         ],
     ],
 
     'oauth' => [
         'authorized_clients' => 'аўтарызаваныя кліенты',
-        'own_clients' => '',
+        'own_clients' => 'свае кліенты',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Налады',
+
+        'beatmapset_download' => [
+            '_' => 'тып загрузкі бітмап па змаўчанні',
+            'all' => 'з відэа, калі даступна',
+            'no_video' => 'без відэа',
+            'direct' => 'адкрыць у osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'паказаць метададзеныя карты на зыходнай мове',
     ],
 
     'playstyles' => [
@@ -90,7 +95,7 @@ return [
     ],
 
     'privacy' => [
-        'friends_only' => 'заблакаваць прыватныя паведамленні ад людзей не з майго спіса сяброў',
+        'friends_only' => 'заблакаваць прыватныя паведамленні ад людзей не з вашага спісу сяброў',
         'hide_online' => 'схаваць анлайн прысутнасць',
         'title' => 'Прыватнасць',
     ],

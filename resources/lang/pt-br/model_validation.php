@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => ':attribute especificado é invalido.',
     'not_negative' => ':attribute não pode ser negativo.',
     'required' => ':attribute é necessário.',
     'too_long' => ':attribute ultrapassou tamanho máximo - deve ser até :limit caracteres.',
     'wrong_confirmation' => 'Confirmação não confere.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Discussão está trancada.',
-        'first_post' => 'Não é possível excluir a publicação inicial.',
-
-        'attributes' => [
-            'message' => 'A mensagem',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Marcação de tempo é especificada mas beatmap está faltando.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Esse beatmap está bloqueado para discussão e não pode ser hypado",
             'guest' => 'Precisa estar conectado para hypar.',
             'hyped' => 'Você já hypou este beatmap.',
             'limit_exceeded' => 'Você usou todo seu hype.',
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Discussão está trancada.',
+        'first_post' => 'Não é possível excluir a publicação inicial.',
+
+        'attributes' => [
+            'message' => 'A mensagem',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Não é permitido responder comentários excluídos.',
-        'top_only' => '',
+        'top_only' => 'Fixar respostas de comentário não é permitido.',
 
         'attributes' => [
             'message' => 'A mensagem',
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Senha não deve conter seu nome de usuário.',
         'email_already_used' => 'Email já utilizado.',
+        'email_not_allowed' => 'Endereço de email não permitido.',
         'invalid_country' => 'País não presente no banco de dados.',
         'invalid_discord' => 'Nome de usuário do Discord inválido.',
         'invalid_email' => "Não parece ser um email válido.",
+        'invalid_twitter' => 'Nome de usuário do Twitter inválido.',
         'too_short' => 'Nova senha curta demais.',
         'unknown_duplicate' => 'Nome de usuário ou email já utilizado.',
         'username_available_in' => 'Este nome de usuário estará disponível em :duration.',

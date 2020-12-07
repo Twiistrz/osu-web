@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { ExtraHeader } from './extra-header'
 import { PlayDetailList } from 'play-detail-list'
@@ -30,17 +15,20 @@ export class TopRanks extends React.PureComponent
       el ExtraHeader, name: @props.name, withEdit: @props.withEdit
 
       div null,
-        h3 className: 'title title--page-extra-small', osu.trans('users.show.extra.top_ranks.best.title')
+        h3
+          className: 'title title--page-extra-small'
+          osu.trans('users.show.extra.top_ranks.best.title')
+          span className: 'title__count',
+            osu.formatNumber(@props.user.scores_best_count)
+
         @renderScores 'scoresBest', 'best'
 
       div null,
         h3
           className: 'title title--page-extra-small'
           osu.trans('users.show.extra.top_ranks.first.title')
-          ' '
-          if @props.user.scores_first_count > 0
-            span className: 'title__count',
-              osu.formatNumber(@props.user.scores_first_count)
+          span className: 'title__count',
+            osu.formatNumber(@props.user.scores_first_count)
 
         @renderScores 'scoresFirsts', 'firsts'
 
@@ -50,7 +38,7 @@ export class TopRanks extends React.PureComponent
     scores = @props[key]
 
     if scores?.error
-      p className: 'profile-extra-entries', scores.error
+      p null, scores.error
 
     else if scores?.length
       div className: 'profile-extra-entries',
@@ -68,5 +56,3 @@ export class TopRanks extends React.PureComponent
                 user: @props.user.id
                 type: type
                 mode: @props.currentMode
-    else
-      p className: 'profile-extra-entries', osu.trans('users.show.extra.top_ranks.empty')

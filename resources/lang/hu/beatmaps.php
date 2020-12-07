@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Hiba a poszt mentése közben',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Hiba a szavazat frissítése közben',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Kudosu szerzéstől megtagadva.',
         'message_placeholder_deleted_beatmap' => 'Ez a nehézség törölve lett, ezért a beszélgetés nem lehetséges.',
         'message_placeholder_locked' => 'A beatmap megbeszélése meg lett tiltva.',
+        'message_placeholder_silenced' => "Nem posztolhatsz beszélgetést, amíg némítva vagy.",
         'message_type_select' => 'Komment-típus választása',
         'reply_notice' => 'Nyomj entert a válaszoláshoz.',
         'reply_placeholder' => 'Ide írd a válaszod',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Írj ide az Általános (:version) részlegbe való posztoláshoz',
             'generalAll' => 'Ide írj az Általánosba posztoláshoz (Összes nehézség)',
+            'review' => 'Ide írj, hogy hozzászólj',
             'timeline' => 'Írj ide az Idővonalra (:version) való posztoláshoz',
         ],
 
@@ -91,14 +72,14 @@ return [
             'nomination_reset' => 'Nominálás Visszaállítása',
             'praise' => 'Dicséret',
             'problem' => 'Probléma',
-            'review' => '',
+            'review' => 'Összegzés',
             'suggestion' => 'Javaslat',
         ],
 
         'mode' => [
             'events' => 'Előzmények',
             'general' => 'Általános :scope',
-            'reviews' => '',
+            'reviews' => 'Összegzések',
             'timeline' => 'Idővonal',
             'scopes' => [
                 'general' => 'Ez a nehézség',
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'Időbélyeg hozzáadásához nyomj ctrl-c billentyűkombinációt szerkesztő módban, majd illeszd be az üzenetedbe!',
             'title' => 'Új beszélgetés indítása',
             'unpin' => 'Rögzítés feloldása',
+        ],
+
+        'review' => [
+            'new' => 'Új hozzászólás',
+            'embed' => [
+                'delete' => 'Törlés',
+                'missing' => 'Hozzászólás törölve',
+                'unlink' => 'Leválasztás',
+                'unsaved' => 'Mentetlen',
+                'timestamp' => [
+                    'all-diff' => 'Az összes nehézséget tartalmazó posztra posztolni, nem lehet időjelölni.',
+                    'diff' => 'Ha a :type-al fog kezdődni, akkor az idővonal alatt fog megjelenni.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'Bekezdés beszúrása',
+                'praise' => 'Dícséret beszúrása',
+                'problem' => 'Probléma beszúrása',
+                'suggestion' => 'Javaslat beszúrása',
+            ],
         ],
 
         'show' => [
@@ -144,12 +145,12 @@ return [
 
         'votes' => [
             'none' => [
-                'down' => '',
-                'up' => '',
+                'down' => 'Nincsenek leértékelések',
+                'up' => 'Nincsenek felértékelések',
             ],
             'latest' => [
-                'down' => '',
-                'up' => '',
+                'down' => 'Legutóbbi leértékelések',
+                'up' => 'Legutóbbi felértékelések',
             ],
         ],
     ],
@@ -185,13 +186,19 @@ return [
         'nominate' => 'Nominálás',
         'nominate_confirm' => 'Nominálod ezt a beatmapot?',
         'nominated_by' => 'nominálva :users által',
-        'not_enough_hype' => "",
-        'qualified' => 'Előreláthatólag :date-kor lesz rangsorolva, ha nem találnak benne problémát.',
-        'qualified_soon' => 'Hamarosan rangsorolva lesz, ha nem találnak benne problémát.',
+        'not_enough_hype' => "Nincs elég hype.",
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Nominálások: :current/:required',
         'reset_message_deleted' => 'törölve',
         'title' => 'Nominálási Állapot',
         'unresolved_issues' => 'Még mindig vannak megoldatlan problémák amelyeket először kezelni kell.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'A nominálási folyamat újraindításra került :time_ago-kor :user által: :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Konvertált beatmap-ek tartalmazása',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Bármelyik',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Kortárs',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elektronikus',
+        'metal' => 'Metál',
+        'classical' => 'Klasszikus',
+        'folk' => 'Népi',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Koreai',
         'spanish' => 'Spanyol',
         'swedish' => 'Svéd',
+        'russian' => 'Orosz',
+        'polish' => 'Lengyel',
         'instrumental' => 'Instrumentális',
         'other' => 'Egyéb',
+        'unspecified' => 'Meghatározatlan',
     ],
     'played' => [
         'any' => 'Bármelyik',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Játékszám: :count',
         'favourites' => 'Kedvencek: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Összes',
+        ],
     ],
 ];

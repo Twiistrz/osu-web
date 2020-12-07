@@ -1,22 +1,7 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
-import { action, computed, observable } from 'mobx';
+import { action, computed, intercept, observable } from 'mobx';
 
 type filterValueType = string | null;
 
@@ -42,10 +27,10 @@ export class BeatmapsetSearchFilters implements BeatmapsetSearchParams {
   @observable language: filterValueType = null;
   @observable mode: filterValueType = null;
   @observable played: filterValueType = null;
+  @observable query: filterValueType = null;
   @observable rank: filterValueType = null;
   @observable sort: filterValueType = null;
   @observable status: filterValueType = null;
-  @observable private sanitizedQuery: filterValueType = null;
 
   [key: string]: any;
 
@@ -54,23 +39,17 @@ export class BeatmapsetSearchFilters implements BeatmapsetSearchParams {
     for (const key of Object.keys(filters)) {
       this[key] = filters[key];
     }
+
+    intercept(this, 'query', (change) => {
+      change.newValue = osu.presence((change.newValue as filterValueType)?.trim());
+
+      return change;
+    });
   }
 
   @computed
   get displaySort() {
     return this.selectedValue('sort');
-  }
-
-  @computed
-  get query() {
-    return this.sanitizedQuery;
-  }
-
-  set query(value: string | null) {
-    const sanitizedQuery = osu.presence((value || '').trim());
-    if (this.sanitizedQuery !== sanitizedQuery) {
-      this.sanitizedQuery = sanitizedQuery;
-    }
   }
 
   @computed
@@ -117,12 +96,7 @@ export class BeatmapsetSearchFilters implements BeatmapsetSearchParams {
    * Returns a copy of the values in the filter.
    */
   @computed
-  private get values() {
-    // Object.assign doesn't copy the methods
-    const values = Object.assign({}, this);
-    values.query = this.sanitizedQuery;
-    delete values.sanitizedQuery;
-
-    return values as BeatmapsetSearchParams;
+  private get values(): BeatmapsetSearchParams {
+    return Object.assign({}, this);
   }
 }

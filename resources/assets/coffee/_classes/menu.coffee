@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 class @Menu
   constructor: ->
@@ -24,7 +9,7 @@ class @Menu
     $(document).on 'mouseenter', '.js-menu', @onMouseEnter
     $(document).on 'mouseleave', '.js-menu', @onMouseLeave
     $(document).on 'touchstart', @onGlobalTouchstart
-    $(document).on 'turbolinks:load', @refresh
+    $(document).on 'turbolinks:load', @onDocumentReady
 
 
   $menuLink: (id) -> $(".js-menu[data-menu-target#{if id then "='#{id}'" else ''}]")
@@ -58,13 +43,17 @@ class @Menu
     currentTree
 
 
+  onDocumentReady: =>
+    @refresh()
+    # It seems like jQuery's mouseleave sometimes doesn't trigger on page navigation.
+    # This will re-check whatever the mouse is currently pointing at.
+    @setMenu null, => @closestMenuId($(':hover').last())
+
+
   onGlobalTouchstart: (e) =>
     return unless @currentMenu
 
-    closest = e.target
-    while closest
-      return if closest.classList.contains('js-menu')
-      closest = closest.parentElement
+    return if e.target.closest('.js-menu')?
 
     @hideMenu()
 
@@ -79,14 +68,11 @@ class @Menu
     e.preventDefault()
     timeout = parseInt(link.dataset.menuShowDelay ? @menuTimeout, 10)
 
-    Timeout.clear @refreshTimeout
-    @refreshTimeout = Timeout.set timeout, =>
-      @currentMenu =
-        if @currentMenu == target
-          @closestMenuId $target
-        else
-          target
-      @refresh()
+    @setMenu timeout, =>
+      if @currentMenu == target
+        @closestMenuId $target
+      else
+        target
 
 
 
@@ -94,28 +80,18 @@ class @Menu
     link = e.currentTarget
     timeout = parseInt(link.dataset.menuShowDelay ? @menuTimeout, 10)
 
-    Timeout.clear @refreshTimeout
-    @refreshTimeout = Timeout.set timeout, =>
-      @currentMenu = link.dataset.menuTarget
-      @currentMenu ?= @closestMenuId $(link)
-      @refresh()
-
+    @setMenu timeout, =>
+      link.dataset.menuTarget ? @closestMenuId($(link))
 
 
   onMouseLeave: (e) =>
     $target = $(e.currentTarget)
 
-    Timeout.clear @refreshTimeout
-    @refreshTimeout = Timeout.set @menuTimeout, =>
-      @currentMenu = @parentsMenuId $target
-      @refresh()
+    @setMenu null, => @parentsMenuId($target)
 
 
   hideMenu: =>
-    Timeout.clear @refreshTimeout
-    @refreshTimeout = Timeout.set @menuTimeout, =>
-      @currentMenu = null
-      @refresh()
+    @setMenu()
 
 
   refresh: =>
@@ -135,3 +111,12 @@ class @Menu
         Fade.in menu
         @$menuLink(menuId).addClass('js-menu--active')
         $(menu).trigger 'menu:showing'
+
+
+  setMenu: (delay, menuFunc) =>
+    delay ?= @menuTimeout
+    Timeout.clear @refreshTimeout
+
+    @refreshTimeout = Timeout.set delay, =>
+      @currentMenu = menuFunc?()
+      @refresh()

@@ -1,37 +1,24 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'Усе апавяшчэнні прачытаныя!',
-    'mark_all_read' => 'Ачысціць усё',
-    'none' => '',
-    'see_all' => '',
+    'delete' => '',
+    'mark_read' => 'Ачысціць :type',
+    'none' => 'Няма апавяшчэнняў',
+    'see_all' => 'гл. усе апавяшчэнні',
+    'see_channel' => '',
 
     'filters' => [
-        '_' => '',
-        'user' => '',
-        'beatmapset' => '',
-        'forum_topic' => '',
-        'news_post' => '',
-        'build' => '',
-        'channel' => '',
+        '_' => 'усе',
+        'user' => 'профіль',
+        'beatmapset' => 'бітмапы',
+        'forum_topic' => 'форум',
+        'news_post' => 'навіны',
+        'build' => 'зборкі',
+        'channel' => 'чат',
     ],
 
     'item' => [
@@ -43,19 +30,21 @@ return [
                 'beatmapset_discussion_lock' => 'Бітмапа ":title" заблакавана для абмеркавання.',
                 'beatmapset_discussion_lock_compact' => 'Абмеркаванне было закрыта',
                 'beatmapset_discussion_post_new' => ':username размясціў новае паведамленне ў абмеркаванні бітмапы ":title".',
-                'beatmapset_discussion_post_new_empty' => '',
+                'beatmapset_discussion_post_new_empty' => 'Новы допіс у ":title" ад :username',
                 'beatmapset_discussion_post_new_compact' => 'Новы допіс ад :username',
-                'beatmapset_discussion_post_new_compact_empty' => '',
+                'beatmapset_discussion_post_new_compact_empty' => 'Новы допіс ад :username',
+                'beatmapset_discussion_review_new' => 'Новы водгук  на ":title" ад :username, які змяшчае праблемы: :problems, прапановы: :suggestions, хвалы: :praises',
+                'beatmapset_discussion_review_new_compact' => 'Новы водгук ад :username, які змяшчае праблемы: :problems, прапановы: :suggestions, хвалы: :praises',
                 'beatmapset_discussion_unlock' => 'Бітмапа ":title" разблакава для абмеркавання.',
                 'beatmapset_discussion_unlock_compact' => 'Абмеркаванне было адкрыта',
             ],
 
             'beatmapset_problem' => [
-                '_' => '',
-                'beatmapset_discussion_qualified_problem' => '',
-                'beatmapset_discussion_qualified_problem_empty' => '',
-                'beatmapset_discussion_qualified_problem_compact' => '',
-                'beatmapset_discussion_qualified_problem_compact_empty' => '',
+                '_' => 'Праблема з кваліфікаванай картай',
+                'beatmapset_discussion_qualified_problem' => 'Скарга ад :username: на ":title": ":content"',
+                'beatmapset_discussion_qualified_problem_empty' => 'Скарга ад :username на ":title"',
+                'beatmapset_discussion_qualified_problem_compact' => 'Скарга ад :username: ":content"',
+                'beatmapset_discussion_qualified_problem_compact_empty' => 'Скарга ад :username',
             ],
 
             'beatmapset_state' => [
@@ -70,6 +59,8 @@ return [
                 'beatmapset_qualify_compact' => 'Бітмапа далучылася да чаргі рэйтынгу',
                 'beatmapset_rank' => '":title" была ранкавана',
                 'beatmapset_rank_compact' => 'Бітмапа была ранкавана',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_remove_from_loved_compact' => '',
                 'beatmapset_reset_nominations' => 'Праблема, якую размясціў :username выклікала скід намінацыі бітмапы ":title" ',
                 'beatmapset_reset_nominations_compact' => 'Намінацыя была скінута',
             ],
@@ -79,6 +70,8 @@ return [
 
                 'comment_new' => ':username пракаментаваў ":content" у ":title"',
                 'comment_new_compact' => ':username пракаментаваў ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -103,6 +96,8 @@ return [
 
                 'comment_new' => ':username пракаментаваў ":content" у ":title"',
                 'comment_new_compact' => ':username пракаментаваў ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -114,6 +109,8 @@ return [
 
                 'comment_new' => ':username пракаментаваў ":content" у ":title"',
                 'comment_new_compact' => ':username пракаментаваў ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -142,7 +139,67 @@ return [
             'user_achievement_unlock' => [
                 '_' => 'Новая медаль',
                 'user_achievement_unlock' => 'Адкрыта ":title"!',
-                'user_achievement_unlock_compact' => '',
+                'user_achievement_unlock_compact' => 'Адкрыта ":title"!',
+                'user_achievement_unlock_group' => '',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => '',
+                'beatmapset_discussion_post_new' => '',
+                'beatmapset_discussion_unlock' => '',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => '',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '',
+                'beatmapset_love' => '',
+                'beatmapset_nominate' => '',
+                'beatmapset_qualify' => '',
+                'beatmapset_rank' => '',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_reset_nominations' => '',
+            ],
+
+            'comment' => [
+                'comment_new' => '',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => '',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => '',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => '',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => '',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => '',
+                'user_achievement_unlock_self' => '',
             ],
         ],
     ],

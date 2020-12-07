@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
@@ -29,6 +14,7 @@ return [
         'discussion_unlock' => 'Chức năng bàn luận của beatmap này đã được kich hoạt.',
         'disqualify' => 'Disqualified bởi :user. Reason: :text.',
         'disqualify_legacy' => 'Disqualified bởi :user. Lí do: :text.',
+        'genre_edit' => '',
         'issue_reopen' => 'Vấn đề đã giải quyết :discussion được mở lại.',
         'issue_resolve' => 'Vấn đề :discussion đã được giải quyết.',
         'kudosu_allow' => 'Kudosu của cuộc thảo luận :discussion đã không còn bị từ chối nữa.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'Cuộc thảo luận :discussion bởi :user đã nhận được đủ votes để có kudosu.',
         'kudosu_lost' => 'Cuộc thảo luận :discussion bởi :user đã mất votes và kudosu đã nhận được bị loại bỏ.',
         'kudosu_recalculate' => 'Kudosu của cuộc thảo luận :discussion đã được tính lại.',
+        'language_edit' => '',
         'love' => 'Loved bởi :user',
         'nominate' => 'Được đề cử (nominated) bởi :user.',
         'nomination_reset' => 'Vấn đề mới :discussion đã khiến cho đề cử bị hoàn lại.',
         'qualify' => 'Beatmap này đã đạt được số đề cử (nominations) cần thiết và đã qualified.',
         'rank' => 'Đã được xếp hạng (Ranked).',
+        'remove_from_loved' => '',
     ],
 
     'index' => [
@@ -65,6 +53,7 @@ return [
         'discussion_post_restore' => 'Phục hồi trả lời của cuộc thảo luận',
         'discussion_restore' => 'Phục hồi cuộc thảo luận',
         'disqualify' => 'Disqualification',
+        'genre_edit' => '',
         'issue_reopen' => 'Mở lại cuộc thảo luận',
         'issue_resolve' => 'Giải quyết cuộc thảo luận',
         'kudosu_allow' => 'Cho phép kudosu',
@@ -72,10 +61,12 @@ return [
         'kudosu_gain' => 'Kudosu đạt được',
         'kudosu_lost' => 'Kudosu giảm',
         'kudosu_recalculate' => 'Tính lại kudosu',
+        'language_edit' => '',
         'love' => 'Love',
         'nominate' => 'Đề cử',
         'nomination_reset' => 'Đặt lại đề cử',
         'qualify' => 'Qualification',
         'rank' => 'Xếp hạng',
+        'remove_from_loved' => '',
     ],
 ];

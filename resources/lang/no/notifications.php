@@ -1,37 +1,25 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'Alle varsler lest!',
-    'mark_all_read' => 'Tøm alt',
-    'none' => '',
-    'see_all' => '',
+    'delete' => '',
+    'mark_read' => 'Tøm :type',
+    'none' => 'Ingen varsler',
+    'see_all' => 'se alle varsler',
+    'see_channel' => '',
 
     'filters' => [
-        '_' => '',
-        'user' => '',
-        'beatmapset' => '',
-        'forum_topic' => '',
-        'news_post' => '',
-        'build' => '',
-        'channel' => '',
+        '_' => 'alle',
+        'user' => 'profil',
+        'beatmapset' => 'beatmapper
+',
+        'forum_topic' => 'forum',
+        'news_post' => 'nyheter',
+        'build' => 'versjon',
+        'channel' => 'chat',
     ],
 
     'item' => [
@@ -43,19 +31,21 @@ return [
                 'beatmapset_discussion_lock' => 'Beatmappen ":title" har blitt låst for diskusjon.',
                 'beatmapset_discussion_lock_compact' => 'Diskusjonen var låst',
                 'beatmapset_discussion_post_new' => ':username la til en ny melding i beatmapdiskusjonen til ":title".',
-                'beatmapset_discussion_post_new_empty' => '',
+                'beatmapset_discussion_post_new_empty' => 'Nytt innlegg ved ":title" av :username',
                 'beatmapset_discussion_post_new_compact' => 'Nytt innlegg av :username',
-                'beatmapset_discussion_post_new_compact_empty' => '',
+                'beatmapset_discussion_post_new_compact_empty' => 'Nytt innlegg av :username',
+                'beatmapset_discussion_review_new' => 'Ny anmeldelse på ":title" av :username som inneholder problemer: :problems, forslag: :suggestions, ros: :praises',
+                'beatmapset_discussion_review_new_compact' => 'Ny anmeldelse av :username som inneholder problemer: :problems, forslag: :suggestions, ros: :praises',
                 'beatmapset_discussion_unlock' => 'Beatmappen ":title" har blitt låst opp for diskusjon.',
                 'beatmapset_discussion_unlock_compact' => 'Diskusjon var ulåst',
             ],
 
             'beatmapset_problem' => [
-                '_' => '',
-                'beatmapset_discussion_qualified_problem' => '',
-                'beatmapset_discussion_qualified_problem_empty' => '',
-                'beatmapset_discussion_qualified_problem_compact' => '',
-                'beatmapset_discussion_qualified_problem_compact_empty' => '',
+                '_' => 'Kvalifisert beatmap-problem',
+                'beatmapset_discussion_qualified_problem' => 'Rapportert av :username på ":title": ":content"',
+                'beatmapset_discussion_qualified_problem_empty' => 'Rapportert av :username ved ":title"',
+                'beatmapset_discussion_qualified_problem_compact' => 'Rapportert av :username: ":content"',
+                'beatmapset_discussion_qualified_problem_compact_empty' => 'Rapportert av :username',
             ],
 
             'beatmapset_state' => [
@@ -70,6 +60,8 @@ return [
                 'beatmapset_qualify_compact' => 'Beatmappen er i kø for å bli rangert',
                 'beatmapset_rank' => '":title" har blitt rangert',
                 'beatmapset_rank_compact' => 'Beatmappet var rangert',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_remove_from_loved_compact' => '',
                 'beatmapset_reset_nominations' => 'Problemstilling skrevet av :username nullstilte nominasjonen av beatmappet ":title" ',
                 'beatmapset_reset_nominations_compact' => 'Nominasjonen ble tilbakestilt',
             ],
@@ -79,6 +71,8 @@ return [
 
                 'comment_new' => ':username kommenterte ":content" på ":title"',
                 'comment_new_compact' => ':username kommenterte ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -103,6 +97,8 @@ return [
 
                 'comment_new' => ':username kommenterte ":content" på ":title"',
                 'comment_new_compact' => ':username kommenterte ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -114,6 +110,8 @@ return [
 
                 'comment_new' => ':username kommenterte ":content" på ":title"',
                 'comment_new_compact' => ':username kommenterte ":content"',
+                'comment_reply' => '',
+                'comment_reply_compact' => '',
             ],
         ],
 
@@ -142,7 +140,67 @@ return [
             'user_achievement_unlock' => [
                 '_' => 'Ny medalje',
                 'user_achievement_unlock' => '":title" låst opp!',
-                'user_achievement_unlock_compact' => '',
+                'user_achievement_unlock_compact' => '":title" låst opp!',
+                'user_achievement_unlock_group' => '',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'Diskusjonen om ":title" har blitt låst',
+                'beatmapset_discussion_post_new' => 'Diskusjonen om ":title" har nye oppdateringer',
+                'beatmapset_discussion_unlock' => 'Diskusjonen om ":title" har blitt låst',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => 'Et nytt problem rapportert var rapportert på ":title"',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '',
+                'beatmapset_love' => '',
+                'beatmapset_nominate' => '',
+                'beatmapset_qualify' => '',
+                'beatmapset_rank' => '',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_reset_nominations' => '',
+            ],
+
+            'comment' => [
+                'comment_new' => ' Beatmap ":title" har nye kommentarer',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => 'Du fått en ny melding fra :username',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => 'Endringslogg ":title" har nye kommentarer',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'Nyheter ":title" har nye kommentarer',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => 'Det finnes nye svar i ":title"',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':username har låst opp en ny medalje, ":title"!',
+                'user_achievement_unlock_self' => 'Du har låst opp en ny medalje, ":title"!',
             ],
         ],
     ],

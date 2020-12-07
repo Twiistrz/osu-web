@@ -1,26 +1,11 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'beatmapset_update_notice' => [
-        'new' => 'Só avisando que houve uma nova atualização no beatmap ":title" desde a sua última visita.',
+        'new' => 'Só informando que houve uma nova atualização no beatmap ":title" desde a sua última visita.',
         'subject' => 'Nova atualização no beatmap ":title"',
         'unwatch' => 'Se você não deseja mais ser notificado sobre este beatmap, você pode ou clicar no link "Deixar de observar" encontrado na página acima, ou na página de assinaturas de moding:',
         'visit' => 'Visite a página de discussão aqui:',
@@ -96,6 +81,12 @@ return [
         'perform_reset' => 'Você pode executar o reset a partir de :url',
         'reason' => 'Motivo:',
         'subject' => 'osu! Reativação de conta necessária',
+    ],
+
+    'user_notification_digest' => [
+        'new' => 'Só informando que há novas atualizações em itens que você acompanha.',
+        'settings' => 'Alterar preferências de notificação de email:',
+        'subject' => 'Novas notificações de osu!',
     ],
 
     'user_password_updated' => [

@@ -1,27 +1,13 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
-import { Mods } from 'mods'
+import Mod from 'mod'
 import { PlayDetailMenu } from 'play-detail-menu'
 import { createElement as el, PureComponent } from 'react'
 import * as React from 'react'
 import { a, button, div, i, img, small, span } from 'react-dom-factories'
-import { ScoreHelper } from 'score-helper'
+import { hasMenu } from 'score-helper'
+import { getArtist, getTitle } from 'utils/beatmap-helper'
 
 osu = window.osu
 bn = 'play-detail'
@@ -52,13 +38,13 @@ export class PlayDetail extends PureComponent
 
         div className: "#{bn}__detail",
           a
-            href: score.beatmap.url
+            href: laroute.route('beatmaps.show', beatmap: score.beatmap.id, mode: score.mode)
             className: "#{bn}__title u-ellipsis-overflow"
-            score.beatmapset.title
+            getTitle(score.beatmapset)
             ' '
             small
               className: "#{bn}__artist"
-              osu.trans('users.show.extra.beatmaps.by_artist', artist: score.beatmapset.artist)
+              osu.trans('users.show.extra.beatmaps.by_artist', artist: getArtist(score.beatmapset))
           div
             className: "#{bn}__beatmap-and-time"
             span
@@ -97,7 +83,7 @@ export class PlayDetail extends PureComponent
                   percentage: "#{osu.formatNumber(Math.round(score.weight.percentage))}%"
         div
           className: "#{bn}__score-detail #{bn}__score-detail--mods"
-          el Mods, mods: score.mods, modifiers: ['profile-page']
+          el(Mod, key: mod, mod: mod) for mod in score.mods
 
         div
           className: "#{bn}__pp"
@@ -114,7 +100,7 @@ export class PlayDetail extends PureComponent
 
         div
           className: "#{bn}__more"
-          if ScoreHelper.hasMenu(score)
+          if hasMenu(score)
             el PlayDetailMenu,
               { score }
 

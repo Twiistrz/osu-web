@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'отримувати повідомлення про нові проблеми кваліфікованих карт для наступних режимів',
+        'beatmapset_disqualify' => 'отримувати повідомлення коли карти наступних модов дискваліфіковані',
+        'comment_reply' => 'отримувати повідомлення про відповіді на ваші коментарі',
         'title' => 'Сповіщення',
         'topic_auto_subscribe' => 'автоматично вмикати сповіщення для тем на форумі, коли ви їх створюєте',
-        'beatmapset_discussion_qualified_problem' => 'отримувати повідомлення про нові проблеми кваліфікованих карт для наступних режимів',
 
-        'mail' => [
-            '_' => 'отримувати повідомлення поштою про',
+        'options' => [
+            '_' => 'способи доставки',
             'beatmapset:modding' => 'моддінг карт',
-            'forum_topic_reply' => 'відповідь в темі',
+            'channel_message' => 'приватні повідомлення',
+            'comment_new' => 'нові коментарі',
+            'forum_topic_reply' => 'відповідь темі',
+            'mail' => 'пошта',
+            'push' => 'push',
+            'user_achievement_unlock' => 'медаль користувача розблоковано',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'авторизовані клієнти',
         'own_clients' => 'свої клієнти',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Налаштування',
+
+        'beatmapset_download' => [
+            '_' => 'стандартний тип скачування карти',
+            'all' => 'з відео, якщо доступно',
+            'no_video' => 'без відео',
+            'direct' => 'відкрити в osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'показувати метадату мовою оригіналу',
     ],
 
     'playstyles' => [

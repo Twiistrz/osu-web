@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Festede emner',
@@ -25,7 +10,7 @@ return [
     'title' => 'osu! forumet',
 
     'covers' => [
-        'edit' => '',
+        'edit' => 'Endre omslag',
 
         'create' => [
             '_' => 'Velg bannerbilde',
@@ -43,7 +28,7 @@ return [
         'latest_post' => 'Siste Innlegg',
 
         'index' => [
-            'title' => '',
+            'title' => 'Forumindeks',
         ],
 
         'topics' => [
@@ -65,13 +50,14 @@ return [
 
         'actions' => [
             'destroy' => 'Slett innlegg',
-            'restore' => 'Gjenopprett innlegg',
             'edit' => 'Rediger innlegget',
+            'report' => '',
+            'restore' => 'Gjenopprett innlegg',
         ],
 
         'create' => [
             'title' => [
-                'reply' => '',
+                'reply' => 'Ny kommentar',
             ],
         ],
 
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'slettet emne',
         'go_to_latest' => 'vis nyeste innlegg',
+        'has_replied' => '',
+        'in_forum' => '',
         'latest_post' => ':when av :user',
         'latest_reply_by' => 'siste svar av :user',
         'new_topic' => 'Nytt emne',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Dette emne er låst og kan ikke besvares',
             'to_0' => 'Lås opp emne',
+            'to_0_confirm' => 'Lås opp emne?',
             'to_0_done' => 'Emnet har blitt låst opp',
             'to_1' => 'Lås emne',
+            'to_1_confirm' => 'Lås emne?',
             'to_1_done' => 'Emne har blitt låst',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Løsne emnet',
+            'to_0_confirm' => 'Løsne emne?',
             'to_0_done' => 'Emne har blitt løsnet',
             'to_1' => 'Fest emne',
+            'to_1_confirm' => 'Fest emne?',
             'to_1_done' => 'Emne har blitt festet',
             'to_2' => 'Fest emne og marker som kunngjøring',
+            'to_2_confirm' => 'Fest emne og marker som opplysning?',
             'to_2_done' => 'Emne har blitt festet og markert som en kunngjøring',
         ],
 
@@ -296,14 +289,14 @@ return [
             ],
 
             'poll' => [
-                'edit' => '',
+                'edit' => 'Avstemning Rediger',
                 'edit_warning' => 'Redigering av en avstemming vil fjerne de gjeldene resultatene!',
                 'vote' => 'Stem',
 
                 'button' => [
                     'change_vote' => 'Endre stemme',
-                    'edit' => '',
-                    'view_results' => '',
+                    'edit' => 'Rediger avstemming',
+                    'view_results' => 'Hopp til resultater',
                     'vote' => 'Stem',
                 ],
 

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\OAuth;
 
@@ -25,6 +10,7 @@ use App\Models\User;
 use App\Traits\Validatable;
 use DB;
 use Laravel\Passport\Client as PassportClient;
+use Laravel\Passport\RefreshToken;
 
 class Client extends PassportClient
 {
@@ -79,16 +65,24 @@ class Client extends PassportClient
             $this->validationErrors()->add('name', 'required');
         }
 
-        if (mb_strlen(trim($this->redirect)) === 0) {
-            $this->validationErrors()->add('redirect', 'required');
-        }
-
+        $redirect = trim($this->redirect);
         // TODO: this url validation is not very good.
-        if (!filter_var(trim($this->redirect), FILTER_VALIDATE_URL)) {
+        if (present($redirect) && !filter_var($redirect, FILTER_VALIDATE_URL)) {
             $this->validationErrors()->add('redirect', '.url');
         }
 
         return $this->validationErrors()->isEmpty();
+    }
+
+    public function resetSecret()
+    {
+        return $this->getConnection()->transaction(function () {
+            $now = now('UTC');
+
+            $this->revokeTokens($now);
+
+            return $this->update(['secret' => str_random(40), 'updated_at' => $now], ['skipValidations' => true]);
+        });
     }
 
     public function revokeForUser(User $user)
@@ -120,9 +114,7 @@ class Client extends PassportClient
         $this->getConnection()->transaction(function () {
             $now = now('UTC');
 
-            $this->tokens()->update(['revoked' => true, 'updated_at' => $now]);
-            $this->refreshTokens()->update([(new RefreshToken)->qualifyColumn('revoked') => true]);
-            $this->authCodes()->update(['revoked' => true]);
+            $this->revokeTokens($now);
             $this->update(['revoked' => true, 'updated_at' => $now], ['skipValidations' => true]);
         });
     }
@@ -149,5 +141,12 @@ class Client extends PassportClient
     public function validationErrorsTranslationPrefix()
     {
         return 'oauth.client';
+    }
+
+    private function revokeTokens($timestamp)
+    {
+        $this->tokens()->update(['revoked' => true, 'updated_at' => $timestamp]);
+        $this->refreshTokens()->update([(new RefreshToken())->qualifyColumn('revoked') => true]);
+        $this->authCodes()->update(['revoked' => true]);
     }
 }

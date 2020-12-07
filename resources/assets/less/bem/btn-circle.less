@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .btn-circle {
   @top: btn-circle;
@@ -56,11 +41,13 @@
     background-color: transparent;
     box-shadow: none;
     opacity: 0.7;
+    cursor: default;
 
     &:focus,
     &:hover,
     &:active {
       box-shadow: none;
+      background-color: transparent;
     }
   }
 
@@ -78,7 +65,11 @@
   }
 
   &--topic-nav {
-    margin: 0 3px;
+    margin: @forum-topic-nav-item--gutter;
+
+    @media @desktop {
+      margin: 0 @forum-topic-nav-item--gutter-desktop;
+    }
   }
 
   &--activated, &.js-activated {
@@ -132,18 +123,6 @@
   &--disabled {
     background-color: #333;
     cursor: not-allowed;
-
-    // looks dumb if black and other buttons on the bar are not.
-    .post-editor__toolbar & {
-      background-color: @blue-darker;
-
-      &::before {
-        .full-size();
-        .circle(@btn-circle-diameter);
-        content: ' ';
-        background-color: fade(#fff, 50%);
-      }
-    }
   }
 
   // some browsers can't display flex for <button>

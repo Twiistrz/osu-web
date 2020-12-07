@@ -1,28 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => 'Abbrechen',
 
     'authorise' => [
-        'request' => 'fordert die Berechtigung, auf Ihr Konto zuzugreifen.',
+        'request' => 'bittet um Erlaubnis, auf dein Konto zugreifen zu dürfen.',
         'scopes_title' => 'Diese Anwendung wird in der Lage sein:',
         'title' => 'Autorisierungsanfrage',
     ],
@@ -43,7 +28,14 @@ return [
         'id' => 'Client-ID',
         'name' => 'Anwendungsname',
         'redirect' => 'Anwendungs-Callback-URL',
+        'reset' => 'Client-Secret zurücksetzen',
+        'reset_failed' => 'Client-Secret konnte nicht zurückgesetzt werden',
         'secret' => 'Client Secret',
+
+        'secret_visible' => [
+            'false' => 'Client-Secret zeigen',
+            'true' => 'Client-Secret verbergen',
+        ],
     ],
 
     'new_client' => [
@@ -57,6 +49,7 @@ return [
 
     'own_clients' => [
         'confirm_delete' => 'Bist du sicher, dass du dieses Gerät löschen willst?',
+        'confirm_reset' => 'Möchtest du das Client-Secret wirklich zurücksetzen? Dadurch werden alle vorhandenen Tokens widerrufen.',
         'new' => 'Neue OAuth-Anwendung',
         'none' => 'Keine Geräte',
 

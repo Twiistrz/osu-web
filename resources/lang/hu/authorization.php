@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '',
     'require_login' => 'Kérlek jelentkezz be a folytatáshoz.',
-    'require_verification' => '',
+    'require_verification' => 'Kérlek, hagyd jóvá a folytatáshoz.',
     'restricted' => "Felfüggesztett állapotban erre nem vagy képes.",
     'silenced' => "Némított állapotban erre nem vagy képes.",
     'unauthorized' => 'Hozzáférés megtagadva.',
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Teljes jogú nominátornak kell lenned a több játékmódot tartalmazó beatmapszettek nominálásához.',
             'incorrect_state' => 'Hiba történt a művelet végrehajtása közben, próbáld frissíteni az oldalt.',
             'owner' => "Saját beatmap-et nem lehet ajánlani.",
+            'set_metadata' => 'Mielőtt kijelölné, a műfajt és a nyelvet meg kell adnod',
         ],
         'resolve' => [
             'not_owner' => 'Csak a poszt szerzője és a beatmap készítője tudja megoldottnak jelölni az adott problémát.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "A bot által létrehozott megbszélésre nem szavazhatsz",
             'limit_exceeded' => 'Kérlek várj egy keveset újabb szavazat leadása előtt',
             'owner' => "Nem szavazhatsz a saját posztodra.",
             'wrong_beatmapset_state' => 'Csak függő beatmap beszélgetéseken lehet szavazni.',
@@ -55,18 +43,24 @@ return [
     'beatmap_discussion_post' => [
         'destroy' => [
             'not_owner' => 'Csak a saját posztjaidat tudod törölni.',
-            'resolved' => '',
+            'resolved' => 'Nem törölhetsz bejegyzést egy megbeszélt témában.',
             'system_generated' => 'Az automatikusan generált posztok nem törölhetőek.',
         ],
 
         'edit' => [
             'not_owner' => 'Csak a posztoló tudja szerkeszteni a posztot.',
-            'resolved' => '',
+            'resolved' => 'Nem szerkeszthetsz bejegyzést egy megbeszélt témában.',
             'system_generated' => 'Automatikusan generált posztot nem lehet szerkeszteni.',
         ],
 
         'store' => [
             'beatmapset_locked' => 'Ez a beatmap megbeszélés miatt zárolva.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Nem változtathatod meg egy map metaadatait. Ha úgy gondolod valami nincs rendben, lépj kapcsolatba egy BN vagy egy NAT taggal.',
         ],
     ],
 
@@ -159,7 +153,7 @@ return [
                 'not_owner' => 'Csak a szerző változtathatja a borítót.',
             ],
             'store' => [
-                'forum_not_allowed' => '',
+                'forum_not_allowed' => 'Ez a fórum nem fogad téma fejléceket.',
             ],
         ],
 

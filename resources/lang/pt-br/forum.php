@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Tópicos Fixados',
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => 'Excluir publicação',
-            'restore' => 'Restaurar publicação',
             'edit' => 'Editar publicação',
+            'report' => '',
+            'restore' => 'Restaurar publicação',
         ],
 
         'create' => [
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'tópico excluído',
         'go_to_latest' => 'ver a ultima publicação',
+        'has_replied' => 'Você respondeu a este tópico',
+        'in_forum' => 'em :forum',
         'latest_post' => ':when por :user',
         'latest_reply_by' => 'última resposta por :user',
         'new_topic' => 'Criar novo tópico',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Este tópico está trancado e não pode mais ser respondido',
             'to_0' => 'Destrancar tópico',
+            'to_0_confirm' => 'Destrancar tópico?',
             'to_0_done' => 'Tópico destrancado',
             'to_1' => 'Trancar tópico',
+            'to_1_confirm' => 'Trancar tópico?',
             'to_1_done' => 'Tópico trancado',
         ],
 
@@ -262,10 +252,13 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Desafixar tópico',
+            'to_0_confirm' => 'Desafixar tópico?',
             'to_0_done' => 'Tópico desafixado',
             'to_1' => 'Fixar tópico',
+            'to_1_confirm' => 'Fixar tópico?',
             'to_1_done' => 'Tópico fixado',
             'to_2' => 'Fixar tópico e marcar como anúncio',
+            'to_2_confirm' => 'Fixar tópico e marcar como anúncio?',
             'to_2_done' => 'Tópico fixado e marcado como anúncio',
         ],
 

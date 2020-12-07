@@ -6,6 +6,15 @@ return [
         'icon_prefix' => env('USER_ACHIEVEMENT_ICON_PREFIX', 'https://assets.ppy.sh/user-achievements/'),
     ],
 
+    'api' => [
+        // changing the throttle rate doesn't reset any existing timers,
+        // changing the prefix key is the only way to invalidate them.
+        'throttle' => [
+            'global' => env('API_THROTTLE_GLOBAL', '1200,1,api'),
+            'scores_download' => env('API_THROTTLE_SCORES_DOWNLOAD', '10,1,api-scores-download'),
+        ],
+    ],
+
     'avatar' => [
         'cache_purge_prefix' => env('AVATAR_CACHE_PURGE_PREFIX'),
         'default' => env('DEFAULT_AVATAR', '/images/layout/avatar-guest.png'),
@@ -32,7 +41,6 @@ return [
         'sentry' => env('BM_PROCESSOR_SENTRY'),
     ],
     'beatmapset' => [
-        'client_bundle' => array_map('intval', explode(' ', env('BEATMAPSET_CLIENT_BUNDLE', '3756 163112 140662 151878 190390 123593 241526 299224'))),
         'discussion_kudosu_per_user' => get_int(env('BEATMAPSET_DISCUSSION_KUDOSU_PER_USER')) ?? 10,
         'discussion_review_enabled' => get_bool(env('BEATMAPSET_DISCUSSION_REVIEW_ENABLED', false)),
         'discussion_review_max_blocks' => get_int(env('BEATMAPSET_DISCUSSION_REVIEW_MAXIMUM_BLOCKS', 10)),
@@ -42,10 +50,20 @@ return [
         'es_cache_duration' => 60 * (get_float(env('BEATMAPSET_ES_CACHE_DURATION')) ?? 1.0), // in minutes, converted to seconds
         'favourite_limit' => intval(env('BEATMAPSET_USER_FAVOURITE_LIMIT', 100)),
         'favourite_limit_supporter' => intval(env('BEATMAPSET_USER_FAVOURITE_LIMIT_SUPPORTER', 1000)),
+        'guest_advanced_search' => get_bool(env('BEATMAPSET_GUEST_ADVANCED_SEARCH')) ?? false,
+        'minimum_days_for_rank' => get_int(env('BEATMAPSET_MINIMUM_DAYS_FOR_RANK')) ?? 7,
         'rank_per_day' => get_int(env('BEATMAPSET_RANK_PER_DAY')) ?? 8,
         'rank_per_run' => get_int(env('BEATMAPSET_RANK_PER_RUN')) ?? 2,
         'required_hype' => get_int(env('BEATMAPSET_REQUIRED_HYPE')) ?? 5,
+        'required_nominations' => get_int(env('BEATMAPSET_REQUIRED_NOMINATIONS')) ?? 2,
+        'required_nominations_hybrid' => get_int(env('BEATMAPSET_REQUIRED_NOMINATIONS_HYBRID')) ?? 2,
         'storage' => env('BEATMAPSET_STORAGE'),
+        'upload_allowed' => get_int(env('BEATMAPSET_UPLOAD_ALLOWED')) ?? 4,
+        'upload_bonus_per_ranked' => get_int(env('BEATMAPSET_UPLOAD_BONUS_PER_RANKED')) ?? 1,
+        'upload_bonus_per_ranked_max' => get_int(env('BEATMAPSET_UPLOAD_BONUS_PER_RANKED_MAX')) ?? 2,
+        'upload_allowed_supporter' => get_int(env('BEATMAPSET_UPLOAD_ALLOWED_SUPPORTER')) ?? 8,
+        'upload_bonus_per_ranked_supporter' => get_int(env('BEATMAPSET_UPLOAD_BONUS_PER_RANKED_SUPPORTER')) ?? 1,
+        'upload_bonus_per_ranked_max_supporter' => get_int(env('BEATMAPSET_UPLOAD_BONUS_PER_RANKED_MAX_SUPPORTER')) ?? 12,
         'user_daily_nominations' => get_int(env('BEATMAPSET_USER_DAILY_NOMINATIONS', 10)) ?? 10,
         'user_weekly_hype' => get_int(env('BEATMAPSET_USER_WEEKLY_HYPE')) ?? 3,
     ],
@@ -101,7 +119,9 @@ return [
             'topic_ids' => array_map('intval', explode(' ', env('SLACK_WATCH_TOPIC_IDS', '259747'))),
         ],
     ],
-    'git-sha' => env('GIT_SHA', 'unknown-version'),
+    'git-sha' => presence(env('GIT_SHA'))
+        ?? (file_exists(__DIR__.'/../version') ? trim(file_get_contents(__DIR__.'/../version')) : null)
+        ?? 'unknown-version',
     'landing' => [
         'video_url' => env('LANDING_VIDEO_URL', 'https://assets.ppy.sh/media/landing.mp4'),
     ],
@@ -115,6 +135,9 @@ return [
     'oauth' => [
         'retain_expired_tokens_days' => abs(get_int(env('OAUTH_RETAIN_EXPIRED_TOKENS_DAYS'))) ?? 30,
         'max_user_clients' => get_int(env('OAUTH_MAX_USER_CLIENTS')) ?? 1,
+    ],
+    'pagination' => [
+        'max_count' => get_int(env('PAGINATION_MAX_COUNT')) ?? 10000,
     ],
     'search' => [
         'minimum_length' => get_int(env('SEARCH_MINIMUM_LENGTH', 2)),
@@ -145,6 +168,7 @@ return [
         'notice' => presence(str_replace('\n', "\n", env('STORE_NOTICE'))),
     ],
     'twitch_client_id' => env('TWITCH_CLIENT_ID'),
+    'twitch_client_secret' => env('TWITCH_CLIENT_SECRET'),
     'tournament_banner' => [
         'current' => [
             'id' => get_int(env('TOURNAMENT_BANNER_CURRENT_ID')),
@@ -197,8 +221,10 @@ return [
     'user' => [
         'allow_email_login' => get_bool(env('USER_ALLOW_EMAIL_LOGIN')) ?? true,
         'allow_registration' => get_bool(env('ALLOW_REGISTRATION', false)),
+        'allowed_rename_groups' => explode(' ', env('USER_ALLOWED_RENAME_GROUPS', 'default')),
         'inactive_days_verification' => get_int(env('USER_INACTIVE_DAYS_VERIFICATION')) ?? 180,
         'min_plays_for_posting' => get_int(env('USER_MIN_PLAYS_FOR_POSTING')) ?? 10,
+        'min_plays_allow_verified_bypass' => get_bool(env('USER_MIN_PLAYS_ALLOW_VERIFIED_BYPASS')) ?? true,
         'post_action_verification' => get_bool(env('USER_POST_ACTION_VERIFICATION')) ?? true,
         'user_page_forum_id' => intval(env('USER_PAGE_FORUM_ID', 70)),
         'verification_key_length_hex' => 8,

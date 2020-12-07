@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import * as React from 'react'
 import { div } from 'react-dom-factories'
@@ -52,9 +37,7 @@ export class RankChart extends React.Component
 
 
   render: =>
-    div
-      className: 'u-full-size'
-      ref: @rankChartArea
+    div ref: @rankChartArea
 
 
   rankChartUpdate: =>
@@ -77,7 +60,7 @@ export class RankChart extends React.Component
 
       @rankChart = new LineChart(@rankChartArea.current, options)
 
-      $(window).on "throttled-resize.#{@id}", @rankChart.resize
+      $(window).on "resize.#{@id}", @rankChart.resize
 
     data = @props.rankHistory?.data if @props.stats.is_ranked
 
@@ -86,20 +69,19 @@ export class RankChart extends React.Component
       y: -rank
     .filter (point) -> point.y < 0
 
-    return unless data.length > 0
+    if data.length > 0
+      if data.length == 1
+        data.unshift
+          x: data[0].x - 1
+          y: data[0].y
 
-    if data.length == 1
-      data.unshift
-        x: data[0].x - 1
-        y: data[0].y
+      lastData = _.last(data)
 
-    lastData = _.last(data)
-
-    if lastData.x == 0
-      lastData.y = -@props.stats.rank.global
-    else
-      data.push
-        x: 0
-        y: -@props.stats.rank.global
+      if lastData.x == 0
+        lastData.y = -@props.stats.rank.global
+      else
+        data.push
+          x: 0
+          y: -@props.stats.rank.global
 
     @rankChart.loadData data

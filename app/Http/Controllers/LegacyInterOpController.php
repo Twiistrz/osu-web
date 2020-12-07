@@ -1,27 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
 use App\Exceptions\Handler as ExceptionHandler;
 use App\Jobs\EsIndexDocument;
+use App\Jobs\Notifications\ForumTopicReply;
+use App\Jobs\Notifications\UserAchievementUnlock;
 use App\Jobs\RegenerateBeatmapsetCover;
 use App\Libraries\Chat;
 use App\Libraries\Session\Store as SessionStore;
@@ -35,6 +22,7 @@ use App\Models\Event;
 use App\Models\Forum;
 use App\Models\NewsPost;
 use App\Models\Notification;
+use App\Models\OAuth;
 use App\Models\Score\Best;
 use App\Models\User;
 use App\Models\UserStatistics;
@@ -46,16 +34,6 @@ use stdClass;
 class LegacyInterOpController extends Controller
 {
     use DispatchesJobs;
-
-    public function regenerateBeatmapsetCovers($id)
-    {
-        $beatmapset = Beatmapset::findOrFail($id);
-
-        $job = (new RegenerateBeatmapsetCover($beatmapset))->onQueue('beatmap_default');
-        $this->dispatch($job);
-
-        return ['success' => true];
-    }
 
     public function generateNotification()
     {
@@ -73,10 +51,24 @@ class LegacyInterOpController extends Controller
                 abort(422, 'post is missing or it contains invalid user');
             }
 
-            broadcast_notification($params['name'], $post, $user);
+            (new ForumTopicReply($post, $user))->dispatch();
 
             return response(null, 204);
         }
+    }
+
+    public function indexBeatmapset($id)
+    {
+        $beatmapset = Beatmapset::withTrashed()->findOrFail($id);
+
+        if (!$beatmapset->trashed()) {
+            $job = (new RegenerateBeatmapsetCover($beatmapset))->onQueue('beatmap_default');
+            $this->dispatch($job);
+        }
+
+        dispatch(new EsIndexDocument($beatmapset));
+
+        return response(null, 204);
     }
 
     public function news()
@@ -122,7 +114,8 @@ class LegacyInterOpController extends Controller
         }
 
         Event::generate('achievement', compact('achievement', 'user'));
-        broadcast_notification(Notification::USER_ACHIEVEMENT_UNLOCK, $achievement, $user);
+
+        (new UserAchievementUnlock($achievement, $user))->dispatch();
 
         return $achievement->getKey();
     }
@@ -210,7 +203,7 @@ class LegacyInterOpController extends Controller
     {
         $params = request('messages');
 
-        $results = new stdClass;
+        $results = new stdClass();
 
         if (!isset($params)) {
             return response()->json($results);
@@ -258,9 +251,19 @@ class LegacyInterOpController extends Controller
                     abort(422);
                 }
 
+                $sender = optional($users[$messageParams['sender_id']] ?? null)->markSessionVerified();
+                if ($sender === null) {
+                    abort(422, 'sender not found');
+                }
+
+                $target = $users[$messageParams['target_id']] ?? null;
+                if ($target === null) {
+                    abort(422, 'target user not found');
+                }
+
                 $message = Chat::sendPrivateMessage(
-                    optional($users[$messageParams['sender_id']] ?? null)->markSessionVerified(),
-                    $users[$messageParams['target_id']] ?? null,
+                    $sender,
+                    $target,
                     presence($messageParams['message'] ?? null),
                     $messageParams['is_action'] ?? null
                 );
@@ -359,10 +362,14 @@ class LegacyInterOpController extends Controller
         $params = request()->all();
 
         $sender = User::findOrFail($params['sender_id'] ?? null)->markSessionVerified();
+        $target = User::lookup($params['target_id'] ?? null, 'id');
+        if ($target === null) {
+            abort(422, 'target user not found');
+        }
 
         $message = Chat::sendPrivateMessage(
             $sender,
-            get_int($params['target_id'] ?? null),
+            $target,
             presence($params['message'] ?? null),
             get_bool($params['is_action'] ?? null)
         );
@@ -370,9 +377,15 @@ class LegacyInterOpController extends Controller
         return json_item($message, 'Chat/Message', ['sender']);
     }
 
-    public function userSessionsDestroy($id)
+    public function userSessionsDestroy($userId)
     {
-        SessionStore::destroy($id);
+        SessionStore::destroy($userId);
+        OAuth\Token
+            ::where('user_id', $userId)
+            ->with('refreshToken')
+            ->get()
+            ->each
+            ->revokeRecursive();
 
         return ['success' => true];
     }

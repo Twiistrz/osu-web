@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => '',
     'not_negative' => 'το :attribute δε μπορεί να δοθεί.',
     'required' => 'το :attribute απαιτείται.',
     'too_long' => 'το :attribute υπερβαίνει το μέγιστο όριο χαρακτήρων - μπορεί να είναι μέχρι :limit χαρακτήρες.',
     'wrong_confirmation' => 'Η βεβαίωση δεν ταιριάζει.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Η συζήτηση έχει κλειδωθεί.',
-        'first_post' => 'Το αρχικό post δε μπορεί να διαγραφεί.',
-
-        'attributes' => [
-            'message' => '',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Η χρονική σήμανση έχει καθοριστεί αλλά το beatmap λείπει.',
@@ -47,6 +24,7 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "",
             'guest' => 'Πρέπει να είστε συνδεδεμένοι για να κάνετε hype.',
             'hyped' => 'Έχετε κάνει ήδη hype αυτό το beatmap.',
             'limit_exceeded' => 'Έχετε χρησιμοποιήσει όλο το hype σας.',
@@ -57,6 +35,15 @@ return [
         'timestamp' => [
             'exceeds_beatmapset_length' => 'Το καθορισμένο timestamp είναι πέρα από τη διάρκεια του beatmap.',
             'negative' => "Η χρονική σήμανση δε μπορεί να είναι αρνητική.",
+        ],
+    ],
+
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Η συζήτηση έχει κλειδωθεί.',
+        'first_post' => 'Το αρχικό post δε μπορεί να διαγραφεί.',
+
+        'attributes' => [
+            'message' => '',
         ],
     ],
 
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Ο κωδικός δεν πρέπει να περιέχει το όνομα χρήστη.',
         'email_already_used' => 'Το email είναι ήδη σε χρήση.',
+        'email_not_allowed' => '',
         'invalid_country' => 'Η χώρα δεν υπάρχει στη βάση δεδομένων.',
         'invalid_discord' => 'Το όνομα χρήστη στο Discord δεν είναι έγκυρο.',
         'invalid_email' => "Δε φαίνεται να είναι ένα έγκυρο email.",
+        'invalid_twitter' => '',
         'too_short' => 'Ο καινούργιος κωδικός είναι πολύ μικρός.',
         'unknown_duplicate' => 'Το όνομα χρήστη ή το email είναι ήδη σε χρήση.',
         'username_available_in' => 'Αυτό το όνομα χρήστη θα είναι διαθέσιμο σε :duration μέρες.',

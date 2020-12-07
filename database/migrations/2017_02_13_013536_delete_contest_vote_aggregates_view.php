@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 use Illuminate\Database\Migrations\Migration;
 
 class DeleteContestVoteAggregatesView extends Migration
@@ -11,7 +14,7 @@ class DeleteContestVoteAggregatesView extends Migration
      */
     public function up()
     {
-        (new CreateContestVoteAggregatesView)->down();
+        (new CreateContestVoteAggregatesView())->down();
     }
 
     /**
@@ -21,6 +24,6 @@ class DeleteContestVoteAggregatesView extends Migration
      */
     public function down()
     {
-        (new CreateContestVoteAggregatesView)->up();
+        (new CreateContestVoteAggregatesView())->up();
     }
 }

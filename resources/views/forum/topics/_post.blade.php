@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 <?php
     $options['postPosition'] = $options['postPosition'] ?? 1;
@@ -22,10 +9,11 @@
     $options['buttons']['delete'] = $options['buttons']['delete'] ?? false;
     $options['buttons']['edit'] = $options['buttons']['edit'] ?? false;
     $options['buttons']['quote'] = $options['buttons']['quote'] ?? false;
+    $options['buttons']['report'] = auth()->check() && $post->poster_id !== auth()->user()->getKey();
 
     $buttons = [];
 
-    foreach (['edit', 'delete', 'quote'] as $buttonType) {
+    foreach (['edit', 'delete', 'quote', 'report'] as $buttonType) {
         if ($options['buttons'][$buttonType]) {
             $buttons[] = $buttonType;
         }
@@ -34,8 +22,10 @@
     $user = $post->userNormalized();
 ?>
 <div
+    {{-- js-forum-post is also used by js-forum-post-report for the postId and postUsername dataset --}}
     class="js-forum-post {{ $post->trashed() ? 'js-forum-post--hidden' : '' }} forum-post"
     data-post-id="{{ $post->getKey() }}"
+    data-post-username="{{ $user->username }}"
     data-post-position="{{ $options["postPosition"] }}"
 >
     @include('forum.topics._post_info', compact('user'))
@@ -54,7 +44,7 @@
                 <div class="forum-post__header-content-item">
                     {!! link_to_user($user, null, '', ['forum-post__user']) !!}
 
-                    <a class="link link--default js-post-url" rel="nofollow" href="{{ $post->exists ? route('forum.posts.show', $post->post_id) : '#' }}">
+                    <a class="js-post-url" rel="nofollow" href="{{ $post->exists ? route('forum.posts.show', $post->post_id) : '#' }}">
                         {!! timeago($post->post_time) !!}
                     </a>
                 </div>
@@ -87,7 +77,7 @@
         </div>
 
         <div class="forum-post__content forum-post__content--main">
-            <div class="forum-post-content {{ $options['contentExtraClasses'] ?? '' }}">
+            <div class="forum-post-content {{ $options['contentExtraClasses'] ?? '' }} js-audio--group">
                 {!! $post->bodyHTML() !!}
             </div>
         </div>
@@ -96,7 +86,7 @@
             <div class="forum-post__content forum-post__content--footer">
                 {!!
                     trans_choice('forum.post.edited', $post->post_edit_count, [
-                        'user' => link_to_user($post->lastEditorNormalized(), null, '', ['link link--default']),
+                        'user' => link_to_user($post->lastEditorNormalized(), null, '', []),
                         'when' => timeago($post->post_edit_time),
                     ])
                 !!}
@@ -104,7 +94,7 @@
         @endif
 
         @if($options["signature"] !== false && present($post->userNormalized()->user_sig))
-            <div class="forum-post__content forum-post__content--signature hidden-xs">
+            <div class="forum-post__content forum-post__content--signature js-audio--group hidden-xs">
                 {!! bbcode($post->userNormalized()->user_sig, $post->userNormalized()->user_sig_bbcode_uid) !!}
             </div>
         @endif

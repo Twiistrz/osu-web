@@ -1,278 +1,111 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'audio' => [
+        'autoplay' => 'Spela nästa spår automatiskt',
+    ],
+
     'defaults' => [
         'page_description' => 'osu! - Rytmen är bara ett *klick* bort!  Med Ouendan/EBA, Taiko och originala spel lägen, och en full funktionell nivå redigerare.',
     ],
 
     'header' => [
         'admin' => [
-            '_' => '',
-            'beatmapset' => '',
-            'beatmapset_covers' => '',
-            'contest' => '',
-            'contests' => '',
-            'root' => '',
-            'store_orders' => '',
+            'beatmapset' => 'beatmapset',
+            'beatmapset_covers' => 'beatmapset omslag',
+            'contest' => 'tävling',
+            'contests' => 'tävlingar',
+            'root' => 'konsol',
+            'store_orders' => 'butik admin',
         ],
 
         'artists' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'beatmapsets' => [
-            '_' => '',
-            'discussions' => '',
-            'index' => '',
-            'show' => '',
-            'packs' => '',
+            'index' => 'listning',
         ],
 
         'changelog' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'community' => [
-            '_' => '',
-            'comments' => '',
-            'contests' => '',
-            'forum' => '',
-            'livestream' => '',
-        ],
-
-        'error' => [
-            '_' => '',
+            'index' => 'listning',
         ],
 
         'help' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'home' => [
-            '_' => '',
-            'password_reset' => '',
-        ],
-
-        'matches' => [
-            '_' => '',
-        ],
-
-        'notice' => [
-            '_' => '',
-        ],
-
-        'notifications' => [
-            '_' => '',
-            'index' => 'historik',
-        ],
-
-        'rankings' => [
-            '_' => '',
+            'index' => 'index',
+            'sitemap' => 'Sitemap',
         ],
 
         'store' => [
-            '_' => '',
-            'cart' => 'kundvagn',
-            'order' => '',
+            'cart' => 'varukorg',
             'orders' => 'orderhistorik',
-            'product' => 'produkt',
             'products' => 'produkter',
         ],
 
         'tournaments' => [
-            '_' => 'turneringar',
-            'index' => '',
+            'index' => 'listning',
         ],
 
         'users' => [
-            '_' => 'spelare',
-            'forum_posts' => 'forumsinlägg',
-            'modding' => '',
+            'modding' => 'modding',
             'show' => 'info',
         ],
     ],
 
     'gallery' => [
         'close' => 'Stäng (Esc)',
-        'fullscreen' => '',
+        'fullscreen' => 'Växla fullskärm',
         'zoom' => 'Zooma in/ut',
         'previous' => 'Föregående (vänsterpil)',
         'next' => 'Nästa (högerpil)',
     ],
 
     'menu' => [
-        'home' => [
-            '_' => 'hem',
-            'account-edit' => 'inställningar',
-            'account-verifyLink' => '',
-            'beatmapset-watches-index' => '',
-            'changelog-build' => 'bygget',
-            'changelog-index' => 'ändringslogg',
-            'client_verifications-create' => '',
-            'forum-topic-watches-index' => '',
-            'friends-index' => 'vänner',
-            'getDownload' => 'ladda ner',
-            'getIcons' => 'ikoner',
-            'groups-show' => 'grupper',
-            'index' => 'kontrollpanel',
-            'legal-show' => 'information',
-            'messages-index' => '',
-            'news-index' => 'nyheter',
-            'news-show' => 'nyheter',
-            'password-reset-index' => 'återställ lösenord',
-            'search' => 'sök',
-            'supportTheGame' => 'stötta spelet',
-            'team' => 'lag',
-            'testflight' => '',
+        'beatmaps' => [
+            '_' => 'beatmaps',
+            'artists' => 'utvalda artister',
+            'index' => 'listning',
+            'packs' => 'samling',
         ],
-        'profile' => [
-            '_' => '',
-            'friends' => '',
-            'settings' => '',
+        'community' => [
+            '_' => 'gemenskap',
+            'chat' => 'chatt',
+            'contests' => 'tävlingar',
+            'dev' => 'utveckling',
+            'forum-forums-index' => 'forum',
+            'getLive' => 'live',
+            'tournaments' => 'turneringar',
         ],
         'help' => [
             '_' => 'hjälp',
+            'getAbuse' => '',
             'getFaq' => 'faq',
             'getRules' => 'regler',
             'getSupport' => 'support',
             'getWiki' => 'wiki',
-            'wiki-show' => 'wiki',
         ],
-        'beatmaps' => [
-            '_' => 'beatmaps',
-            'artists' => 'utvalda artister',
-            'beatmap_discussion_posts-index' => 'beatmapdiskussionsinlägg',
-            'beatmap_discussions-index' => 'beatmapdiskussioner',
-            'beatmapset_discussion_votes-index' => 'beatmapdiskussionsröster',
-            'beatmapset_events-index' => 'beatmapset händelser',
-            'index' => 'listning',
-            'packs' => 'samling',
-            'show' => 'info',
-        ],
-        'beatmapsets' => [
-            '_' => 'beatmaps',
-            'discussion' => 'modding',
+        'home' => [
+            '_' => 'hem',
+            'changelog-index' => 'ändringslogg',
+            'getDownload' => 'ladda ner',
+            'news-index' => 'nyheter',
+            'search' => 'sök',
+            'team' => 'lag',
         ],
         'rankings' => [
             '_' => 'rankning',
-            'index' => 'prestanda',
-            'performance' => 'prestanda',
             'charts' => 'diagram',
-            'score' => 'poäng',
             'country' => 'land',
+            'index' => 'prestanda',
             'kudosu' => 'kudosu',
-        ],
-        'community' => [
-            '_' => 'gemenskap',
-            'chat' => '',
-            'chat-index' => '',
-            'dev' => 'utveckling',
-            'getForum' => 'forum',
-            'getLive' => 'live',
-            'comments-index' => '',
-            'comments-show' => '',
-            'contests' => 'tävlingar',
-            'profile' => 'profil',
-            'tournaments' => 'turneringar',
-            'tournaments-index' => 'turneringar',
-            'tournaments-show' => 'turnering info',
-            'forum-topics-create' => 'forum',
-            'forum-topics-show' => 'forum',
-            'forum-forums-index' => 'forum',
-            'forum-forums-show' => 'forum',
-        ],
-        'multiplayer' => [
-            '_' => 'multiplayer',
-            'show' => 'match',
-        ],
-        'error' => [
-            '_' => 'fel',
-            '404' => 'saknas',
-            '403' => 'förbjuds',
-            '401' => 'ej autentiserad',
-            '405' => 'saknas',
-            '500' => 'någonting gick isönder',
-            '503' => 'underhåll',
-        ],
-        'user' => [
-            '_' => 'användare',
-            'getLogin' => 'logga in',
-            'disabled' => 'inaktiverad',
-
-            'register' => 'registrera',
-            'reset' => 'återhämta',
-            'new' => 'ny',
-
-            'help' => 'Hjälp',
-            'logout' => 'Logga Ut',
-            'messages' => 'Meddelanden',
-            'modding-history-discussions' => 'användarmoddingsdiskussioner',
-            'modding-history-events' => 'användarmoddningsinlägg',
-            'modding-history-index' => 'användarmoddingshistorik',
-            'modding-history-posts' => 'användarmoddingsinlägg',
-            'modding-history-votesGiven' => 'användarmoddingsröster givna',
-            'modding-history-votesReceived' => 'användarmoddningsröster givna',
-            'notifications-index' => '',
-            'oauth_login' => '',
-            'oauth_request' => '',
-            'settings' => 'Inställningar',
+            'multiplayer' => 'flerspelarläge',
+            'score' => 'poäng',
         ],
         'store' => [
             '_' => 'butik',
-            'checkout-show' => 'checka ut',
+            'cart-show' => 'varukorg
+',
             'getListing' => 'listning',
-            'cart-show' => 'kundvagn',
-
-            'getCheckout' => 'checka ut',
-            'getInvoice' => 'faktura',
-            'orders-index' => '',
-            'products-show' => 'produkt',
-
-            'new' => 'ny',
-            'home' => 'hem',
-            'index' => 'hem',
-            'thanks' => 'tack',
-        ],
-        'admin-forum' => [
-            '_' => 'admin::forum',
-            'forum-covers-index' => 'forum omslag',
-        ],
-        'admin-store' => [
-            '_' => 'admin::store',
-            'orders-index' => 'orders',
-            'orders-show' => 'order',
-        ],
-        'admin' => [
-            '_' => 'admin',
-            'beatmapsets-covers' => '',
-            'logs-index' => 'logg',
-            'root' => 'index',
-
-            'beatmapsets' => [
-                '_' => 'beatmap samlingar',
-                'show' => 'detaljer',
-            ],
+            'orders-index' => 'orderhistorik',
         ],
     ],
 
@@ -283,7 +116,6 @@ return [
             'changelog-index' => 'Ändringslogg',
             'beatmaps' => 'Beatmap Listningar',
             'download' => 'Ladda Ner osu!',
-            'wiki' => 'Wiki',
         ],
         'help' => [
             '_' => 'Hjälp & Gemenskap',
@@ -291,6 +123,7 @@ return [
             'forum' => 'GemenskapsForum',
             'livestreams' => 'Live Strömmar',
             'report' => 'Rapportera ett Problem',
+            'wiki' => 'Wiki',
         ],
         'legal' => [
             '_' => 'Juridik & Status',
@@ -303,6 +136,10 @@ return [
     ],
 
     'errors' => [
+        '400' => [
+            'error' => 'Ogiltiga förfrågningsparametrar',
+            'description' => '',
+        ],
         '404' => [
             'error' => 'Sida saknas',
             'description' => "Förlåt, men sidan du frågade efter finns inte här!",
@@ -318,6 +155,10 @@ return [
         '405' => [
             'error' => 'Sida saknas',
             'description' => "Förlåt, men sidan du frågade efter finns inte här!",
+        ],
+        '422' => [
+            'error' => 'Ogiltiga förfrågningsparametrar',
+            'description' => '',
         ],
         '500' => [
             'error' => 'Oh nej! Något gick isönder! ;_;',
@@ -340,11 +181,13 @@ return [
     ],
 
     'popup_login' => [
+        'button' => 'logga in / registrera',
+
         'login' => [
             'forgot' => "Jag har glömt mina detaljer",
             'password' => 'lösenord',
             'title' => 'Logga In För Att Fortsätta',
-            'username' => '',
+            'username' => 'användarnamn',
 
             'error' => [
                 'email' => "Användarnamn eller email adress finns inte",
@@ -353,7 +196,7 @@ return [
         ],
 
         'register' => [
-            'download' => '',
+            'download' => 'Ladda ner',
             'info' => 'Herrn, du behöver ett konto. Varför har du inte ett redan?',
             'title' => "Har du inte ett konto?",
         ],

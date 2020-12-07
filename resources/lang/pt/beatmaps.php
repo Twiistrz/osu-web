@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Falha ao guardar a publicação',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Falha ao atualizar voto',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Estás recusado de obter kudosu.',
         'message_placeholder_deleted_beatmap' => 'Esta dificuldade foi eliminada por isso poderá não ser mais discutida.',
         'message_placeholder_locked' => 'A discussão para este beatmap foi desativada.',
+        'message_placeholder_silenced' => "Não é possível publicar uma discussão enquanto estiveres silenciado.",
         'message_type_select' => 'Selecionar tipo de comentário',
         'reply_notice' => 'Prime ENTER para responder.',
         'reply_placeholder' => 'Escreve a tua resposta aqui',
@@ -81,12 +61,13 @@ return [
         'message_placeholder' => [
             'general' => 'Escreve aqui para publicar em Geral (:version)',
             'generalAll' => 'Escreve aqui para publicar em Geral (Todas as dificuldades)',
+            'review' => 'Escreve aqui para publicar uma análise',
             'timeline' => 'Escreve aqui para publicar na Cronologia (:version)',
         ],
 
         'message_type' => [
             'disqualify' => 'Desqualificar',
-            'hype' => 'Hype!',
+            'hype' => 'Prioridade',
             'mapper_note' => 'Nota',
             'nomination_reset' => 'Reiniciar nomeação',
             'praise' => 'Glorificar',
@@ -112,6 +93,27 @@ return [
             'timestamp_missing' => 'faz ctrl-c no modo de edição e cola na tua mensagem para adicionares uma marca de tempo!',
             'title' => 'Nova discussão',
             'unpin' => 'Desafixar',
+        ],
+
+        'review' => [
+            'new' => 'Nova Análise',
+            'embed' => [
+                'delete' => 'Apagar',
+                'missing' => '[DISCUSSÃO ELIMINADA]
+',
+                'unlink' => 'Desvincular',
+                'unsaved' => 'Não guardado',
+                'timestamp' => [
+                    'all-diff' => 'As publicações em "Todas as dificuldades" não podem ter carimbo da hora.',
+                    'diff' => 'Se este :type começa com um carimbo da hora, será mostrado na barra cronológica.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'inserir parágrafo',
+                'praise' => 'inserir elogio',
+                'problem' => 'inserir problema',
+                'suggestion' => 'inserir sugestão',
+            ],
         ],
 
         'show' => [
@@ -160,9 +162,9 @@ return [
         'confirm' => "Tens a certeza? Isto usará um dos teus :n hypes restantes e não pode ser desfeito.",
         'explanation' => 'Dá hype neste beatmap para torná-lo mais visível para a nomeação e classificação!',
         'explanation_guest' => 'Regista-te e dá hype neste beatmap para torná-lo mais visível para a nomeação e classificação!',
-        'new_time' => "Vais ter outro hype :new_time.",
-        'remaining' => 'Tens :remaining hypes restantes.',
-        'required_text' => 'Hype: :current/:required',
+        'new_time' => "O próximo beatmap estará disponível em :new_time.",
+        'remaining' => 'Tens :remaining publicações restantes.',
+        'required_text' => 'Prioridade: :current/:required',
         'section_title' => 'Comboio do hype',
         'title' => 'Hype',
     ],
@@ -186,12 +188,18 @@ return [
         'nominate_confirm' => 'Pretendes nomear este beatmap?',
         'nominated_by' => 'nomeado por :users',
         'not_enough_hype' => "Não há hype suficiente.",
-        'qualified' => 'Estimado para ser classificado em :date, se não forem encontrados problemas.',
-        'qualified_soon' => 'Estimado para ser classificado em breve, se não forem encontrados problemas.',
+        'remove_from_loved' => 'Removido de Adorado',
+        'remove_from_loved_prompt' => 'Motivo pela remoção de Adorado:',
         'required_text' => 'Nomeações: :current/:required',
         'reset_message_deleted' => 'apagado',
         'title' => 'Estado da nomeação',
         'unresolved_issues' => 'Existem problemas ainda não resolvidos que devem ser abordados primeiro.',
+
+        'rank_estimate' => [
+            '_' => 'Este mapa está estimado a ser classificado em :date se não forem descobertos quaisquer problemas. Está em #:position na :queue.',
+            'queue' => 'fila de classificação',
+            'soon' => 'em breve',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Processo de nomeação redefinido :time_ago por :user com um novo problema :discussion (:message).',
@@ -245,6 +253,7 @@ return [
         'converts' => 'Incluir beatmaps convertidos',
     ],
     'mode' => [
+        'all' => 'Todos',
         'any' => 'Qualquer',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +283,10 @@ return [
         'novelty' => 'Inovação',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Eletrónica',
+        'metal' => 'Metal',
+        'classical' => 'Clássica',
+        'folk' => 'Música popular',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +312,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => 'Pontuação V2',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +325,11 @@ return [
         'korean' => 'Coreano',
         'spanish' => 'Espanhol',
         'swedish' => 'Sueco',
+        'russian' => 'Russa',
+        'polish' => 'Polaca',
         'instrumental' => 'Instrumental',
         'other' => 'Outro',
+        'unspecified' => 'Não especificada',
     ],
     'played' => [
         'any' => 'Qualquer',
@@ -337,5 +354,12 @@ return [
     'panel' => [
         'playcount' => 'Partidas jogadas: :count',
         'favourites' => 'Favoritos: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Todos',
+        ],
     ],
 ];

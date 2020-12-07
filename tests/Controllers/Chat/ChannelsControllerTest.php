@@ -1,25 +1,12 @@
 <?php
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Controllers\Chat;
 
 use App\Models\Chat;
+use App\Models\Chat\Channel;
 use App\Models\User;
 use Faker;
 use Tests\TestCase;
@@ -48,6 +35,59 @@ class ChannelsControllerTest extends TestCase
             ->assertJsonFragment(['channel_id' => $this->publicChannel->channel_id])
             ->assertJsonMissing(['channel_id' => $this->privateChannel->channel_id])
             ->assertJsonMissing(['channel_id' => $this->pmChannel->channel_id]);
+    }
+
+    //endregion
+
+    //region POST /chat/channels - Create and join channel
+    public function testChannelStoreInvalid()
+    {
+        $this->actAsScopedUser($this->user, ['*']);
+        $this->json('POST', route('api.chat.channels.store'), [
+            'type' => Channel::TYPES['public'],
+        ])->assertStatus(422);
+
+        $this->json('POST', route('api.chat.channels.store'), [
+            'type' => Channel::TYPES['pm'],
+        ])->assertStatus(422);
+    }
+
+    public function testChannelStorePM()
+    {
+        $initialChannels = Channel::count();
+
+        $this->actAsScopedUser($this->user, ['*']);
+        $this->json('POST', route('api.chat.channels.store'), [
+            'target_id' => $this->anotherUser->getKey(),
+            'type' => Channel::TYPES['pm'],
+        ])->assertSuccessful()
+            ->assertJsonFragment([
+                'channel_id' => null,
+                'recent_messages' => [],
+            ]);
+
+        $this->assertSame($initialChannels, Channel::count());
+    }
+
+    public function testChannelStorePMUserLeft()
+    {
+        $channel = Channel::createPM($this->user, $this->anotherUser);
+        $channel->removeUser($this->user);
+
+        // sanity check
+        $this->assertFalse($channel->hasUser($this->user));
+
+        $this->actAsScopedUser($this->user, ['*']);
+        $this->json('POST', route('api.chat.channels.store'), [
+            'target_id' => $this->anotherUser->getKey(),
+            'type' => Channel::TYPES['pm'],
+        ])->assertSuccessful()
+            ->assertJsonFragment([
+                'channel_id' => $channel->getKey(),
+                'recent_messages' => [],
+            ]);
+
+        $this->assertTrue($channel->hasUser($this->user));
     }
 
     //endregion
@@ -187,19 +227,19 @@ class ChannelsControllerTest extends TestCase
                 'message' => $this->publicMessage->message_id,
             ])
         )
-        ->assertStatus(401);
+            ->assertStatus(401);
     }
 
     public function testChannelMarkAsReadWhenUnjoined() // fail
     {
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'PUT',
-                route('api.chat.channels.mark-as-read', [
-                    'channel' => $this->publicChannel->channel_id,
-                    'message' => $this->publicMessage->message_id,
-                ])
-            )
+            'PUT',
+            route('api.chat.channels.mark-as-read', [
+                'channel' => $this->publicChannel->channel_id,
+                'message' => $this->publicMessage->message_id,
+            ])
+        )
             ->assertStatus(404);
     }
 
@@ -213,12 +253,12 @@ class ChannelsControllerTest extends TestCase
 
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'PUT',
-                route('api.chat.channels.mark-as-read', [
-                    'channel' => $this->publicChannel->channel_id,
-                    'message' => $this->publicMessage->message_id,
-                ])
-            )
+            'PUT',
+            route('api.chat.channels.mark-as-read', [
+                'channel' => $this->publicChannel->channel_id,
+                'message' => $this->publicMessage->message_id,
+            ])
+        )
             ->assertStatus(204);
 
         $this->actAsScopedUser($this->user, ['*']);
@@ -243,12 +283,12 @@ class ChannelsControllerTest extends TestCase
         // mark as read to $newerPublicMessage->message_id
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'PUT',
-                route('api.chat.channels.mark-as-read', [
-                    'channel' => $this->publicChannel->channel_id,
-                    'message' => $newerPublicMessage->message_id,
-                ])
-            )
+            'PUT',
+            route('api.chat.channels.mark-as-read', [
+                'channel' => $this->publicChannel->channel_id,
+                'message' => $newerPublicMessage->message_id,
+            ])
+        )
             ->assertStatus(204);
 
         $this->actAsScopedUser($this->user, ['*']);
@@ -262,12 +302,12 @@ class ChannelsControllerTest extends TestCase
         // attempt to mark as read to the older $this->publicMessage->message_id
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'PUT',
-                route('api.chat.channels.mark-as-read', [
-                    'channel' => $this->publicChannel->channel_id,
-                    'message' => $this->publicMessage->message_id,
-                ])
-            )
+            'PUT',
+            route('api.chat.channels.mark-as-read', [
+                'channel' => $this->publicChannel->channel_id,
+                'message' => $this->publicMessage->message_id,
+            ])
+        )
             ->assertStatus(204);
 
         $this->actAsScopedUser($this->user, ['*']);

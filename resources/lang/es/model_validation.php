@@ -1,43 +1,20 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => ':attribute especificado no válido.',
     'not_negative' => ':attribute no puede ser negativo.',
     'required' => ':attribute es requerido.',
-    'too_long' => ':attribute ha excedido el límite máximo - puede ser hasta :limit caractéres.',
+    'too_long' => ':attribute ha excedido el límite máximo - sólo puede ser de hasta :limit caracteres.',
     'wrong_confirmation' => 'La confirmación no coincide.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'La discusión está cerrada.',
-        'first_post' => 'No se puede eliminar la publicación inicial.',
-
-        'attributes' => [
-            'message' => 'El mensaje',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'La marca de tiempo ha sido especificada pero el mapa no se encontró.',
         'beatmapset_no_hype' => "El mapa no puede ser hypeado.",
         'hype_requires_null_beatmap' => 'El hype debe ser realizado en la sección de General (todas las dificultades).',
-        'invalid_beatmap_id' => 'Dificultad especificada no válido.',
+        'invalid_beatmap_id' => 'Dificultad especificada no válida.',
         'invalid_beatmapset_id' => 'Mapa especificado no válido.',
         'locked' => 'La discusión está cerrada.',
 
@@ -47,10 +24,11 @@ return [
         ],
 
         'hype' => [
+            'discussion_locked' => "Este mapa está actualmente bloqueado para discusión y no puede ser hypeado",
             'guest' => 'Debes iniciar sesión para hypear.',
             'hyped' => 'Ya hypeaste este mapa.',
             'limit_exceeded' => 'Ya has utilizado todos tus hype.',
-            'not_hypeable' => 'Este mapa no puede ser hypeado.',
+            'not_hypeable' => 'Este mapa no puede ser hypeado',
             'owner' => 'No puedes hypear tu propio mapa.',
         ],
 
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'La discusión está cerrada.',
+        'first_post' => 'No se puede eliminar la publicación inicial.',
+
+        'attributes' => [
+            'message' => 'El mensaje',
+        ],
+    ],
+
     'comment' => [
-        'deleted_parent' => 'Responder a un comentario eliminado no esta permitido.',
-        'top_only' => '',
+        'deleted_parent' => 'Responder a un comentario eliminado no está permitido.',
+        'top_only' => 'Anclar la respuesta de un comentario no está permitido.',
 
         'attributes' => [
             'message' => 'El mensaje',
@@ -70,7 +57,7 @@ return [
     ],
 
     'follow' => [
-        'invalid' => ':attribute especificado inválido.',
+        'invalid' => ':attribute especificado no válido.',
     ],
 
     'forum' => [
@@ -80,7 +67,7 @@ return [
         ],
 
         'poll_vote' => [
-            'invalid' => 'Opción especificada inválida.',
+            'invalid' => 'Opción especificada no válida.',
         ],
 
         'post' => [
@@ -89,7 +76,7 @@ return [
             'only_quote' => 'Tu respuesta sólo contiene una cita.',
 
             'attributes' => [
-                'post_text' => 'Cuerpo del post',
+                'post_text' => 'Cuerpo de la publicación',
             ],
         ],
 
@@ -121,7 +108,7 @@ return [
 
     'oauth' => [
         'client' => [
-            'too_many' => 'Has excedido al numero máximo de aplicaciones OAuth.',
+            'too_many' => 'Excedió el número máximo de aplicaciones de OAuth permitidas.',
             'url' => 'Por favor, ingrese una URL válida.',
 
             'attributes' => [
@@ -134,14 +121,16 @@ return [
     'user' => [
         'contains_username' => 'La contraseña no puede contener el nombre de usuario.',
         'email_already_used' => 'El correo electrónico ya está siendo utilizado.',
+        'email_not_allowed' => 'Dirección de correo electrónico no permitida.',
         'invalid_country' => 'El país no está en la base de datos.',
-        'invalid_discord' => 'Usuario de Discord invalido.',
-        'invalid_email' => "No parece que sea un correo electrónico valido.",
+        'invalid_discord' => 'Nombre de usuario de Discord no válido.',
+        'invalid_email' => "No parece ser una dirección de correo electrónico válida.",
+        'invalid_twitter' => 'Nombre de usuario de Twitter no válido.',
         'too_short' => 'La nueva contraseña es muy corta.',
         'unknown_duplicate' => 'El nombre de usuario o correo electrónico ya está siendo utilizado.',
         'username_available_in' => 'Este nombre de usuario estará disponible para su uso en :duration.',
         'username_available_soon' => '¡Este nombre de usuario estará disponible para su uso en cualquier momento!',
-        'username_invalid_characters' => 'El nombre de usuario solicitado tiene carácteres inválidos.',
+        'username_invalid_characters' => 'El nombre de usuario solicitado contiene caracteres no válidos.',
         'username_in_use' => '¡El nombre de usuario ya está en uso!',
         'username_locked' => '¡El nombre de usuario ya está en uso!', // TODO: language for this should be slightly different.
         'username_no_space_userscore_mix' => 'Por favor utiliza guiones bajos o espacios, ¡no ambas!',
@@ -162,7 +151,7 @@ return [
         ],
 
         'change_username' => [
-            'restricted' => 'No puedes cambiar tu nombre de usuario mientras está restringido.',
+            'restricted' => 'No puede cambiar su nombre de usuario mientras esté restringido.',
             'supporter_required' => [
                 '_' => '¡Debes tener :link para cambiar tu nombre!',
                 'link_text' => 'apoyar a osu!',
@@ -173,7 +162,7 @@ return [
 
     'user_report' => [
         'reason_not_valid' => ':reason no es válido para este tipo de reporte.',
-        'self' => "¡No puedes denunciarte a ti mismo!",
+        'self' => "¡No puede reportarse a sí mismo!",
     ],
 
     'store' => [

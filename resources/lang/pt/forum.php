@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Tópicos afixados',
@@ -65,8 +50,9 @@ return [
 
         'actions' => [
             'destroy' => 'Eliminar publicação',
-            'restore' => 'Restaurar publicação',
             'edit' => 'Editar publicação',
+            'report' => '',
+            'restore' => 'Restaurar publicação',
         ],
 
         'create' => [
@@ -90,6 +76,8 @@ return [
     'topic' => [
         'deleted' => 'tópico eliminado',
         'go_to_latest' => 'ver ultima publicação',
+        'has_replied' => 'Respondeste a este tópico',
+        'in_forum' => 'em :forum',
         'latest_post' => ':when por :user',
         'latest_reply_by' => 'última resposta por :user',
         'new_topic' => 'Novo tópico',
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Este tópico está fechado e não pode ser respondido',
             'to_0' => 'Desbloquear tópico',
+            'to_0_confirm' => 'Desbloquear tópico?',
             'to_0_done' => 'O tópico foi desbloqueado',
             'to_1' => 'Fechar tópico',
+            'to_1_confirm' => 'Bloquear tópico?',
             'to_1_done' => 'O tópico foi fechado',
         ],
 
@@ -261,11 +251,14 @@ return [
         ],
 
         'moderate_pin' => [
-            'to_0' => 'Despegar tópico',
+            'to_0' => 'Desprender tópico',
+            'to_0_confirm' => 'Desprender tópico?',
             'to_0_done' => 'O tópico foi despegado',
             'to_1' => 'Afixar tópico',
+            'to_1_confirm' => 'Afixar tópico?',
             'to_1_done' => 'O tópico foi afixado',
             'to_2' => 'Afixar tópico e marcar como uma declaração pública',
+            'to_2_confirm' => 'Afixar tópico e marcá-lo como um comunicado?',
             'to_2_done' => 'O tópico foi afixado e marcado como uma declaração pública',
         ],
 

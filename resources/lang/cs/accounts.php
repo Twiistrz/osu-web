@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -25,7 +10,7 @@ return [
 
         'avatar' => [
             'title' => 'Avatar',
-            'rules' => '',
+            'rules' => 'Prosím ujistěte se, že Váš avatar dodržuje :link.<br/>To znamená, že musí být <strong>vhodný pro všechny věkové kategorie</strong>. Tj. žádný nahota či nenávistný obsah.',
             'rules_link' => 'pravidla komunity',
         ],
 
@@ -64,21 +49,41 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'dostávat oznámení na nové problémy u kvalifikovaných map u následujících módů',
+        'beatmapset_disqualify' => 'dostávat notifikace kdy mapy následujících módů jsou diskvalifikované',
+        'comment_reply' => 'dostávat notifikace na odpovědi na vaše komentáře',
         'title' => 'Oznámení',
         'topic_auto_subscribe' => 'automaticky povolit oznámení o nových tématech fóra, které vytvoříte',
-        'beatmapset_discussion_qualified_problem' => '',
 
-        'mail' => [
-            '_' => '',
-            'beatmapset:modding' => '',
-            'forum_topic_reply' => '',
+        'options' => [
+            '_' => 'možnosti doručení',
+            'beatmapset:modding' => 'módování beatmap',
+            'channel_message' => 'soukromé zprávy',
+            'comment_new' => 'nové komentáře',
+            'forum_topic_reply' => 'odpoveď témata',
+            'mail' => 'e-mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'medaile odemčena',
         ],
     ],
 
     'oauth' => [
         'authorized_clients' => 'autorizovaní klienti',
-        'own_clients' => '',
+        'own_clients' => 'vlastní klienti',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Možnosti',
+
+        'beatmapset_download' => [
+            '_' => 'výchozí typ stahování map',
+            'all' => 's videem, je-li k dispozici',
+            'no_video' => 'bez videa',
+            'direct' => 'otevřít v osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'zobrazit informace map v originálním jazyce',
     ],
 
     'playstyles' => [
@@ -113,11 +118,11 @@ return [
     ],
 
     'verification_completed' => [
-        'text' => '',
-        'title' => '',
+        'text' => 'Nyní můžete zavřít toto okno',
+        'title' => 'Ověření bylo dokončeno',
     ],
 
     'verification_invalid' => [
-        'title' => '',
+        'title' => 'Neplatný odkaz ověření',
     ],
 ];

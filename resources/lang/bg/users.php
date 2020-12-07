@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[изтрит потребител]',
@@ -65,29 +50,33 @@ return [
     ],
 
     'disabled' => [
-        'title' => '',
-        'warning' => "",
+        'title' => 'О, не! Изглежда, че вашият акаунт е бил деактивиран.',
+        'warning' => "В случай, че сте нарушили правило, имайте предвид, че съществува период на преустановяване с продължителност един месец, през който няма да разгледаме вашата молба. След изтичането на този период, свободни сте да се свържите с нас в случай на необходимост. Създаването на нови акаунти след деактивирането на един ще доведе до <strong>удължаване на този едномесечен период.</strong>. Със създаването на <strong>всеки един нов акаунт, вие допълнително нарушавате правилата</strong>. Силно се надяваме да се вслушате в думите ни!",
 
         'if_mistake' => [
-            '_' => '',
-            'email' => '',
+            '_' => 'Ако мислите, че е станала грешка, свободните сте да се свържете с нас (чрез :email или с натискането на "?" в долната дясна част на страницата). Имайте предвид, че сме уверени в действията си, защото са базирани на солидна информация. Ние запазваме правото си да пренебрегнем молбата ви в случай, че мислим, че вие сте умешлено нечестни с нас.',
+            'email' => 'имейл',
         ],
 
         'reasons' => [
-            'compromised' => '',
-            'opening' => '',
+            'compromised' => 'Вашият акаунт бе счетен за компрометиран. Възможно е временното му деактивиране, докато не бъде потвърдена самоличността ви.',
+            'opening' => 'Има редица причини, които могат да доведат до деактивирането на акаунта ви:',
 
             'tos' => [
-                '_' => '',
-                'community_rules' => '',
-                'tos' => '',
+                '_' => 'Вие сте нарушили едно или повече от нашите :community_rules или :tos.',
+                'community_rules' => 'обществени правила',
+                'tos' => 'условия за ползване',
             ],
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
-            'inactive_different_country' => "",
+            'inactive_different_country' => "Вашият акаунт не е ползван от дълго време.",
         ],
     ],
 
@@ -95,10 +84,11 @@ return [
         '_' => 'Вход',
         'button' => 'Вход',
         'button_posting' => 'Влизане...',
-        'email_login_disabled' => '',
+        'email_login_disabled' => 'Влизането чрез имейл е в момента деактивирано. Вместо това, моля ползвайте потребителското си име.',
         'failed' => 'Неправилен опит за влизане',
         'forgot' => 'Забравихте си паролата?',
-        'info' => '',
+        'info' => 'Моля влезте в профила си, за да продължите',
+        'invalid_captcha' => '',
         'locked_ip' => 'Вашият IP адрес е блокиран. Моля изчакайте няколко минути.',
         'password' => 'Парола',
         'register' => "Нямате osu! акаунт? Направете си един",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'В момента онлайн',
         'missingtext' => 'Вероятно сте допуснали правописна грешка! (или потребителят е бил баннат)',
         'origin_country' => 'От :country',
-        'page_description' => 'osu! - Всичко, което би желал да знаеш за :username!',
         'previous_usernames' => 'някога известен като',
         'plays_with' => 'Играе с :devices',
         'title' => "профила на :username",
@@ -174,13 +163,13 @@ return [
                     'button' => 'Качи изображение',
                     'dropzone' => 'Пуснете файла тук, за да го качите',
                     'dropzone_info' => 'Можете също да пуснете вашето изображение тук за качване',
-                    'size_info' => 'Размерът на корицата трябва да е 2800x620 пиксела',
+                    'size_info' => 'Размерът на корицата трябва да е 2400x620 пиксела',
                     'too_large' => 'Каченият файл е прекалено голям.',
                     'unsupported_format' => 'Неподдържан формат.',
 
                     'restriction_info' => [
-                        '_' => '',
-                        'link' => '',
+                        '_' => 'Качването е налично само за :link',
+                        'link' => 'osu!supporters',
                     ],
                 ],
             ],
@@ -192,7 +181,7 @@ return [
         ],
 
         'extra' => [
-            'none' => '',
+            'none' => 'никакъв',
             'unranked' => 'Няма скорошни данни',
 
             'achievements' => [
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'от :artist',
-                'none' => 'Няма... все още.',
                 'title' => 'Бийтмапове',
 
                 'favourite' => [
@@ -222,17 +210,16 @@ return [
                 ],
             ],
             'discussions' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Дискусии',
+                'title_longer' => 'Скорошни дискусии',
+                'show_more' => 'виж повече дискусии',
             ],
             'events' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Събития',
+                'title_longer' => 'Скорошни събития',
+                'show_more' => 'виж повече събития',
             ],
             'historical' => [
-                'empty' => 'Няма записани изпълнения. :(',
                 'title' => 'Хронология',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Неизползвано Kudosu',
-                'available_info' => "Kudosu може да се обменено за kudosu звезди, които ще ти помогнат на бийтмапа ти да получи повече внимание. Това е броят на kudosu, което все още не си обменил.",
                 'recent_entries' => 'Скорошна Kudosu история',
                 'title' => 'Kudosu!',
                 'total' => 'Общо получено Kudosu',
@@ -299,8 +284,8 @@ return [
                 ],
 
                 'total_info' => [
-                    '_' => '',
-                    'link' => '',
+                    '_' => 'Въз основа на това колко този потребител е помогнал с редактирането на бийтмапове. Вижте :link за повече информация.',
+                    'link' => 'тази страница',
                 ],
             ],
             'me' => [
@@ -312,18 +297,18 @@ return [
                 'title' => 'Медали',
             ],
             'posts' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Публикации',
+                'title_longer' => 'Скорошни публикации',
+                'show_more' => 'виж повече публикации',
             ],
             'recent_activity' => [
                 'title' => 'Скорошна активност',
             ],
             'top_ranks' => [
                 'download_replay' => 'Изтегли повторението',
-                'empty' => 'Все още няма страхотни изпълнения. :(',
                 'not_ranked' => 'Само класираните бийтмапове дават pp точки.',
                 'pp_weight' => 'с тежест :percentage',
+                'view_details' => 'Виж детайлите',
                 'title' => 'Класации',
 
                 'best' => [
@@ -334,11 +319,11 @@ return [
                 ],
             ],
             'votes' => [
-                'given' => '',
-                'received' => '',
-                'title' => '',
-                'title_longer' => '',
-                'vote_count' => '',
+                'given' => 'Дадени гласове (за последните 3 месеца)',
+                'received' => 'Получени гласове (за последните 3 месеца)',
+                'title' => 'Гласове',
+                'title_longer' => 'Скорошни гласове',
+                'vote_count' => ':count_delimited глас|:count_delimited гласове',
             ],
             'account_standing' => [
                 'title' => 'Състояние на акаунта',
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Интереси',
-            'lastfm' => 'Last.fm',
             'location' => 'Текущо местоположение',
             'occupation' => 'Занимание/Работа',
             'skype' => '',
@@ -387,8 +371,8 @@ return [
             'placeholder' => 'Въведи съдържанието на страницата тук',
 
             'restriction_info' => [
-                '_' => '',
-                'link' => '',
+                '_' => 'Трябва да сте :link, за да отключите тази функционалност.',
+                'link' => 'osu!supporter',
             ],
         ],
         'post_count' => [
@@ -415,10 +399,10 @@ return [
             'total_hits' => 'Общ брой попадения',
             'total_score' => 'Общ брой точки',
             // modding stats
-            'ranked_and_approved_beatmapset_count' => '',
-            'loved_beatmapset_count' => '',
-            'unranked_beatmapset_count' => '',
-            'graveyard_beatmapset_count' => '',
+            'ranked_and_approved_beatmapset_count' => 'Класирани и одобрени бийтмапове',
+            'loved_beatmapset_count' => 'Обичани бийтмапове',
+            'unranked_beatmapset_count' => 'Предстоящи бийтмапове за класиране',
+            'graveyard_beatmapset_count' => 'Изоставени бийтмапове',
         ],
     ],
 
@@ -435,7 +419,8 @@ return [
     ],
 
     'view_mode' => [
-        'card' => '',
-        'list' => '',
+        'brick' => 'Блоков изглед',
+        'card' => 'Картов изглед',
+        'list' => 'Списъчен изглед',
     ],
 ];

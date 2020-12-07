@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '',
     'require_login' => 'Παρακαλώ συνδεθείτε για να συνεχίσετε.',
     'require_verification' => '',
     'restricted' => "Δε μπορείτε να το κάνετε αυτό όσο είστε restricted.",
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Πρέπει να είστε ένας πλήρης nominator για να κάνετε nominate beatmap sets με περισσότερα από ένα game mode.',
             'incorrect_state' => 'Σφάλμα κατά την εκτέλεση αυτής της ενέργειας, δοκιμάστε να ανανεώσετε τη σελίδα.',
             'owner' => "Δεν μπορείτε να κάνετε nominate το δικό σας beatmap.",
+            'set_metadata' => '',
         ],
         'resolve' => [
             'not_owner' => 'Μόνο οι δημιουργοί του thread και του beatmap μπορούν να επιλύσουν τη συζήτηση.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "",
             'limit_exceeded' => 'Παρακαλώ περιμένετε λίγο πριν ψηφίσετε ξανά',
             'owner' => "Δεν μπορείτε να ψηφίσετε τη δική σας συζήτηση.",
             'wrong_beatmapset_state' => 'Μπορείτε να ψηφίσετε μόνο σε συζήτηση των pending beatmap.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'Αυτό το beatmap είναι κλειδωμένο προς συζήτηση.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => '',
         ],
     ],
 

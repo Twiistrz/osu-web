@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -27,34 +12,34 @@ return [
             'instructions' => 'натисніть на сердечко для переходу в магазин',
         ],
         'why-support' => [
-            'title' => '',
+            'title' => 'Навіщо мені підтримувати osu!? Куди йдуть гроші?',
 
             'team' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Підтримати команду',
+                'description' => 'Маленька команда розробляє osu! Ваша допомога допомагає їм... жити.',
             ],
             'infra' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Iнфраструктура сервера',
+                'description' => 'Допомога йде на утримання серверів для сайту, мультиплеєра, таблиць рекордів, і т.д.',
             ],
             'featured-artists' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Обрані Артисти',
+                'description' => 'З вашою підтримкою ми зможемо співпрацювати з великою кількістю крутих виконавців і ліцензувати ще більше відмінної музики для використання в osu!',
+                'link_text' => 'Подивіться, хто вже є &raquo;',
             ],
             'ads' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Підтримуйте незалежність osu!',
+                'description' => 'Ваш внесок допоможе грі залишитися незалежною і повністю вільною від реклами і зовнішніх спонсорів.',
             ],
             'tournaments' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Офіційні турніри',
+                'description' => 'Допоможіть фінансувати офіційні турніри osu! World Cup (а також призи для них).',
+                'link_text' => 'Перегляньте турніри &raquo;',
             ],
             'bounty-program' => [
-                'title' => '',
-                'description' => '',
-                'link_text' => '',
+                'title' => 'Програма заохочення вкладу у відкрите ПЗ',
+                'description' => 'Підтримайте учасників спільноти, які витратили час і сили для того, щоб зробити osu! краще.',
+                'link_text' => 'Дізнайтесь більше &raquo;',
             ],
         ],
         'perks' => [
@@ -65,18 +50,18 @@ return [
             ],
 
             'friend_ranking' => [
-                'title' => '',
-                'description' => "",
+                'title' => 'Рейтинг друзів',
+                'description' => "Дізнайтеся, наскільки ви краще ваших друзів, за таблицями рекордів для карт, доступних як в грі, так і на сайті.",
             ],
 
             'country_ranking' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Рейтинг країни',
+                'description' => 'Завоюйте країну, перш ніж завойовувати світ.',
             ],
 
             'mod_filtering' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Фільтр по модам',
+                'description' => 'Цікавитесь тільки з тими, хто грає з HDHR? Немає проблем!',
             ],
 
             'auto_downloads' => [
@@ -135,25 +120,25 @@ return [
             ],
 
             'more_favourites' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Більше обраних',
+                'description' => 'Максимальне число карт, які ви можете додати в обрані, збільшиться з :normally &rarr; :supporter',
             ],
             'more_friends' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Більше друзів',
+                'description' => 'Максимальна кількість друзів, яких Ви можете додати збільшено з :normally &rarr; :supporter',
             ],
             'more_beatmaps' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Завантажте більше карт',
+                'description' => 'Хоч скільки рейтінових карт ви можете додати зважає на базового значення плюс дополнітелной бонус за кожну рейтингову карту яку ви маєте (до певного ліміту). <br/></br> Зазвичай це :base плюс :bonus за кожну рейтингову карту (до :bonus_max ). З osu!supporter це значення збільшується до :supporter_base плюс :supporter_bonus за кожну рейтингову карту (до :supporter_bonus_max)',
             ],
             'friend_filtering' => [
-                'title' => '',
-                'description' => '',
+                'title' => 'Рейтинг друзів',
+                'description' => 'Змагаються з друзями і дізнайтеся наскільки ви сильні проти них!',
             ],
 
         ],
         'supporter_status' => [
-            'contribution' => 'Велике спасибі за вашу підтримку! Всього ви пожертвували :dollars за :tags покупок!',
+            'contribution' => 'Дуже дякую за вашу підтримку! Всього ви пожертвували :dollars за :tags покупок!',
             'gifted' => "З них, ви подарували :giftedTags тегів (в результаті подаровано :giftedDollars), як щедро!",
             'not_yet' => "У вас немає osu!прихильник :(",
             'valid_until' => 'Ваш osu!прихильник буде активним до :date!',

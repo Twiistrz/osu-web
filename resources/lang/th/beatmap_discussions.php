@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
@@ -33,8 +18,8 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'ถูกลบไปแล้ว',
-        'none_found' => '',
-        'title' => 'การสนทนาเกี่ยวกับ Beatmap',
+        'none_found' => 'ไม่พบการสนทนาตามเกณฑ์การค้นหาที่เลือก',
+        'title' => 'การสนทนาเกี่ยวกับบีทแมพ',
 
         'form' => [
             '_' => 'ค้นหา',
@@ -44,12 +29,12 @@ return [
             'username' => 'ชื่อผู้ใช้',
 
             'beatmapset_status' => [
-                '_' => 'สถานะบีตแมป',
+                '_' => 'สถานะบีทแมพ',
                 'all' => 'ทั้งหมด',
-                'disqualified' => 'คัดออกแล้ว',
-                'never_qualified' => 'ไม่เคยถูกคัดออก',
-                'qualified' => 'ผ่านเกณฑ์',
-                'ranked' => 'ถูกจัดอันดับแล้ว',
+                'disqualified' => 'ถูกตัดสิทธิ์',
+                'never_qualified' => 'ไม่เคยถูก Qualified',
+                'qualified' => 'Qualified',
+                'ranked' => 'จัดอันดับแล้ว',
             ],
 
             'user' => [
@@ -60,15 +45,16 @@ return [
     ],
 
     'item' => [
-        'created_at' => 'วันโพสต์',
-        'deleted_at' => 'วันที่ถูกลบ',
+        'created_at' => 'โพสเมื่อวันที่',
+        'deleted_at' => 'ถูกลบเมื่อวันที่',
         'message_type' => 'ประเภท',
-        'permalink' => 'ลิงก์ถาวร',
+        'permalink' => 'ลิงค์',
     ],
 
     'nearby_posts' => [
         'confirm' => 'ไม่มีโพสต์ใดกล่าวถึงปัญหาของฉัน',
         'notice' => 'มีโพสต์เมื่อเวลาประมาณ :timestamp (:existing_timestamps). โปรตตรวจสอบก่อนโพสต์',
+        'unsaved' => ':count ในบทวิจารณ์นี้',
     ],
 
     'reply' => [
@@ -79,14 +65,17 @@ return [
     ],
 
     'review' => [
-        'go_to_parent' => 'ดูโพสต์รีวิว',
+        'block_count' => 'ใช้ไป :used / :max blocks',
+        'go_to_parent' => 'ดูโพสต์วิจารณ์',
         'go_to_child' => 'ดูการสนทนา',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => 'แต่ละบล็อกเก็บอักขระได้แค่ :limit อักขระ',
+            'external_references' => 'บทวิจารณ์นี้มีการพูดถึงปัญหาที่ไม่เกี่ยวข้องกับบทวิจารณ์นี้',
+            'invalid_block_type' => 'ชนิดของบล็อกไม่ถูกต้อง',
+            'invalid_document' => 'บทวิจารณ์ไม่ถูกต้อง',
+            'minimum_issues' => 'บทวิจารณ์ต้องมีปัญหาอย่างน้อย :count ปัญหา|บทวิจารณ์ต้องมีปัญหาอย่างน้อย :count ปัญหา',
+            'missing_text' => 'บล็อกไม่มีข้อความ',
+            'too_many_blocks' => 'บทวิจารณ์จำกัดให้มีแค่ :count ย่อหน้าต่อปัญหา|บทวิจารณ์จำกัดให้มีแค่ :count ย่อหน้าต่อหลายปัญหา',
         ],
     ],
 
@@ -98,8 +87,8 @@ return [
     ],
 
     'timestamp_display' => [
-        'general' => '',
-        'general_all' => '',
+        'general' => 'ทั่วไป',
+        'general_all' => 'หมวดทั่วไป (รวม)',
     ],
 
     'user_filter' => [

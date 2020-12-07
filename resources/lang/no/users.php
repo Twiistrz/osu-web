@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[slettet bruker]',
@@ -65,29 +50,33 @@ return [
     ],
 
     'disabled' => [
-        'title' => '',
-        'warning' => "",
+        'title' => 'Oops! Det ser ut som kontoen din er deaktivert.',
+        'warning' => "I tilfelle du har brutt en regel, vær oppmerksom på at det vanligvis er en nedkjølingsperiode på en måned hvor vi ikke kommer til å vurdere noen amnestiforespørsler. Etter denne periodenm kan du fritt kontakte oss dersom du mener det er nødvendig. Vær oppmerksom på at å opprette nye kontoer etter du har hatt en allerede deaktivert vil resultere i enn <strong>utvidelse av denne en måneders nedkjølingsperioden</strong>. <strong>Du må også huske at med hver bruker du lager, bryter du reglene enda mer</strong>. Vi anbefaler på det sterkeste at du ikke gjør dette!",
 
         'if_mistake' => [
-            '_' => '',
-            'email' => '',
+            '_' => 'Hvis du mener dette er en feil, er du velkommer til å kontakte oss (via :email eller med å klikke på "?" i nedre-høyre hjørne av denne siden). Vær oppmerksom på at vi alltid er helt sikre på hva vi gjør, fordi de er basert på svært solide data. Vi forbeholder oss retten til å ignorere din forespørsel bor vi føle at du er bevisst uærlig.',
+            'email' => 'epost',
         ],
 
         'reasons' => [
-            'compromised' => '',
-            'opening' => '',
+            'compromised' => 'Kontoen din anses å være kompromittert. Den kan være midlertidig deaktivert mens identiteten er bekreftet.',
+            'opening' => 'Det er flere grunner som kan resultere i at kontoen din er deaktivert:',
 
             'tos' => [
-                '_' => '',
-                'community_rules' => '',
-                'tos' => '',
+                '_' => 'Du har brutt en eller flere av våre :community_rules or :tos.',
+                'community_rules' => 'samfunnsregler',
+                'tos' => 'brukervilkår',
             ],
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
-            'inactive_different_country' => "",
+            'inactive_different_country' => "Kontoen din har ikke blitt brukt på lang tid.",
         ],
     ],
 
@@ -95,10 +84,11 @@ return [
         '_' => 'Logg inn',
         'button' => 'Logg inn',
         'button_posting' => 'Logger inn...',
-        'email_login_disabled' => '',
+        'email_login_disabled' => 'Innlogging med email er for tiden deaktivert. Vennligst bruk brukernavn i stedet.',
         'failed' => 'Feil innlogging',
         'forgot' => 'Glemt passordet ditt?',
-        'info' => '',
+        'info' => 'Vennligst logg inn for å fortsette',
+        'invalid_captcha' => '',
         'locked_ip' => 'IP-adressen din er blokkert. Vennligst vent et par minutter.',
         'password' => 'Passord',
         'register' => "Har du ikke en osu!-konto? Lag en ny en",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Pålogget for øyeblikket',
         'missingtext' => 'Du begikk muligens en skrivefeil! (eller så kan brukeren ha blitt utestengt)',
         'origin_country' => 'Fra :country',
-        'page_description' => 'osu! - Alt du noensinne måtte ønske å vite om :username!',
         'previous_usernames' => 'tidligere kjent som',
         'plays_with' => 'Spiller med :devices',
         'title' => "Profilen til :username",
@@ -174,13 +163,13 @@ return [
                     'button' => 'Last opp bilde',
                     'dropzone' => 'Slipp her for å laste opp',
                     'dropzone_info' => 'Du kan også slippe bildet ditt her for å laste det opp',
-                    'size_info' => 'Størrelsen på banneret bør være 2800x620',
+                    'size_info' => 'Størrelsen på banneret bør være 2400x620',
                     'too_large' => 'Den opplastede filen er for stor.',
                     'unsupported_format' => 'Formatet støttes ikke.',
 
                     'restriction_info' => [
                         '_' => 'Oppdatering er bare tilgjengelig for :link',
-                        'link' => '',
+                        'link' => 'osu!supportere',
                     ],
                 ],
             ],
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'av :artist',
-                'none' => 'Ingen... ennå.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -222,17 +210,16 @@ return [
                 ],
             ],
             'discussions' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Diskusjoner',
+                'title_longer' => 'Nylige diskusjoner',
+                'show_more' => 'se flere diskusjoner',
             ],
             'events' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Hendelser',
+                'title_longer' => 'Nylige Hendelser',
+                'show_more' => 'se flere hendelser',
             ],
             'historical' => [
-                'empty' => 'Ingen prestasjoner :(',
                 'title' => 'Historikk',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu Tilgjengelig',
-                'available_info' => "Kudosu kan byttes for kudosustjerner, som kan hjelpe beatmappet ditt å få mer oppmerksomhet. Dette er antall kudosu som du ikke har byttet enda.",
                 'recent_entries' => 'Nylig Kudosu Historie',
                 'title' => 'Kudosu!',
                 'total' => 'Total Kudosu Opptjent',
@@ -299,7 +284,7 @@ return [
                 ],
 
                 'total_info' => [
-                    '_' => '',
+                    '_' => 'Basert på hvor mye en bidro en bruker har gjort til beatmapmoderasjon. Se :link for mer informasjon.',
                     'link' => 'denne siden',
                 ],
             ],
@@ -313,17 +298,17 @@ return [
             ],
             'posts' => [
                 'title' => 'Innlegg',
-                'title_longer' => '',
-                'show_more' => '',
+                'title_longer' => 'Nylige Innlegg',
+                'show_more' => 'se flere innlegg',
             ],
             'recent_activity' => [
                 'title' => 'Nylige',
             ],
             'top_ranks' => [
                 'download_replay' => 'Last ned Reprise',
-                'empty' => 'Ingen fantastiske prestasjoner på rekordlisten enda. :(',
                 'not_ranked' => 'Bare rangerte beatmaps gir pp.',
                 'pp_weight' => 'veid :percentage',
+                'view_details' => 'Vis detaljer',
                 'title' => 'Rangeringer',
 
                 'best' => [
@@ -334,8 +319,8 @@ return [
                 ],
             ],
             'votes' => [
-                'given' => '',
-                'received' => '',
+                'given' => 'Stemmer Gitt (siste 3 måneder)',
+                'received' => 'Stemmer Mottatt (siste 3 måneder)',
                 'title' => 'Stemmer',
                 'title_longer' => 'Nylige stemmer',
                 'vote_count' => ':count_delimited stemme|:count_delimited stemmer',
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Interesser',
-            'lastfm' => 'Last.fm',
             'location' => 'Nåværende Plassering',
             'occupation' => 'Yrke',
             'skype' => 'Skype',
@@ -417,8 +401,8 @@ return [
             // modding stats
             'ranked_and_approved_beatmapset_count' => 'Rangerte & Godkjente Beatmaps',
             'loved_beatmapset_count' => 'Elskede Beatmaps',
-            'unranked_beatmapset_count' => '',
-            'graveyard_beatmapset_count' => '',
+            'unranked_beatmapset_count' => 'Ventende Beatmaps',
+            'graveyard_beatmapset_count' => 'Gravlagte Beatmaps',
         ],
     ],
 
@@ -435,7 +419,8 @@ return [
     ],
 
     'view_mode' => [
-        'card' => '',
+        'brick' => 'Blokk-visning',
+        'card' => 'Bilde-visning',
         'list' => 'Listevisning',
     ],
 ];

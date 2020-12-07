@@ -1,38 +1,23 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
-        'title_compact' => 'inställningar',
+        'title_compact' => 'kontoinställningar',
         'username' => 'användarnamn',
 
         'avatar' => [
-            'title' => 'Profilbild',
-            'rules' => '',
+            'title' => 'Avatar',
+            'rules' => 'Se till att din avatar följer :link.<br/>Det betyder att den måste vara <strong>lämplig för alla åldrar</strong>. dvs ingen nakenhet, svordomar eller suggestivt innehåll.',
             'rules_link' => 'gemenskapsreglerna',
         ],
 
         'email' => [
             'current' => 'nuvarande e-postadress',
             'new' => 'ny e-postadress',
-            'new_confirmation' => 'email bekräftelse',
+            'new_confirmation' => 'e-postbekräftelse',
             'title' => 'E-postadress',
         ],
 
@@ -64,44 +49,64 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'ta emot meddelanden om nya problem på kvalificerade beatmaps över följande lägen',
+        'beatmapset_disqualify' => 'ta emot aviseringar när beatmaps för följande lägen diskvalificeras',
+        'comment_reply' => 'motta aviseringar för svar på dina kommentarer',
         'title' => 'Aviseringar',
-        'topic_auto_subscribe' => '',
-        'beatmapset_discussion_qualified_problem' => '',
+        'topic_auto_subscribe' => 'aktivera aviseringar automatiskt på nya forumtrådar som du skapar ',
 
-        'mail' => [
-            '_' => '',
-            'beatmapset:modding' => '',
-            'forum_topic_reply' => '',
+        'options' => [
+            '_' => 'leveransalternativ',
+            'beatmapset:modding' => 'beatmap modding',
+            'channel_message' => 'privata chattmeddelanden',
+            'comment_new' => 'nya kommentarer',
+            'forum_topic_reply' => 'ämnessvar',
+            'mail' => 'mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'användarmedalj upplåst',
         ],
     ],
 
     'oauth' => [
-        'authorized_clients' => '',
+        'authorized_clients' => 'auktoriserade klienter',
         'own_clients' => 'egna klienter',
-        'title' => '',
+        'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Alternativ',
+
+        'beatmapset_download' => [
+            '_' => 'standard beatmap nedladdningstyp',
+            'all' => 'med video om tillgängligt',
+            'no_video' => 'utan video',
+            'direct' => 'öppna i osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'visa beatmapmetadata på originalspråk',
     ],
 
     'playstyles' => [
         'keyboard' => 'tangentbord',
         'mouse' => 'mus',
         'tablet' => 'platta',
-        'title' => 'Spelstil',
+        'title' => 'Spelsätt',
         'touch' => 'pekskärm',
     ],
 
     'privacy' => [
         'friends_only' => 'Blockera privata meddelanden från icke-vänner',
-        'hide_online' => '',
+        'hide_online' => 'dölj din online-närvaro',
         'title' => 'Sekretess',
     ],
 
     'security' => [
-        'current_session' => '',
+        'current_session' => 'nuvarande',
         'end_session' => 'Avsluta sessionen',
         'end_session_confirmation' => 'Detta kommer avsluta din session på den valda enheten. Är du säker?',
         'last_active' => 'Senast aktiv:',
         'title' => 'Säkerhet',
-        'web_sessions' => '',
+        'web_sessions' => 'webbsessioner',
     ],
 
     'update_email' => [
@@ -114,10 +119,10 @@ return [
 
     'verification_completed' => [
         'text' => 'Du kan stänga detta fönstret nu',
-        'title' => 'Verifieringen har blivit slutförd',
+        'title' => 'Verifieringen har slutförts',
     ],
 
     'verification_invalid' => [
-        'title' => '',
+        'title' => 'Ogiltig eller utgånget verifieringslänk',
     ],
 ];

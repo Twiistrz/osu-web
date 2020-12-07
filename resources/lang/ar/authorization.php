@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'ماذا عن لعب بعضِِ من osu! بدلاً من ذلك؟',
     'require_login' => 'الرجاء تسجيل الدخول للمضي قدما.',
     'require_verification' => 'الرجاء التحقق للمضي قدما.',
     'restricted' => "لا يمكنك فعل ذلك بينما تكون مقيدًا.",
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'يجب أن تكون مرشحًا كاملاً لترشيح حزمة مراحل مع أكثر من وضع لعب.',
             'incorrect_state' => 'حدث خطأ حول تنفيذ هذا الإجراء، حاول تحديث الصفحة.',
             'owner' => "لا يمكن ترشيح خرائط الموسيقى الخاصة بك.",
+            'set_metadata' => 'يجب عليك تعيين النوع واللغة قبل الترشيح.',
         ],
         'resolve' => [
             'not_owner' => 'يمكن لمالك خريطة موسيقية وبادء النقاش ان ينهيه فقط.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "لا يمكن التصويت على مناقشة أجراها بوت",
             'limit_exceeded' => 'الرجاء الانتظار لفترة قبل الإدلاء بأصوات أكثر',
             'owner' => "لا يمكنك التصويت في المناقشة الخاصة بك.",
             'wrong_beatmapset_state' => 'يمكن فقط التصويت على المناقشات للخرائط في حالة الانتظار.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'هذه الخريطة مقفلة للمناقشة.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'لا يمكنك تغيير البيانات الوصفية لخريطة مُرَشَحة بالفعل. اتصل بعضو BN أو NAT إذا كنت تعتقد أنه تم تعيينها بشكل غير صحيح.',
         ],
     ],
 
@@ -173,7 +167,7 @@ return [
             'edit' => [
                 'locked' => 'صفحة المستخدم مقفلة.',
                 'not_owner' => 'يمكن فقط تعديل الصفحة الخاصة بك.',
-                'require_supporter_tag' => 'تحتاج الى رابطة مؤيد!osu.',
+                'require_supporter_tag' => 'تحتاج الى شارة osu!supporter.',
             ],
         ],
     ],

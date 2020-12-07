@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Failed saving post',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Failed updating vote',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Denied from obtaining kudosu.',
         'message_placeholder_deleted_beatmap' => 'This difficulty has been deleted so it may no longer be discussed.',
         'message_placeholder_locked' => 'Discussion for this beatmap has been disabled.',
+        'message_placeholder_silenced' => "Can't post discussion while silenced.",
         'message_type_select' => 'Select Comment Type',
         'reply_notice' => 'Press enter to reply.',
         'reply_placeholder' => 'Type your response here',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Type here to post to General (:version)',
             'generalAll' => 'Type here to post to General (All difficulties)',
+            'review' => 'Type here to post a review',
             'timeline' => 'Type here to post to Timeline (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'ctrl-c in edit mode and paste in your message to add a timestamp!',
             'title' => 'New Discussion',
             'unpin' => 'Unpin',
+        ],
+
+        'review' => [
+            'new' => 'New Review',
+            'embed' => [
+                'delete' => 'Delete',
+                'missing' => '[DISCUSSION DELETED]',
+                'unlink' => 'Unlink',
+                'unsaved' => 'Unsaved',
+                'timestamp' => [
+                    'all-diff' => 'Posts on "All difficulties" can\'t be timestamped.',
+                    'diff' => 'If this :type starts with a timestamp, it will be shown under Timeline.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'insert paragraph',
+                'praise' => 'insert praise',
+                'problem' => 'insert problem',
+                'suggestion' => 'insert suggestion',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Nominate this beatmap?',
         'nominated_by' => 'nominated by :users',
         'not_enough_hype' => "There isn't enough hype.",
-        'qualified' => 'Estimated to be ranked :date, if no issues are found.',
-        'qualified_soon' => 'Estimated to be ranked soon, if no issues are found.',
+        'remove_from_loved' => 'Remove from Loved',
+        'remove_from_loved_prompt' => 'Reason for removing from Loved:',
         'required_text' => 'Nominations: :current/:required',
         'reset_message_deleted' => 'deleted',
         'title' => 'Nomination Status',
         'unresolved_issues' => 'There are still unresolved issues that must be addressed first.',
+
+        'rank_estimate' => [
+            '_' => 'This map is estimated to be ranked :date if no issues are found. It is #:position in the :queue.',
+            'queue' => 'ranking queue',
+            'soon' => 'soon',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Nomination process reset :time_ago by :user with new problem :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Include converted beatmaps',
     ],
     'mode' => [
+        'all' => 'All',
         'any' => 'Any',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novelty',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Electronic',
+        'metal' => 'Metal',
+        'classical' => 'Classical',
+        'folk' => 'Folk',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Touch Device',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => 'Any',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Korean',
         'spanish' => 'Spanish',
         'swedish' => 'Swedish',
+        'russian' => 'Russian',
+        'polish' => 'Polish',
         'instrumental' => 'Instrumental',
         'other' => 'Other',
+        'unspecified' => 'Unspecified',
     ],
     'played' => [
         'any' => 'Any',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Playcount: :count',
         'favourites' => 'Favourites: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'All',
+        ],
     ],
 ];

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'header' => [
@@ -44,8 +29,8 @@ return [
     ],
     'entry' => [
         '_' => 'participación',
-        'login_required' => 'Por favor, inicia sesión para entrar al concurso.',
-        'silenced_or_restricted' => 'No puedes entrar a concursos mientras estas restringido o silenciado.',
+        'login_required' => 'Inicie sesión para participar en el concurso.',
+        'silenced_or_restricted' => 'No puede participar en los concursos mientras esté restringido o silenciado.',
         'preparation' => 'Estamos preparando este concurso actualmente. Por favor, ¡Espera pacientemente!',
         'over' => '¡Gracias por su participación! Los envíos se han cerrado para este concurso y la votación se abrirá pronto.',
         'limit_reached' => 'Has alcanzado el límite de entradas para este concurso',
@@ -68,10 +53,11 @@ return [
     ],
     'dates' => [
         'ended' => 'Finalizó el :date',
+        'ended_no_date' => 'Finalizado',
 
         'starts' => [
-            '_' => 'Empezó el :date',
-            'soon' => 'pronto',
+            '_' => 'Comienza :date',
+            'soon' => 'pronto™',
         ],
     ],
     'states' => [

@@ -1,28 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'Как насчет поиграть немного в osu!?',
     'require_login' => 'Войдите для продолжения.',
     'require_verification' => 'Пожалуйста, верифицируйте для продолжения.',
     'restricted' => "Нельзя делать это пока ваши права ограничены.",
-    'silenced' => "Нельзя делать это пока заглушен.",
+    'silenced' => "Нельзя это делать, пока у вас сайленс.",
     'unauthorized' => 'Доступ запрещён.',
 
     'beatmap_discussion' => [
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Вы должны быть полноправным номинатором, чтобы номинировать карты с более чем одним режимом игры.',
             'incorrect_state' => 'Возникла неизвестная ошибка, попробуйте перезагрузить страницу.',
             'owner' => "Нельзя номинировать свою карту.",
+            'set_metadata' => 'Вы должны указать жанр и язык перед номинированием.',
         ],
         'resolve' => [
             'not_owner' => 'Только автор темы или карты может решить вопрос.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Нельзя голосовать на обсуждении бота",
             'limit_exceeded' => 'Подождите немного прежде чем голосовать дальше',
             'owner' => "Нельзя голосовать в собственном обсуждении!",
             'wrong_beatmapset_state' => 'Можно голосовать только в обсуждениях ожидающих карт.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'Обсуждения к этой карте закрыты.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Вы не можете менять метаданные номинированной карты. Свяжитесь с членом BN или NAT, если считаете что они указаны неверно.',
         ],
     ],
 
@@ -120,10 +114,10 @@ return [
                 'double_post' => 'Пожалуйста, отредактируйте ваше последнее сообщение вместо повторной публикации.',
                 'locked' => 'Нельзя ответить в закрытой теме.',
                 'no_forum_access' => 'Необходим доступ к запрашиваемому форуму.',
-                'no_permission' => 'Нет прав для ответа.',
+                'no_permission' => 'У вас нет прав оставить ответ.',
 
                 'user' => [
-                    'require_login' => 'Войдите для ответа.',
+                    'require_login' => 'Пожалуйста, войдите в аккаунт, чтобы отставить ответ.',
                     'restricted' => "Нельзя ответить пока аккаунт ограничен.",
                     'silenced' => "Нельзя ответить пока вы заглушены.",
                 ],
@@ -137,14 +131,14 @@ return [
 
             'vote' => [
                 'no_forum_access' => 'Необходим доступ к запрашиваемому форуму.',
-                'over' => 'Опрос окончен и отвечать в нём уже нельзя.',
+                'over' => 'Опрос окончен и проголосовать в нём уже нельзя.',
                 'play_more' => 'Вам нужно поиграть еще, перед тем как голосовать на форуме.',
                 'voted' => 'Менять свой ответ запрещено.',
 
                 'user' => [
-                    'require_login' => 'Войдите для ответа.',
-                    'restricted' => "Нельзя голосовать пока аккаунт ограничен.",
-                    'silenced' => "Нельзя голосовать пока заглушен.",
+                    'require_login' => 'Пожалуйста, войдите в аккаунт, чтобы проголосовать.',
+                    'restricted' => "Нельзя голосовать, пока аккаунт ограничен.",
+                    'silenced' => "Нельзя голосовать, пока у вас сайленс.",
                 ],
             ],
 

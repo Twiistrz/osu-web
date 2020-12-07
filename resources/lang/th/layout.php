@@ -1,115 +1,53 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'audio' => [
+        'autoplay' => 'เล่นเพลงถัดไปโดยอัตโนมัติ',
+    ],
+
     'defaults' => [
         'page_description' => 'osu! - จังหวะนั้นอยู่ห่างแค่คลิกเดียว! ด้วย Ouendan/EBA, Taiko และเกมโหมดดั้งเดิมอีกมากมาย พร้อมทั้งหน้าต่างแก้ไขที่ใช้งานได้อย่างสมบูรณ์',
     ],
 
     'header' => [
         'admin' => [
-            '_' => '',
-            'beatmapset' => '',
-            'beatmapset_covers' => '',
-            'contest' => '',
-            'contests' => '',
-            'root' => '',
-            'store_orders' => '',
+            'beatmapset' => 'บีทแมพเซ็ท',
+            'beatmapset_covers' => 'ปกหลังบีทแมพเซ็ท',
+            'contest' => 'การแข่งขัน',
+            'contests' => 'การแข่งขัน',
+            'root' => 'แผงควบคุม',
+            'store_orders' => 'ผู้ดูแลระบบร้านค้า',
         ],
 
         'artists' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'beatmapsets' => [
-            '_' => '',
-            'discussions' => '',
-            'index' => '',
-            'show' => '',
-            'packs' => '',
+            'index' => 'รายการ',
         ],
 
         'changelog' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'community' => [
-            '_' => 'ชุมชน',
-            'comments' => '',
-            'contests' => '',
-            'forum' => 'ฟอรั่ม',
-            'livestream' => '',
-        ],
-
-        'error' => [
-            '_' => '',
+            'index' => 'รายการ',
         ],
 
         'help' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'home' => [
-            '_' => '',
-            'password_reset' => '',
-        ],
-
-        'matches' => [
-            '_' => '',
-        ],
-
-        'notice' => [
-            '_' => '',
-        ],
-
-        'notifications' => [
-            '_' => '',
-            'index' => '',
-        ],
-
-        'rankings' => [
-            '_' => '',
+            'index' => 'หน้าแรก',
+            'sitemap' => 'แผนผังเว็บไซต์',
         ],
 
         'store' => [
-            '_' => '',
-            'cart' => '',
-            'order' => '',
-            'orders' => '',
-            'product' => '',
-            'products' => '',
+            'cart' => 'ตะกร้าสินค้า',
+            'orders' => 'ประวัติการสั่งซื้อ',
+            'products' => 'สินค้า',
         ],
 
         'tournaments' => [
-            '_' => '',
-            'index' => '',
+            'index' => 'รายการทัวร์นาเมนต์',
         ],
 
         'users' => [
-            '_' => '',
-            'forum_posts' => '',
-            'modding' => '',
-            'show' => '',
+            'modding' => 'การวิจารณ์บีทแมพ',
+            'show' => 'ข้อมูล',
         ],
     ],
 
@@ -122,157 +60,52 @@ return [
     ],
 
     'menu' => [
-        'home' => [
-            '_' => 'หน้าแรก',
-            'account-edit' => 'การตั้งค่า',
-            'account-verifyLink' => 'การตรวจสอบยืนยันเสร็จสมบูรณ์',
-            'beatmapset-watches-index' => '',
-            'changelog-build' => 'เวอร์ชั่น',
-            'changelog-index' => 'บันทึกการเปลี่ยนแปลง',
-            'client_verifications-create' => '',
-            'forum-topic-watches-index' => '',
-            'friends-index' => 'เพื่อน',
-            'getDownload' => 'ดาวน์โหลด',
-            'getIcons' => 'ไอคอน',
-            'groups-show' => 'กลุ่ม',
-            'index' => 'หน้าหลัก',
-            'legal-show' => 'ข้อมูล',
-            'messages-index' => 'ข้อความ',
-            'news-index' => 'ข่าวสาร',
-            'news-show' => 'ข่าวสาร',
-            'password-reset-index' => 'รีเซ็ตรหัสผ่าน',
-            'search' => 'ค้นหา',
-            'supportTheGame' => 'สนับสนุนเกม',
-            'team' => 'ทีม',
-            'testflight' => '',
-        ],
-        'profile' => [
-            '_' => 'โปรไฟล์',
-            'friends' => 'เพื่อน',
-            'settings' => 'การตั้งค่า',
-        ],
-        'help' => [
-            '_' => 'ช่วยเหลือ',
-            'getFaq' => 'คำถามที่ถามบ่อย',
-            'getRules' => 'กฏ',
-            'getSupport' => 'ไม่ ฉันต้องการความช่วยเหลือ จริงๆ!',
-            'getWiki' => 'วิกิ',
-            'wiki-show' => 'วิกิ',
-        ],
         'beatmaps' => [
-            '_' => 'beatmaps',
+            '_' => 'บีทแมพ',
             'artists' => 'ศิลปินโดดเด่น',
-            'beatmap_discussion_posts-index' => 'โพสต์การสนทนาเกี่ยวกับ Beatmap',
-            'beatmap_discussions-index' => 'การสนทนาเกี่ยวกับ Beatmap',
-            'beatmapset_discussion_votes-index' => 'โหวตการสนทนา Beatmap',
-            'beatmapset_events-index' => 'กิจกรรมของ Beatmapset',
             'index' => 'รายการ',
             'packs' => 'แพ็ค',
-            'show' => 'ข้อมูล',
-        ],
-        'beatmapsets' => [
-            '_' => 'beatmaps',
-            'discussion' => 'modding',
-        ],
-        'rankings' => [
-            '_' => 'การจัดอันดับ',
-            'index' => 'ประสิทธิภาพ',
-            'performance' => 'ประสิทธิภาพ',
-            'charts' => 'ชาร์ท',
-            'score' => 'คะแนน',
-            'country' => 'ประเทศ',
-            'kudosu' => 'kudosu',
         ],
         'community' => [
             '_' => 'ชุมชน',
             'chat' => 'แชท',
-            'chat-index' => 'แชท',
+            'contests' => 'การแข่งขัน',
             'dev' => 'การพัฒนา',
-            'getForum' => 'forum',
-            'getLive' => 'การถ่ายทอดสด',
-            'comments-index' => 'ความคิดเห็น',
-            'comments-show' => 'ความคิดเห็น',
-            'contests' => 'contests',
-            'profile' => 'profile',
-            'tournaments' => 'tournaments',
-            'tournaments-index' => 'ทัวร์นาเม้นท์',
-            'tournaments-show' => 'ข้อมูลทัวร์นาเมนต์',
-            'forum-topics-create' => 'ฟอรั่ม',
-            'forum-topics-show' => 'ฟอรั่ม',
             'forum-forums-index' => 'ฟอรั่ม',
-            'forum-forums-show' => 'ฟอรั่ม',
+            'getLive' => 'การถ่ายทอดสด',
+            'tournaments' => '
+ทัวร์นาเมนต์',
         ],
-        'multiplayer' => [
-            '_' => 'โหมดผู้เล่นหลายคน',
-            'show' => 'จับคู่',
+        'help' => [
+            '_' => 'ช่วยเหลือ',
+            'getAbuse' => '',
+            'getFaq' => 'คำถามที่ถามบ่อย',
+            'getRules' => 'กฏ',
+            'getSupport' => 'ไม่ ฉันต้องการความช่วยเหลือ จริงๆ!',
+            'getWiki' => 'วิกิ',
         ],
-        'error' => [
-            '_' => 'ข้อผิดพลาด',
-            '404' => 'หายไป',
-            '403' => 'ต้องห้าม',
-            '401' => 'ไม่ได้รับอนุญาต',
-            '405' => 'หายไป',
-            '500' => 'อะไรสักอย่างพัง',
-            '503' => 'การบำรุงรักษาระบบ',
+        'home' => [
+            '_' => 'หน้าแรก',
+            'changelog-index' => 'บันทึกการเปลี่ยนแปลง',
+            'getDownload' => 'ดาวน์โหลด',
+            'news-index' => 'ข่าวสาร',
+            'search' => 'ค้นหา',
+            'team' => 'ทีม',
         ],
-        'user' => [
-            '_' => 'ผู้ใช้',
-            'getLogin' => 'ลงชื่อเข้าใช้',
-            'disabled' => 'ปิดการใช้งาน',
-
-            'register' => 'สมัครสมาชิก',
-            'reset' => 'กู้คืน',
-            'new' => 'ใหม่',
-
-            'help' => 'ช่วยเหลือ',
-            'logout' => 'ออกจากระบบ',
-            'messages' => 'ข้อความ',
-            'modding-history-discussions' => 'การสนทนาการ Mod ของผู้ใช้',
-            'modding-history-events' => 'กิจกรรมการ Mod ของผู้ใช้',
-            'modding-history-index' => 'ประวัติการ Mod ของผู้ใช้',
-            'modding-history-posts' => 'โพสต์การ Mod ของผู้ใช้',
-            'modding-history-votesGiven' => 'โหวตการ Mod ที่ถูกให้',
-            'modding-history-votesReceived' => 'โหวตการ Mod ที่ได้รับ',
-            'notifications-index' => '',
-            'oauth_login' => 'เข้าสู่ระบบเพื่อยืนยัน',
-            'oauth_request' => 'ยืนยันตนสำเร็จแล้ว',
-            'settings' => 'การตั้งค่า',
+        'rankings' => [
+            '_' => 'การจัดอันดับ',
+            'charts' => 'ชาร์ท',
+            'country' => 'ประเทศ',
+            'index' => 'ประสิทธิภาพ',
+            'kudosu' => 'kudosu',
+            'multiplayer' => 'โหมดผู้เล่นหลายคน',
+            'score' => 'คะแนน',
         ],
         'store' => [
             '_' => 'ร้านค้า',
-            'checkout-show' => 'จบการยืนยัน',
-            'getListing' => 'รายการ',
             'cart-show' => 'ตะกร้าสินค้า',
-
-            'getCheckout' => 'ชำระเงิน',
-            'getInvoice' => 'ใบกำกับสินค้า',
+            'getListing' => 'รายการ',
             'orders-index' => 'ประวัติการสั่งซื้อ',
-            'products-show' => 'สินค้า',
-
-            'new' => 'ใหม่',
-            'home' => 'หน้าแรก',
-            'index' => 'หน้าแรก',
-            'thanks' => 'ขอบคุณ',
-        ],
-        'admin-forum' => [
-            '_' => 'admin::forum',
-            'forum-covers-index' => 'forum covers',
-        ],
-        'admin-store' => [
-            '_' => 'admin::store',
-            'orders-index' => 'orders',
-            'orders-show' => 'order',
-        ],
-        'admin' => [
-            '_' => 'admin',
-            'beatmapsets-covers' => '',
-            'logs-index' => 'log',
-            'root' => 'index',
-
-            'beatmapsets' => [
-                '_' => 'beatmapsets',
-                'show' => 'detail',
-            ],
         ],
     ],
 
@@ -281,30 +114,34 @@ return [
             '_' => 'ทั่วไป',
             'home' => 'หน้าแรก',
             'changelog-index' => 'บันทึกการเปลี่ยนแปลง',
-            'beatmaps' => 'รายการ Beatmap',
+            'beatmaps' => 'รายการบีทแมพ',
             'download' => 'ดาวน์โหลด osu!',
-            'wiki' => 'วิกิ',
         ],
         'help' => [
             '_' => 'ความช่วยเหลือและชุมชน',
             'faq' => 'คำถามที่พบบ่อย',
-            'forum' => 'ฟอรัมชุมชน',
+            'forum' => 'ฟอรั่มชุมชน',
             'livestreams' => 'การถ่ายทอดสด',
             'report' => 'รายงานปัญหา',
+            'wiki' => 'วิกิ',
         ],
         'legal' => [
             '_' => 'สถานะและกฎหมาย',
             'copyright' => 'ลิขสิทธิ์ (DMCA)',
             'privacy' => 'ความเป็นส่วนตัว',
             'server_status' => 'สถานะของเซิร์ฟเวอร์',
-            'source_code' => 'รหัสต้นฉบับ',
+            'source_code' => 'ซอร์ซโค้ด',
             'terms' => 'เงื่อนไขการใช้บริการ',
         ],
     ],
 
     'errors' => [
+        '400' => [
+            'error' => 'คำร้องขอมีลักษณะไม่ถูกต้อง',
+            'description' => '',
+        ],
         '404' => [
-            'error' => 'หน้าหายไป',
+            'error' => 'ไม่พบเจอหน้านี้',
             'description' => "ขออภัย แต่หน้าที่คุณร้องขอไม่อยู่ที่นี่!",
         ],
         '403' => [
@@ -318,6 +155,10 @@ return [
         '405' => [
             'error' => 'หน้าหายไป',
             'description' => "ขออภัย แต่หน้าที่คุณร้องขอไม่อยู่ที่นี่!",
+        ],
+        '422' => [
+            'error' => 'คำร้องขอมีลักษณะไม่ถูกต้อง',
+            'description' => '',
         ],
         '500' => [
             'error' => 'โอ ไม่! บางอย่างพัง! ;_;',
@@ -340,21 +181,23 @@ return [
     ],
 
     'popup_login' => [
+        'button' => 'ลงชื่อเข้าใช้/ลงทะเบียน',
+
         'login' => [
             'forgot' => "ฉันลืมรายละเอียดของฉัน",
             'password' => 'รหัสผ่าน',
             'title' => 'ลงชื่อเข้าใช้เพื่อดำเนินการต่อ',
-            'username' => '',
+            'username' => 'ชื่อผู้ใช้',
 
             'error' => [
-                'email' => "ชื่อผู้ใช้หรืออีเมลไม่มีอยู่จริง",
+                'email' => "ชื่อผู้ใช้หรืออีเมลไม่มีอยู่",
                 'password' => 'รหัสผ่านไม่ถูกต้อง',
             ],
         ],
 
         'register' => [
             'download' => 'ดาวน์โหลด',
-            'info' => 'คุณต้องมีบัญชีครับ ทำไมคุณยังไม่มีล่ะ?',
+            'info' => 'ดาวน์โหลด osu! เพื่อสร้างบัญชีของคุณ!',
             'title' => "ยังไม่มีมีบัญชีเหรอ?",
         ],
     ],
@@ -370,6 +213,6 @@ return [
 
     'popup_search' => [
         'initial' => 'พิมพ์เพื่อค้นหา!',
-        'retry' => 'ค้นหาล้มเหลว คลิกเพื่อลองอีกครั้ง',
+        'retry' => 'การค้นหาล้มเหลว คลิกเพื่อลองอีกครั้ง',
     ],
 ];

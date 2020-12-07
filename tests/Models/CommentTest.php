@@ -1,33 +1,55 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Models;
 
+use App\Jobs\Notifications\CommentNew;
 use App\Models\Build;
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Models\UserNotificationOption;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
+    /**
+     * @dataProvider commentReplyOptionDataProvider
+     */
+    public function testCommentReplyNotification($option, $shouldBeSent)
+    {
+        $user = factory(User::class)->create();
+        if ($option !== null) {
+            $user->notificationOptions()->create([
+                'name' => Notification::COMMENT_NEW,
+                'details' => [UserNotificationOption::COMMENT_REPLY => $option],
+            ]);
+        }
+
+        $commenter = factory(User::class)->create();
+        $commentable = factory(Build::class)->create();
+        $parentComment = $commentable->comments()->create([
+            'message' => 'Test',
+            'user_id' => $user->getKey(),
+        ]);
+
+        $comment = $commentable->comments()->create([
+            'parent_id' => $parentComment->getKey(),
+            'message' => 'Hello',
+            'user_id' => $commenter->getKey(),
+        ]);
+
+        $notification = new CommentNew($comment, $commenter);
+
+        if ($shouldBeSent) {
+            $this->assertSame([$user->getKey()], $notification->getReceiverIds());
+        } else {
+            $this->assertEmpty($notification->getReceiverIds());
+        }
+    }
+
     public function testReplyingToDeletedComment()
     {
         $user = factory(User::class)->create();
@@ -35,7 +57,7 @@ class CommentTest extends TestCase
         $parentComment = $commentable->comments()->create([
             'message' => 'Test',
             'user_id' => $user->getKey(),
-            'deleted_at' => Carbon::now(),
+            'deleted_at' => now(),
         ]);
 
         $comment = new Comment([
@@ -45,5 +67,14 @@ class CommentTest extends TestCase
 
         $this->assertFalse($comment->isValid());
         $this->assertArrayHasKey('parent_id', $comment->validationErrors()->all());
+    }
+
+    public function commentReplyOptionDataProvider()
+    {
+        return [
+            [null, true],
+            [false, false],
+            [true, true],
+        ];
     }
 }

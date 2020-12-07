@@ -1,49 +1,37 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
-        'disabled' => 'Beatmap นี้ยังไม่สามารถดาวน์โหลดได้',
-        'parts-removed' => 'บางส่วนของ beatmap นี้ถูกลบตามคำขอของผู้แต่งหรือผู้ถือสิทธิ์บุคคลสาม',
+        'disabled' => 'บีทแมพนี้ยังไม่สามารถดาวน์โหลดได้',
+        'parts-removed' => 'บางส่วนของบีทแมพนี้ถูกลบตามคำขอของผู้แต่งหรือผู้ถือสิทธิ์บุคคลสาม',
         'more-info' => 'เช็คที่นี่เพื่อดูรายละเอียดเพิ่มเติม',
     ],
 
     'index' => [
         'title' => 'รายการ Beatmap',
-        'guest_title' => 'Beatmaps',
+        'guest_title' => 'บีทแมพ',
+    ],
+
+    'panel' => [
+        'download' => [
+            'all' => 'ดาวน์โหลด',
+            'video' => 'ดาวน์โหลดพร้อมวิดีโอ',
+            'no_video' => 'ดาวน์โหลดโดยไม่มีวิดีโอ',
+            'direct' => 'เปิดใน osu!direct',
+        ],
     ],
 
     'show' => [
         'discussion' => 'การสนทนา',
 
         'details' => [
-            'approved' => 'อนุมัติเมื่อ ',
-            'favourite' => 'Favourite beatmapset นี้',
-            'logged-out' => 'คุณต้องเข้าสู่ระบบก่อนที่จะดาวน์โหลด beatmaps ใด ๆ',
-            'loved' => 'loved เมื่อ ',
+            'favourite' => 'กดชื่นชอบ beatmapset นี้',
+            'logged-out' => 'คุณต้องเข้าสู่ระบบก่อนที่จะดาวน์โหลดบีทแมพ',
             'mapped_by' => 'แมพโดย :mapper',
-            'qualified' => 'ผ่านเกณฑ์เมื่อ ',
-            'ranked' => 'จัดอันดับเมื่อ ',
-            'submitted' => 'ส่งเมื่อ ',
             'unfavourite' => 'เลิก Favourite beatmapset นี้',
-            'updated' => 'แก้ไขล่าสุดเมื่อ ',
             'updated_timeago' => 'อัพเดทล่าสุดเมื่อ :timeago',
 
             'download' => [
@@ -59,8 +47,17 @@ return [
             ],
         ],
 
+        'details_date' => [
+            'approved' => 'อนุมัติ :timeago',
+            'loved' => 'loved เมื่อ :timeago',
+            'qualified' => 'qualified :timeago',
+            'ranked' => 'จัดอันดับแล้วเมื่อ :timeago',
+            'submitted' => 'ส่งเมื่อ :timeago',
+            'updated' => 'อัพเดทครั้งล่าสุดเมื่อ :timeago',
+        ],
+
         'favourites' => [
-            'limit_reached' => 'คุณมี beatmaps ที่ชื่นชอบมากเกินไป! กรุณาเอาออกบ้างแล้วลองอีกครั้ง',
+            'limit_reached' => 'คุณมีบีทแมพที่ชื่นชอบมากเกินไป! กรุณาเอาออกบ้างแล้วลองอีกครั้ง',
         ],
 
         'hype' => [
@@ -71,21 +68,19 @@ return [
 
                 'status' => [
                     'pending' => 'อยู่ระหว่างดำเนินการ',
-                    'qualified' => 'ผ่านเกณฑ์',
+                    'qualified' => 'qualified',
                     'wip' => 'อยู่ระหว่างดำเนินการ',
                 ],
             ],
 
             'disqualify' => [
-                '_' => '',
-                'button_title' => '',
+                '_' => 'ถ้าคุณพบปัญหากับบีทแมพนี้ ให้คุณยกเลิกสถานะ Qualified ของบีทแมพนี้ไป :link',
             ],
 
             'report' => [
-                '_' => '',
-                'button' => '',
-                'button_title' => '',
-                'link' => '',
+                '_' => 'ถ้าคุณพบปัญหากับบีทแมพนี้ โปรดรายงานให้เราทราบผ่าน :link',
+                'button' => 'รายงานปัญหา',
+                'link' => 'ที่นี่',
             ],
         ],
 
@@ -98,7 +93,6 @@ return [
             'source' => 'แหล่งที่มา',
             'success-rate' => 'อัตราการผ่าน',
             'tags' => 'แท็ก',
-            'unranked' => 'แมพที่ไม่ได้จัดอันดับ',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'อันดับ',
                 'score_total' => 'คะแนนรวม',
                 'score' => 'คะแนน',
+                'time' => 'เวลา',
             ],
 
             'no_scores' => [
@@ -127,7 +122,7 @@ return [
                 'friend' => 'ยังไม่มีใครในเพือนของคุณที่ทำคะแนนบนแมพนี้ได้!',
                 'global' => 'ยังไม่มีคะแนน บางทีคุณอาจจะลองทำดูนะ',
                 'loading' => 'กำลังโหลดคะแนน...',
-                'unranked' => 'แมพที่ไม่ได้จัดอันดับ.',
+                'unranked' => 'บีทแมพที่ไม่ได้จัดอันดับ.',
             ],
             'score' => [
                 'first' => 'นำ',
@@ -147,19 +142,19 @@ return [
             'count_circles' => 'จำนวนวงกลม',
             'count_sliders' => 'จำนวนสไลเดอร์',
             'user-rating' => 'คะแนน',
-            'rating-spread' => 'การกระจายความยาก',
+            'rating-spread' => 'การกระจายคะแนนโหวต',
             'nominations' => 'การเสนอชื่อ',
             'playcount' => 'จำนวนครั้งที่เล่น',
         ],
 
         'status' => [
-            'ranked' => '',
-            'approved' => '',
-            'loved' => '',
-            'qualified' => '',
-            'wip' => '',
-            'pending' => '',
-            'graveyard' => '',
+            'ranked' => 'จัดอันดับแล้ว',
+            'approved' => 'อนุมัติ',
+            'loved' => 'Loved',
+            'qualified' => 'Qualified',
+            'wip' => 'WIP',
+            'pending' => 'อยู่ระหว่างดำเนินการ',
+            'graveyard' => 'สุสาน',
         ],
     ],
 ];

@@ -1,24 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'audio' => [
+        'autoplay' => 'Play next track automatically',
+    ],
+
     'defaults' => [
         'page_description' => 'osu! - Rhythm is just a *click* away!  With Ouendan/EBA, Taiko and original gameplay modes, as well as a fully functional level editor.',
     ],
@@ -43,6 +32,7 @@ return [
 
         'help' => [
             'index' => 'index',
+            'sitemap' => 'Sitemap',
         ],
 
         'store' => [
@@ -87,6 +77,7 @@ return [
         ],
         'help' => [
             '_' => 'help',
+            'getAbuse' => 'report abuse',
             'getFaq' => 'faq',
             'getRules' => 'rules',
             'getSupport' => 'no, really, i need help!',
@@ -106,6 +97,7 @@ return [
             'country' => 'country',
             'index' => 'performance',
             'kudosu' => 'kudosu',
+            'multiplayer' => 'multiplayer',
             'score' => 'score',
         ],
         'store' => [
@@ -143,6 +135,10 @@ return [
     ],
 
     'errors' => [
+        '400' => [
+            'error' => 'Invalid request parameter',
+            'description' => '',
+        ],
         '404' => [
             'error' => 'Page Missing',
             'description' => "Sorry, but the page you requested isn't here!",
@@ -158,6 +154,10 @@ return [
         '405' => [
             'error' => 'Page Missing',
             'description' => "Sorry, but the page you requested isn't here!",
+        ],
+        '422' => [
+            'error' => 'Invalid request parameter',
+            'description' => '',
         ],
         '500' => [
             'error' => 'Oh no! Something broke! ;_;',
@@ -180,6 +180,8 @@ return [
     ],
 
     'popup_login' => [
+        'button' => 'sign in / register',
+
         'login' => [
             'forgot' => "I've forgotten my details",
             'password' => 'password',

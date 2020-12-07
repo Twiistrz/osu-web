@@ -1,39 +1,24 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'page_description' => 'Featured artists på osu!',
-    'title' => 'Featured Artists',
+    'page_description' => 'Utvalgte artister på osu!',
+    'title' => 'Utvalgte Artister',
 
     'admin' => [
         'hidden' => 'ARTISTEN ER FOR ØYEBLIKKET SKJULT',
     ],
 
     'beatmaps' => [
-        '_' => 'Beatmaps',
+        '_' => 'Beatmapper',
         'download' => 'Last ned Beatmapmal',
-        'download-na' => 'Beatmap malen er ikke tilgjengelig ennå',
+        'download-na' => 'Beatmapmalen er ikke tilgjengelig ennå',
     ],
 
     'index' => [
-        'description' => 'Utvalgte artister er artister som vi samarbeider med for å tilby ny og original musikk i osu! Disse artistene og de utvalgte sangene har blitt hånd-plukket av osu! teamet for å være superkule og tilpasset for mapping. Noen av disse utvalgte artister har også laget eksklusive nye sanger for osu! Alle sangene i denne seksjonen tilbys som pre-timed .osz filer og har blitt offisielt lisensiert for bruk i osu! og osu! relatert innhold.',
+        'description' => 'Featured artists er artister som vi samarbeider med for å bringe ny og original musikk til osu!. Disse artistene og et utvalg av deres sanger har blitt håndplukket av osu! teamet, ettersom de er imponerende og tilpasset til mapping. Noen av disse artistene fra "featured artists" har også laget nye og eksklusive sanger til bruk i osu!.<br><br>Alle sangene i denne seksjonen tilbys som forhåndstrimmet .osz filer og har offisielt blitt lisensiert for bruk i osu! og osu! relatert innhold.',
     ],
 
     'links' => [

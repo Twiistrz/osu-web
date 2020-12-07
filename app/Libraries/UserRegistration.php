@@ -1,27 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
-use App\Exceptions\ModelNotSavedException;
 use App\Exceptions\ValidationException;
+use App\Jobs\EsIndexDocument;
 use App\Models\User;
 use Carbon\Carbon;
 use Datadog;
@@ -29,10 +14,16 @@ use Exception;
 
 class UserRegistration
 {
+    private $group;
     private $user;
 
     public function __construct($params)
     {
+        $group = $params['group'] ?? 'default';
+        unset($params['group']);
+        $this->group = app('groups')->byIdentifier($group);
+        $params['group_id'] = $this->group->getKey();
+
         $this->user = new User(array_merge([
             'user_permissions' => '',
             'user_interests' => '',
@@ -70,14 +61,12 @@ class UserRegistration
                     throw new ValidationException($this->user->validationErrors());
                 }
 
-                $groupAttrs = ['group_id' => app('groups')->byIdentifier('default')->getKey()];
-                if (!$this->user->userGroups()->create($groupAttrs)) {
-                    // mystery failure
-                    throw new ModelNotSavedException('failed saving model');
-                }
+                $this->user->setDefaultGroup($this->group);
 
                 Datadog::increment('osu.new_account_registrations', 1, ['source' => 'osu-web']);
             });
+
+            dispatch(new EsIndexDocument($this->user));
         } catch (Exception $e) {
             if (is_sql_unique_exception($e)) {
                 $this->user->validationErrors()->add('username', '.unknown_duplicate');
@@ -106,11 +95,16 @@ class UserRegistration
     {
         $isValid = true;
 
-        foreach (['username', 'user_email', 'password'] as $attribute) {
+        foreach (['username', 'user_email'] as $attribute) {
             if (!present($this->user->$attribute)) {
                 $this->user->validationErrors()->add($attribute, 'required');
                 $isValid = false;
             }
+        }
+
+        if (!present($this->user->password) && !present($this->user->user_password)) {
+            $this->user->validationErrors()->add('password', 'required');
+            $isValid = false;
         }
 
         return $isValid;

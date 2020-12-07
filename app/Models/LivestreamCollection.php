@@ -1,32 +1,20 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
 use Cache;
+use Exception;
+use GuzzleHttp\Client;
 
 class LivestreamCollection
 {
     const FEATURED_CACHE_KEY = 'featuredStream:arr:v2';
 
     private $streams;
+    private $token;
 
     public static function promote($id)
     {
@@ -39,18 +27,8 @@ class LivestreamCollection
             $this->streams = Cache::remember('livestreams:arr:v2', 300, function () {
                 $streams = $this->downloadStreams()['data'] ?? [];
 
-                $userIds = array_map(function ($stream) {
-                    return $stream['user_id'];
-                }, $streams);
-
-                $users = [];
-
-                foreach ($this->downloadUsers($userIds)['data'] ?? [] as $user) {
-                    $users[$user['id']] = $user;
-                }
-
-                return array_map(function ($stream) use ($users) {
-                    return new Twitch\Stream($stream, $users[$stream['user_id']]);
+                return array_map(function ($stream) {
+                    return new Twitch\Stream($stream);
                 }, $streams);
             });
         }
@@ -63,42 +41,31 @@ class LivestreamCollection
         return $this->download('streams?first=40&game_id=21465');
     }
 
-    public function downloadUsers($userIds)
+    public function download($api)
     {
-        if (count($userIds) === 0) {
+        $token = $this->token();
+
+        if (empty($token)) {
+            log_error(new Exception('failed getting token'));
+
             return;
         }
 
-        return $this->download('users?id='.implode('&id=', $userIds));
-    }
+        try {
+            $response = (new Client(['base_uri' => 'https://api.twitch.tv/helix/']))
+                ->request('GET', $api, ['headers' => [
+                    'Client-Id' => config('osu.twitch_client_id'),
+                    'Authorization' => "Bearer {$token['access_token']}",
+                ]])
+                ->getBody()
+                ->getContents();
+        } catch (Exception $e) {
+            log_error($e);
 
-    public function download($api)
-    {
-        $url = "https://api.twitch.tv/helix/{$api}";
-        $clientId = config('osu.twitch_client_id');
-        $ch = curl_init();
-
-        curl_setopt_array($ch, [
-            CURLOPT_HTTPHEADER => [
-                "Client-ID: {$clientId}",
-            ],
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_URL => $url,
-            CURLOPT_FAILONERROR => true,
-        ]);
-
-        // TODO: error handling
-        $response = curl_exec($ch);
-
-        if (curl_errno($ch) === CURLE_OK) {
-            $return = json_decode($response, true);
-        } else {
-            $return = null;
+            return;
         }
 
-        curl_close($ch);
-
-        return $return;
+        return json_decode($response, true);
     }
 
     public function featured()
@@ -112,5 +79,29 @@ class LivestreamCollection
                 }
             }
         }
+    }
+
+    public function token()
+    {
+        if ($this->token === null) {
+            try {
+                $response = (new Client(['base_uri' => 'https://id.twitch.tv']))
+                    ->request('POST', '/oauth2/token', ['query' => [
+                        'client_id' => config('osu.twitch_client_id'),
+                        'client_secret' => config('osu.twitch_client_secret'),
+                        'grant_type' => 'client_credentials',
+                    ]])
+                    ->getBody()
+                    ->getContents();
+
+                $this->token = json_decode($response, true);
+            } catch (Exception $e) {
+                log_error($e);
+
+                $this->token = [];
+            }
+        }
+
+        return $this->token;
     }
 }

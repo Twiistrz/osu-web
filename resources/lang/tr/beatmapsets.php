@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmapler',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'indir',
+            'video' => 'video ile indir',
+            'no_video' => 'videosuz indir',
+            'direct' => 'osu!direct\'de aç',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Tartışma',
 
         'details' => [
-            'approved' => 'tarihinde onaylandı ',
             'favourite' => 'Haritayı favorilere ekle',
             'logged-out' => 'Herhangi bir beatmapi indirmeden önce giriş yapmalısınız!',
-            'loved' => 'sevilme tarihi: ',
             'mapped_by' => ':mapper tarafından yapıldı',
-            'qualified' => 'aday olma tarihi ',
-            'ranked' => 'dereceli olma tarihi: ',
-            'submitted' => 'gönderilme tarihi: ',
             'unfavourite' => 'Haritayı favorilerden çıkar',
-            'updated' => 'son güncelleme ',
             'updated_timeago' => 'son güncelleme :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'daha fazla özelliğe erişmek için',
                 'top' => 'Oturum Aç',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'onaylandı :timeago',
+            'loved' => 'sevildi :timeago',
+            'qualified' => ':timeago önce nitelikli oldu',
+            'ranked' => ':timeago önce dereceli oldu',
+            'submitted' => ':timeago önce gönderildi',
+            'updated' => 'en son :timeago önce güncellendi',
         ],
 
         'favourites' => [
@@ -78,14 +75,12 @@ return [
 
             'disqualify' => [
                 '_' => 'Eğer bu beatmap\'de bir sorun bulduysanız, lütfen diskalifiye ediniz :link.',
-                'button_title' => '',
             ],
 
             'report' => [
-                '_' => '',
+                '_' => 'Eğer bu beatmap ile ilgili bir sorun bulursanız, takımı uyarmak için lütfen :link üzerinden raporlayın.',
                 'button' => 'Sorun bildir',
-                'button_title' => '',
-                'link' => '',
+                'link' => 'burası',
             ],
         ],
 
@@ -98,7 +93,6 @@ return [
             'source' => 'Kaynak',
             'success-rate' => 'Başarı Oranı',
             'tags' => 'Etiketler',
-            'unranked' => 'Derecelendirilmemiş beatmap',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Sıralama',
                 'score_total' => 'Toplam Skor',
                 'score' => 'Skor',
+                'time' => 'Zaman',
             ],
 
             'no_scores' => [
@@ -153,13 +148,13 @@ return [
         ],
 
         'status' => [
-            'ranked' => '',
-            'approved' => '',
-            'loved' => '',
-            'qualified' => '',
-            'wip' => '',
-            'pending' => '',
-            'graveyard' => 'Mezarlık',
+            'ranked' => 'Dereceli',
+            'approved' => 'Onaylı',
+            'loved' => 'Sevilen',
+            'qualified' => 'Nitelikli',
+            'wip' => 'Yapım Aşamasında',
+            'pending' => 'Beklemede',
+            'graveyard' => 'Mezarlıkta',
         ],
     ],
 ];

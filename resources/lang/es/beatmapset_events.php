@@ -1,34 +1,20 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
         'approve' => 'Aprobado.',
         'discussion_delete' => 'Un moderador eliminó la discusión :discussion.',
-        'discussion_lock' => 'La discusión para este beatmap ha sido desactivada. (:text)',
+        'discussion_lock' => 'La discusión para este mapa ha sido desactivada. (:text)',
         'discussion_post_delete' => 'Un moderador eliminó una publicación en la discusión :discussion.',
         'discussion_post_restore' => 'Un moderador restauró una publicación de la discusión :discussion.',
         'discussion_restore' => 'Un moderador restauró la discusión :discussion.',
-        'discussion_unlock' => 'La discusión para este beatmap ha sido activada.',
+        'discussion_unlock' => 'La discusión para este mapa ha sido activada.',
         'disqualify' => 'Descalificado por :user. Motivo: :discussion (:text).',
         'disqualify_legacy' => 'Descalificado por :user. Motivo: :text.',
+        'genre_edit' => 'El género cambió de :old a :new.',
         'issue_reopen' => 'El problema resuelto :discussion ha sido reabierto.',
         'issue_resolve' => 'El problema :discussion ha sido marcado como resuelto.',
         'kudosu_allow' => 'La negación de kudosu para la discusión :discussion ha sido eliminada.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'La discusión :discussion por :user ha obtenido suficientes votos para kudosu.',
         'kudosu_lost' => 'La discusión :discussion por :user ha perdido votos y su kudosu ganado ha sido removido.',
         'kudosu_recalculate' => 'A la discusión :discussion se le han recalculado los kudosu otorgados.',
-        'love' => 'Loved por :user',
+        'language_edit' => 'El lenguaje cambió de :old a :new.',
+        'love' => 'Amado por :user.',
         'nominate' => 'Nominado por :user.',
-        'nomination_reset' => 'Un nuevo problema :discussion (:text) ha reiniciado las nominaciones.',
-        'qualify' => 'Este beatmap ha alcanzado el número requerido de nominaciones y ha sido calificado.',
+        'nomination_reset' => 'Un nuevo problema :discussion (:text) ha restablecido las nominaciones.',
+        'qualify' => 'Este mapa ha alcanzado el número requerido de nominaciones y ha sido calificado.',
         'rank' => 'Clasificado.',
+        'remove_from_loved' => 'Removido de Amados por :user. (:text)',
     ],
 
     'index' => [
@@ -59,23 +47,26 @@ return [
     ],
 
     'type' => [
-        'approve' => 'Aprovado',
-        'discussion_delete' => 'Eliminación de la discusión',
-        'discussion_post_delete' => 'Eliminación de la respuesta de la discusión',
-        'discussion_post_restore' => 'Recuperar respuesta a la discusión',
-        'discussion_restore' => 'Recuperar discusión',
-        'disqualify' => 'Descalificar',
-        'issue_reopen' => 'Reabrir discusión',
-        'issue_resolve' => 'Resolver discusión',
-        'kudosu_allow' => 'Permitir kudosu',
-        'kudosu_deny' => 'Denegar kudosu',
+        'approve' => 'Aprobación',
+        'discussion_delete' => 'Eliminación de discusión',
+        'discussion_post_delete' => 'Eliminación de respuesta a discusión',
+        'discussion_post_restore' => 'Restauración de respuesta a discusión',
+        'discussion_restore' => 'Restauración de discusión',
+        'disqualify' => 'Descalificación',
+        'genre_edit' => 'Edición de género',
+        'issue_reopen' => 'Reapertura de discusión',
+        'issue_resolve' => 'Resolución de discusión',
+        'kudosu_allow' => 'Permiso de Kudosu',
+        'kudosu_deny' => 'Negación de Kudosu',
         'kudosu_gain' => 'Ganancia de Kudosu',
-        'kudosu_lost' => 'Kudosu perdidos',
+        'kudosu_lost' => 'Pérdida de Kudosu',
         'kudosu_recalculate' => 'Recalculación de Kudosu',
+        'language_edit' => 'Edición del idioma',
         'love' => 'Amor',
         'nominate' => 'Nominación',
-        'nomination_reset' => 'Reiniciar nominacion',
+        'nomination_reset' => 'Restablecimiento de nominación',
         'qualify' => 'Calificación',
         'rank' => 'Clasificación',
+        'remove_from_loved' => 'Remoción de Amados',
     ],
 ];

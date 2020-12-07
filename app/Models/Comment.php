@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
@@ -64,6 +49,24 @@ class Comment extends Model
     // some people seem to put song lyrics in comment which inflated the size.
     const MESSAGE_LIMIT = 10000;
 
+    const DEFAULT_SORT = 'new';
+
+    const SORTS = [
+        'new' => [
+            ['column' => 'created_at', 'order' => 'DESC', 'type' => 'time'],
+            ['column' => 'id', 'order' => 'DESC'],
+        ],
+        'old' => [
+            ['column' => 'created_at', 'order' => 'ASC', 'type' => 'time'],
+            ['column' => 'id', 'order' => 'ASC'],
+        ],
+        'top' => [
+            ['column' => 'votes_count_cache', 'columnInput' => 'votes_count', 'order' => 'DESC'],
+            ['column' => 'created_at', 'order' => 'DESC', 'type' => 'time'],
+            ['column' => 'id', 'order' => 'DESC'],
+        ],
+    ];
+
     protected $dates = ['deleted_at', 'edited_at'];
 
     protected $casts = [
@@ -108,6 +111,11 @@ class Comment extends Model
         return $this->hasMany(static::class, 'parent_id');
     }
 
+    public function setMessageAttribute($value)
+    {
+        return $this->attributes['message'] = unzalgo($value);
+    }
+
     public function votes()
     {
         return $this->hasMany(CommentVote::class);
@@ -148,11 +156,13 @@ class Comment extends Model
             }
         }
 
-        if (!$this->allowEmptyCommentable && (
-            $this->commentable_type === null ||
-            $this->commentable_id === null ||
-            !$this->commentable()->exists()
-        )) {
+        if (
+            !$this->allowEmptyCommentable && (
+                $this->commentable_type === null ||
+                $this->commentable_id === null ||
+                !$this->commentable()->exists()
+            )
+        ) {
             $this->validationErrors()->add('commentable', 'required');
         }
 

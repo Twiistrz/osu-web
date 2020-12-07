@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
@@ -24,56 +9,37 @@ use App\Exceptions\API;
 use App\Models\Chat\Channel;
 use App\Models\User;
 use ChaseConey\LaravelDatadogHelper\Datadog;
-use DB;
 
 class Chat
 {
-    public static function sendPrivateMessage($sender, $target, $message, $isAction)
+    // Do the restricted user lookup before calling this.
+    public static function sendPrivateMessage(User $sender, User $target, $message, $isAction)
     {
-        if ($sender === null || $target === null) {
-            abort(422);
-        }
-
-        if (!($sender instanceof User)) {
-            $sender = User::findOrFail($sender);
-        }
-
-        if (!($target instanceof User)) {
-            $target = User::lookup($target, 'id');
-
-            if ($target === null) {
-                // restricted users should be treated as if they do not exist
-                abort(404, 'target user not found');
-            }
-        }
-
         if ($target->is($sender)) {
             abort(422, "can't send message to same user");
         }
 
         priv_check_user($sender, 'ChatStart', $target)->ensureCan();
 
-        $channelName = Channel::getPMChannelName($target, $sender);
-        $channel = Channel::where('name', $channelName)->first();
+        return (new Channel())->getConnection()->transaction(function () use ($sender, $target, $message, $isAction) {
+            $channel = Channel::findPM($target, $sender);
 
-        if ($channel === null) {
-            $channel = DB::transaction(function () use ($sender, $target, $channelName) {
-                $channel = new Channel();
-                $channel->name = $channelName;
-                $channel->type = Channel::TYPES['pm'];
-                $channel->description = ''; // description is not nullable
-                $channel->save();
+            $newChannel = $channel === null;
 
+            if ($newChannel) {
+                $channel = Channel::createPM($target, $sender);
+            } else {
                 $channel->addUser($sender);
-                $channel->addUser($target);
+            }
 
-                return $channel;
-            });
+            $ret = static::sendMessage($sender, $channel, $message, $isAction);
 
-            Datadog::increment('chat.channel.create', 1, ['type' => $channel->type]);
-        }
+            if ($newChannel) {
+                Datadog::increment('chat.channel.create', 1, ['type' => $channel->type]);
+            }
 
-        return static::sendMessage($sender, $channel, $message, $isAction);
+            return $ret;
+        });
     }
 
     public static function sendMessage($sender, $channel, $message, $isAction)

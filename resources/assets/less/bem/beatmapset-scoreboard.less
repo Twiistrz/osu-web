@@ -1,74 +1,24 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .beatmapset-scoreboard {
-  @_top: beatmapset-scoreboard;
-
-  color: white;
-
-  &__mods-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
+  color: hsl(var(--hsl-c1));
 
   &__mods {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 20px auto 0;
+    max-width: 100%;
+    width: max-content;
 
     &--initial {
-      .@{_top}__mod-box {
-        opacity: 1;
-      }
+      --scoreboard-mod-opacity: 1;
 
-      &:hover .@{_top}__mod-box {
-        opacity: 0.5;
-      }
-
-      & .@{_top}__mod-box:hover {
-        opacity: 1;
+      &:hover {
+        --scoreboard-mod-opacity: 0.5;
       }
     }
-  }
-
-  &__mod-box {
-    display: flex;
-    align-items: center;
-
-    margin: 2px;
-
-    opacity: 0.5;
-
-    cursor: pointer;
-
-    &:hover {
-      opacity: 1;
-    }
-
-    &--enabled {
-      opacity: 1;
-    }
-  }
-
-  &__mod {
-    width: @mod-width-normal;
-    height: @mod-height-normal;
   }
 
   &__main {

@@ -1,28 +1,15 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'Toutes les notifications lues !',
-    'mark_all_read' => 'Tout effacer',
+    'delete' => 'Supprimer :type',
+    'mark_read' => 'Effacer :type',
     'none' => 'Pas de notifications',
     'see_all' => 'voir toutes les notifications',
+    'see_channel' => 'accéder au chat',
 
     'filters' => [
         '_' => 'tout',
@@ -46,6 +33,8 @@ return [
                 'beatmapset_discussion_post_new_empty' => 'Nouveau message sur ":title" par :username',
                 'beatmapset_discussion_post_new_compact' => 'Nouveau message par :username',
                 'beatmapset_discussion_post_new_compact_empty' => 'Nouveau message par :username',
+                'beatmapset_discussion_review_new' => 'Nouvelle revue sur ":title" par :username contenant des problèmes: :problems, suggestions: :suggestions, louanges : :praises',
+                'beatmapset_discussion_review_new_compact' => 'Nouvelle revue par :username contenant des problèmes: :problems, suggestions: :suggestions, louanges : :praises',
                 'beatmapset_discussion_unlock' => 'Beatmap ":title" a été déverrouillée pour la discussion.',
                 'beatmapset_discussion_unlock_compact' => 'La discussion a été débloquée',
             ],
@@ -70,6 +59,8 @@ return [
                 'beatmapset_qualify_compact' => 'La Beatmap est entrée dans la file d’attente de classement',
                 'beatmapset_rank' => '":title" a été classé',
                 'beatmapset_rank_compact' => 'La Beatmap a été classée',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_remove_from_loved_compact' => '',
                 'beatmapset_reset_nominations' => 'Problème posté par :username reset nomination de beatmap ":title" ',
                 'beatmapset_reset_nominations_compact' => 'La nomination a été réinitialisée',
             ],
@@ -79,6 +70,8 @@ return [
 
                 'comment_new' => ':username a commenté ":content" sur ":title"',
                 'comment_new_compact' => ':username a commenté ":content"',
+                'comment_reply' => ':username a répondu ":content" sur ":title"',
+                'comment_reply_compact' => ':username à répondu ":content"',
             ],
         ],
 
@@ -103,6 +96,8 @@ return [
 
                 'comment_new' => ':username a commenté ":content" sur ":title"',
                 'comment_new_compact' => ':username a commenté ":content"',
+                'comment_reply' => ':username a répondu ":content" sur ":title"',
+                'comment_reply_compact' => ':username a répondu ":content"',
             ],
         ],
 
@@ -114,6 +109,8 @@ return [
 
                 'comment_new' => ':username a commenté ":content" sur ":title"',
                 'comment_new_compact' => ':username a commenté ":content"',
+                'comment_reply' => ':username a répondu ":content" sur ":title"',
+                'comment_reply_compact' => ':username a répondu ":content"',
             ],
         ],
 
@@ -143,6 +140,66 @@ return [
                 '_' => 'Nouvelle médaille',
                 'user_achievement_unlock' => 'Débloqué ":title" !',
                 'user_achievement_unlock_compact' => 'Débloqué «:title» !',
+                'user_achievement_unlock_group' => 'Médailles débloquées !',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'La discussion sur ":title" a été verrouillée',
+                'beatmapset_discussion_post_new' => 'La discussion sur ":title" a de nouvelles mises à jour',
+                'beatmapset_discussion_unlock' => 'La discussion sur ":title" a été déverrouillée',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => 'Un nouveau problème a été signalé sur ":title"',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '":title" a été disqualifiée',
+                'beatmapset_love' => '":title" a été promue en aimée',
+                'beatmapset_nominate' => '":title" a été nominée',
+                'beatmapset_qualify' => '":title" a atteint suffisament de nominations et est entrée dans la file d\'attente de classement',
+                'beatmapset_rank' => '":title" a été classée',
+                'beatmapset_remove_from_loved' => '',
+                'beatmapset_reset_nominations' => 'La nomination de ":title" a été réinitialisée',
+            ],
+
+            'comment' => [
+                'comment_new' => 'La beatmap ":title" a de nouveaux commentaires',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => 'Vous avez reçu un nouveau message de :username',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => 'Les notes de mises à jour ":title" ont de nouveaux commentaires',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'L\'article ":title" a de nouveaux commentaires',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => 'Il y a de nouvelles réponses dans ":title"',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':username a déverrouillé une nouvelle médaille, ":title" !',
+                'user_achievement_unlock_self' => 'Vous avez déverrouillé une nouvelle médaille, ":title" !',
             ],
         ],
     ],

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[usuário deletado]',
@@ -49,13 +34,13 @@ return [
     'blocks' => [
         'banner_text' => 'Você bloqueou este usuário.',
         'blocked_count' => 'usuários bloqueados: (:count)',
-        'hide_profile' => 'ocultar perfil',
+        'hide_profile' => 'Ocultar perfil',
         'not_blocked' => 'Este usuário não está bloqueado.',
-        'show_profile' => 'exibir perfil',
+        'show_profile' => 'Exibir perfil',
         'too_many' => 'Limite de bloqueios atingido.',
         'button' => [
-            'block' => 'bloquear',
-            'unblock' => 'desbloquear',
+            'block' => 'Bloquear',
+            'unblock' => 'Desbloquear',
         ],
     ],
 
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => 'Membros por modo de jogo',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Sua conta não foi usada há muito tempo.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Login incorreto',
         'forgot' => 'Esqueceu sua senha?',
         'info' => 'Por favor, conecte-se para continuar',
+        'invalid_captcha' => 'Captcha inválido, atualize a página e tente novamente.',
         'locked_ip' => 'seu endereço IP está bloqueado. Por favor, espere alguns minutos.',
         'password' => 'Senha',
         'register' => "Você não tem uma conta no osu!? Faça uma!",
@@ -124,15 +114,15 @@ return [
     ],
     'logout_confirm' => 'Tem certeza de que deseja sair? :(',
     'report' => [
-        'button_text' => 'reportar',
+        'button_text' => 'Denunciar',
         'comments' => 'Comentários Adicionais',
         'placeholder' => 'Por favor, forneça qualquer informação que você acredite ser útil.',
         'reason' => 'Motivo',
-        'thanks' => 'Obrigado por sua denuncia!',
-        'title' => 'Reportar :username?',
+        'thanks' => 'Obrigado por sua denúncia!',
+        'title' => 'Denunciar :username?',
 
         'actions' => [
-            'send' => 'Enviar Reporte',
+            'send' => 'Enviar Denúncia',
             'cancel' => 'Cancelar',
         ],
 
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Atualmente online',
         'missingtext' => 'Talvez você tenha feito um erro de digitação! (ou o usuário está banido)',
         'origin_country' => 'Morando em :country',
-        'page_description' => 'osu! - Tudo que você sempre quis saber sobre :username!',
         'previous_usernames' => 'anteriormente conhecido como',
         'plays_with' => 'Joga com :devices',
         'title' => "Perfil de :username",
@@ -172,7 +161,7 @@ return [
                 'upload' => [
                     'broken_file' => 'Falha ao processar imagem. Verifique a imagem enviada e tente novamente.',
                     'button' => 'Enviar imagem',
-                    'dropzone' => 'Solte aqui pare enviar',
+                    'dropzone' => 'Solte aqui para enviar',
                     'dropzone_info' => 'Você também pode soltar sua imagem aqui para enviar',
                     'size_info' => 'O tamanho da capa deve ser 2400x640',
                     'too_large' => 'O arquivo enviado é muito grande.',
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'por :artist',
-                'none' => 'Nenhum... ainda.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -212,7 +200,7 @@ return [
                     'title' => 'Beatmaps no Cemitério',
                 ],
                 'loved' => [
-                    'title' => 'Beatmaps Amados',
+                    'title' => 'Beatmaps Loved',
                 ],
                 'ranked_and_approved' => [
                     'title' => 'Beatmaps Ranqueados & Aprovados',
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'ver mais eventos',
             ],
             'historical' => [
-                'empty' => 'Sem registro de performance. :(',
                 'title' => 'Histórico',
 
                 'monthly_playcounts' => [
@@ -249,12 +236,10 @@ return [
                 ],
                 'replays_watched_counts' => [
                     'title' => 'Histórico de Replays Assistidos',
-                    'count_label' => 'Replays assistidos',
+                    'count_label' => 'Replays Assistidos',
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu Disponível',
-                'available_info' => "Kudosu pode ser trocado por estrelas de kudosu, que podem ajudar seu beatmap a ter um pouco mais de atenção. Este é o número de kudosu que você tem disponível.",
                 'recent_entries' => 'Histórico de kudosu recente',
                 'title' => 'Kudosu!',
                 'total' => 'Total de Kudosu Adquirido',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Baixar Replay',
-                'empty' => 'Nenhuma performance incrível ainda. :(',
                 'not_ranked' => 'Apenas beatmaps ranqueados dão pp.',
                 'pp_weight' => 'ajustado :percentage',
+                'view_details' => 'Ver Detalhes',
                 'title' => 'Classificações',
 
                 'best' => [
@@ -366,8 +351,7 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Interesses',
-            'lastfm' => 'Last.fm',
-            'location' => 'Local atual',
+            'location' => 'Local Atual',
             'occupation' => 'Ocupação',
             'skype' => 'Skype',
             'twitter' => 'Twitter',
@@ -410,13 +394,13 @@ return [
             'play_count' => 'Vezes Jogadas',
             'play_time' => 'Tempo de Jogo',
             'ranked_score' => 'Pontuação Ranqueada',
-            'replays_watched_by_others' => 'Replays Assistidos',
+            'replays_watched_by_others' => 'Replays Assistidos por Outros',
             'score_ranks' => 'Ranque em Pontuação',
             'total_hits' => 'Acertos Totais',
             'total_score' => 'Pontuação Total',
             // modding stats
             'ranked_and_approved_beatmapset_count' => 'Beatmaps Ranqueados e Aprovados',
-            'loved_beatmapset_count' => 'Beatmaps Amados',
+            'loved_beatmapset_count' => 'Beatmaps Loved',
             'unranked_beatmapset_count' => 'Beatmaps Pendentes',
             'graveyard_beatmapset_count' => 'Beatmaps no Cemitério',
         ],
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Visualização em blocos',
         'card' => 'Visualizar em card',
         'list' => 'Visualizar em lista',
     ],

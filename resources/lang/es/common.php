@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => '¿Estás seguro?',
@@ -36,21 +21,24 @@ return [
     'buttons' => [
         'admin' => 'Administrador',
         'authorise' => 'Autorizar',
+        'authorising' => 'Autorizando...',
         'back_to_previous' => 'Volver a la última posición',
-        'back_to_top' => 'Ir arriba',
+        'back_to_top' => 'Volver al principio',
         'cancel' => 'Cancelar',
         'change' => 'cambiar',
+        'clear' => 'Borrar',
         'click_to_copy' => 'haz clic para copiarlo al portapapeles',
         'click_to_copy_copied' => '¡copiado al portapapeles!',
         'close' => 'Cerrar',
-        'collapse' => 'colapsar',
+        'collapse' => 'contraer',
         'delete' => 'Eliminar',
         'edit' => 'Editar',
         'expand' => 'expandir',
         'hide' => 'ocultar',
         'permalink' => 'enlace permanente',
-        'pin' => 'fijar',
+        'pin' => 'anclar',
         'post' => 'Publicar',
+        'read_more' => 'leer más',
         'reply' => 'Responder',
         'reply_reopen' => 'Responder y reabrir',
         'reply_resolve' => 'Responder y resolver',
@@ -65,7 +53,7 @@ return [
         'show_less' => 'mostrar menos',
         'show_more' => 'mostrar más',
         'show_more_options' => 'mostrar más opciones',
-        'unpin' => 'dejar de fijar',
+        'unpin' => 'desanclar',
         'update' => 'Actualizar',
         'upload_image' => 'subir imagen',
 
@@ -76,22 +64,22 @@ return [
     ],
 
     'count' => [
-        'badges' => ':count insignia|:count insignias',
-        'days' => ':count día|:count días',
+        'badges' => ':count_delimited insignia|:count_delimited insignias',
+        'days' => ':count_delimited día|:count_delimited días',
         'hour_short_unit' => 'hr|hrs',
-        'hours' => ':count hora|:count horas',
-        'item' => ':count unidad|:count unidades',
+        'hours' => ':count_delimited hora|:count_delimited horas',
+        'item' => ':count_delimited unidad|::count_delimited unidades',
         'minute_short_unit' => 'min|mins',
-        'minutes' => ':count minuto|:count minutos',
-        'months' => ':count mes|:count meses',
+        'minutes' => ':count_delimited minuto|:count_delimited minutos',
+        'months' => ':count_delimited mes|:count_delimited meses',
         'notifications' => ':count_delimited notificación|:count_delimited notificaciones',
         'plus_others' => '+ :count_delimited otro!|+ :count_delimited otros!',
         'post' => ':count_delimited publicación|:count_delimited publicaciones',
         'second_short_unit' => 'seg|segs',
-        'star_priority' => ':count_delimited prioridad de estrella|:count_delimited star priorities',
+        'star_priority' => 'prioridad de :count_delimited estrella|prioridad de :count_delimited estrellas',
         'update' => ':count_delimited actualización|:count_delimited actualizaciones',
         'view' => ':count_delimited visita|:count_delimited visitas',
-        'years' => ':count año|:count años',
+        'years' => ':count_delimited año|:count_delimited años',
     ],
 
     'countdown' => [
@@ -112,10 +100,10 @@ return [
     ],
 
     'device' => [
-        'keyboard' => 'Teclado',
-        'mouse' => 'Ratón',
-        'tablet' => 'Tableta',
-        'touch' => 'Pantalla Táctil',
+        'keyboard' => 'teclado',
+        'mouse' => 'ratón',
+        'tablet' => 'tableta',
+        'touch' => 'pantalla táctil',
     ],
 
     'dropzone' => [
@@ -140,9 +128,24 @@ return [
         'count_miss' => 'Fallo',
     ],
 
+    'scoreboard_time' => [
+        'd' => '%d d',
+        'dd' => '%d d',
+        'h' => '%d h',
+        'hh' => '%d h',
+        'M' => '%d m',
+        'm' => '%d min',
+        'MM' => '%d m',
+        'mm' => '%d min',
+        'past' => '%s',
+        's' => '%d s',
+        'y' => '%d a',
+        'yy' => '%d a',
+    ],
+
     'time' => [
-        'days_ago' => 'hace :count día|hace :count días',
-        'hours_ago' => 'hace :count hora|hace :count horas',
+        'days_ago' => 'hace :count_delimited día|hace :count_delimited días',
+        'hours_ago' => 'hace :count_delimited hora|hace :count_delimited horas',
         'now' => 'ahora',
         'remaining' => 'Tiempo restante',
     ],

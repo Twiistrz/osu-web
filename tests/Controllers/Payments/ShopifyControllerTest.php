@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Controllers\Payments;
 
@@ -27,17 +12,6 @@ use Tests\TestCase;
 
 class ShopifyControllerTest extends TestCase
 {
-    public function testWebhookOrdersIdIsRequired()
-    {
-        $this->payload = [
-            'note_attributes' => [],
-        ];
-
-        $response = $this->sendCallbackRequest();
-
-        $response->assertStatus(500);
-    }
-
     public function testWebhookOrdersCancelled()
     {
         $order = factory(Order::class, 'paid')->states('shopify')->create();
@@ -50,9 +24,9 @@ class ShopifyControllerTest extends TestCase
         $order->payments()->save($payment);
         $order->paid($payment);
 
-        $this->payload = [
+        $this->setShopifyPayload([
             'note_attributes' => [['name' => 'orderId', 'value' => $order->getKey()]],
-        ];
+        ]);
 
         $response = $this->sendCallbackRequest(['X-Shopify-Topic' => 'orders/cancelled']);
 
@@ -66,9 +40,9 @@ class ShopifyControllerTest extends TestCase
     public function testWebhookOrdersCreate()
     {
         $order = factory(Order::class)->states('shopify', 'processing')->create();
-        $this->payload = [
+        $this->setShopifyPayload([
             'note_attributes' => [['name' => 'orderId', 'value' => $order->getKey()]],
-        ];
+        ]);
 
         $response = $this->sendCallbackRequest(['X-Shopify-Topic' => 'orders/create']);
 
@@ -80,9 +54,9 @@ class ShopifyControllerTest extends TestCase
     public function testWebhookOrdersFulfilled()
     {
         $order = factory(Order::class)->states('shopify', 'checkout')->create();
-        $this->payload = [
+        $this->setShopifyPayload([
             'note_attributes' => [['name' => 'orderId', 'value' => $order->getKey()]],
-        ];
+        ]);
 
         $response = $this->sendCallbackRequest(['X-Shopify-Topic' => 'orders/fulfilled']);
 
@@ -95,9 +69,9 @@ class ShopifyControllerTest extends TestCase
     public function testWebhookOrdersPaid()
     {
         $order = factory(Order::class)->states('shopify', 'processing')->create();
-        $this->payload = [
+        $this->setShopifyPayload([
             'note_attributes' => [['name' => 'orderId', 'value' => $order->getKey()]],
-        ];
+        ]);
 
         $response = $this->sendCallbackRequest(['X-Shopify-Topic' => 'orders/paid']);
 
@@ -109,12 +83,12 @@ class ShopifyControllerTest extends TestCase
 
     public function testReplacementOrdersManuallyCreatedShouldBeIgnored()
     {
-        $this->payload = [
+        $this->setShopifyPayload([
             'note_attributes' => [],
             'gateway' => 'manual',
             'payment_gateway_names' => ['manual'],
             'processing_method' => 'manual',
-        ];
+        ]);
 
         $response = $this->sendCallbackRequest();
 
@@ -128,13 +102,13 @@ class ShopifyControllerTest extends TestCase
         $order = factory(Order::class)->states('shopify', 'shipped')->create();
         $oldUpdatedAt = $order->updated_at->copy();
 
-        $this->payload = [
+        $this->setShopifyPayload([
             'note_attributes' => [['name' => 'orderId', 'value' => $order->getKey()]],
             'gateway' => 'manual',
             'payment_gateway_names' => ['manual'],
             'processing_method' => 'manual',
             'source_name' => 'shopify_draft_order',
-        ];
+        ]);
 
         $response = $this->sendCallbackRequest();
 
@@ -159,5 +133,13 @@ class ShopifyControllerTest extends TestCase
         $headers = array_merge(['X-Shopify-Hmac-Sha256' => $validSignature], $extraHeaders);
 
         return $this->json('POST', $this->url, $this->payload, $headers);
+    }
+
+    private function setShopifyPayload(array $params)
+    {
+        $this->payload = array_merge([
+            'id' => 1,
+            'order_number' => 1,
+        ], $params);
     }
 }

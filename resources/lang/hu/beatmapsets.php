@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmap-ek',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'letöltés',
+            'video' => 'letöltés videóval',
+            'no_video' => 'letöltés videó nélkül',
+            'direct' => 'megnyitás osu!direct-ben',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Beszélgetés',
 
         'details' => [
-            'approved' => 'elfogadva ',
             'favourite' => 'A beatmap szett kedvencek közé tétele',
             'logged-out' => 'Beatmap letöltéshez be kell jelentkezned!',
-            'loved' => 'kedvelve ',
             'mapped_by' => 'mappolva :mapper által',
-            'qualified' => 'qualified ',
-            'ranked' => 'rangsorolva ',
-            'submitted' => 'beküldve ',
             'unfavourite' => 'Beatmap eltávolitása a kedvencek közül',
-            'updated' => 'utoljára frissítve ',
             'updated_timeago' => 'utóljára frissítve: :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'további funkciók eléréséhez',
                 'top' => 'Bejelentkezés',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => 'jóváhagyva: :timeago',
+            'loved' => 'kedvelve: :timeago',
+            'qualified' => 'kvalifikálva: :timeago',
+            'ranked' => 'rangsorolva: :timeago',
+            'submitted' => 'beküldve: :timeago',
+            'updated' => 'utolsó frissítés: :timeago',
         ],
 
         'favourites' => [
@@ -77,14 +74,12 @@ return [
             ],
 
             'disqualify' => [
-                '_' => '',
-                'button_title' => '',
+                '_' => 'Ha találsz javaslatokat, problémákat a térképpel kapcsolatban, kérlek diszkvalifikáld ezen a linken keresztül: :link',
             ],
 
             'report' => [
-                '_' => '',
+                '_' => 'Ha találsz javaslatokat, problémákat a térképpel kapcsolatban, kérlek jelentsd az alábbi linken keresztül: :link',
                 'button' => 'Probléma jelentése',
-                'button_title' => '',
                 'link' => 'itt',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Forrás',
             'success-rate' => 'Teljesítési arány',
             'tags' => 'Címkék',
-            'unranked' => 'Rangsorolatlan beatmap',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Rang',
                 'score_total' => 'Összpontszám',
                 'score' => 'Pontszám',
+                'time' => 'Idő',
             ],
 
             'no_scores' => [
@@ -153,13 +148,13 @@ return [
         ],
 
         'status' => [
-            'ranked' => '',
-            'approved' => '',
-            'loved' => '',
-            'qualified' => '',
-            'wip' => '',
-            'pending' => '',
-            'graveyard' => '',
+            'ranked' => 'Rangsorolt',
+            'approved' => 'Jóváhagyott',
+            'loved' => 'Kedvelve',
+            'qualified' => 'Kvalifikálva',
+            'wip' => 'Készítés alatt',
+            'pending' => 'Függőben',
+            'graveyard' => 'Temető',
         ],
     ],
 ];

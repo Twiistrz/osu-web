@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Models;
 
@@ -93,6 +78,29 @@ class BeatmapDiscussionPostTest extends TestCase
         $post->message = str_repeat('b', BeatmapDiscussionPost::MESSAGE_LIMIT_TIMELINE);
 
         $this->assertTrue($post->isValid());
+    }
+
+    public function testScopeOpenProblems()
+    {
+        $beatmapset = factory(Beatmapset::class)->create(['discussion_enabled' => true]);
+        $beatmap = $beatmapset->beatmaps()->save(factory(Beatmap::class)->make());
+        $user = factory(User::class)->create();
+        $discussion = BeatmapDiscussion::create([
+            'beatmapset_id' => $beatmapset->getKey(),
+            'beatmap_id' => $beatmap->getKey(),
+            'user_id' => $user->getKey(),
+            'message_type' => 'problem',
+        ]);
+        $discussion->beatmapDiscussionPosts()->create([
+            'user_id' => $user->getKey(),
+            'message' => 'This is a problem',
+        ]);
+
+        $this->assertSame(1, $beatmapset->beatmapDiscussions()->openProblems()->count());
+
+        $beatmap->update(['deleted_at' => now()]);
+
+        $this->assertSame(0, $beatmapset->beatmapDiscussions()->openProblems()->count());
     }
 
     public function testSoftDeleteOrExplode()

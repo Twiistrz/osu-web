@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'admin' => [
@@ -25,7 +10,7 @@ return [
 
     'cart' => [
         'checkout' => 'Checka ut',
-        'info' => '',
+        'info' => ':count_delimited föremål i varukorgen ($:subtotal)|:count_delimited föremål i varukorgen ($:subtotal)',
         'more_goodies' => 'Jag vill ta en titt på fler godsaker innan jag fullbordar beställningen',
         'shipping_fees' => 'fraktavgifter',
         'title' => 'Varukorg',
@@ -46,46 +31,49 @@ return [
     ],
 
     'checkout' => [
-        'cart_problems' => 'Uh oh, det finns problem med din varukorg!',
+        'cart_problems' => 'Oj då, det finns problem med din varukorg!',
         'cart_problems_edit' => 'Klicka här för att redigera den.',
         'declined' => 'Betalningen avbröts.',
         'delayed_shipping' => 'Vi är för nuvarande överväldigad med ordrar! Du får gärna placera din order, men kommer kanske få en **extra 1-2 veckors försening** medan vi kommer ikapp alla ordrar.',
         'old_cart' => 'Din varukorg verkar vara inaktuell och har blivit återladdad, var god försök igen.',
         'pay' => 'Betala med Paypal',
+        'title_compact' => 'kassan',
 
         'has_pending' => [
-            '_' => '',
+            '_' => 'Du har ofullbordade transaktioner, klicka :link för att se dem.',
             'link_text' => 'här',
         ],
 
         'pending_checkout' => [
             'line_1' => 'En tidigare transaktion startades men avslutades inte.',
-            'line_2' => '',
+            'line_2' => 'Välj en betalmetod för att återuppta din tidigare transaktion.',
         ],
     ],
 
     'discount' => 'spara :percent%',
 
     'invoice' => [
-        'echeck_delay' => '',
+        'echeck_delay' => 'Eftersom din betalning var en eCheck, vänligen tillåt upp till 10 extra dagar för betalningen att rensas via PayPal! ',
+        'title_compact' => 'faktura',
+
         'status' => [
             'processing' => [
-                'title' => '',
-                'line_1' => '',
+                'title' => 'Din betalning har ännu inte bekräftats!',
+                'line_1' => 'Om du redan har betalat, kan vi fortfarande vänta på att få bekräftelse på din betalning. Vänligen uppdatera denna sida om en minut eller två!',
                 'line_2' => [
-                    '_' => '',
-                    'link_text' => '',
+                    '_' => 'Om du stötte på ett problem i kassan, :link',
+                    'link_text' => 'klicka här för att återuppta din transaktion',
                 ],
             ],
         ],
     ],
 
     'order' => [
-        'paid_on' => '',
+        'paid_on' => 'Beställning slutförd :date',
 
-        'invoice' => 'Visa Faktura',
-        'no_orders' => '',
-        'resume' => '',
+        'invoice' => 'Visa faktura',
+        'no_orders' => 'Inga beställningar att visa.',
+        'resume' => 'Återuppta transaktionen',
 
         'item' => [
             'display_name' => [
@@ -108,8 +96,8 @@ return [
             'cancelled' => 'Avbruten',
             'checkout' => 'Förbereder',
             'delivered' => 'Levererad',
-            'paid' => '',
-            'processing' => '',
+            'paid' => 'Betalt',
+            'processing' => 'Väntar på bekräftelse',
             'shipped' => 'Skickad',
         ],
     ],
@@ -118,11 +106,11 @@ return [
         'name' => 'Namn',
 
         'stock' => [
-            'out' => 'Slut i lager :(. Kolla igen snart.',
+            'out' => 'Detta föremål är för närvarande slut. Kom tillbaka senare!',
             'out_with_alternative' => 'Denna typ är för närvarande slut i lager :(. Testa andra typer eller kolla igen snart.',
         ],
 
-        'add_to_cart' => 'Lägg till i Varukorgen',
+        'add_to_cart' => 'Lägg till i varukorgen',
         'notify' => 'Notifiera mig när den är tillgänglig!',
 
         'notification_success' => 'du kommer bli notifierad när vi har mer i lager. klicka :link för att avbryta',

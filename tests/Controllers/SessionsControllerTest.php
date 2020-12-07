@@ -1,25 +1,11 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Controllers;
 
+use App\Models\Country;
 use App\Models\LoginAttempt;
 use App\Models\User;
 use Tests\TestCase;
@@ -42,12 +28,15 @@ class SessionsControllerTest extends TestCase
     public function testLoginInactiveUser()
     {
         $password = 'password1';
-        $user = factory(User::class)->create(compact('password'));
+        $countryAcronym = (Country::first() ?? factory(Country::class)->create())->getKey();
+        $user = factory(User::class)->create(['password' => $password, 'country_acronym' => $countryAcronym]);
         $user->update(['user_lastvisit' => now()->subDays(config('osu.user.inactive_days_verification') + 1)]);
 
         $this->post(route('login'), [
             'username' => $user->username,
             'password' => $password,
+        ], [
+            'CF_IPCOUNTRY' => $countryAcronym,
         ])->assertSuccessful();
 
         $this->assertAuthenticated();
@@ -74,6 +63,21 @@ class SessionsControllerTest extends TestCase
         $this->assertSame('', $user->fresh()->user_password);
     }
 
+    public function testLoginMissingParameters()
+    {
+        $password = 'password1';
+        $user = factory(User::class)->create(compact('password'));
+
+        $this->post(route('login'))->assertStatus(422);
+        $this->assertGuest();
+
+        $this->post(route('login'), ['username' => $user->username])->assertStatus(422);
+        $this->assertGuest();
+
+        $this->post(route('login'), compact('password'))->assertStatus(422);
+        $this->assertGuest();
+    }
+
     public function testLoginWrongPassword()
     {
         $password = 'password1';
@@ -82,7 +86,7 @@ class SessionsControllerTest extends TestCase
         $this->post(route('login'), [
             'username' => $user->username,
             'password' => "{$password}1",
-        ])->assertStatus(422);
+        ])->assertStatus(403);
 
         $this->assertGuest();
 
@@ -101,12 +105,12 @@ class SessionsControllerTest extends TestCase
         $this->post(route('login'), [
             'username' => $user->username,
             'password' => 'password2',
-        ])->assertStatus(422);
+        ])->assertStatus(403);
 
         $this->post(route('login'), [
             'username' => $user->username,
             'password' => 'password3',
-        ])->assertStatus(422);
+        ])->assertStatus(403);
 
         $this->assertGuest();
 
@@ -126,12 +130,12 @@ class SessionsControllerTest extends TestCase
         $this->post(route('login'), [
             'username' => $user->username,
             'password' => $wrongPassword,
-        ])->assertStatus(422);
+        ])->assertStatus(403);
 
         $this->post(route('login'), [
             'username' => $user->username,
             'password' => $wrongPassword,
-        ])->assertStatus(422);
+        ])->assertStatus(403);
 
         $this->assertGuest();
 
@@ -160,7 +164,7 @@ class SessionsControllerTest extends TestCase
         $this->post(route('login'), [
             'username' => $secondUser->username,
             'password' => "{$password}1",
-        ])->assertStatus(422);
+        ])->assertStatus(403);
 
         $this->assertGuest();
 

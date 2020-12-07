@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'admin' => [
@@ -30,17 +15,19 @@ return [
     ],
     'error' => [
         'error' => [
-            '_' => 'fejl',
+            '400' => 'ugyldig anmodning',
             '404' => 'mangler',
-            '403' => 'nægtet',
+            '403' => 'adgang nægtet',
             '401' => 'uautoriseret',
+            '401-verification' => 'kontobekræftelse',
             '405' => 'mangler',
-            '500' => 'mm, der er noget der gået i stykker',
+            '422' => 'ugyldig anmodning',
+            '500' => 'mm, noget gik galt',
             '503' => 'vedligeholdelse',
         ],
     ],
     'forum' => [
-        '_' => 'Forum',
+        '_' => 'forum',
         'topic_watches_controller' => [
             'index' => 'instrumentbræt',
         ],
@@ -48,28 +35,33 @@ return [
     'main' => [
         'account_controller' => [
             'edit' => 'instrumentbræt',
-        ],
-        'beatmapset_watches_controller' => [
-            'index' => 'instrumentbræt',
-        ],
-        'friends_controller' => [
-            'index' => 'instrumentbræt',
-        ],
-        'home_controller' => [
-            'index' => 'instrumentbræt',
-            'get_download' => 'download',
-            'search' => 'søg',
-            'support_the_game' => 'støt spillet',
-            'testflight' => 'prøveflyvning',
+            'verify_link' => 'kontobekræftelse',
         ],
         'artists_controller' => [
             '_' => 'udvalgte kunstnere',
         ],
+        'beatmap_discussion_posts_controller' => [
+            '_' => 'beatmap diskussion opslag',
+        ],
         'beatmap_discussions_controller' => [
             '_' => 'beatmap diskussioner',
         ],
-        'beatmap_discussion_posts_controller' => [
-            '_' => 'beatmap diskussion opslag',
+        'beatmap_packs_controller' => [
+            '_' => 'beatmap pakker',
+        ],
+        'beatmapset_discussion_votes_controller' => [
+            '_' => 'beatmap diskussion stemmer',
+        ],
+        'beatmapset_events_controller' => [
+            '_' => 'beatmap historie',
+        ],
+        'beatmapset_watches_controller' => [
+            'index' => 'instrumentbræt',
+        ],
+        'beatmapsets_controller' => [
+            'discussion' => 'beatmap diskussion',
+            'index' => 'beatmap katalog',
+            'show' => 'beatmap info',
         ],
         'changelog_controller' => [
             '_' => 'ændringsoversigt',
@@ -80,29 +72,71 @@ return [
         'comments_controller' => [
             '_' => 'kommentarer',
         ],
+        'contests_controller' => [
+            '_' => 'konkurrencer',
+        ],
+        'friends_controller' => [
+            'index' => 'instrumentbræt',
+        ],
+        'groups_controller' => [
+            'show' => 'grupper',
+        ],
+        'home_controller' => [
+            'get_download' => 'download',
+            'index' => 'instrumentbræt',
+            'search' => 'søg',
+            'support_the_game' => 'støt spillet',
+            'testflight' => 'testflight',
+        ],
         'legal_controller' => [
             '_' => 'information',
         ],
         'livestreams_controller' => [
             '_' => 'livestreams',
         ],
+        'matches_controller' => [
+            '_' => 'resultater',
+        ],
+        'news_controller' => [
+            '_' => 'nyheder',
+        ],
+        'notifications_controller' => [
+            '_' => 'notifikationshistorik',
+        ],
+        'password_reset_controller' => [
+            '_' => 'nulstil adgangskode',
+        ],
         'ranking_controller' => [
             '_' => 'rang',
         ],
+        'scores_controller' => [
+            '_' => '',
+        ],
         'store_controller' => [
-            '_' => 'osu!store',
+            '_' => 'osu!butik',
         ],
         'tournaments_controller' => [
             '_' => 'turneringer',
         ],
         'users_controller' => [
-            'disabled' => 'meddelelse',
+            '_' => 'spiller info',
+            'disabled' => 'notits',
         ],
         'wiki_controller' => [
-            'show' => 'Vidensbase',
+            '_' => 'vidensbase',
+        ],
+    ],
+    'multiplayer' => [
+        'rooms_controller' => [
+            '_' => '',
         ],
     ],
     'store' => [
-        '_' => 'osu!store',
+        '_' => 'osu!butik',
+    ],
+    'users' => [
+        'modding_history_controller' => [
+            '_' => 'modder info',
+        ],
     ],
 ];

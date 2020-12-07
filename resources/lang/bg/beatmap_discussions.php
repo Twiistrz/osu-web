@@ -1,29 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'authorizations' => [
         'update' => [
             'null_user' => 'Влезте в профила си, за да редактирате.',
             'system_generated' => 'Системно-генерираният пост не може да бъде редактиран.',
-            'wrong_user' => 'Трябва да сте собственик на този пост да редактирате.',
+            'wrong_user' => 'Трябва да сте собственик на тази публикация да редактирате.',
         ],
     ],
 
@@ -33,23 +18,23 @@ return [
 
     'index' => [
         'deleted_beatmap' => 'изтрито',
-        'none_found' => '',
+        'none_found' => 'Няма открити дискусии, които отговарят на критерия за търсене.',
         'title' => 'Бийтмап Дискусии',
 
         'form' => [
             '_' => 'Търсене',
             'deleted' => 'Включете изтрити дискусии',
-            'only_unresolved' => '',
+            'only_unresolved' => 'Покажи само нерешените дискусии',
             'types' => 'Тип съобщения',
             'username' => 'Потребителско име',
 
             'beatmapset_status' => [
-                '_' => '',
-                'all' => '',
-                'disqualified' => '',
-                'never_qualified' => '',
-                'qualified' => '',
-                'ranked' => '',
+                '_' => 'Бийтмап статус',
+                'all' => 'Всички',
+                'disqualified' => 'Дисквалифициран',
+                'never_qualified' => 'Никога квалифициран',
+                'qualified' => 'Квалифициран',
+                'ranked' => 'Класиран',
             ],
 
             'user' => [
@@ -69,6 +54,7 @@ return [
     'nearby_posts' => [
         'confirm' => 'Нито един от постовете ме интересуват',
         'notice' => 'Има постове около :timestamp (:existing_timestamps). Моля проверете ги преди да публикувате.',
+        'unsaved' => '',
     ],
 
     'reply' => [
@@ -79,14 +65,17 @@ return [
     ],
 
     'review' => [
-        'go_to_parent' => '',
-        'go_to_child' => '',
+        'block_count' => '',
+        'go_to_parent' => 'Виж ревюто',
+        'go_to_child' => 'Виж дискусията',
         'validation' => [
-            'invalid_block_type' => '',
-            'invalid_document' => '',
-            'minimum_issues' => '',
-            'missing_text' => '',
-            'too_many_blocks' => '',
+            'block_too_large' => 'всеки блок може да има до :limit знака',
+            'external_references' => 'ревюто съдържа препратки до проблеми, които не принадлежат на това ревю',
+            'invalid_block_type' => 'невалиден тип блок',
+            'invalid_document' => 'невалидно ревю',
+            'minimum_issues' => 'ревюто трябва да съдържа минимум :count проблем|ревюто трябва да съдържа минимум :count проблема',
+            'missing_text' => 'липсва текст в блока',
+            'too_many_blocks' => 'ревютата може да съдържат само :count параграфа/проблема|ревютата може да съдържат до :count параграфа/проблема ',
         ],
     ],
 
@@ -98,8 +87,8 @@ return [
     ],
 
     'timestamp_display' => [
-        'general' => '',
-        'general_all' => '',
+        'general' => 'общо',
+        'general_all' => 'общо (всички)',
     ],
 
     'user_filter' => [

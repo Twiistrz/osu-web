@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries\Search;
 
@@ -74,6 +59,8 @@ class MultiSearch
     {
         if (!isset($this->searches)) {
             $this->searches = [];
+            $error = null;
+
             foreach (static::MODES as $mode => $settings) {
                 if ($settings === null) {
                     $this->searches[$mode] = null;
@@ -89,15 +76,21 @@ class MultiSearch
                     $search->source(false);
                 }
 
-                if ($this->getMode() === 'all') {
-                    $search->from(0)->size($settings['size']);
-                    if ($this->hasQuery()) {
-                        $search->response(); // FIXME: run query before counts for tab; need better way to do this.
+                if ($error !== null) {
+                    $search->fail($error);
+                } else {
+                    if ($this->getMode() === 'all') {
+                        $search->from(0)->size($settings['size']);
+                        if ($this->hasQuery()) {
+                            $search->response(); // FIXME: run query before counts for tab; need better way to do this.
+                        }
+                    } elseif ($this->getMode() === $mode) {
+                        if ($this->hasQuery()) {
+                            $search->response(); // FIXME: run query before counts for tab; need better way to do this.
+                        }
                     }
-                } elseif ($this->getMode() === $mode) {
-                    if ($this->hasQuery()) {
-                        $search->response(); // FIXME: run query before counts for tab; need better way to do this.
-                    }
+
+                    $error = $search->getError();
                 }
 
                 $this->searches[$mode] = $search;

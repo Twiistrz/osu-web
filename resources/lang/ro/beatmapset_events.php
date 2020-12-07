@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'event' => [
@@ -29,6 +14,7 @@ return [
         'discussion_unlock' => 'Discuție pentru acest beatmap a fost activată.',
         'disqualify' => 'Descalificat de :user. Motiv: :discussion (:text).',
         'disqualify_legacy' => 'Descalificat de :user. Motiv :text.',
+        'genre_edit' => 'Genul s-a schimbat de la :old la :new.',
         'issue_reopen' => 'Problema rezolvată :discussion s-a redeschis.',
         'issue_resolve' => 'Problema :discussion a fost marcată ca rezolvată.',
         'kudosu_allow' => 'Negocierea de kudosu pentru discuția :discussion a fost eliminată.',
@@ -36,11 +22,13 @@ return [
         'kudosu_gain' => 'Discuția :discussion de :user a obținut destule voturi pentru kudosu.',
         'kudosu_lost' => 'Discuția :discussion de :user a pierdut voturi și kudosu acordați au fost eliminați.',
         'kudosu_recalculate' => 'Numărul de kudosu acordat pentru discuția :discussion a fost recalculat.',
+        'language_edit' => 'Limba s-a schimbat de la :old la :new.',
         'love' => 'Loved de către :user',
         'nominate' => 'Nominalizat de :user.',
         'nomination_reset' => 'O problemă nouă :discussion (:text) a declanșat reluarea unei nominalizări.',
         'qualify' => 'Acest beatmap a atins numărul limită de nominalizări și s-a calificat.',
         'rank' => 'Clasat.',
+        'remove_from_loved' => '',
     ],
 
     'index' => [
@@ -65,6 +53,7 @@ return [
         'discussion_post_restore' => 'Restaurarea răspunsului',
         'discussion_restore' => 'Restaurarea discuției',
         'disqualify' => 'Descalificare',
+        'genre_edit' => 'Edit genre',
         'issue_reopen' => 'Redeschiderea discuției',
         'issue_resolve' => 'Rezolvarea discuției',
         'kudosu_allow' => 'Alocația de kudosu',
@@ -72,10 +61,12 @@ return [
         'kudosu_gain' => 'Câștigare de kudosu',
         'kudosu_lost' => 'Pierdere de kudosu',
         'kudosu_recalculate' => 'Recalcularea kudosu',
+        'language_edit' => 'Edit limbă',
         'love' => 'Love',
         'nominate' => 'Nominalizare',
         'nomination_reset' => 'Resetarea nominalizărilor',
         'qualify' => 'Calificare',
         'rank' => 'Clasament',
+        'remove_from_loved' => '',
     ],
 ];

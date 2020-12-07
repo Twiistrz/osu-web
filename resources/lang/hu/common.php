@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Biztos vagy benne?',
@@ -35,11 +20,13 @@ return [
 
     'buttons' => [
         'admin' => 'Admin',
-        'authorise' => '',
+        'authorise' => 'Engedélyezés',
+        'authorising' => 'Engedélyezés...',
         'back_to_previous' => 'Vissza az előző pozícióra',
         'back_to_top' => 'Vissza a lap tetejére',
         'cancel' => 'Mégse',
         'change' => 'változtat',
+        'clear' => 'Törlés',
         'click_to_copy' => 'kattints ide a vágólapra helyezéshez',
         'click_to_copy_copied' => 'vágólapra helyezve!',
         'close' => 'Bezárás',
@@ -49,8 +36,9 @@ return [
         'expand' => 'kibont',
         'hide' => 'elrejtés',
         'permalink' => 'állandó hivatkozás',
-        'pin' => '',
+        'pin' => 'kitűzés',
         'post' => 'Küldés',
+        'read_more' => 'tudj meg többet',
         'reply' => 'Válasz',
         'reply_reopen' => 'Válaszolás és újranyitás',
         'reply_resolve' => 'Válaszolás és megoldás',
@@ -62,10 +50,10 @@ return [
         'see_more' => 'továbbiak mutatása',
         'show' => 'mutat',
         'show_deleted' => 'Töröltek megjelenítése',
-        'show_less' => '',
+        'show_less' => 'kevesebb mutatása',
         'show_more' => 'több megjelenítése',
         'show_more_options' => 'további opciók mutatása',
-        'unpin' => '',
+        'unpin' => 'rögzítés feloldása',
         'update' => 'Frissítés',
         'upload_image' => 'kép feltöltése',
 
@@ -84,8 +72,8 @@ return [
         'minute_short_unit' => 'p|p',
         'minutes' => ':count perc |:count percek',
         'months' => ':count hónap|:count hónap',
-        'notifications' => '',
-        'plus_others' => '',
+        'notifications' => ':count_delimited értesítés|:count_delimited értesítések',
+        'plus_others' => '+ :count_delimited más!|+ :count_delimited mások!',
         'post' => ':count_delimited poszt|:count_delimited posztok',
         'second_short_unit' => 'mp|mp',
         'star_priority' => ':count_delimited: csillag prioritás|:count_delimited csillag prioritások',
@@ -140,6 +128,21 @@ return [
         'count_miss' => 'Miss',
     ],
 
+    'scoreboard_time' => [
+        'd' => '%d nap',
+        'dd' => '%d nap',
+        'h' => '%d óra',
+        'hh' => '%d óra',
+        'M' => '%d hónap',
+        'm' => '%d perc',
+        'MM' => '%d hónap',
+        'mm' => '%d perc',
+        'past' => '%s',
+        's' => '%d perc másodperc',
+        'y' => '%d év',
+        'yy' => '%d év',
+    ],
+
     'time' => [
         'days_ago' => ':count napja|:count napja',
         'hours_ago' => ':count órája|:count órája',
@@ -152,7 +155,7 @@ return [
     ],
 
     'wrong_user' => [
-        '_' => '',
-        'logout_link' => '',
+        '_' => 'Bejelntkezve mint :user. :logout_link.',
+        'logout_link' => 'Kattints ide a bejelentkezéshez más felhasználóként',
     ],
 ];

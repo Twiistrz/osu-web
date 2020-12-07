@@ -1,37 +1,14 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => 'Введено недійсний :attribute.',
     'not_negative' => ':attribute не може бути від\'ємним.',
     'required' => ':attribute є обов\'язковим.',
     'too_long' => ':attribute перевищує максимальну кількість символів - можна використовувати тільки до :limit символів.',
     'wrong_confirmation' => 'Повтори не збігаються.',
-
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'Обговорення закрито.',
-        'first_post' => 'Неможливо видалити першу публікацію.',
-
-        'attributes' => [
-            'message' => '',
-        ],
-    ],
 
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Часова відмітка вказана, але карту не знайдено.',
@@ -42,11 +19,12 @@ return [
         'locked' => 'Обговорення закрито.',
 
         'attributes' => [
-            'message_type' => '',
-            'timestamp' => '',
+            'message_type' => 'Тип повідомлення',
+            'timestamp' => 'Тимчасова мітка',
         ],
 
         'hype' => [
+            'discussion_locked' => "Дана карта в поточний момент закрита для обговорення і не може бути хайпанута",
             'guest' => 'Потрібно ввійти для хайпу.',
             'hyped' => 'Ви вже хайпили цю карту.',
             'limit_exceeded' => 'Ви вже використали весь свій хайп.',
@@ -60,17 +38,26 @@ return [
         ],
     ],
 
-    'comment' => [
-        'deleted_parent' => 'Не можна відповісти на видалений коментар.',
-        'top_only' => '',
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'Обговорення закрито.',
+        'first_post' => 'Неможливо видалити першу публікацію.',
 
         'attributes' => [
-            'message' => '',
+            'message' => 'Повідомлення',
+        ],
+    ],
+
+    'comment' => [
+        'deleted_parent' => 'Не можна відповісти на видалений коментар.',
+        'top_only' => 'Закріплювати відповіді на коментарі заборонено.',
+
+        'attributes' => [
+            'message' => 'Повідомлення',
         ],
     ],
 
     'follow' => [
-        'invalid' => '',
+        'invalid' => 'Введено недійсний :attribute.',
     ],
 
     'forum' => [
@@ -89,13 +76,13 @@ return [
             'only_quote' => 'Ваш відповідь містить тільки цитату.',
 
             'attributes' => [
-                'post_text' => '',
+                'post_text' => 'Тіло повідомлення',
             ],
         ],
 
         'topic' => [
             'attributes' => [
-                'topic_title' => '',
+                'topic_title' => 'Заголовок теми',
             ],
         ],
 
@@ -109,7 +96,7 @@ return [
             'too_many_options' => 'Перевищено максимальну кількість варіантів.',
 
             'attributes' => [
-                'title' => '',
+                'title' => 'Тема опитування',
             ],
         ],
 
@@ -121,12 +108,12 @@ return [
 
     'oauth' => [
         'client' => [
-            'too_many' => '',
-            'url' => '',
+            'too_many' => 'Перевищено максимальну кількість OAuth додатків.',
+            'url' => 'Будь ласка, введіть дійсний URL.',
 
             'attributes' => [
-                'name' => '',
-                'redirect' => '',
+                'name' => 'Назва програми',
+                'redirect' => 'Callback URL програми',
             ],
         ],
     ],
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Пароль не повинен містити нікнейм.',
         'email_already_used' => 'Дана адреса вже використовується.',
+        'email_not_allowed' => '',
         'invalid_country' => 'Вашої країни немає в базі даних.',
         'invalid_discord' => 'Ім’я користувача Discord недійсне.',
         'invalid_email' => "Це не схоже на адресу електронної пошти.",
+        'invalid_twitter' => 'Неправильне ім\'я користувача Twitter.',
         'too_short' => 'Новий пароль надто короткий.',
         'unknown_duplicate' => 'Ім\'я користувача або пошта вже зайнята.',
         'username_available_in' => 'Це ім\'я користувача буде доступним для використання через :duration.',
@@ -156,9 +145,9 @@ return [
         'too_long' => 'Перевищує максимальну кількість символів - можна використовувати тільки до :limit символів.',
 
         'attributes' => [
-            'username' => '',
-            'user_email' => '',
-            'password' => '',
+            'username' => 'Iм\'я користувача',
+            'user_email' => 'Email пошта',
+            'password' => 'Пароль',
         ],
 
         'change_username' => [
@@ -172,15 +161,15 @@ return [
     ],
 
     'user_report' => [
-        'reason_not_valid' => '',
+        'reason_not_valid' => ':reason неправильна для даного типу звіту.',
         'self' => "Ви не можете поскаржитися на себе!",
     ],
 
     'store' => [
         'order_item' => [
             'attributes' => [
-                'quantity' => '',
-                'cost' => '',
+                'quantity' => 'Кількість',
+                'cost' => 'Ціна',
             ],
         ],
     ],

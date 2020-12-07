@@ -1,24 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
+
+use App\Libraries\ModsHelper;
+use Exception;
 
 /**
  * @property string $author
@@ -44,7 +32,10 @@ class BeatmapPack extends Model
     protected $table = 'osu_beatmappacks';
     protected $primaryKey = 'pack_id';
 
-    protected $casts = ['hidden' => 'boolean'];
+    protected $casts = [
+        'hidden' => 'boolean',
+        'no_diff_reduction' => 'boolean',
+    ];
 
     protected $dates = ['date'];
     public $timestamps = false;
@@ -72,30 +63,82 @@ class BeatmapPack extends Model
 
     public function beatmapsets()
     {
-        $setsTable = (new Beatmapset)->getTable();
-        $itemsTable = (new BeatmapPackItem)->getTable();
+        $setsTable = (new Beatmapset())->getTable();
+        $itemsTable = (new BeatmapPackItem())->getTable();
 
         return Beatmapset::query()
             ->join($itemsTable, "{$itemsTable}.beatmapset_id", '=', "{$setsTable}.beatmapset_id")
             ->where("{$itemsTable}.pack_id", '=', $this->pack_id);
     }
 
-    public function downloadUrl()
+    public function userCompletionData($user)
     {
-        return $this->downloadUrls()[0];
-    }
+        if ($user !== null) {
+            $userId = $user->getKey();
+            $beatmapsetIds = $this->items()->pluck('beatmapset_id')->all();
+            $query = Beatmap::select('beatmapset_id')->distinct()->whereIn('beatmapset_id', $beatmapsetIds);
 
-    private function downloadUrls()
-    {
-        $array = [];
-        foreach (explode(',', $this->url) as $url) {
-            preg_match('@^https?://(?<host>[^/]+)@i', $url, $matches);
-            $array[] = [
-                'url' => $url,
-                'host' => $matches['host'],
-            ];
+            if ($this->playmode === null) {
+                static $scoreRelations;
+
+                // generate list of beatmap->score relation names for each modes
+                // store int mode as well as it'll be used for filtering the scores
+                if (!isset($scoreRelations)) {
+                    $scoreRelations = [];
+                    foreach (Beatmap::MODES as $modeStr => $modeInt) {
+                        $scoreRelations[] = [
+                            'playmode' => $modeInt,
+                            'relation' => camel_case("scores_best_{$modeStr}"),
+                        ];
+                    }
+                }
+
+                // outer where function
+                // The idea is SELECT ... WHERE ... AND (<has osu scores> OR <has taiko scores> OR ...).
+                $query->where(function ($q) use ($scoreRelations, $userId) {
+                    foreach ($scoreRelations as $scoreRelation) {
+                        // The <has <mode> scores> mentioned above is generated here.
+                        // As it's "playmode = <mode> AND EXISTS (<<mode> score for user>)",
+                        // wrap them so it's not flat "playmode = <mode> AND EXISTS ... OR playmode = <mode> AND EXISTS ...".
+                        $q->orWhere(function ($qq) use ($scoreRelation, $userId) {
+                            $qq
+                                // this playmode filter ensures the scores are limited to non-convert maps
+                                ->where('playmode', '=', $scoreRelation['playmode'])
+                                ->whereHas($scoreRelation['relation'], function ($scoreQuery) use ($userId) {
+                                    $scoreQuery->where('user_id', '=', $userId);
+
+                                    if ($this->no_diff_reduction) {
+                                        $scoreQuery->withoutMods(ModsHelper::DIFFICULTY_REDUCTION_MODS);
+                                    }
+                                });
+                        });
+                    }
+                });
+            } else {
+                $modeStr = Beatmap::modeStr($this->playmode);
+
+                if ($modeStr === null) {
+                    throw new Exception("beatmapset pack {$this->getKey()} has invalid playmode: {$this->playmode}");
+                }
+
+                $scoreRelation = camel_case("scores_best_{$modeStr}");
+
+                $query->whereHas($scoreRelation, function ($query) use ($userId) {
+                    $query->where('user_id', '=', $userId);
+
+                    if ($this->no_diff_reduction) {
+                        $query->withoutMods(ModsHelper::DIFFICULTY_REDUCTION_MODS);
+                    }
+                });
+            }
+
+            $completedBeatmapsetIds = $query->pluck('beatmapset_id')->all();
+            $completed = count($completedBeatmapsetIds) === count($beatmapsetIds);
         }
 
-        return $array;
+        return [
+            'completed' => $completed ?? false,
+            'beatmapset_ids' => $completedBeatmapsetIds ?? [],
+        ];
     }
 }

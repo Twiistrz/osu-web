@@ -1,42 +1,19 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'invalid' => ':attribute Specificato invalido.',
     'not_negative' => ':attribute non può essere negativo.',
     'required' => ':attribute è richiesto.',
     'too_long' => ':attribute ha superato la lunghezza massima - può essere solo fino a :limit caratteri.',
     'wrong_confirmation' => 'La conferma non corrisponde.',
 
-    'beatmap_discussion_post' => [
-        'discussion_locked' => 'La discussione è chiusa.',
-        'first_post' => 'Non puoi cancellare il post iniziale.',
-
-        'attributes' => [
-            'message' => 'Il messaggio',
-        ],
-    ],
-
     'beatmapset_discussion' => [
         'beatmap_missing' => 'Il timestamp è specificato ma manca la beatmap.',
-        'beatmapset_no_hype' => "La beatmap non può essere promossa.",
-        'hype_requires_null_beatmap' => 'La promozione deve essere fatta nella sezione Generale (tutte le difficoltà).',
+        'beatmapset_no_hype' => "La beatmap non può avere hype.",
+        'hype_requires_null_beatmap' => 'Si può mettere hype nella sezione Generale (Tutte le difficoltà).',
         'invalid_beatmap_id' => 'Difficoltà specificata non valida.',
         'invalid_beatmapset_id' => 'Beatmap specificata non valida.',
         'locked' => 'La discussione è chiusa.',
@@ -47,11 +24,12 @@ return [
         ],
 
         'hype' => [
-            'guest' => 'Devi avere effettuato il login per promuovere.',
-            'hyped' => 'Hai già promosso questa beatmap.',
-            'limit_exceeded' => 'Hai usato tutte le tue promozioni.',
-            'not_hypeable' => 'Questa beatmap non può essere promossa',
-            'owner' => 'Nessuna promozione nella tua beatmap.',
+            'discussion_locked' => "Al momento questa beatmap è bloccata per le discussioni e non può avere hype",
+            'guest' => 'Devi avere effettuato il login per mettere hype.',
+            'hyped' => 'Hai già messo hype a questa beatmap.',
+            'limit_exceeded' => 'Hai usato tutti i tuoi hype.',
+            'not_hypeable' => 'Questa beatmap non può avere hype',
+            'owner' => 'Non puoi mettere hype alla tua beatmap.',
         ],
 
         'timestamp' => [
@@ -60,9 +38,18 @@ return [
         ],
     ],
 
+    'beatmapset_discussion_post' => [
+        'discussion_locked' => 'La discussione è chiusa.',
+        'first_post' => 'Non puoi cancellare il post iniziale.',
+
+        'attributes' => [
+            'message' => 'Il messaggio',
+        ],
+    ],
+
     'comment' => [
         'deleted_parent' => 'Non è permesso rispondere ad un commento eliminato.',
-        'top_only' => '',
+        'top_only' => 'Fissare la risposta non è consentito.',
 
         'attributes' => [
             'message' => 'Il messaggio',
@@ -134,9 +121,11 @@ return [
     'user' => [
         'contains_username' => 'Password potrebbe non contenere il nome utente.',
         'email_already_used' => 'Indirizzo email già in uso.',
+        'email_not_allowed' => 'Indirizzo email non valido.',
         'invalid_country' => 'Paese non presente nel database.',
         'invalid_discord' => 'Nome utente di Discord non valido.',
         'invalid_email' => "Non sembra essere un indirizzo email valido.",
+        'invalid_twitter' => 'Username Twitter non valido.',
         'too_short' => 'La nuova password è troppo corta.',
         'unknown_duplicate' => 'Nome utente o indirizzo email già in uso.',
         'username_available_in' => 'Questo nome utente sarà disponibile per l\'uso tra :duration.',

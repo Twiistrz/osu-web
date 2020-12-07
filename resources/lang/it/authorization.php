@@ -1,24 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => 'Che ne dici di giocare un po\' ad osu!?',
     'require_login' => 'Per favore effettua il login per poter procedere.',
     'require_verification' => 'Per favore, esegui la verifica prima di procedere.',
     'restricted' => "Non puoi farlo mentre sei limitato.",
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => 'Devi essere un nominatore completo per nominare dei set di beatmap con più di una modalità di gioco.',
             'incorrect_state' => 'Errore nell\'eseguire questa azione, prova a ricaricare la pagina.',
             'owner' => "Non puoi nominare la tua beatmap.",
+            'set_metadata' => 'Devi impostare il genere e la lingua prima di nominarla.',
         ],
         'resolve' => [
             'not_owner' => 'Solo l\'autore del topic e il creatore della mappa possono risolvere una discussione.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "Non puoi votare in una discussione creata da un bot",
             'limit_exceeded' => 'Per favore attendi un po\' prima di esprimere altri voti',
             'owner' => "Non puoi votare la tua discussione.",
             'wrong_beatmapset_state' => 'Puoi votare solo su discussioni di beatmap in sospeso.',
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => 'Questa beatmap è bloccata per la discussione.',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => 'Non puoi modificare i metadata di una mappa nominata. Contatta un membro di BN o NAT se pensi che siano stati impostati in modo errato.',
         ],
     ],
 
@@ -173,7 +167,7 @@ return [
             'edit' => [
                 'locked' => 'La tua userpage è bloccata.',
                 'not_owner' => 'Puoi modificare solo la tua pagina utente.',
-                'require_supporter_tag' => 'è necessario avere la tag osu!supporter.',
+                'require_supporter_tag' => 'è necessario avere il tag osu!supporter.',
             ],
         ],
     ],

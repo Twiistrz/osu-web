@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'confirmation' => 'Oletko varma?',
@@ -35,11 +20,13 @@ return [
 
     'buttons' => [
         'admin' => 'Ylläpitäjä',
-        'authorise' => '',
+        'authorise' => 'Valtuuta',
+        'authorising' => 'Valtuutetaan...',
         'back_to_previous' => 'Takaisin',
         'back_to_top' => 'Takaisin ylös',
         'cancel' => 'Peruuta',
         'change' => 'vaihda',
+        'clear' => 'Tyhjennä',
         'click_to_copy' => 'kopioi leikepöydälle',
         'click_to_copy_copied' => 'kopioitu leikepöydälle!',
         'close' => 'Sulje',
@@ -51,6 +38,7 @@ return [
         'permalink' => 'pysyvä linkki',
         'pin' => 'kiinnitä',
         'post' => 'Lähetä',
+        'read_more' => 'lue lisää',
         'reply' => 'Vastaa',
         'reply_reopen' => 'Vastaa ja uudelleenavaa',
         'reply_resolve' => 'Vastaa ja merkitse ratkaistuksi',
@@ -62,7 +50,7 @@ return [
         'see_more' => 'katso lisää',
         'show' => 'näytä',
         'show_deleted' => 'Näytä poistetut',
-        'show_less' => '',
+        'show_less' => 'näytä vähemmän',
         'show_more' => 'näytä lisää',
         'show_more_options' => 'näytä lisävaihtoehtoja',
         'unpin' => 'poista kiinnitys',
@@ -138,6 +126,21 @@ return [
         'count_geki' => 'MAX',
         'count_katu' => '200',
         'count_miss' => 'Ohi',
+    ],
+
+    'scoreboard_time' => [
+        'd' => '%d pv',
+        'dd' => '%d pv',
+        'h' => '%d t',
+        'hh' => '%d t',
+        'M' => '%d kk',
+        'm' => '%d min',
+        'MM' => '%d kk',
+        'mm' => '%d min',
+        'past' => '',
+        's' => '%d s',
+        'y' => '',
+        'yy' => '',
     ],
 
     'time' => [

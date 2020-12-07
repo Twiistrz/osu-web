@@ -1,54 +1,97 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
-use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Http\Request;
+use Illuminate\Auth\AuthenticationException;
+use Laravel\Passport\ClientRepository;
+use League\OAuth2\Server\Exception\OAuthServerException;
+use League\OAuth2\Server\ResourceServer;
+use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
+use Zend\Diactoros\ResponseFactory;
+use Zend\Diactoros\ServerRequestFactory;
+use Zend\Diactoros\StreamFactory;
+use Zend\Diactoros\UploadedFileFactory;
 
 class AuthApi
 {
-    // TODO: this should be definable per-controller or action.
-    public static function skipAuth($request)
+    const REQUEST_OAUTH_TOKEN_KEY = 'oauth_token';
+
+    protected $clients;
+    protected $server;
+
+    public function __construct(ResourceServer $server, ClientRepository $clients)
     {
-        static $skipGet = [
-            'api/v2/changelog/',
-            'api/v2/comments/',
-            'api/v2/seasonal-backgrounds/',
-        ];
-
-        $path = "{$request->decodedPath()}/";
-
-        return $request->isMethod('GET') && starts_with($path, $skipGet);
+        $this->clients = $clients;
+        $this->server = $server;
     }
 
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        auth()->shouldUse('api');
-        optional(auth()->user())->markSessionVerified();
+        // FIXME:
+        // default session guard is used. This really works by coincidence with cookies disabled
+        // since session user resolution will fail, but it'll still keep repeatedly attempting to resolve it.
 
-        if (static::skipAuth($request)) {
-            return $next($request);
+        if ($request->bearerToken() !== null) {
+            $psr = $this->validateRequest($request);
+            $token = $this->validTokenFromRequest($psr);
+            $request->attributes->set(static::REQUEST_OAUTH_TOKEN_KEY, $token);
+        } else {
+            if (!RequireScopes::noTokenRequired($request)) {
+                throw new AuthenticationException();
+            }
         }
 
-        return app(Authenticate::class)->handle($request, $next, 'api');
+        return $next($request);
+    }
+
+    private function validateRequest($request)
+    {
+        $psr = (new PsrHttpFactory(
+            new ServerRequestFactory(),
+            new StreamFactory(),
+            new UploadedFileFactory(),
+            new ResponseFactory()
+        ))->createRequest($request);
+
+        try {
+            return $this->server->validateAuthenticatedRequest($psr);
+        } catch (OAuthServerException $e) {
+            throw new AuthenticationException();
+        }
+    }
+
+    private function validTokenFromRequest($psr)
+    {
+        $psrClientId = $psr->getAttribute('oauth_client_id');
+        $psrUserId = get_int($psr->getAttribute('oauth_user_id'));
+        $psrTokenId = $psr->getAttribute('oauth_access_token_id');
+
+        $client = $this->clients->findActive($psrClientId);
+        if ($client === null) {
+            throw new AuthenticationException('invalid client');
+        }
+
+        $token = $client->tokens()->where('revoked', false)->where('expires_at', '>', now())->find($psrTokenId);
+        if ($token === null) {
+            throw new AuthenticationException('invalid token');
+        }
+
+        $user = $psrUserId !== null ? User::find($psrUserId) : null;
+        if (optional($user)->getKey() !== $token->user_id) {
+            throw new AuthenticationException();
+        }
+
+        if ($user !== null) {
+            auth()->setUser($user);
+            $user->withAccessToken($token);
+            $user->markSessionVerified();
+        }
+
+        return $token;
     }
 }

@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => '답글 저장 실패',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => '투표 변경 실패',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'kudosu 획득이 불가능합니다.',
         'message_placeholder_deleted_beatmap' => '제거된 난이도이므로 더 이상의 토론이 불가능합니다.',
         'message_placeholder_locked' => '이 비트맵에 대한 토론이 비활성화되었습니다.',
+        'message_placeholder_silenced' => "침묵 상태에서는 토론 게시글을 게시할 수 없습니다.",
         'message_type_select' => '게시할 답글의 형식을 선택하세요',
         'reply_notice' => '답변을 보내려면 엔터를 누르세요.',
         'reply_placeholder' => '보내실 답변의 내용을 입력하세요.',
@@ -57,7 +37,7 @@ return [
         ],
 
         'empty' => [
-            'empty' => '아직 토론이 아무것도 없습니다!',
+            'empty' => '아직 아무런 토론이 없습니다!',
             'hidden' => '검색 결과에 해당하는 토론이 없습니다.',
         ],
 
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => '일반(:version)에 게시할 답글 내용을 입력하세요.',
             'generalAll' => '일반(모든 난이도)에 게시할 답글 내용을 입력하세요.',
+            'review' => '여기에 입력하여 리뷰를 남길 수 있습니다.',
             'timeline' => '타임라인(:version)에 게시할 답글 내용을 입력하세요.',
         ],
 
@@ -88,7 +69,7 @@ return [
             'disqualify' => 'Disqualify',
             'hype' => 'Hype!',
             'mapper_note' => '노트',
-            'nomination_reset' => '지명 초기화',
+            'nomination_reset' => '추천 초기화',
             'praise' => '칭찬',
             'problem' => '문제',
             'review' => '검토',
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => '비트맵 편집 모드에서 Ctrl-C를 눌러 복사하고 이 곳에 붙여넣어 타임스탬프를 추가할 수 있습니다!',
             'title' => '새 토론',
             'unpin' => '고정 해제',
+        ],
+
+        'review' => [
+            'new' => '새 리뷰 남기기',
+            'embed' => [
+                'delete' => '삭제',
+                'missing' => '[토론 삭제됨]',
+                'unlink' => '링크 해제',
+                'unsaved' => '저장되지 않음',
+                'timestamp' => [
+                    'all-diff' => '"모든 난이도"의 게시글에는 시간을 달 수 없습니다.',
+                    'diff' => '만약 이 :type 이(가) 시각으로 시작한다면 타임라인 아래에 보여집니다.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '단락 삽입',
+                'praise' => '칭찬 삽입',
+                'problem' => '문제 삽입',
+                'suggestion' => '제안 삽입',
+            ],
         ],
 
         'show' => [
@@ -158,10 +159,10 @@ return [
         'button' => '비트맵 Hype!',
         'button_done' => '이미 Hype했습니다!',
         'confirm' => "확실한가요? 이 작업은 남아있는 :n개의 Hype를 사용하고, 취소할 수 없습니다.",
-        'explanation' => 'Hype로 이 비트맵의 노출 순위를 올릴 수 있습니다. 빠르게 랭크맵이 되길 원한다면 Hype 하세요!',
-        'explanation_guest' => 'Hype로 이 비트맵의 노출 순위를 올릴 수 있습니다. 빠르게 랭크맵이 되길 원한다면 로그인 후 Hype 하세요!',
-        'new_time' => ":new_time에 새로운 hype를 받을 수 있습니다.",
-        'remaining' => 'hype가 :remaining개 남았습니다.',
+        'explanation' => 'Hype로 비트맵의 노출 순위를 올릴 수 있습니다. 비트맵이 더 빠르게 랭크되길 바란다면 Hype 하세요!',
+        'explanation_guest' => 'Hype로 비트맵의 노출 순위를 올릴 수 있습니다. 비트맵이 더 빠르게 랭크되길 바란다면 로그인 후 Hype 하세요!',
+        'new_time' => ":new_time에 새로운 Hype를 받을 수 있습니다.",
+        'remaining' => ':remaining번 Hype 할 수 있습니다.',
         'required_text' => 'Hype: :current/:required',
         'section_title' => 'Hype Train',
         'title' => 'Hype',
@@ -182,25 +183,31 @@ return [
         'incorrect_state' => '해당 작업을 수행하는 중 오류가 발생했습니다, 페이지를 새로 고쳐보세요.',
         'love' => '하트',
         'love_confirm' => '이 비트맵이 마음에 드시나요?',
-        'nominate' => '지명',
-        'nominate_confirm' => '이 비트맵을 지명하시겠습니까?',
-        'nominated_by' => ':users님이 지명함',
+        'nominate' => '추천',
+        'nominate_confirm' => '이 비트맵을 추천하시겠습니까?',
+        'nominated_by' => ':users 님이 추천함',
         'not_enough_hype' => "Hype 수가 부족합니다.",
-        'qualified' => '문제가 발견되지 않으면 :date에 랭크됩니다.',
-        'qualified_soon' => '문제가 발견되지 않으면 곧 랭크됩니다.',
-        'required_text' => '지명 수: :current/:required',
+        'remove_from_loved' => 'Loved 상태에서 제거',
+        'remove_from_loved_prompt' => 'Loved에서 제거된 이유',
+        'required_text' => '추천 수: :current/:required',
         'reset_message_deleted' => '삭제됨',
-        'title' => '지명 상태',
+        'title' => '추천 상태',
         'unresolved_issues' => '먼저 해결되지 않은 토론을 마무리지어야 합니다.',
 
+        'rank_estimate' => [
+            '_' => '이 맵에 아무런 문제가 발견되지 않으면 :date 에 랭크될 예정입니다. :queue의 #:position번째 순서입니다.',
+            'queue' => '랭킹 대기열',
+            'soon' => '곧',
+        ],
+
         'reset_at' => [
-            'nomination_reset' => ':time_ago 전 :user님이 지명 상태를 초기화시켰습니다. :discussion (:message)',
+            'nomination_reset' => ':time_ago 전 :user님이 추천 상태를 초기화시켰습니다. :discussion (:message)',
             'disqualify' => ':time_ago 전 :user님에 의해 Disqualified 되었습니다. :discussion (:message)',
         ],
 
         'reset_confirm' => [
-            'nomination_reset' => '확실한가요? 새로운 문제를 제기하는 것은 지명 상태를 초기화시킵니다.',
-            'disqualify' => '확실한가요? 이 작업은 비트맵을 qualify 상태에서 제거하고 지명 상태도 초기화합니다.',
+            'nomination_reset' => '확실한가요? 새로운 문제를 제기하는 것은 추천 상태를 초기화시킵니다.',
+            'disqualify' => '확실한가요? 이 작업은 비트맵을 qualify 상태에서 제거하고 추천 상태를 초기화합니다.',
         ],
     ],
 
@@ -232,10 +239,10 @@ return [
                 'rating' => '평가',
                 'plays' => '플레이된 횟수',
                 'relevance' => '연관성',
-                'nominations' => '지명 순',
+                'nominations' => '추천 순',
             ],
             'supporter_filter_quote' => [
-                '_' => ':filters로 검색하려면 :link이 필요합니다.',
+                '_' => '":filters" 필터를 사용하시려면 :link가 필요합니다.',
                 'link_text' => 'osu! 서포터',
             ],
         ],
@@ -245,6 +252,7 @@ return [
         'converts' => '변환된 비트맵 포함',
     ],
     'mode' => [
+        'all' => '전체',
         'any' => '모두',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -255,7 +263,7 @@ return [
         'any' => '모두',
         'approved' => 'Approved',
         'favourites' => '즐겨찾기',
-        'graveyard' => 'Graveyard',
+        'graveyard' => '무덤에 감',
         'leaderboard' => '리더보드 있음',
         'loved' => 'Loved',
         'mine' => '내 비트맵',
@@ -274,6 +282,10 @@ return [
         'novelty' => '이색적인 장르',
         'hip-hop' => '힙합',
         'electronic' => '일렉트로닉',
+        'metal' => '메탈',
+        'classical' => '클래식',
+        'folk' => '포크',
+        'jazz' => '재즈',
     ],
     'mods' => [
         '4K' => '4키',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => '모두',
@@ -311,8 +324,11 @@ return [
         'korean' => '한국어',
         'spanish' => '스페인어',
         'swedish' => '스웨덴어',
+        'russian' => '러시아어',
+        'polish' => '폴란드어',
         'instrumental' => 'Instrumental',
         'other' => '기타',
+        'unspecified' => '미지정',
     ],
     'played' => [
         'any' => '모두',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => '플레이 횟수: :count',
         'favourites' => '즐겨찾기 수: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => '전체',
+        ],
     ],
 ];

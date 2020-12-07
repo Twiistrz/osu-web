@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\Store;
 
@@ -48,8 +33,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Database\Eloquent\Collection $items OrderItem
  * @property string|null $last_tracking_state
  * @property int $order_id
+ * @property string|null $provider
  * @property \Carbon\Carbon|null $paid_at
  * @property \Illuminate\Database\Eloquent\Collection $payments Payment
+ * @property string|null $reference
  * @property \Carbon\Carbon|null $shipped_at
  * @property float|null $shipping
  * @property mixed $status
@@ -83,6 +70,11 @@ class Order extends Model
 
     protected $dates = ['deleted_at', 'shipped_at', 'paid_at'];
     public $macros = ['itemsQuantities'];
+
+    protected static function splitTransactionId($value)
+    {
+        return explode('-', $value, 2);
+    }
 
     public function items()
     {
@@ -131,8 +123,10 @@ class Order extends Model
 
     public function scopeWhereOrderNumber($query, $orderNumber)
     {
-        if (!preg_match(static::ORDER_NUMBER_REGEX, $orderNumber, $matches)
-            || config('store.order.prefix') !== $matches['prefix']) {
+        if (
+            !preg_match(static::ORDER_NUMBER_REGEX, $orderNumber, $matches)
+            || config('store.order.prefix') !== $matches['prefix']
+        ) {
             // hope there's no order_id 0 :D
             return $query->where('order_id', '=', 0);
         }
@@ -189,7 +183,7 @@ class Order extends Model
             return;
         }
 
-        return explode('-', $this->transaction_id)[0];
+        return static::splitTransactionId($this->transaction_id)[0];
     }
 
     public function getPaymentStatusText()
@@ -222,7 +216,7 @@ class Order extends Model
             return null;
         }
 
-        return explode('-', $this->transaction_id)[1] ?? null;
+        return static::splitTransactionId($this->transaction_id)[1] ?? null;
     }
 
     public function getSubtotal($forShipping = false)
@@ -237,6 +231,21 @@ class Order extends Model
         }
 
         return (float) $total;
+    }
+
+    public function setTransactionIdAttribute($value)
+    {
+        // TODO: migrate to always using provider and reference instead of transaction_id.
+        $this->attributes['transaction_id'] = $value;
+
+        $split = static::splitTransactionId($value);
+        $this->provider = $split[0] ?? null;
+
+        $reference = $split[1] ?? null;
+        // For Paypal we're going to use the PAYID number for reference instead of the IPN txn_id
+        if ($this->provider !== static::PROVIDER_PAYPAL && $reference !== 'failed') {
+            $this->reference = $reference;
+        }
     }
 
     public function requiresShipping()
@@ -281,7 +290,7 @@ class Order extends Model
             if ($primaryShipping === $i->product->base_shipping) {
                 $total += $i->product->base_shipping * 1 + ($i->quantity - 1) * $i->product->next_shipping;
             } else {
-                $total += ($i->quantity) * $i->product->next_shipping;
+                $total += $i->quantity * $i->product->next_shipping;
             }
         }
 

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'receber notificações para novos problemas em beatmaps qualificados dos seguintes modos',
+        'beatmapset_disqualify' => 'receber notificações quando os beatmaps dos seguintes modos forem desqualificados',
+        'comment_reply' => 'receber notificações das respostas aos seus comentários',
         'title' => 'Notificações',
         'topic_auto_subscribe' => 'automaticamente ativar as notificações em tópicos que você criar no fórum',
-        'beatmapset_discussion_qualified_problem' => 'receber notificações para novos problemas em beatmaps qualificados dos seguintes modos',
 
-        'mail' => [
-            '_' => 'receber notificações por email para',
-            'beatmapset:modding' => 'modding de beatmap',
+        'options' => [
+            '_' => 'opções de entrega',
+            'beatmapset:modding' => 'modding em beatmap',
+            'channel_message' => 'mensagens privadas',
+            'comment_new' => 'novos comentários',
             'forum_topic_reply' => 'resposta em tópico',
+            'mail' => 'email',
+            'push' => 'push',
+            'user_achievement_unlock' => 'medalha de usuário desbloqueada',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'clientes autorizados',
         'own_clients' => 'clientes próprios',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Opções',
+
+        'beatmapset_download' => [
+            '_' => 'tipo de download padrão de beatmap',
+            'all' => 'com vídeo se disponível',
+            'no_video' => 'sem vídeo',
+            'direct' => 'abrir no osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'mostrar metadados do beatmap no idioma original',
     ],
 
     'playstyles' => [

@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import { FormErrors } from 'form-errors';
 import { action } from 'mobx';
@@ -32,13 +17,16 @@ interface Props {
 }
 
 interface State {
+  isSecretVisible: boolean;
   redirect: string;
-  [key: string]: string;
+
+  [key: string]: unknown;
 }
 
 @observer
 export class ClientDetails extends React.Component<Props, State> {
   readonly state: State = {
+    isSecretVisible: false,
     redirect: this.props.client.redirect,
   };
 
@@ -70,6 +58,21 @@ export class ClientDetails extends React.Component<Props, State> {
   }
 
   @action
+  handleReset = () => {
+    if (!confirm(osu.trans('oauth.own_clients.confirm_reset'))) { return; }
+    if (this.props.client.isResetting) { return; }
+
+    this.props.client.resetSecret()
+    .then(() => this.setState({ isSecretVisible: true }))
+    .catch(osu.ajaxError);
+  }
+
+  @action
+  handleToggleSecret = () => {
+    this.setState({ isSecretVisible: !this.state.isSecretVisible });
+  }
+
+  @action
   handleUpdate = () => {
     if (this.props.client.isUpdating) { return; }
     this.props.client.updateWith(this.state).then(() => {
@@ -88,9 +91,32 @@ export class ClientDetails extends React.Component<Props, State> {
           <div className='oauth-client-details__label'>{osu.trans('oauth.client.id')}</div>
           <div>{this.props.client.id}</div>
         </div>
-        <div>
+        <div className='oauth-client-details__group'>
           <div className='oauth-client-details__label'>{osu.trans('oauth.client.secret')}</div>
-          <div>{this.props.client.secret}</div>
+          <div>
+            {
+              this.state.isSecretVisible
+                ? this.props.client.secret
+                : 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+            }
+          </div>
+          <div className='oauth-client-details__buttons'>
+            <button
+              className='btn-osu-big'
+              onClick={this.handleToggleSecret}
+              type='button'
+            >
+                {osu.trans(`oauth.client.secret_visible.${this.state.isSecretVisible}`)}
+            </button>
+            <button
+              className='btn-osu-big btn-osu-big--danger'
+              disabled={this.props.client.isResetting || this.props.client.revoked}
+              onClick={this.handleReset}
+              type='button'
+            >
+                {this.props.client.isResetting ? <Spinner /> : osu.trans('oauth.client.reset')}
+            </button>
+          </div>
         </div>
 
         <div className='oauth-client-details__group'>

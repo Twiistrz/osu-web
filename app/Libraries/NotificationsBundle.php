@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
@@ -68,7 +53,7 @@ class NotificationsBundle
         ];
 
         if ($this->unreadOnly) {
-            $response['unread_count'] = $this->user->userNotifications()->where('is_read', false)->count();
+            $response['unread_count'] = $this->user->userNotifications()->hasPushDelivery()->where('is_read', false)->count();
         }
 
         return $response;
@@ -82,7 +67,7 @@ class NotificationsBundle
             return;
         }
 
-        $query = $this->user->userNotifications()->with('notification')->whereHas('notification', function ($q) use ($objectId, $objectType, $category) {
+        $query = $this->user->userNotifications()->with('notification')->hasPushDelivery()->whereHas('notification', function ($q) use ($objectId, $objectType, $category) {
             $names = Notification::namesInCategory($category);
             $q
                 ->where('notifiable_type', $objectType)
@@ -117,8 +102,7 @@ class NotificationsBundle
         $heads = $this->getStackHeads($type);
 
         $heads->each(function ($row) {
-            $category = Notification::nameToCategory($row->name);
-            $this->fillStacks($row->notifiable_type, $row->notifiable_id, $category);
+            $this->fillStacks($row->notifiable_type, $row->notifiable_id, $row->category);
         });
 
         $last = $heads->last();
@@ -138,7 +122,7 @@ class NotificationsBundle
     private function getTotalNotificationCount(?string $type = null)
     {
         $query = Notification::whereHas('userNotifications', function ($q) {
-            $q->where('user_id', $this->user->getKey());
+            $q->hasPushDelivery()->where('user_id', $this->user->getKey());
             if ($this->unreadOnly) {
                 $q->where('is_read', false);
             }
@@ -154,7 +138,7 @@ class NotificationsBundle
     private function getStackHeads(?string $type = null)
     {
         $heads = Notification::whereHas('userNotifications', function ($q) {
-            $q->where('user_id', $this->user->getKey());
+            $q->hasPushDelivery()->where('user_id', $this->user->getKey());
             if ($this->unreadOnly) {
                 $q->where('is_read', false);
             }
@@ -202,7 +186,7 @@ class NotificationsBundle
         ];
 
         return [
-            'category' => Notification::nameToCategory($last->name),
+            'category' => $last->category,
             'cursor' => $cursor,
             'name' => $last->name,
             'object_type' => $last->notifiable_type,

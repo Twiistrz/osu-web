@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Errore durante il salvataggio del post',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Errore durante l\'aggiornamento del voto',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Negato dall\'ottenimento di kudosu.',
         'message_placeholder_deleted_beatmap' => 'Questa difficoltà è stata eliminata, quindi non può più essere discussa.',
         'message_placeholder_locked' => 'La discussione per questa beatmap è stata disabilitata.',
+        'message_placeholder_silenced' => "Non puoi postare una discussione mentre sei silenziato.",
         'message_type_select' => 'Seleziona il tipo di commento',
         'reply_notice' => 'Premi invio per rispondere.',
         'reply_placeholder' => 'Scrivi la tua risposta qui',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Scrivi qui per postare in Generale (:version)',
             'generalAll' => 'Scrivi qui per postare in Generale (Tutte le difficoltà)',
+            'review' => 'Scrivi qui per postare una revisione',
             'timeline' => 'Scrivi qui per postare nella Linea Temporale (:version)',
         ],
 
@@ -91,14 +72,14 @@ return [
             'nomination_reset' => 'Resetta Nomina',
             'praise' => 'Elogio',
             'problem' => 'Problema',
-            'review' => 'Recensione',
+            'review' => 'Revisione',
             'suggestion' => 'Suggerimento',
         ],
 
         'mode' => [
             'events' => 'Cronologia',
-            'general' => ':scope Generale',
-            'reviews' => 'Recensioni',
+            'general' => 'Generale :scope',
+            'reviews' => 'Revisioni',
             'timeline' => 'Linea Temporale',
             'scopes' => [
                 'general' => 'Questa difficoltà',
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'fai ctrl-c nell\'editor ed incolla nel tuo messaggio per aggiungere un timestamp!',
             'title' => 'Nuova Discussione',
             'unpin' => 'Non fissare',
+        ],
+
+        'review' => [
+            'new' => 'Nuova revisione',
+            'embed' => [
+                'delete' => 'Elimina',
+                'missing' => '[DISCUSSIONE ELIMINATA]',
+                'unlink' => 'Dissocia',
+                'unsaved' => 'Non salvato',
+                'timestamp' => [
+                    'all-diff' => 'I post su "Tutte le difficoltà" non possono avere un timestamp.',
+                    'diff' => 'Se questo :type inizia con un timestamp, sarà mostrato nella Timeline.',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => 'inserisci paragrafo',
+                'praise' => 'inserisci elogio',
+                'problem' => 'inserisci problema',
+                'suggestion' => 'inserisci suggerimento',
+            ],
         ],
 
         'show' => [
@@ -155,11 +156,11 @@ return [
     ],
 
     'hype' => [
-        'button' => 'Beatmap Hype!',
+        'button' => 'Metti hype!',
         'button_done' => 'Hype già messo!',
         'confirm' => "Sei sicuro? Questo utilizzerà uno dei tuoi :n hype rimanenti e non può essere annullato.",
-        'explanation' => 'Lascia hype a questa beatmap per renderla più visibile per la nomina e il ranking!',
-        'explanation_guest' => 'Effettua l\'accesso e lascia hype a questa beatmap per renderla più visibile per la nomina e il raking!',
+        'explanation' => 'Metti hype a questa beatmap per renderla più visibile per la nomina ed il ranking!',
+        'explanation_guest' => 'Effettua l\'accesso e metti hype a questa beatmap per renderla più visibile per la nomina ed il raking!',
         'new_time' => "Riceverai un altro hype :new_time.",
         'remaining' => 'Hai ancora :remaining hype rimanenti.',
         'required_text' => 'Hype: :current/:required',
@@ -176,7 +177,7 @@ return [
         'delete_own_confirm' => 'Sei sicuro? La beatmap verrà eliminata e sarai reindirizzato al tuo profilo.',
         'delete_other_confirm' => 'Sei sicuro? La beatmap verrà eliminata e sarai reindirizzato al profilo del creatore.',
         'disqualification_prompt' => 'Ragioni della squalifica?',
-        'disqualified_at' => 'squalificata :time_ago',
+        'disqualified_at' => 'Squalificata :time_ago (:reason).',
         'disqualified_no_reason' => 'nessuna motivazione specificata',
         'disqualify' => 'Squalifica',
         'incorrect_state' => 'Errore nel eseguire quell\'azione, prova a ricaricare la pagina.',
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Nominare questa beatmap?',
         'nominated_by' => 'nominata da :users',
         'not_enough_hype' => "Non c'è abbastanza hype.",
-        'qualified' => 'La classificazione è prevista per il :date, se non viene trovato alcun problema.',
-        'qualified_soon' => 'Sarà rankata a breve, se non viene trovato alcun problema.',
+        'remove_from_loved' => 'Rimuovi dalle amate',
+        'remove_from_loved_prompt' => 'Motivo per la rimozione dalle amate:',
         'required_text' => 'Nomine: :current/:required',
         'reset_message_deleted' => 'eliminato',
         'title' => 'Stato nomine',
         'unresolved_issues' => 'Ci sono ancora dei problemi irrisolti che vanno prima sistemati.',
+
+        'rank_estimate' => [
+            '_' => 'È stimato che questa mappa verrà rankata in data :date se non vengono trovati problemi. È in posizione #:position nella :queue.',
+            'queue' => 'coda di ranking',
+            'soon' => 'molto vicina',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Processo di nomina azzerato :time_ago da :user con il nuovo problema :discussion (:message).',
@@ -228,7 +235,7 @@ return [
                 'difficulty' => 'Difficoltà',
                 'favourites' => 'Preferiti',
                 'updated' => 'Aggiornato',
-                'ranked' => 'Classificata',
+                'ranked' => 'Rankata',
                 'rating' => 'Valutazione',
                 'plays' => 'Giocate',
                 'relevance' => 'Pertinenza',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Includi beatmap convertite',
     ],
     'mode' => [
+        'all' => 'Qualsiasi',
         'any' => 'Qualsiasi',
         'osu' => 'osu!',
         'taiko' => 'osu!taiko',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Novità',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Elettronica',
+        'metal' => 'Metal',
+        'classical' => 'Classico',
+        'folk' => 'Folk',
+        'jazz' => 'Jazz',
     ],
     'mods' => [
         '4K' => '4K',
@@ -299,6 +311,7 @@ return [
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => '',
+        'V2' => 'Score V2',
     ],
     'language' => [
         'any' => 'Qualsiasi',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Coreano',
         'spanish' => 'Spagnolo',
         'swedish' => 'Svedese',
+        'russian' => 'Russo',
+        'polish' => 'Polacco',
         'instrumental' => 'Strumentale',
         'other' => 'Altro',
+        'unspecified' => 'Non specificato',
     ],
     'played' => [
         'any' => 'Qualsiasi',
@@ -335,7 +351,14 @@ return [
         'D' => 'D',
     ],
     'panel' => [
-        'playcount' => 'Numero partite: :count',
+        'playcount' => 'Volte giocata: :count',
         'favourites' => 'Preferiti: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '4K',
+            '7k' => '7K',
+            'all' => 'Tutte',
+        ],
     ],
 ];

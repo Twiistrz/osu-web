@@ -1,26 +1,10 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\Score\Best;
 
-use App\Libraries\ModsHelper;
 use App\Libraries\ReplayFile;
 use App\Models\Beatmap;
 use App\Models\ReplayViewCount;
@@ -54,7 +38,7 @@ abstract class Model extends BaseModel
 
     public static function queueIndexingForUser(User $user)
     {
-        $instance = new static;
+        $instance = new static();
         $table = $instance->getTable();
         $modeId = Beatmap::MODES[static::getMode()];
 
@@ -83,25 +67,37 @@ abstract class Model extends BaseModel
             $limit = config('osu.beatmaps.max-scores');
             $newQuery = (clone $query)->with('user')->limit($limit * 3);
 
-            $baseResult = $newQuery->get();
-
             $result = [];
-            $users = [];
+            $offset = 0;
+            $baseResultCount = 0;
+            $finalize = function (array $result) {
+                return array_values($result);
+            };
 
-            foreach ($baseResult as $entry) {
-                if (isset($users[$entry->user_id])) {
-                    continue;
-                }
+            while (true) {
+                $baseResult = $newQuery->offset($offset)->get();
+                $baseResultCount = count($baseResult);
 
-                if (count($result) >= $limit) {
+                if ($baseResultCount === 0) {
                     break;
                 }
 
-                $users[$entry->user_id] = true;
-                $result[] = $entry;
+                $offset += $baseResultCount;
+
+                foreach ($baseResult as $entry) {
+                    if (isset($result[$entry->user_id])) {
+                        continue;
+                    }
+
+                    $result[$entry->user_id] = $entry;
+
+                    if (count($result) >= $limit) {
+                        return $finalize($result);
+                    }
+                }
             }
 
-            return $result;
+            return $finalize($result);
         };
     }
 
@@ -112,47 +108,24 @@ abstract class Model extends BaseModel
             return;
         }
 
-        return with_db_fallback('mysql-readonly', function ($connection) use ($options) {
-            $alwaysAccurate = false;
+        $query = static
+            ::where('beatmap_id', '=', $this->beatmap_id)
+            ->cursorWhere([
+                ['column' => 'score', 'order' => 'ASC', 'value' => $this->score],
+                ['column' => 'score_id', 'order' => 'DESC', 'value' => $this->getKey()],
+            ]);
 
-            $query = static::on($connection)
-                ->where('beatmap_id', '=', $this->beatmap_id)
-                ->where(function ($query) {
-                    $query
-                        ->where('score', '>', $this->score)
-                        ->orWhere(function ($query2) {
-                            $query2
-                                ->where('score', '=', $this->score)
-                                ->where('score_id', '<', $this->getKey());
-                        });
-                });
+        if (isset($options['type'])) {
+            $query->withType($options['type'], ['user' => $this->user]);
+        }
 
-            if (isset($options['type'])) {
-                $query->withType($options['type'], ['user' => $this->user]);
+        if (isset($options['mods'])) {
+            $query->withMods($options['mods']);
+        }
 
-                if ($options['type'] === 'country') {
-                    $alwaysAccurate = true;
-                }
-            }
+        $countQuery = DB::raw('DISTINCT user_id');
 
-            if (isset($options['mods'])) {
-                $query->withMods($options['mods']);
-            }
-
-            $countQuery = DB::raw('DISTINCT user_id');
-
-            if ($alwaysAccurate) {
-                return 1 + $query->visibleUsers()->default()->count($countQuery);
-            }
-
-            $rank = 1 + $query->count($countQuery);
-
-            if ($rank < config('osu.beatmaps.max-scores') * 3) {
-                return 1 + $query->visibleUsers()->default()->count($countQuery);
-            } else {
-                return $rank;
-            }
-        });
+        return 1 + $query->visibleUsers()->default()->count($countQuery);
     }
 
     public function macroUserBest()
@@ -247,20 +220,6 @@ abstract class Model extends BaseModel
         return $query->where(['hidden' => false]);
     }
 
-    public function scopeWithMods($query, $modsArray)
-    {
-        return $query->where(function ($q) use ($modsArray) {
-            if (in_array('NM', $modsArray, true)) {
-                $q->orWhere('enabled_mods', 0);
-            }
-
-            $bitset = ModsHelper::toBitset($modsArray);
-            if ($bitset > 0) {
-                $q->orWhere('enabled_mods', $bitset);
-            }
-        });
-    }
-
     public function scopeWithType($query, $type, $options)
     {
         switch ($type) {
@@ -319,6 +278,11 @@ abstract class Model extends BaseModel
         optional($this->replayFile())->delete();
 
         return $result;
+    }
+
+    public function getBestIdAttribute()
+    {
+        return $this->getKey();
     }
 
     protected function newReportableExtraParams(): array

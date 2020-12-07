@@ -1,30 +1,9 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
-    'discussion-posts' => [
-        'store' => [
-            'error' => 'Αποτυχία αποθήκευσης δημοσίευσης',
-        ],
-    ],
-
     'discussion-votes' => [
         'update' => [
             'error' => 'Αποτυχία ενημέρωσης ψήφων',
@@ -42,6 +21,7 @@ return [
         'kudosu_denied' => 'Αδύνατη η απόκτηση kudosu.',
         'message_placeholder_deleted_beatmap' => 'Η δυσκολία αυτή έχει διαγραφεί για αυτό δεν συζητιέται πλέον.',
         'message_placeholder_locked' => 'Η συζήτηση για αυτό το beatmap έχει απενεργοποιηθεί.',
+        'message_placeholder_silenced' => "",
         'message_type_select' => 'Επιλέξτε Τύπο Σχολίου',
         'reply_notice' => 'Πατήστε enter για να απαντήσετε.',
         'reply_placeholder' => 'Πληκτρολογήστε την απάντησή σας εδώ',
@@ -81,6 +61,7 @@ return [
         'message_placeholder' => [
             'general' => 'Πληκτρολογήστε εδώ για να δημοσιεύσετε στο General (:version)',
             'generalAll' => 'Πληκτρολογήστε εδώ για να δημοσιεύσετε στο General (όλες τις δυσκολίες)',
+            'review' => '',
             'timeline' => 'Πληκτρολογήστε εδώ για να δημοσιεύσετε στο Χρονολόγιο (:version)',
         ],
 
@@ -112,6 +93,26 @@ return [
             'timestamp_missing' => 'Ctrl + C στη λειτουργία τροποποίησης και επικολλήστε στο μήνυμα σας για να προσθέσετε μία χρονική σήμανση!',
             'title' => 'Νέα Συζήτηση',
             'unpin' => 'Ξεκαρφίτσωμα',
+        ],
+
+        'review' => [
+            'new' => '',
+            'embed' => [
+                'delete' => '',
+                'missing' => '',
+                'unlink' => '',
+                'unsaved' => '',
+                'timestamp' => [
+                    'all-diff' => '',
+                    'diff' => '',
+                ],
+            ],
+            'insert-block' => [
+                'paragraph' => '',
+                'praise' => '',
+                'problem' => '',
+                'suggestion' => '',
+            ],
         ],
 
         'show' => [
@@ -186,12 +187,18 @@ return [
         'nominate_confirm' => 'Κάντε nominate αυτό το beatmap;',
         'nominated_by' => 'nominated από :users',
         'not_enough_hype' => "",
-        'qualified' => 'Εκτιμάται ότι θα γίνει ranked στις :date, εάν δεν βρεθεί κάποιο πρόβλημα.',
-        'qualified_soon' => 'Εκτιμάται ότι θα γίνει ranked σύντομα, εάν δεν βρεθεί κάποιο πρόβλημα.',
+        'remove_from_loved' => '',
+        'remove_from_loved_prompt' => '',
         'required_text' => 'Υποψηφιότητες :current/:required',
         'reset_message_deleted' => 'διαγράφηκε',
         'title' => 'Κατάσταση Υποψηφιότητας',
         'unresolved_issues' => 'Εξακολουθούν να υπάρχουν άλυτα ζητήματα που πρέπει να αντιμετωπιστούν πρώτα.',
+
+        'rank_estimate' => [
+            '_' => '',
+            'queue' => '',
+            'soon' => '',
+        ],
 
         'reset_at' => [
             'nomination_reset' => 'Επαναφορά διεργασίας υποψηφιότητας :time_ago από :user με νέο πρόβλημα :discussion (:message).',
@@ -245,6 +252,7 @@ return [
         'converts' => 'Συμπεριλάμβανε beatmaps που έχουν μετατραπεί',
     ],
     'mode' => [
+        'all' => '',
         'any' => 'Οποιοδήποτε',
         'osu' => '',
         'taiko' => '',
@@ -274,6 +282,10 @@ return [
         'novelty' => 'Σύγχρονο',
         'hip-hop' => 'Hip Hop',
         'electronic' => 'Ηλεκτρονική Μουσική',
+        'metal' => '',
+        'classical' => '',
+        'folk' => '',
+        'jazz' => '',
     ],
     'mods' => [
         '4K' => '',
@@ -299,6 +311,7 @@ return [
         'SD' => '',
         'SO' => '',
         'TD' => '',
+        'V2' => '',
     ],
     'language' => [
         'any' => '',
@@ -311,8 +324,11 @@ return [
         'korean' => 'Κορεάτικα',
         'spanish' => 'Ισπανικά',
         'swedish' => 'Σουηδικά',
+        'russian' => '',
+        'polish' => '',
         'instrumental' => 'Ορχηστρικό',
         'other' => 'Άλλο',
+        'unspecified' => '',
     ],
     'played' => [
         'any' => 'Οποιοδήποτε',
@@ -337,5 +353,12 @@ return [
     'panel' => [
         'playcount' => 'Φορές που παίχτηκε: :count',
         'favourites' => 'Αγαπημένα: :count',
+    ],
+    'variant' => [
+        'mania' => [
+            '4k' => '',
+            '7k' => '',
+            'all' => '',
+        ],
     ],
 ];

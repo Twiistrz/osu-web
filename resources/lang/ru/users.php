@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[удалённый пользователь]',
@@ -54,8 +39,8 @@ return [
         'show_profile' => 'показать профиль',
         'too_many' => 'Достигнут лимит кол-ва заблокированных.',
         'button' => [
-            'block' => 'в чёрный список',
-            'unblock' => 'удалить',
+            'block' => 'заблокировать',
+            'unblock' => 'разблокировать',
         ],
     ],
 
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Ваш аккаунт не использовался в течение долгого времени.",
@@ -97,8 +86,9 @@ return [
         'button_posting' => 'Входим...',
         'email_login_disabled' => 'Вход в аккаунт с помощью электронной почты в настоящее время отключён. Вместо этого, пожалуйста, используйте имя пользователя.',
         'failed' => 'Неверный вход',
-        'forgot' => 'Забыли свой пароль?',
+        'forgot' => 'Забыли пароль?',
         'info' => 'Пожалуйста, войдите в аккаунт, чтобы продолжить',
+        'invalid_captcha' => 'Неверная капча, перезагрузите страницу и попробуйте снова.',
         'locked_ip' => 'Ваш IP адрес заблокирован. Попробуйте через несколько минут.',
         'password' => 'Пароль',
         'register' => "У вас всё ещё нет аккаунта в osu!? Создайте новый",
@@ -140,7 +130,7 @@ return [
             'cheating' => 'Нечестная игра / читы',
             'insults' => 'Оскорбление меня / других',
             'spam' => 'Спам',
-            'unwanted_content' => 'Неприемлемое содержимое',
+            'unwanted_content' => 'Неприемлемый контент',
             'nonsense' => 'Чушь',
             'other' => 'Другая (введите ниже)',
         ],
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Сейчас в сети',
         'missingtext' => 'Возможно, вы сделали опечатку! (или игрок заблокирован)',
         'origin_country' => 'Проживает в :country',
-        'page_description' => 'osu! - Всё, что вы хотели знать о :username!',
         'previous_usernames' => 'ранее известный как',
         'plays_with' => 'Играет с :devices',
         'title' => "Профиль :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Загрузить изображение',
                     'dropzone' => 'Перетащите для загрузки',
                     'dropzone_info' => 'Вы также можете перетащить изображение сюда для загрузки',
-                    'size_info' => 'Размер обложки должен быть равен 2800x620',
+                    'size_info' => 'Размер обложки должен быть равен 2400x620',
                     'too_large' => 'Загруженное изображение слишком большое.',
                     'unsupported_format' => 'Неподдерживаемый формат.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'от :artist',
-                'none' => 'Ничего… пока что.',
                 'title' => 'Карты',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'посмотреть больше событий',
             ],
             'historical' => [
-                'empty' => 'Пока записей нет :(',
                 'title' => 'Хронология',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Кудосу доступно',
-                'available_info' => "Кудосу могут быть обменены на кудосу-звёзды, которые помогут привлечь к Вашей карте больше внимания. Это количество кудосу, которые Вы ещё не обменивали.",
                 'recent_entries' => 'История кудосу',
                 'title' => 'Кудосу!',
                 'total' => 'Кудосу накоплено',
@@ -321,16 +306,16 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Скачать повтор',
-                'empty' => 'Пока рекордов нет :(',
                 'not_ranked' => 'Очки производительности выдаются только за прохождение рейтинговых карт.',
                 'pp_weight' => 'взвешено: :percentage',
+                'view_details' => 'Подробнее',
                 'title' => 'Рейтинги',
 
                 'best' => [
                     'title' => 'Лучшие результаты',
                 ],
                 'first' => [
-                    'title' => 'Рекорды',
+                    'title' => 'Первые места',
                 ],
             ],
             'votes' => [
@@ -341,7 +326,7 @@ return [
                 'vote_count' => ':count_delimited голос|:count_delimited голоса|:count_delimited голосов',
             ],
             'account_standing' => [
-                'title' => 'Состояние аккаунта',
+                'title' => 'Нарушения',
                 'bad_standing' => "с аккаунтом <strong>:username</strong> не всё хорошо :(",
                 'remaining_silence' => 'пользователю <strong>:username</strong> можно будет говорить через :duration.',
 
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Интересы',
-            'lastfm' => 'Last.fm',
             'location' => 'Текущее местоположение',
             'occupation' => 'Род деятельности',
             'skype' => 'Skype',
@@ -408,7 +392,7 @@ return [
             'maximum_combo' => 'Максимальное комбо',
             'medals' => 'Медалей',
             'play_count' => 'Количество игр',
-            'play_time' => 'времени в игре',
+            'play_time' => 'Времени в игре',
             'ranked_score' => 'Рейтинговые очки',
             'replays_watched_by_others' => 'Реплеев просмотрено другими',
             'score_ranks' => 'Рейтинг по очкам',
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Показывать кирпичиками',
         'card' => 'Показывать карточками',
         'list' => 'Показывать списком',
     ],

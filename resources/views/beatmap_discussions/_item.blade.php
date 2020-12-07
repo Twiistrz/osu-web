@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @php
     $postTypeToIcon = [
@@ -26,11 +13,11 @@
     ];
 @endphp
 <div class="beatmap-discussions__discussion beatmapset-activities__discussion-post">
-    <div class="beatmap-discussion beatmapset-activities__post-grow{{ $discussion->trashed() ? ' beatmap-discussion--deleted' : ''}}">
+    <div class="beatmap-discussion beatmap-discussion--single beatmapset-activities__post-grow{{ $discussion->trashed() ? ' beatmap-discussion--deleted' : ''}}">
         <div class="beatmap-discussion-timestamp__icons-container">
             <div class="beatmap-discussion-timestamp__icons">
                 <a href="{{ route('beatmapsets.discussion', $discussion->beatmapset) }}#/{{ $discussion->getKey() }}">
-                    <img class='beatmapset-activities__beatmapset-cover'
+                    <img class='beatmapset-cover'
                         src="{{$discussion->beatmapset->coverURL('list')}}"
                         srcSet="{{$discussion->beatmapset->coverURL('list')}} 1x, {{$discussion->beatmapset->coverURL('list@2x')}} 2x">
                 </a>

@@ -1,8 +1,12 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 namespace Tests\Browser;
 
 use App\Models\Country;
+use App\Models\Multiplayer\Room;
 use DB;
 use Route;
 use Tests\Browser;
@@ -69,7 +73,7 @@ class SanityTest extends DuskTestCase
                 'parent_id' => self::$scaffolding['forum_parent']->getKey(),
             ]);
             // satisfy group permissions required for posting in forum
-            self::$scaffolding['_group'] = factory(\App\Models\Group::class)->create();
+            self::$scaffolding['_group'] = app('groups')->byIdentifier('default');
             self::$scaffolding['_forum_acl_post'] = factory(\App\Models\Forum\Authorize::class, 'post')->create([
                 'forum_id' => self::$scaffolding['forum']->getKey(),
                 'group_id' => self::$scaffolding['_group']->getKey(),
@@ -81,6 +85,7 @@ class SanityTest extends DuskTestCase
             self::$scaffolding['_user_group'] = factory(\App\Models\UserGroup::class)->create([
                 'user_id' => self::$scaffolding['user']->getKey(),
                 'group_id' => self::$scaffolding['_group']->getKey(),
+                'user_pending' => false,
             ]);
             // satisfy minimum playcount for forum posting
             self::$scaffolding['user']->statisticsOsu()->save(factory(\App\Models\UserStatistics\Osu::class)->make(['playcount' => config('osu.forum.minimum_plays')]));
@@ -129,8 +134,8 @@ class SanityTest extends DuskTestCase
             ]);
 
             // factory for matches
-            self::$scaffolding['match'] = factory(\App\Models\Multiplayer\Match::class)->create();
-            self::$scaffolding['event'] = factory(\App\Models\Multiplayer\Event::class)->states('join')->create([
+            self::$scaffolding['match'] = factory(\App\Models\Match\Match::class)->create();
+            self::$scaffolding['event'] = factory(\App\Models\Match\Event::class)->states('join')->create([
                 'match_id' => self::$scaffolding['match']->getKey(),
             ]);
 
@@ -142,6 +147,8 @@ class SanityTest extends DuskTestCase
 
             // score factory
             self::$scaffolding['score'] = factory(\App\Models\Score\Best\Osu::class)->states('with_replay')->create();
+
+            self::$scaffolding['room'] = factory(Room::class)->create(['category' => 'spotlight']);
         }
     }
 
@@ -237,7 +244,7 @@ class SanityTest extends DuskTestCase
             });
         }
 
-        $this->output("\n\n{$this->passed}/".($this->passed + $this->failed).' passed ('.round(($this->passed / ($this->passed + $this->failed)) * 100, 2)."%) [{$this->skipped} skipped]\n\n");
+        $this->output("\n\n{$this->passed}/".($this->passed + $this->failed).' passed ('.round($this->passed / ($this->passed + $this->failed) * 100, 2)."%) [{$this->skipped} skipped]\n\n");
 
         if ($this->testFailed !== null) {
             // triggered delayed test failure
@@ -278,7 +285,14 @@ class SanityTest extends DuskTestCase
                 'changelog' => self::$scaffolding['build']->version,
             ],
             'legal' => [
-                'page' => 'terms',
+                'locale' => 'en',
+                'path' => 'Terms',
+            ],
+            'wiki.image' => [
+                'path' => 'shared/mode/osu.png',
+            ],
+            'wiki.sitemap' => [
+                'locale' => 'en',
             ],
         ];
 

@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { MessageLengthCounter } from './message-length-counter'
 import { UserCard } from './user-card'
@@ -25,6 +10,10 @@ import ClickToCopy from 'click-to-copy'
 import * as React from 'react'
 import { a, button, div, span } from 'react-dom-factories'
 import { ReportReportable } from 'report-reportable'
+import Editor from 'beatmap-discussions/editor'
+import { BeatmapsContext } from 'beatmap-discussions/beatmaps-context'
+import { DiscussionsContext } from 'beatmap-discussions/discussions-context'
+import { classWithModifiers } from 'utils/css'
 
 el = React.createElement
 
@@ -34,28 +23,19 @@ export class Post extends React.PureComponent
   constructor: (props) ->
     super props
 
-    @textarea = React.createRef()
+    @textareaRef = React.createRef()
+    @messageBodyRef = React.createRef()
     @throttledUpdatePost = _.throttle @updatePost, 1000
     @handleKeyDown = InputHandler.textarea @handleKeyDownCallback
     @xhr = {}
-    @cache = {}
+    @reviewEditor = React.createRef()
 
     @state =
+      canSave: true
       editing: false
+      editorMinHeight: '0'
       posting: false
-      message: @props.post.message
-
-
-  componentDidMount: =>
-    osu.pageChange()
-
-
-  componentWillUpdate: =>
-    @cache = {}
-
-
-  componentDidUpdate: =>
-    osu.pageChange()
+      message: null
 
 
   componentWillUnmount: =>
@@ -66,13 +46,11 @@ export class Post extends React.PureComponent
 
 
   render: =>
-    topClasses = "#{bn} #{bn}--#{@props.type}"
-    if @state.editing
-      topClasses += " #{bn}--editing"
-    topClasses += " #{bn}--deleted" if @props.post.deleted_at?
-    topClasses += " #{bn}--unread" if !@props.read
-
-    userBadge = if @isOwner() then mapperGroup else @props.user.group_badge
+    topClasses = classWithModifiers bn,
+      "#{@props.type}": true
+      deleted: @props.post.deleted_at?
+      editing: @state.editing
+      unread: !@props.read && @props.type != 'discussion'
 
     div
       className: topClasses
@@ -85,22 +63,28 @@ export class Post extends React.PureComponent
         if (!@props.hideUserCard)
           el UserCard,
             user: @props.user
-            badge: userBadge
-        @messageViewer()
-        @messageEditor()
+            group: @userGroup()
+        if @state.editing
+          @messageEditor()
+        else
+          @messageViewer()
 
 
   editCancel: =>
-    @setState
-      editing: false
-      message: @props.post.message
+    @setState editing: false
 
 
   editStart: =>
-    @textarea.current?.style.minHeight = "#{@messageBody.getBoundingClientRect().height + 50}px"
+    if @messageBodyRef.current?
+      editorMinHeight = "#{@messageBodyRef.current.getBoundingClientRect().height + 50}px"
 
-    @setState editing: true, =>
-      @textarea.current?.focus()
+    @setState
+      editing: true
+      editorMinHeight: editorMinHeight ? '0'
+      message: @props.post.message
+      => @textareaRef.current?.focus()
+
+
 
   handleKeyDownCallback: (type, event) =>
     switch type
@@ -115,17 +99,35 @@ export class Post extends React.PureComponent
   messageEditor: =>
     return if !@props.canBeEdited
 
-    canPost = !@state.posting && @validPost()
+    canPost = !@state.posting && @state.canSave
 
-    div className: "#{bn}__message-container #{'hidden' if !@state.editing}",
-      el TextareaAutosize,
-        disabled: @state.posting
-        className: "#{bn}__message #{bn}__message--editor"
-        onChange: @setMessage
-        onKeyDown: @handleKeyDown
-        value: @state.message
-        ref: @textarea
-      el MessageLengthCounter, message: @state.message, isTimeline: @isTimeline()
+    div className: "#{bn}__message-container",
+      if @props.discussion.message_type == 'review' && @props.type == 'discussion'
+        el DiscussionsContext.Consumer, null,
+          (discussions) =>
+            el BeatmapsContext.Consumer, null,
+              (beatmaps) =>
+                el Editor,
+                  beatmapset: @props.beatmapset
+                  beatmaps: beatmaps
+                  document: @props.post.message
+                  discussion: @props.discussion
+                  discussions: discussions
+                  editMode: true
+                  editing: @state.editing
+                  ref: @reviewEditor
+                  onChange: @updateCanSave
+      else
+        el React.Fragment, null,
+          el TextareaAutosize,
+            style: minHeight: @state.editorMinHeight
+            disabled: @state.posting
+            className: "#{bn}__message #{bn}__message--editor"
+            onChange: @setMessage
+            onKeyDown: @handleKeyDown
+            value: @state.message
+            ref: @textareaRef
+          el MessageLengthCounter, message: @state.message, isTimeline: @isTimeline()
 
       div className: "#{bn}__actions",
         div className: "#{bn}__actions-group"
@@ -153,18 +155,17 @@ export class Post extends React.PureComponent
       else
         ['beatmap-discussions', 'beatmap_discussion', @props.discussion]
 
-    div className: "#{bn}__message-container #{'hidden' if @state.editing}",
+    div className: "#{bn}__message-container",
       if @props.discussion.message_type == 'review' && @props.type == 'discussion'
         div
           className: "#{bn}__message"
-          ref: (el) => @messageBody = el
           el ReviewPost,
             discussions: @context.discussions
             message: @props.post.message
       else
         div
           className: "#{bn}__message"
-          ref: (el) => @messageBody = el
+          ref: @messageBodyRef
           dangerouslySetInnerHTML:
             __html: BeatmapDiscussionHelper.format @props.post.message
 
@@ -270,11 +271,28 @@ export class Post extends React.PureComponent
 
 
   setMessage: (e) =>
-    @setState message: e.target.value
+    @setState message: e.target.value, @updateCanSave
+
+
+  updateCanSave: =>
+    @setState canSave: @validPost()
 
 
   updatePost: =>
-    if @state.message == @props.post.message
+    messageContent = @state.message
+
+    if @props.discussion.message_type == 'review' && @props.type == 'discussion'
+      messageContent = @reviewEditor.current.serialize()
+
+      if _.isEqual(JSON.parse(@props.post.message), JSON.parse(messageContent))
+        @setState editing: false
+        return
+
+      return if !@reviewEditor.current.showConfirmationIfRequired()
+
+      @setState message: messageContent
+
+    if messageContent == @props.post.message
       @setState editing: false
       return
 
@@ -285,7 +303,7 @@ export class Post extends React.PureComponent
       method: 'PUT'
       data:
         beatmap_discussion_post:
-          message: @state.message
+          message: messageContent
 
     .done (data) =>
       @setState editing: false
@@ -296,5 +314,12 @@ export class Post extends React.PureComponent
     .always => @setState posting: false
 
 
+  userGroup: ->
+    if @isOwner() then mapperGroup else @props.user.groups[0]
+
+
   validPost: =>
-    BeatmapDiscussionHelper.validMessageLength(@state.message, @isTimeline())
+    if @props.discussion.message_type == 'review' && @props.type == 'discussion'
+      @reviewEditor.current?.canSave
+    else
+      BeatmapDiscussionHelper.validMessageLength(@state.message, @isTimeline())

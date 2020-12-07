@@ -1,19 +1,6 @@
 {{--
-    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-
-    This file is part of osu!web. osu!web is distributed with the hope of
-    attracting more community contributions to the core ecosystem of osu!.
-
-    osu!web is free software: you can redistribute it and/or modify
-    it under the terms of the Affero GNU General Public License version 3
-    as published by the Free Software Foundation.
-
-    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
+    Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+    See the LICENCE file in the repository root for full licence text.
 --}}
 @php
     $user = Auth::user();
@@ -55,17 +42,28 @@
                         data-click-menu-target="mobile-user"
                         class="mobile-menu-tab mobile-menu-tab--user js-click-menu"
                     >
-                        <span
-                            class="avatar avatar--full-rounded"
-                            style="background-image: url('{{ $user->user_avatar }}');"
-                        ></span>
+                        <span class="mobile-menu-tab__avatar">
+                            <span
+                                class="avatar avatar--full-rounded"
+                                style="background-image: url('{{ $user->user_avatar }}');"
+                            ></span>
+                        </span>
+
+                        <span class="u-ellipsis-overflow">
+                            {{ $user->username }}
+                        </span>
                     </a>
                 @else
                     <button
-                        title="{{ trans('users.anonymous.login_link') }}"
-                        class="mobile-menu-tab mobile-menu-tab--user js-navbar-mobile--top-icon js-user-link"
+                        class="mobile-menu-tab mobile-menu-tab--user js-user-link"
                     >
-                        <span class="avatar avatar--full-rounded avatar--guest"></span>
+                        <span class="mobile-menu-tab__avatar">
+                            <span class="avatar avatar--full-rounded avatar--guest"></span>
+                        </span>
+
+                        <span class="u-ellipsis-overflow">
+                            {{ trans('layout.popup_login.button') }}
+                        </span>
                     </button>
                 @endif
 
@@ -76,6 +74,17 @@
                 @if (isset($user))
                     <button class="mobile-menu-tab js-click-menu" data-click-menu-target="mobile-search">
                         <span class="fas fa-search"></span>
+                    </button>
+
+                    <button
+                        class="mobile-menu-tab js-click-menu js-react--chat-icon"
+                        data-click-menu-target="mobile-chat-notification"
+                        data-chat-icon="{{ json_encode(['type' => 'mobile']) }}"
+                    >
+                        <span class="notification-icon notification-icon--mobile">
+                            <i class="fas fa-comment-alt"></i>
+                            <span class="notification-icon__count">...</span>
+                        </span>
                     </button>
 
                     <button class="mobile-menu-tab js-click-menu js-react--notification-icon"
@@ -104,7 +113,15 @@
 
                 <div
                     class="mobile-menu__item js-click-menu js-react--notification-widget"
+                    data-click-menu-id="mobile-chat-notification"
+                    data-notification-widget="{{ json_encode(['only' => 'channel']) }}"
+                    data-visibility="hidden"
+                ></div>
+
+                <div
+                    class="mobile-menu__item js-click-menu js-react--notification-widget"
                     data-click-menu-id="mobile-notification"
+                    data-notification-widget="{{ json_encode(['excludes' => ['channel']]) }}"
                     data-visibility="hidden"
                 ></div>
             @endif

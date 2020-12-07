@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import { BeatmapsetSearch, SearchResponse } from 'beatmaps/beatmapset-search';
 import ResultSet from 'beatmaps/result-set';
@@ -35,6 +20,7 @@ export interface SearchStatus {
 }
 
 export class BeatmapsetSearchController {
+  @observable advancedSearch = false;
   // the list that gets displayed while new searches are loading.
   @observable currentResultSet = new ResultSet();
   @observable filters!: BeatmapsetSearchFilters;
@@ -54,7 +40,7 @@ export class BeatmapsetSearchController {
 
   @computed
   get currentBeatmapsetIds() {
-    return this.currentResultSet.beatmapsetIds;
+    return [...this.currentResultSet.beatmapsetIds];
   }
 
   @computed
@@ -113,7 +99,7 @@ export class BeatmapsetSearchController {
       return;
     }
 
-    this.search(this.currentBeatmapsetIds.length);
+    this.search(this.currentResultSet.beatmapsetIds.size);
   }
 
   @action
@@ -165,9 +151,8 @@ export class BeatmapsetSearchController {
 
     this.searchStatus.state = 'input';
     this.debouncedFilterChangedSearch();
-    // not sure if observing change of private variable is a good idea
-    // but computed value doesn't show up here
-    if (change.name !== 'sanitizedQuery') {
+
+    if (change.name !== 'query') {
       this.debouncedFilterChangedSearch.flush();
     }
   }

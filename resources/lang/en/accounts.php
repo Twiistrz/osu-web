@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'receive notifications for new problem on qualified beatmaps of following modes',
+        'beatmapset_disqualify' => 'receive notifications for when beatmaps of following modes are disqualified',
+        'comment_reply' => 'receive notifications for replies to your comments',
         'title' => 'Notifications',
         'topic_auto_subscribe' => 'automatically enable notifications on new forum topics that you create',
-        'beatmapset_discussion_qualified_problem' => 'receive notifications for new problem on qualified beatmaps of following modes',
 
-        'mail' => [
-            '_' => 'receive mail notifications for',
+        'options' => [
+            '_' => 'delivery options',
             'beatmapset:modding' => 'beatmap modding',
+            'channel_message' => 'private chat messages',
+            'comment_new' => 'new comments',
             'forum_topic_reply' => 'topic reply',
+            'mail' => 'mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'user medal unlocked',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'authorized clients',
         'own_clients' => 'own clients',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Options',
+
+        'beatmapset_download' => [
+            '_' => 'default beatmap download type',
+            'all' => 'with video if available',
+            'no_video' => 'without video',
+            'direct' => 'open in osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'show beatmap metadata in original language',
     ],
 
     'playstyles' => [

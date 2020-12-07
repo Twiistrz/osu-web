@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 class @Nav2
   constructor: (@clickMenu) ->
@@ -28,7 +13,7 @@ class @Nav2
   autoCenterPopup: (_e, {target}) =>
     @currentMenu = target
 
-    $(window).off 'throttled-resize.nav2-center-popup'
+    $(window).off 'resize.nav2-center-popup'
 
     for popup in document.querySelectorAll('.js-nav2--centered-popup')
       container = popup.closest('.js-click-menu')
@@ -48,7 +33,7 @@ class @Nav2
     doCenter = =>
       @centerPopup currentPopup, link
 
-    $(window).on 'throttled-resize.nav2-center-popup', doCenter
+    $(window).on 'resize.nav2-center-popup', doCenter
     osu.pageChangeImmediate() if @loginBoxVisible()
     doCenter()
     currentPopup.querySelector('.js-nav2--autofocus')?.focus()

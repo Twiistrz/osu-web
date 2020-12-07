@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'page_description' => 'Featured artists di osu!',
@@ -33,7 +18,7 @@ return [
     ],
 
     'index' => [
-        'description' => 'Artis Unggulan (Featured Artist) merupakan para artis yang berkolaborasi dengan kami dalam rangka membawa musik yang baru dan orisinal ke osu!. Artis-artis berikut beserta lagu-lagu di bawah ini telah diseleksi secara khusus oleh tim osu! agar sekiranya cocok untuk dapat di-map dengan kesan yang mewah. Beberapa dari mereka bahkan telah membuat lagu-lagu baru yang secara eksklusif dibuat untuk osu!.<br><br>Semua lagu yang disediakan di bawah ini tersedia untuk diunduh dalam format .osz dengan timing yang sudah disediakan sebelumnya dan telah secara resmi dilisensikan untuk penggunaan di dalam osu! dan konten-konten lainnya yang terkait dengan osu!',
+        'description' => 'Featured Artist merupakan program jangka panjang osu! yang bertujuan untuk membawa beragam jenis musik dari musisi-musisi bertalenta di seluruh dunia secara resmi ke dalam lingkungan osu!. Musisi-musisi berikut beserta lagu-lagu yang tertera pada katalog di bawah ini telah diseleksi secara khusus oleh tim osu! bagi para mapper untuk dapat bebas berkreasi di dalamnya. Lebih dari itu, beberapa dari mereka bahkan telah menggubah lagu-lagu baru yang secara eksklusif dibuat untuk osu!.<br><br>Semua lagu yang tertera pada katalog di bawah ini tersedia untuk diunduh secara bebas dalam format .osz dengan timing yang sudah disediakan sebelumnya dan telah terizin secara resmi untuk dapat digunakan di dalam osu! dan konten-konten lainnya yang terkait dengan osu!.',
     ],
 
     'links' => [
@@ -51,6 +36,6 @@ return [
         'title' => 'judul',
         'length' => 'durasi',
         'bpm' => 'bpm',
-        'genre' => 'genre',
+        'genre' => 'aliran',
     ],
 ];

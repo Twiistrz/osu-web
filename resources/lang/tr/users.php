@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[silinmiş kullanıcı]',
@@ -66,15 +51,15 @@ return [
 
     'disabled' => [
         'title' => 'Olamaz! Görünüşe bakılırsa hesabın kilitlenmiş.',
-        'warning' => "",
+        'warning' => "Bir kuralı ihlal etmeniz durumunda, genellikle herhangi bir af(veya itiraz) talebini dikkate almayacağımız bir aylık bekleme süresinin olduğunu unutmayın.  Bu süreden sonra, gerekli olması halinde bizimle iletişime geçmekte özgürsünüz. Bir hesabı devre dışı bıraktıktan sonra yeni hesap oluşturmanın <strong>bu bir aylık bekleme süresinin uzatılmasına</strong> neden olacağını lütfen unutmayın. Ayrıca <strong> oluşturduğunuz her hesap için kuralları daha fazla ihlal ettiğinizi </strong> unutmayın. Bu yolda gitmemenizi önemle tavsiye ederiz!",
 
         'if_mistake' => [
-            '_' => '',
+            '_' => 'Eğer bunun bir hata olduğunu düşünüyorsanız, bizimle iletişime geçebilirsiniz(:email ile veya sayfanın sağ alt koşesinde bulunan ? tuşu ile.). Çok sağlam verilere dayandığından, eylemlerimize her zaman tam olarak güvendiğimizi lütfen unutmayın.  Kasıtlı olarak sahtekâr olduğunuzu düşünürsek, isteğinizi göz ardı etme hakkını saklı tutarız.',
             'email' => 'e-posta',
         ],
 
         'reasons' => [
-            'compromised' => '',
+            'compromised' => 'Hesabınızın güvenliği ihlal edilmiş sayıldı.  Kimliği doğrulanırken geçici olarak devre dışı bırakılabilir.',
             'opening' => 'Hesabını dondurmaya sebebiyet verebilecek birtakım sebepler var:',
 
             'tos' => [
@@ -83,6 +68,10 @@ return [
                 'tos' => 'hizmet kullanım şartları',
             ],
         ],
+    ],
+
+    'filtering' => [
+        'by_game_mode' => 'Oyun moduna göre üyeler',
     ],
 
     'force_reactivation' => [
@@ -99,6 +88,7 @@ return [
         'failed' => 'Hatalı giriş',
         'forgot' => 'Şifrenizi mi unuttunuz?',
         'info' => 'Devam etmek için lütfen giriş yapınız',
+        'invalid_captcha' => 'Captcha geçersiz, sayfayı yenileyip tekrar deneyin.',
         'locked_ip' => 'IP adresiniz kilitli. Lütfen birkaç dakika bekleyin.',
         'password' => 'Şifre',
         'register' => "osu! hesabınız yok mu? Yeni bir tane oluşturun",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Şu an çevrimiçi',
         'missingtext' => 'Yazım hatası yapmış olabilirsin! (veya bu kullanıcı banlanmış olabilir)',
         'origin_country' => 'Ülke: :country',
-        'page_description' => 'osu! - :username hakkında bilmek istediğiniz her şey!',
         'previous_usernames' => 'nâm-ı diğer',
         'plays_with' => ':devices ile oynuyor',
         'title' => ":username kullanıcısının profili",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Resim yükle',
                     'dropzone' => 'Yüklemek için dosyayı bırak',
                     'dropzone_info' => 'Yüklemek için resmi buraya da bırakabilirsiniz',
-                    'size_info' => 'Kapak boyutu 2800x620 olmalı',
+                    'size_info' => 'Kapak boyutu 2400x620 olmalı',
                     'too_large' => 'Yüklenen dosya boyutu çok büyük.',
                     'unsupported_format' => 'Desteklenmeyen biçim.',
 
@@ -202,23 +191,22 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => ':artist tarafından',
-                'none' => 'Hiç yok... şimdilik.',
                 'title' => 'Beatmapler',
 
                 'favourite' => [
                     'title' => 'Favori Beatmapler',
                 ],
                 'graveyard' => [
-                    'title' => 'Terk Edilmiş Beatmapler',
+                    'title' => 'Mezarlıktaki Beatmapler',
                 ],
                 'loved' => [
                     'title' => 'Sevilen Beatmapler',
                 ],
                 'ranked_and_approved' => [
-                    'title' => 'Dereceli & Onaylanmış Beatmapler',
+                    'title' => 'Dereceli & Onaylı Beatmapler',
                 ],
                 'unranked' => [
-                    'title' => 'Onay Beklenen Beatmapler',
+                    'title' => 'Beklemedeki Beatmapler',
                 ],
             ],
             'discussions' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'daha fazla etkinlik gör',
             ],
             'historical' => [
-                'empty' => 'Performans kaydı yok. :(',
                 'title' => 'Geçmiş',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Mevcut Kudosu',
-                'available_info' => "Kudosu'larınızı yaptığınız beatmapler'in daha çok dikkat çekmesi için kullanabilirsiniz. Bu sayı, henüz kullanmadığınız kudosu'ların sayısını gösterir.",
                 'recent_entries' => 'Son Kudosu Geçmişi',
                 'title' => 'Kudosu!',
                 'total' => 'Kazanılan Toplam Kudosu',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Tekrarı İndir',
-                'empty' => 'Henüz kayda değer bir performans kaydı yok. :(',
                 'not_ranked' => 'Sadece dereceli beatmapler pp verir.',
-                'pp_weight' => 'ağırlıklı: yüzde',
+                'pp_weight' => ':percentage ağırlıklı',
+                'view_details' => 'Ayrıntıları Göster',
                 'title' => 'Dereceler',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'İlgi Alanları',
-            'lastfm' => 'Last.fm',
             'location' => 'Mevcut Konum',
             'occupation' => 'Meslek',
             'skype' => '',
@@ -393,7 +377,7 @@ return [
         ],
         'post_count' => [
             '_' => ':link kadar katkı',
-            'count' => ':count forum gönderisi|:count forum gönderisi',
+            'count' => ':count_delimited forum gönderisi|:count_delimited forum gönderisi',
         ],
         'rank' => [
             'country' => ':mode için Ülke sıralaması',
@@ -418,7 +402,7 @@ return [
             'ranked_and_approved_beatmapset_count' => 'Dereceli ve Onaylanmış Beatmapler',
             'loved_beatmapset_count' => 'Sevilen Beatmapler',
             'unranked_beatmapset_count' => 'Onay Bekleyen Beatmapler',
-            'graveyard_beatmapset_count' => 'Terk Edilmiş Beatmapler',
+            'graveyard_beatmapset_count' => 'Mezarlıktaki Beatmapler',
         ],
     ],
 
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Tuğla görünümü',
         'card' => 'Kart Görünümü',
         'list' => 'Liste Görünümü',
     ],

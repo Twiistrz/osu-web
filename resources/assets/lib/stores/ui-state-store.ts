@@ -1,28 +1,12 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
-import ChatStateStore from 'chat/chat-state-store';
-import { CommentBundleJSON } from 'interfaces/comment-json';
+import { CommentBundleJson } from 'interfaces/comment-json';
 import { Dictionary, orderBy } from 'lodash';
 import { action, observable } from 'mobx';
 import { Comment, CommentSort } from 'models/comment';
 import { OwnClient } from 'models/oauth/own-client';
-import Store from 'stores/store';
+import CommentStore from 'stores/comment-store';
 
 interface AccountUIState {
   client: OwnClient | null;
@@ -56,19 +40,20 @@ const defaultCommentsUIState: CommentsUIState = {
   userFollow: false,
 };
 
-export default class UIStateStore extends Store {
+export default class UIStateStore {
   @observable account: AccountUIState = {
     client: null,
     isCreatingNewClient: false,
     newClientVisible: false,
   };
 
-  chat = new ChatStateStore(this.root);
-
   // only for the currently visible page
   @observable comments = Object.assign({}, defaultCommentsUIState);
 
   private orderedCommentsByParentId: Dictionary<Comment[]> = {};
+
+  constructor(protected commentStore: CommentStore) {
+  }
 
   exportCommentsUIState() {
     return {
@@ -91,7 +76,7 @@ export default class UIStateStore extends Store {
   }
 
   @action
-  initializeWithCommentBundleJSON(commentBundle: CommentBundleJSON) {
+  initializeWithCommentBundleJson(commentBundle: CommentBundleJson) {
     this.comments.hasMoreComments = {};
     this.comments.hasMoreComments[commentBundle.has_more_id] = commentBundle.has_more;
     this.comments.currentSort = commentBundle.sort as CommentSort;
@@ -109,7 +94,7 @@ export default class UIStateStore extends Store {
   }
 
   @action
-  updateFromCommentsAdded(commentBundle: CommentBundleJSON) {
+  updateFromCommentsAdded(commentBundle: CommentBundleJson) {
     this.comments.hasMoreComments[commentBundle.has_more_id] = commentBundle.has_more;
     if (commentBundle.top_level_count && commentBundle.total) {
       this.comments.topLevelCount = commentBundle.top_level_count;
@@ -129,7 +114,7 @@ export default class UIStateStore extends Store {
   }
 
   @action
-  updateFromCommentsNew(commentBundle: CommentBundleJSON) {
+  updateFromCommentsNew(commentBundle: CommentBundleJson) {
     if (commentBundle.top_level_count && commentBundle.total) {
       this.comments.topLevelCount = commentBundle.top_level_count;
       this.comments.total = commentBundle.total;
@@ -146,7 +131,7 @@ export default class UIStateStore extends Store {
   }
 
   @action
-  updateFromCommentUpdated(commentBundle: CommentBundleJSON) {
+  updateFromCommentUpdated(commentBundle: CommentBundleJson) {
     this.updatePinnedCommentIds(commentBundle);
   }
 
@@ -163,12 +148,12 @@ export default class UIStateStore extends Store {
 
   private populateOrderedCommentsForParentId(parentId: number) {
     if (this.orderedCommentsByParentId[parentId] == null) {
-      const comments = this.root.commentStore.getRepliesByParentId(parentId);
+      const comments = this.commentStore.getRepliesByParentId(parentId);
       this.orderedCommentsByParentId[parentId] = this.orderComments(comments);
     }
   }
 
-  private updatePinnedCommentIds(commentBundle: CommentBundleJSON) {
+  private updatePinnedCommentIds(commentBundle: CommentBundleJson) {
     if (commentBundle.pinned_comments != null) {
       this.comments.pinnedCommentIds = commentBundle.pinned_comments.map((x) => x.id);
     }

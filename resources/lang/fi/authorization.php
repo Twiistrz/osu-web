@@ -1,26 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
+    'play_more' => '',
     'require_login' => 'Kirjaudu sisään jatkaaksesi.',
-    'require_verification' => '',
+    'require_verification' => 'Vahvista jatkaaksesi.',
     'restricted' => "Et voi tehdä tätä rajoitettuna.",
     'silenced' => "Et voi tehdä tätä mykistettynä.",
     'unauthorized' => 'Pääsy evätty.',
@@ -36,6 +22,7 @@ return [
             'full_bn_required_hybrid' => '',
             'incorrect_state' => 'Virhe toimintoa suorittaessa, kokeile sivun päivittämistä.',
             'owner' => "Omaa beatmappia ei voi suositella.",
+            'set_metadata' => '',
         ],
         'resolve' => [
             'not_owner' => 'Vain aiheen aloittaja sekä beatmapin omistaja voivat ratkaista keskustelun.',
@@ -46,6 +33,7 @@ return [
         ],
 
         'vote' => [
+            'bot' => "",
             'limit_exceeded' => 'Odota hetki ennen uusien äänien antamista',
             'owner' => "Omia keskusteluja ei voi äänestää.",
             'wrong_beatmapset_state' => 'Voit äänestää vain vireillä olevien beatmappien keskusteluissa.',
@@ -54,7 +42,7 @@ return [
 
     'beatmap_discussion_post' => [
         'destroy' => [
-            'not_owner' => '',
+            'not_owner' => 'Voit poistaa vaan omia viestejä.',
             'resolved' => '',
             'system_generated' => '',
         ],
@@ -67,6 +55,12 @@ return [
 
         'store' => [
             'beatmapset_locked' => '',
+        ],
+    ],
+
+    'beatmapset' => [
+        'metadata' => [
+            'nominated' => '',
         ],
     ],
 

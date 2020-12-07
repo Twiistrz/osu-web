@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 use Illuminate\Database\Seeder;
 
 class CountrySeeder extends Seeder
@@ -225,7 +228,7 @@ class CountrySeeder extends Seeder
             ['acronym' => 'PM', 'name' => 'Saint Pierre and Miquelon', 'display' => 0],
             ['acronym' => 'PN', 'name' => 'Pitcairn', 'display' => 0],
             ['acronym' => 'PR', 'name' => 'Puerto Rico', 'display' => 0],
-            ['acronym' => 'PS', 'name' => 'Palestinian Territory Occupied', 'display' => 0],
+            ['acronym' => 'PS', 'name' => 'Palestine, State of', 'display' => 0],
             ['acronym' => 'PT', 'name' => 'Portugal', 'display' => 1],
             ['acronym' => 'PW', 'name' => 'Palau', 'display' => 0],
             ['acronym' => 'PY', 'name' => 'Paraguay', 'display' => 1],

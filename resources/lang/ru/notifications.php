@@ -1,28 +1,15 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'Все уведомления прочтены!',
-    'mark_all_read' => 'Очистить все',
+    'delete' => 'Очистить :type',
+    'mark_read' => 'Очистить :type',
     'none' => 'Уведомлений нет',
     'see_all' => 'см. все уведомления',
+    'see_channel' => 'перейти в чат',
 
     'filters' => [
         '_' => 'все',
@@ -30,7 +17,7 @@ return [
         'beatmapset' => 'карты',
         'forum_topic' => 'форум',
         'news_post' => 'новости',
-        'build' => '',
+        'build' => 'билды',
         'channel' => 'чат',
     ],
 
@@ -46,6 +33,8 @@ return [
                 'beatmapset_discussion_post_new_empty' => 'Новый пост в ":title" от :username',
                 'beatmapset_discussion_post_new_compact' => 'Новый пост от :username',
                 'beatmapset_discussion_post_new_compact_empty' => 'Новый пост от :username',
+                'beatmapset_discussion_review_new' => 'Новый отзыв на ":title" от :username, содержащий проблемы: :problems, предложения: :suggestions, похвалы: :praises',
+                'beatmapset_discussion_review_new_compact' => 'Новый отзыв от :username, содержащий проблемы: :problems, предложения: :suggestions, похвалы: :praises',
                 'beatmapset_discussion_unlock' => 'Карта ":title" разблокирована для обсуждений.',
                 'beatmapset_discussion_unlock_compact' => 'Обсуждение было разблокировано',
             ],
@@ -70,6 +59,8 @@ return [
                 'beatmapset_qualify_compact' => 'Карта вошла в рейтинговую очередь',
                 'beatmapset_rank' => '":title" был оценен',
                 'beatmapset_rank_compact' => 'Карта была оценена',
+                'beatmapset_remove_from_loved' => '":title" был удален из Любимых',
+                'beatmapset_remove_from_loved_compact' => 'Карта была удалена из Любимых',
                 'beatmapset_reset_nominations' => 'Проблема опубликованная :username вызвала сброс процесса номинации карты ":title" ',
                 'beatmapset_reset_nominations_compact' => 'Номинация была сброшена',
             ],
@@ -79,6 +70,8 @@ return [
 
                 'comment_new' => ':username прокомментировал ":content" на ":title"',
                 'comment_new_compact' => ':username прокомментировал ":content"',
+                'comment_reply' => ':username ответил ":content" на ":title"',
+                'comment_reply_compact' => ':username ответил ":content"',
             ],
         ],
 
@@ -103,6 +96,8 @@ return [
 
                 'comment_new' => ':username прокомментировал ":content" на ":title"',
                 'comment_new_compact' => ':username прокомментировал ":content"',
+                'comment_reply' => ':username ответил ":content" на ":title"',
+                'comment_reply_compact' => ':username ответил ":content"',
             ],
         ],
 
@@ -114,6 +109,8 @@ return [
 
                 'comment_new' => ':username прокомментировал ":content" на ":title"',
                 'comment_new_compact' => ':username прокомментировал ":content"',
+                'comment_reply' => ':username ответил ":content" на ":title"',
+                'comment_reply_compact' => ':username ответил ":content"',
             ],
         ],
 
@@ -143,6 +140,66 @@ return [
                 '_' => 'Новая медаль',
                 'user_achievement_unlock' => 'Разблокировано ":title"!',
                 'user_achievement_unlock_compact' => 'Разблокировано: «:title»!',
+                'user_achievement_unlock_group' => 'Медали открыты!',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'Обсуждение ":title" было закрыто',
+                'beatmapset_discussion_post_new' => 'Обсуждение ":title" имеет новые ответы',
+                'beatmapset_discussion_unlock' => 'Обсуждение ":title" было открыто',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => 'Сообщена новая проблема в ":title"',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '":title" был дисквалифицирован',
+                'beatmapset_love' => '":title" был повышен до любимого',
+                'beatmapset_nominate' => '":title" был номинирован',
+                'beatmapset_qualify' => '":title" получило достаточно номинаций и вступило в очередь ранка',
+                'beatmapset_rank' => '":title" было ранкнуто',
+                'beatmapset_remove_from_loved' => '":title" был удален из Любимых',
+                'beatmapset_reset_nominations' => 'Номинация ":title" была сброшена',
+            ],
+
+            'comment' => [
+                'comment_new' => 'Карта ":title" имеет новые комментарии',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => 'Вы получили новое сообщение от :username',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => 'Список изменений ":title" содержит новые комментарии',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'Новость ":title" имеет новые комментарии',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => 'Есть новые ответы в ":title"',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':username открыл новую медаль: ":title"!',
+                'user_achievement_unlock_self' => 'Вы открыли новую медаль: ":title"!',
             ],
         ],
     ],

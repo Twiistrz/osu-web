@@ -1,27 +1,11 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers\Passport;
 
 use Illuminate\Http\Request;
-use Laravel\Passport\Bridge\Scope;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\Http\Controllers\AuthorizationController as PassportAuthorizationController;
 use Laravel\Passport\TokenRepository;
@@ -44,19 +28,20 @@ class AuthorizationController extends PassportAuthorizationController
      * @param  \Laravel\Passport\TokenRepository $tokens
      * @return \Illuminate\Http\Response
      */
-    public function authorize(ServerRequestInterface $psrRequest,
-                              Request $request,
-                              ClientRepository $clients,
-                              TokenRepository $tokens)
-    {
-        if (!auth()->check()) {
-            $cancelUrl = presence(request('redirect_uri'));
+    public function authorize(
+        ServerRequestInterface $psrRequest,
+        Request $request,
+        ClientRepository $clients,
+        TokenRepository $tokens
+    ) {
+        $redirectUri = presence(trim($request['redirect_uri']));
 
-            if ($cancelUrl !== null) {
-                // Breaks when url contains hash ("#").
-                $separator = strpos($cancelUrl, '?') === false ? '?' : '&';
-                $cancelUrl .= "{$separator}error=access_denied";
-            }
+        abort_if($redirectUri === null, 400, trans('model_validation.required', ['attribute' => 'redirect_uri']));
+
+        if (!auth()->check()) {
+            // Breaks when url contains hash ("#").
+            $separator = strpos($redirectUri, '?') === false ? '?' : '&';
+            $cancelUrl = "{$redirectUri}{$separator}error=access_denied";
 
             return ext_view('sessions.create', [
                 'cancelUrl' => $cancelUrl,

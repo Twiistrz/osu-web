@@ -1,37 +1,24 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'all_read' => 'Összes értesítés elolvasva!',
-    'mark_all_read' => 'Összes törlése',
-    'none' => '',
-    'see_all' => '',
+    'delete' => '',
+    'mark_read' => 'Típus törlése :type',
+    'none' => 'Nincsenek értesítések',
+    'see_all' => 'összes értesítés megtekintése',
+    'see_channel' => '',
 
     'filters' => [
-        '_' => '',
-        'user' => '',
-        'beatmapset' => '',
-        'forum_topic' => '',
-        'news_post' => '',
-        'build' => '',
-        'channel' => '',
+        '_' => 'összes',
+        'user' => 'profil',
+        'beatmapset' => 'beatmapek',
+        'forum_topic' => 'fórum',
+        'news_post' => 'újdonságok',
+        'build' => 'verziók',
+        'channel' => 'chat',
     ],
 
     'item' => [
@@ -42,43 +29,50 @@ return [
                 '_' => 'Beatmap megbeszélés',
                 'beatmapset_discussion_lock' => '":title" megbeszélése lezárult',
                 'beatmapset_discussion_lock_compact' => 'A megbeszélést lezárták',
-                'beatmapset_discussion_post_new' => '',
-                'beatmapset_discussion_post_new_empty' => '',
+                'beatmapset_discussion_post_new' => 'Új poszt a ":title"-on :username:-tol ":content"',
+                'beatmapset_discussion_post_new_empty' => 'Új poszt a ":title"-on :username:-tol',
                 'beatmapset_discussion_post_new_compact' => 'Új poszt :username által: ":content"',
                 'beatmapset_discussion_post_new_compact_empty' => 'Új poszt :username által',
-                'beatmapset_discussion_unlock' => '',
-                'beatmapset_discussion_unlock_compact' => '',
+                'beatmapset_discussion_review_new' => 'Új hozzászolás problémákat tartalmazó tartalomról :username által, ezen a beatmapen: ":title"  
+:problems, javaslat :suggestions, dícséret: :praises',
+                'beatmapset_discussion_review_new_compact' => 'Új hozzászolás problémákat tartalmazó tartalomról :username által: :problems, javaslat :suggestions, dícséret: :praises',
+                'beatmapset_discussion_unlock' => 'A beszélgetést feloldották ezen: ":title"',
+                'beatmapset_discussion_unlock_compact' => 'A beszélgetést feloldották',
             ],
 
             'beatmapset_problem' => [
-                '_' => '',
-                'beatmapset_discussion_qualified_problem' => '',
-                'beatmapset_discussion_qualified_problem_empty' => '',
-                'beatmapset_discussion_qualified_problem_compact' => '',
-                'beatmapset_discussion_qualified_problem_compact_empty' => '',
+                '_' => 'Rankedelési probléma a beatmapen',
+                'beatmapset_discussion_qualified_problem' => ':username által jelentve lett itt: ":title": ":content"',
+                'beatmapset_discussion_qualified_problem_empty' => ':username által jelentve lett itt: ":title"',
+                'beatmapset_discussion_qualified_problem_compact' => ':username által jelentve lett ":content"',
+                'beatmapset_discussion_qualified_problem_compact_empty' => ':username által jelentve lett',
             ],
 
             'beatmapset_state' => [
                 '_' => 'Beatmap állapota megváltozott',
-                'beatmapset_disqualify' => '',
-                'beatmapset_disqualify_compact' => '',
-                'beatmapset_love' => '',
-                'beatmapset_love_compact' => '',
-                'beatmapset_nominate' => '',
-                'beatmapset_nominate_compact' => '',
-                'beatmapset_qualify' => '',
-                'beatmapset_qualify_compact' => '',
-                'beatmapset_rank' => '',
-                'beatmapset_rank_compact' => '',
-                'beatmapset_reset_nominations' => '',
-                'beatmapset_reset_nominations_compact' => '',
+                'beatmapset_disqualify' => 'Ez a beatmap diszkvalifikálva lett: ":title"',
+                'beatmapset_disqualify_compact' => 'A beatmap diszkvalifikálva lett',
+                'beatmapset_love' => 'Ez a map kedvelt kategóriába lépett: ":title"',
+                'beatmapset_love_compact' => 'Ez a map kedvelt kategóriába lépett',
+                'beatmapset_nominate' => 'Ez a beatmap rankedelt lett: ":title"',
+                'beatmapset_nominate_compact' => 'A beatmap rankedelt lett',
+                'beatmapset_qualify' => '":title" elért annyi szavazatot hogy rankedelési státuszba lépett',
+                'beatmapset_qualify_compact' => 'A beatmap rankolási sorba lépett',
+                'beatmapset_rank' => ':title rankedelt lett',
+                'beatmapset_rank_compact' => 'A beatmap rankedelt lett',
+                'beatmapset_remove_from_loved' => 'Ez a map el lett távolítva a kedvelt kategóriából:title',
+                'beatmapset_remove_from_loved_compact' => 'Ez a beatmap el lett távolítva a kedvelt kategóriából',
+                'beatmapset_reset_nominations' => 'Rankolás elutasítva ezen: ":title"',
+                'beatmapset_reset_nominations_compact' => 'Rankolás elutasítva',
             ],
 
             'comment' => [
                 '_' => 'Új hozzászólás',
 
-                'comment_new' => '',
-                'comment_new_compact' => '',
+                'comment_new' => ':username ezt kommentálta: ":content" ezen: ":title"',
+                'comment_new_compact' => ':username ezt kommentálta: ":content"',
+                'comment_reply' => ':username ezt válaszolta: ":content" itt: ":title"',
+                'comment_reply_compact' => ':username ezt válaszolta: ":content"',
             ],
         ],
 
@@ -88,7 +82,7 @@ return [
             'channel' => [
                 '_' => 'Új üzenet',
                 'pm' => [
-                    'channel_message' => '',
+                    'channel_message' => ':username üzeni ":title"',
                     'channel_message_compact' => ':title',
                     'channel_message_group' => 'tőle: :username',
                 ],
@@ -101,8 +95,10 @@ return [
             'comment' => [
                 '_' => 'Új hozzászólás',
 
-                'comment_new' => '',
-                'comment_new_compact' => '',
+                'comment_new' => ':username ezt kommentálta: ":content" ezen: ":title"',
+                'comment_new_compact' => ':username ezt kommentálta: ":content"',
+                'comment_reply' => ':username ezt válaszolta: ":content" itt: ":title"',
+                'comment_reply_compact' => ':username ezt válaszolta: ":content"',
             ],
         ],
 
@@ -112,8 +108,10 @@ return [
             'comment' => [
                 '_' => 'Új hozzászólás',
 
-                'comment_new' => '',
-                'comment_new_compact' => '',
+                'comment_new' => ':username ezt kommentálta: ":content" ezen: ":title"',
+                'comment_new_compact' => ':username ezt kommentálta: ":content"',
+                'comment_reply' => ':username ezt válaszolta: ":content" itt: ":title"',
+                'comment_reply_compact' => ':username ezt válaszolta: ":content"',
             ],
         ],
 
@@ -128,7 +126,7 @@ return [
         ],
 
         'legacy_pm' => [
-            '_' => '',
+            '_' => 'Hivatalos PM fórum',
 
             'legacy_pm' => [
                 '_' => '',
@@ -142,7 +140,67 @@ return [
             'user_achievement_unlock' => [
                 '_' => 'Új medál',
                 'user_achievement_unlock' => 'Feloldottad ":title"!',
-                'user_achievement_unlock_compact' => '',
+                'user_achievement_unlock_compact' => 'Feloldottad":title"!',
+                'user_achievement_unlock_group' => 'Medálok feloldva!',
+            ],
+        ],
+    ],
+
+    'mail' => [
+        'beatmapset' => [
+            'beatmapset_discussion' => [
+                'beatmapset_discussion_lock' => 'A hozzászolás le lett tiltva ezen a beamapen::title',
+                'beatmapset_discussion_post_new' => '',
+                'beatmapset_discussion_unlock' => 'A hozzászolás elérhető lett ezen a beatmapen::title',
+            ],
+
+            'beatmapset_problem' => [
+                'beatmapset_discussion_qualified_problem' => 'Egy új probléma jelentve lett itt::title',
+            ],
+
+            'beatmapset_state' => [
+                'beatmapset_disqualify' => '":title" dalt diszkvalifikálták',
+                'beatmapset_love' => '":title" dalt kedvelt kategóriába került',
+                'beatmapset_nominate' => '',
+                'beatmapset_qualify' => '":title" elért annyi szavazatot hogy rankedelési státuszba lépett',
+                'beatmapset_rank' => ':title rankedelt lett',
+                'beatmapset_remove_from_loved' => 'Ez a map el lett távolítva a kedvelt kategóriából:title',
+                'beatmapset_reset_nominations' => '',
+            ],
+
+            'comment' => [
+                'comment_new' => ' Új kommentek jelentek meg ezen a beatmapen::title',
+            ],
+        ],
+
+        'channel' => [
+            'channel' => [
+                'pm' => 'Új üzenetet kaptál tőle::username',
+            ],
+        ],
+
+        'build' => [
+            'comment' => [
+                'comment_new' => 'Új kommentek jelentek meg itt::title',
+            ],
+        ],
+
+        'news_post' => [
+            'comment' => [
+                'comment_new' => 'Új kommentek jelentek meg itt::title',
+            ],
+        ],
+
+        'forum_topic' => [
+            'forum_topic_reply' => [
+                'forum_topic_reply' => 'Új válaszok itt: ":title"',
+            ],
+        ],
+
+        'user' => [
+            'user_achievement_unlock' => [
+                'user_achievement_unlock' => ':username feloldott egy új medált! ":title"',
+                'user_achievement_unlock_self' => 'Feloldottál egy új medált! ":title"',
             ],
         ],
     ],

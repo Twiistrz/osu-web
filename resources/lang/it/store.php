@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'admin' => [
@@ -24,7 +9,7 @@ return [
     ],
 
     'cart' => [
-        'checkout' => 'Pagamento',
+        'checkout' => 'Paga',
         'info' => ':count_delimited articolo nel carrello ($:subtotal)|:count_delimited articoli nel carrello ($:subtotal)',
         'more_goodies' => 'Voglio dare un\'occhiata ad altri elementi prima di completare l\'ordine',
         'shipping_fees' => 'costi di spedizione',
@@ -32,7 +17,7 @@ return [
         'total' => 'totale',
 
         'errors_no_checkout' => [
-            'line_1' => 'Uh oh, ci sono problemi con il tuo carrello che stanno impedendo il check-out!',
+            'line_1' => 'Uh oh, ci sono problemi con il tuo carrello che stanno impedendo il pagamento!',
             'line_2' => 'Rimuovere o aggiornare gli elementi di sopra per continuare.',
         ],
 
@@ -46,20 +31,21 @@ return [
     ],
 
     'checkout' => [
-        'cart_problems' => 'Uh oh, ci sono dei problemi con il carrello!',
+        'cart_problems' => 'Uh oh, ci sono problemi con il carrello!',
         'cart_problems_edit' => 'Clicca qui per modificarlo.',
-        'declined' => 'Il pagamento è annullato.',
+        'declined' => 'Il pagamento è stato annullato.',
         'delayed_shipping' => 'Attualmente siamo sommersi dagli ordini! Sei libero di effettuare ordini, ma per favore aspettati un **ritardo addizionale di 1-2 settimane** mentre completiamo gli ordini già esistenti.',
         'old_cart' => 'Il tuo carrello sembra essere obsoleto ed è stato ricaricato; per favore riprova.',
         'pay' => 'Acquista con Paypal',
+        'title_compact' => 'pagamento',
 
         'has_pending' => [
-            '_' => 'Hai pagamenti incompleti, click :link per vederli.',
+            '_' => 'Hai pagamenti incompleti, clicca :link per vederli.',
             'link_text' => 'qui',
         ],
 
         'pending_checkout' => [
-            'line_1' => 'Un precedente check-out è stato iniziato ma non è stato portato a termine.',
+            'line_1' => 'Un pagamento precedente è stato iniziato ma non è stato portato a termine.',
             'line_2' => 'Completa il tuo pagamento selezionando un metodo di pagamento.',
         ],
     ],
@@ -68,6 +54,8 @@ return [
 
     'invoice' => [
         'echeck_delay' => 'Visto che il tuo pagamento era un eCheck, dovrai attendere altri 10 giorni per far passare il pagamento attraverso PayPal!',
+        'title_compact' => 'ricevuta',
+
         'status' => [
             'processing' => [
                 'title' => 'Il tuo pagamento non è ancora stato confermato!',
@@ -118,8 +106,8 @@ return [
         'name' => 'Nome',
 
         'stock' => [
-            'out' => 'Attualmente non disponibile :(. Controlla più tardi.',
-            'out_with_alternative' => 'Questo tipo non è attualmente disponibile :(. Prova con un altro tipo o controlla più tardi.',
+            'out' => 'Questo elemento è attualmente esaurito. Controlla più tardi!',
+            'out_with_alternative' => 'Sfortunatamente questo elemento è esaurito. Usa il menu a discesa per sceglierne un altro tipo oppure controlla più tardi!',
         ],
 
         'add_to_cart' => 'Aggiungi al carrello',
@@ -134,8 +122,8 @@ return [
     'supporter_tag' => [
         'gift' => 'regalo ad un giocatore',
         'require_login' => [
-            '_' => 'Devi avere l\':link per ottenere un tag supporter!',
-            'link_text' => 'accesso effettuato',
+            '_' => 'Devi :link per poter ottenere un tag supporter!',
+            'link_text' => 'eseguire l\'accesso',
         ],
     ],
 
@@ -143,8 +131,8 @@ return [
         'check' => 'Inserisci un nome utente per controllare la disponibilità!',
         'checking' => 'Controllando la disponibilità di :username...',
         'require_login' => [
-            '_' => 'Devi essere :link per cambiare il tuo nome!',
-            'link_text' => 'accesso effettuato',
+            '_' => 'Devi :link per poter cambiare il tuo nome!',
+            'link_text' => 'eseguire l\'accesso',
         ],
     ],
 

@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 .notification-popup-item {
   @_top: notification-popup-item;
@@ -23,6 +8,7 @@
   width: 100%;
   background-color: @osu-colour-b3;
   border-radius: @border-radius-large;
+  position: relative;
 
   &:hover {
     background-color: @osu-colour-b1;
@@ -65,6 +51,7 @@
     background-color: @osu-colour-b2;
     width: 60px;
     flex: none;
+    position: relative;
 
     .@{_top}--compact & {
       border-radius: @border-radius-large;
@@ -73,6 +60,10 @@
 
     .@{_top}--user_achievement_unlock & {
       background-size: 70%;
+    }
+
+    .@{_top}--group.@{_top}--user_achievement_unlock & {
+      background-size: 0;
     }
   }
 
@@ -86,7 +77,7 @@
     border-radius: @border-radius-large 0 0 @border-radius-large;
     background-color: fade(#000, 60%);
 
-    .@{_top}--compact & {
+    .@{_top}--compact.@{_top}--user_achievement_unlock & {
       background-color: transparent;
     }
   }
@@ -96,41 +87,6 @@
     flex: 1;
     display: flex;
     min-width: 0;
-  }
-
-  &__read-button {
-    .reset-input();
-    .full-size();
-    .center-content();
-    width: calc(100% - $margin-left);
-    margin-left: @border-radius-large;
-    padding-left: 2px;
-    color: @osu-colour-f1;
-
-    &:hover {
-      color: #fff;
-    }
-
-    &::before {
-      .full-size();
-      content: ' ';
-      width: @border-radius-large;
-      border-radius: 0 @border-radius-large @border-radius-large 0;
-      background-color: transparent;
-      left: -@border-radius-large;
-
-      .@{_top}:hover & {
-        background-color: @osu-colour-b1;
-      }
-
-      .@{_top}--compact:hover & {
-        background-color: @osu-colour-b4;
-      }
-
-      .@{_top}--group:hover & {
-        background-color: @osu-colour-b2;
-      }
-    }
   }
 
   &__row {
@@ -165,21 +121,6 @@
            background-color: @osu-colour-b3;
          }
       }
-    }
-  }
-
-  &__side-buttons {
-    width: 40px;
-    flex: none;
-    border-radius: 0 @border-radius-large @border-radius-large 0;
-    background-color: transparent;
-
-    .@{_top}--legacy_pm &, .@{_top}--read & {
-      display: none;
-    }
-
-    &:hover {
-      background-color: fade(black, 15%);
     }
   }
 

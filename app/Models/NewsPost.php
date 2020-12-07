@@ -1,27 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
 use App\Exceptions\GitHubNotFoundException;
 use App\Libraries\Commentable;
+use App\Libraries\DbCursorHelper;
 use App\Libraries\Markdown\OsuMarkdown;
 use App\Libraries\OsuWiki;
 use App\Traits\CommentableDefaults;
@@ -50,6 +36,15 @@ class NewsPost extends Model implements Commentable, Wiki\WikiObject
     const DASHBOARD_LIMIT = 8;
     const LANDING_LIMIT = 4;
 
+    const SORTS = [
+        'published_desc' => [
+            ['column' => 'published_at', 'order' => 'DESC', 'type' => 'time'],
+            ['column' => 'id', 'order' => 'DESC'],
+        ],
+    ];
+
+    const DEFAULT_SORT = 'published_desc';
+
     protected $casts = [
         'page' => 'array',
     ];
@@ -76,25 +71,21 @@ class NewsPost extends Model implements Commentable, Wiki\WikiObject
 
         $limit = clamp(get_int($params['limit'] ?? null) ?? 20, 1, 21);
 
-        // implies default sorting.
-        $cursor['id'] = get_int($params['cursor']['id'] ?? null);
-        $cursor['published_at'] = parse_time_to_carbon($params['cursor']['published_at'] ?? null);
+        $cursorHelper = new DbCursorHelper(static::SORTS, static::DEFAULT_SORT);
+        $sort = $cursorHelper->getSort();
+        $cursorRaw = $params['cursor'] ?? null;
+        $cursor = $cursorHelper->prepare($cursorRaw);
+        $query->cursorSort($sort, $cursor);
 
-        if ($cursor['id'] !== null && $cursor['published_at'] !== null) {
-            $query->cursorWhere([
-                ['column' => 'published_at', 'order' => 'DESC', 'value' => $cursor['published_at']],
-                ['column' => 'id', 'order' => 'DESC', 'value' => $cursor['id']],
-            ]);
-        } else {
-            $query->orderBy('published_at', 'DESC')->orderBy('id', 'DESC');
-        }
+        $query->year(get_int($params['year'] ?? null));
 
         $query->limit($limit);
 
         return [
+            'cursorHelper' => $cursorHelper,
             'query' => $query,
             'params' => [
-                'cursor' => $cursor,
+                'cursor' => $cursor === null ? null : $cursorRaw,
                 'limit' => $limit,
             ],
         ];
@@ -153,6 +144,50 @@ class NewsPost extends Model implements Commentable, Wiki\WikiObject
     {
         return $query->whereNotNull('published_at')
             ->where('published_at', '<=', Carbon::now());
+    }
+
+    public function scopeYear($query, $year)
+    {
+        if ($year === null) {
+            return;
+        }
+
+        $baseStart = Carbon::create($year);
+        $currentDate = now();
+
+        // show extra months in first three months of current year
+        if ($currentDate->year === $baseStart->year && $currentDate->month < 4) {
+            $start = $currentDate->startOfYear()->subMonths(2);
+        }
+
+        $end = Carbon::create($year + 1);
+
+        return $query
+            ->where('published_at', '>=', $start ?? $baseStart)
+            ->where('published_at', '<', $end);
+    }
+
+    public function author()
+    {
+        if (!isset($this->page['header']['author']) && !isset($this->page['author'])) {
+            $authorLine = html_entity_decode_better(
+                array_last(
+                    explode("\n", trim(
+                        strip_tags($this->bodyHtml())
+                    ))
+                )
+            );
+
+            if (preg_match('/^[—–][^—–]/', $authorLine) === false) {
+                $author = 'osu!news Team';
+            } else {
+                $author = mb_substr($authorLine, 1);
+            }
+
+            $this->update(['page' => array_merge($this->page, compact('author'))]);
+        }
+
+        return $this->page['author'];
     }
 
     public function commentableTitle()
@@ -215,11 +250,18 @@ class NewsPost extends Model implements Commentable, Wiki\WikiObject
     {
         if (!array_key_exists('newer', $this->adjacent)) {
             $this->adjacent['newer'] = static
-                ::where('published_at', '>=', $this->published_at)
-                ->where('id', '<>', $this->getKey())
-                ->orderBy('published_at', 'ASC')
-                ->orderBy('id', 'ASC')
-                ->first() ?? null;
+                ::cursorWhere([
+                    [
+                        'column' => 'published_at',
+                        'order' => 'ASC',
+                        'value' => $this->published_at,
+                    ],
+                    [
+                        'column' => 'id',
+                        'order' => 'ASC',
+                        'value' => $this->getKey(),
+                    ],
+                ])->first() ?? null;
         }
 
         return $this->adjacent['newer'];
@@ -229,11 +271,18 @@ class NewsPost extends Model implements Commentable, Wiki\WikiObject
     {
         if (!array_key_exists('older', $this->adjacent)) {
             $this->adjacent['older'] = static
-                ::where('published_at', '<=', $this->published_at)
-                ->where('id', '<>', $this->getKey())
-                ->orderBy('published_at', 'DESC')
-                ->orderBy('id', 'DESC')
-                ->first() ?? null;
+                ::cursorWhere([
+                    [
+                        'column' => 'published_at',
+                        'order' => 'DESC',
+                        'value' => $this->published_at,
+                    ],
+                    [
+                        'column' => 'id',
+                        'order' => 'DESC',
+                        'value' => $this->getKey(),
+                    ],
+                ])->first() ?? null;
         }
 
         return $this->adjacent['older'];
@@ -321,7 +370,7 @@ class NewsPost extends Model implements Commentable, Wiki\WikiObject
 
     public function title()
     {
-        return $this->page['header']['title'];
+        return $this->page['header']['title'] ?? 'Title-less news post';
     }
 
     public function url()

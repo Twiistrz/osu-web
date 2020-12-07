@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { BeatmapList } from './beatmap-list'
 import { BigButton } from 'big-button'
@@ -27,21 +12,11 @@ import HeaderV4 from 'header-v4'
 import { PlaymodeTabs } from 'playmode-tabs'
 import * as React from 'react'
 import { a, div, h1, h2, p } from 'react-dom-factories'
+import { getArtist, getTitle } from 'utils/beatmap-helper'
+import Chart from 'beatmap-discussions/chart'
 el = React.createElement
 
 export class Header extends React.PureComponent
-  componentDidMount: =>
-    @updateChart()
-
-
-  componentDidUpdate: =>
-    @updateChart()
-
-
-  componentWillUnmount: =>
-    $(window).off '.beatmapDiscussionsOverview'
-
-
   render: =>
     el React.Fragment, null,
       el HeaderV4,
@@ -107,10 +82,10 @@ export class Header extends React.PureComponent
           href: laroute.route('beatmapsets.show', beatmapset: @props.beatmapset.id)
           h1
             className: "#{bn}__title"
-            @props.beatmapset.title
+            getTitle(@props.beatmapset)
           h2
             className: "#{bn}__title #{bn}__title--artist"
-            @props.beatmapset.artist
+            getArtist(@props.beatmapset)
 
         div
           className: "#{bn}__filters"
@@ -134,8 +109,10 @@ export class Header extends React.PureComponent
               className: "#{bn}__stats"
               @stats()
 
-        div null,
-          div ref: 'chartArea', className: "#{bn}__chart"
+        div className: 'u-relative',
+          el Chart,
+            discussions: @props.currentDiscussions.byFilter[@props.currentFilter].timeline
+            duration: @props.currentBeatmap.total_length * 1000
 
           div className: "#{bn}__beatmap-stats",
             el BeatmapBasicStats, beatmap: @props.currentBeatmap
@@ -180,15 +157,3 @@ export class Header extends React.PureComponent
             total
 
         div className: "#{bn}__line"
-
-
-  updateChart: =>
-    if !@_chart?
-      area = @refs.chartArea
-      length = @props.currentBeatmap.total_length * 1000
-
-      @_chart = new BeatmapDiscussionsChart(area, length)
-
-      $(window).on 'throttled-resize.beatmapDiscussionsOverview', @_chart.resize
-
-    @_chart.loadData _.values(@props.currentDiscussions.byFilter[@props.currentFilter].timeline)

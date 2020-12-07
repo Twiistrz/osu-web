@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'cancel' => '취소',
@@ -43,7 +28,14 @@ return [
         'id' => '클라이언트 ID',
         'name' => '애플리케이션 이름',
         'redirect' => '애플리케이션 Callback URL',
+        'reset' => '클라이언트 Secret 재설정',
+        'reset_failed' => '클라이언트 Secret을 초기화하는데 실패했습니다.',
         'secret' => '클라이언트 비밀 키',
+
+        'secret_visible' => [
+            'false' => '클라이언트 Secret 보기',
+            'true' => '클라이언트 Secret 숨기기',
+        ],
     ],
 
     'new_client' => [
@@ -57,6 +49,7 @@ return [
 
     'own_clients' => [
         'confirm_delete' => '정말로 이 클라이언트를 삭제하시겠어요?',
+        'confirm_reset' => '정말 클라이언트 Secret을 초기화하실 건가요? 이 작업은 존재하는 모든 토큰을 무효화시킵니다.',
         'new' => '새 OAuth 애플리케이션',
         'none' => '클라이언트 없음',
 

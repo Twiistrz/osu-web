@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[deleted user]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => 'Members by game mode',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "Your account hasn't been used in a long time.",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Incorrect sign in',
         'forgot' => 'Forgotten your password?',
         'info' => 'Please sign in to continue',
+        'invalid_captcha' => 'Too many failed login attempts, please complete the captcha and try again. (Refresh page if captcha is not visible)',
         'locked_ip' => 'your IP address is locked. Please wait a few minutes.',
         'password' => 'Password',
         'register' => "Don't have an osu! account? Make a new one",
@@ -160,11 +150,14 @@ return [
         'lastvisit_online' => 'Currently online',
         'missingtext' => 'You might have made a typo! (or the user may have been banned)',
         'origin_country' => 'From :country',
-        'page_description' => 'osu! - Everything you ever wanted to know about :username!',
         'previous_usernames' => 'formerly known as',
         'plays_with' => 'Plays with :devices',
         'title' => ":username's profile",
 
+        'comments_count' => [
+            '_' => 'Posted :link',
+            'count' => ':count_delimited comment|:count_delimited comments',
+        ],
         'edit' => [
             'cover' => [
                 'button' => 'Change Profile Cover',
@@ -202,7 +195,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'by :artist',
-                'none' => 'None... yet.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -232,7 +224,6 @@ return [
                 'show_more' => 'see more events',
             ],
             'historical' => [
-                'empty' => 'No performance records. :(',
                 'title' => 'Historical',
 
                 'monthly_playcounts' => [
@@ -253,8 +244,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu Available',
-                'available_info' => "Kudosu can be traded for kudosu stars, which will help your beatmap get more attention. This is the number of kudosu you haven't traded in yet.",
                 'recent_entries' => 'Recent Kudosu History',
                 'title' => 'Kudosu!',
                 'total' => 'Total Kudosu Earned',
@@ -321,9 +310,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Download Replay',
-                'empty' => 'No awesome performance records yet. :(',
                 'not_ranked' => 'Only ranked beatmaps give out pp.',
                 'pp_weight' => 'weighted :percentage',
+                'view_details' => 'View Details',
                 'title' => 'Ranks',
 
                 'best' => [
@@ -343,7 +332,7 @@ return [
             'account_standing' => [
                 'title' => 'Account Standing',
                 'bad_standing' => "<strong>:username's</strong> account is not in a good standing :(",
-                'remaining_silence' => '<strong>:username</strong> will be able to speak again in :duration.',
+                'remaining_silence' => '<strong>:username</strong> will be able to speak again :duration.',
 
                 'recent_infringements' => [
                     'title' => 'Recent Infringements',
@@ -366,7 +355,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Interests',
-            'lastfm' => 'Last.fm',
             'location' => 'Current Location',
             'occupation' => 'Occupation',
             'skype' => 'Skype',
@@ -435,6 +423,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Brick view',
         'card' => 'Card view',
         'list' => 'List view',
     ],

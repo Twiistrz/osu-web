@@ -1,27 +1,12 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers\Forum;
 
 use App\Exceptions\ModelNotSavedException;
-use App\Libraries\ForumUpdateNotifier;
+use App\Jobs\Notifications\ForumTopicReply;
 use App\Libraries\NewForumTopic;
 use App\Models\Forum\FeatureVote;
 use App\Models\Forum\Forum;
@@ -133,17 +118,14 @@ class TopicsController extends Controller
     {
         $topic = Topic::withTrashed()->findOrFail($id);
 
-        $moderationPriv = priv_check('ForumModerate', $topic->forum);
-
-        $moderationPriv->ensureCan();
-        $userCanModerate = $moderationPriv->can();
+        priv_check('ForumModerate', $topic->forum)->ensureCan();
 
         $type = 'lock';
         $state = get_bool(Request::input('lock'));
         $this->logModerate($state ? 'LOG_LOCK' : 'LOG_UNLOCK', [$topic->topic_title], $topic);
         $topic->lock($state);
 
-        return ext_view('forum.topics.replace_button', compact('topic', 'type', 'state', 'userCanModerate'), 'js');
+        return ext_view('forum.topics.replace_button', compact('topic', 'type', 'state'), 'js');
     }
 
     public function move($id)
@@ -171,7 +153,7 @@ class TopicsController extends Controller
 
         $type = 'moderate_pin';
         $state = get_int(Request::input('pin'));
-        DB::transaction(function () use ($topic, $type, $state) {
+        DB::transaction(function () use ($topic, $state) {
             $topic->pin($state);
 
             $this->logModerate(
@@ -196,28 +178,30 @@ class TopicsController extends Controller
             return error_popup($e->getMessage());
         }
 
-        if ($post->post_id !== null) {
-            $posts = collect([$post]);
-            $firstPostPosition = $topic->postPosition($post->post_id);
+        $posts = collect([$post]);
+        $firstPostPosition = $topic->postPosition($post->post_id);
 
-            $post->markRead(Auth::user());
-            ForumUpdateNotifier::onReply([
-                'topic' => $topic,
-                'post' => $post,
-                'user' => Auth::user(),
-            ]);
+        $post->markRead(Auth::user());
+        (new ForumTopicReply($post, auth()->user()))->dispatch();
 
-            return ext_view('forum.topics._posts', compact('posts', 'firstPostPosition', 'topic'));
-        }
+        return ext_view('forum.topics._posts', compact('posts', 'firstPostPosition', 'topic'));
     }
 
     public function show($id)
     {
-        $postStartId = Request::input('start');
-        $postEndId = get_int(Request::input('end'));
-        $nthPost = get_int(Request::input('n'));
-        $skipLayout = get_bool(Request::input('skip_layout')) ?? false;
-        $showDeleted = get_bool(Request::input('with_deleted')) ?? true;
+        $params = get_params(request()->all(), null, [
+            'start',
+            'end:int',
+            'n:int',
+            'skip_layout:bool',
+            'with_deleted:bool',
+        ]);
+
+        $postStartId = $params['start'] ?? null;
+        $postEndId = $params['end'] ?? null;
+        $nthPost = $params['n'] ?? null;
+        $skipLayout = $params['skip_layout'] ?? false;
+        $showDeleted = $params['with_deleted'] ?? null;
         $jumpTo = null;
 
         $topic = Topic
@@ -238,9 +222,15 @@ class TopicsController extends Controller
             abort(404);
         }
 
+        if ($userCanModerate) {
+            $showDeleted = $showDeleted ?? auth()->user()->profileCustomization()->forum_posts_show_deleted;
+        } else {
+            $showDeleted = false;
+        }
+
         priv_check('ForumView', $topic->forum)->ensureCan();
 
-        $posts = $topic->posts()->showDeleted($showDeleted && $userCanModerate);
+        $posts = $topic->posts()->showDeleted($showDeleted);
 
         if ($postStartId === 'unread') {
             $postStartId = Post::lastUnreadByUser($topic, Auth::user());
@@ -286,10 +276,12 @@ class TopicsController extends Controller
         $posts = $posts
             ->take(20)
             ->with('forum')
+            ->with('lastEditor')
             ->with('topic')
             ->with('user.rank')
             ->with('user.country')
             ->with('user.supporterTagPurchases')
+            ->with('user.userGroups')
             ->get()
             ->sortBy('post_id');
 
@@ -298,7 +290,7 @@ class TopicsController extends Controller
         }
 
         $firstPostId = $topic->posts()
-            ->showDeleted($userCanModerate)
+            ->showDeleted($showDeleted)
             ->orderBy('post_id', 'asc')
             ->select('post_id')
             ->first()
@@ -323,11 +315,12 @@ class TopicsController extends Controller
 
         $watch = TopicWatch::lookup($topic, Auth::user());
 
-        $poll = new TopicPoll;
+        $poll = new TopicPoll();
         $poll->setTopic($topic);
         $canEditPoll = $poll->canEdit() && priv_check('ForumTopicPollEdit', $topic)->can();
 
         $featureVotes = $this->groupFeatureVotes($topic);
+        $noindex = !$topic->esShouldIndex();
 
         return ext_view(
             "forum.topics.{$template}",
@@ -341,6 +334,7 @@ class TopicsController extends Controller
                 'featureVotes',
                 'firstPostPosition',
                 'firstPostId',
+                'noindex',
                 'topic',
                 'userCanModerate',
                 'showDeleted'
@@ -351,6 +345,7 @@ class TopicsController extends Controller
     public function store(HttpRequest $request)
     {
         $forum = Forum::findOrFail($request->get('forum_id'));
+        $user = auth()->user();
 
         priv_check('ForumTopicStore', $forum)->ensureCan();
 
@@ -364,9 +359,9 @@ class TopicsController extends Controller
 
         $params = [
             'title' => $request->get('title'),
-            'user' => Auth::user(),
+            'user' => $user,
             'body' => $request->get('body'),
-            'cover' => TopicCover::findForUse(presence($request->input('cover_id')), Auth::user()),
+            'cover' => TopicCover::findForUse(presence($request->input('cover_id')), $user),
         ];
 
         try {
@@ -375,15 +370,12 @@ class TopicsController extends Controller
             return error_popup($e->getMessage());
         }
 
-        if (Auth::user()->user_notify || $forum->isHelpForum()) {
-            TopicWatch::setState($topic, Auth::user(), 'watching_mail');
+        if ($user->user_notify || $forum->isHelpForum()) {
+            TopicWatch::setState($topic, $user, 'watching_mail');
         }
 
-        ForumUpdateNotifier::onNew([
-            'topic' => $topic,
-            'post' => $topic->posts->last(),
-            'user' => Auth::user(),
-        ]);
+        $post = $topic->posts->last();
+        $post->markRead($user);
 
         return ujs_redirect(route('forum.topics.show', $topic));
     }
@@ -396,7 +388,7 @@ class TopicsController extends Controller
             abort(403);
         }
 
-        $params = get_params(request(), 'forum_topic', ['topic_title']);
+        $params = get_params(request()->all(), 'forum_topic', ['topic_title']);
 
         if ($topic->update($params)) {
             if ((Auth::user()->user_id ?? null) !== $topic->topic_poster) {
@@ -446,7 +438,7 @@ class TopicsController extends Controller
 
     private function getPollParams()
     {
-        return get_params(request(), 'forum_topic_poll', [
+        return get_params(request()->all(), 'forum_topic_poll', [
             'hide_results:bool',
             'length_days:int',
             'max_options:int',

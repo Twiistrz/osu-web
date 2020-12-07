@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\Forum;
 
@@ -24,6 +9,7 @@ use App\Exceptions\ModelNotSavedException;
 use App\Jobs\EsIndexDocument;
 use App\Jobs\UpdateUserForumCache;
 use App\Libraries\BBCodeForDB;
+use App\Libraries\Elasticsearch\Indexable;
 use App\Libraries\Transactions\AfterCommit;
 use App\Models\Beatmapset;
 use App\Models\Elasticsearch;
@@ -87,7 +73,7 @@ use Illuminate\Database\QueryException;
  * @property \Illuminate\Database\Eloquent\Collection $userTracks TopicTrack
  * @property \Illuminate\Database\Eloquent\Collection $watches TopicWatch
  */
-class Topic extends Model implements AfterCommit
+class Topic extends Model implements AfterCommit, Indexable
 {
     use Elasticsearch\TopicTrait, SoftDeletes, Validatable;
 
@@ -143,7 +129,7 @@ class Topic extends Model implements AfterCommit
         ]);
         $topic->forum()->associate($forum);
 
-        $topic->getConnection()->transaction(function () use ($forum, $topic, $params, $poll) {
+        $topic->getConnection()->transaction(function () use ($topic, $params, $poll) {
             $topic->saveOrExplode();
             $topic->addPostOrExplode($params['user'], $params['body'], false);
 
@@ -432,6 +418,11 @@ class Topic extends Model implements AfterCommit
     {
         // also functions for casting null to string
         $this->attributes['topic_last_poster_colour'] = ltrim($value, '#');
+    }
+
+    public function setTopicTitleAttribute($value)
+    {
+        $this->attributes['topic_title'] = trim_unicode($value);
     }
 
     public function save(array $options = [])

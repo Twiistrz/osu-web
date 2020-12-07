@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
@@ -178,7 +163,11 @@ class Contest extends Model
             case 'voting':
                 return i18n_date($this->voting_starts_at).' - '.i18n_date($this->voting_ends_at);
             default:
-                return trans('contest.dates.ended', ['date' => i18n_date($this->voting_ends_at)]);
+                if ($this->voting_ends_at === null) {
+                    return trans('contest.dates.ended_no_date');
+                } else {
+                    return trans('contest.dates.ended', ['date' => i18n_date($this->voting_ends_at)]);
+                }
         }
     }
 
@@ -259,9 +248,9 @@ class Contest extends Model
             $includes[] = 'results';
         }
 
-        $contestJson = json_item($this, new ContestTransformer);
+        $contestJson = json_item($this, new ContestTransformer());
         if ($this->isVotingStarted()) {
-            $contestJson['entries'] = json_collection($this->entriesByType($user), new ContestEntryTransformer, $includes);
+            $contestJson['entries'] = json_collection($this->entriesByType($user), new ContestEntryTransformer(), $includes);
         }
 
         if (!empty($contestJson['entries'])) {
@@ -308,7 +297,7 @@ class Contest extends Model
 
         return json_collection(
             UserContestEntry::where(['contest_id' => $this->id, 'user_id' => $user->user_id])->get(),
-            new UserContestEntryTransformer
+            new UserContestEntryTransformer()
         );
     }
 

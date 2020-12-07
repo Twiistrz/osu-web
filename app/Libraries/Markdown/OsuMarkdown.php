@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries\Markdown;
 
@@ -24,8 +9,8 @@ use App\Libraries\Markdown\Indexing\RendererExtension as IndexingRendererExtensi
 use League\CommonMark\CommonMarkConverter;
 use League\CommonMark\Environment;
 use League\CommonMark\Event\DocumentParsedEvent;
-use League\CommonMark\Ext\Autolink\AutolinkExtension;
-use League\CommonMark\Ext\Table as TableExtension;
+use League\CommonMark\Extension\Autolink\AutolinkExtension;
+use League\CommonMark\Extension\Table as TableExtension;
 use Symfony\Component\Yaml\Exception\ParseException as YamlParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -123,10 +108,10 @@ class OsuMarkdown
         $this->processor = new OsuMarkdownProcessor($env);
         $env->addEventListener(DocumentParsedEvent::class, [$this->processor, 'onDocumentParsed']);
 
-        $env->addExtension(new TableExtension\TableExtension);
-        $env->addBlockRenderer(TableExtension\Table::class, new OsuTableRenderer);
+        $env->addExtension(new TableExtension\TableExtension());
+        $env->addBlockRenderer(TableExtension\Table::class, new OsuTableRenderer());
 
-        $env->addExtension(new AutolinkExtension);
+        $env->addExtension(new AutolinkExtension());
 
         $this->converter = new CommonMarkConverter($this->config, $env);
     }
@@ -176,8 +161,8 @@ class OsuMarkdown
     {
         if ($this->indexable === null) {
             $env = Environment::createCommonMarkEnvironment();
-            $env->addExtension(new TableExtension\TableExtension);
-            $env->addExtension(new IndexingRendererExtension);
+            $env->addExtension(new TableExtension\TableExtension());
+            $env->addExtension(new IndexingRendererExtension());
             $converter = new CommonMarkConverter($this->config, $env);
             $this->indexable = $converter->convertToHtml($this->document);
         }

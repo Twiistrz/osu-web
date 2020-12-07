@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[pengguna yang dihapus]',
@@ -49,13 +34,13 @@ return [
     'blocks' => [
         'banner_text' => 'Anda telah memblokir pengguna ini.',
         'blocked_count' => 'pengguna yang diblokir (:count)',
-        'hide_profile' => 'sembunyikan profil',
-        'not_blocked' => 'Pengguna tidak diblokir.',
+        'hide_profile' => 'Sembunyikan profil',
+        'not_blocked' => 'Pengguna ini tidak diblokir.',
         'show_profile' => 'tampilkan profil',
-        'too_many' => 'Batas blokir tercapai.',
+        'too_many' => 'Batas pemblokiran tercapai.',
         'button' => [
-            'block' => 'blokir',
-            'unblock' => 'buka blokir',
+            'block' => 'Blokir',
+            'unblock' => 'Buka Blokir',
         ],
     ],
 
@@ -65,7 +50,7 @@ return [
     ],
 
     'disabled' => [
-        'title' => 'Uh-oh! Sepertinya akun kamu telah dinonaktifkan.',
+        'title' => 'Uh-oh! Sepertinya akun Anda telah dinonaktifkan.',
         'warning' => "Apabila Anda telah melakukan suatu pelanggaran yang berdampak langsung terhadap status akun Anda, akun Anda akan dikondisikan di dalam masa hukuman percobaan selama satu bulan di mana selama satu bulan ini kami tidak akan menggubris segala laporan dan permintaan yang masuk terkait dengan akun Anda. Setelah masa hukuman ini berakhir, Anda baru akan kemudian dapat mengontak kami apabila Anda ingin kembali bermain dengan akun Anda. Mohon diperhatikan bahwa membuat akun baru di kala akun utama Anda sedang dibatasi <strong>akan menambah masa hukuman Anda</strong>, dan <strong>masa hukuman ini akan senantiasa bertambah panjang dengan setiap akun baru yang Anda coba untuk buat</strong>. Kami harap Anda dapat memetik pelajaran dari kasus ini dan tidak akan melakukan pelanggaran lagi ke depannya!",
 
         'if_mistake' => [
@@ -74,20 +59,24 @@ return [
         ],
 
         'reasons' => [
-            'compromised' => 'Akun kamu telah ditandai berbahaya. Akun kamu mungkin akan dinonaktifkan untuk sementara hingga identitasnya selesai dikonfirmasi.',
-            'opening' => 'Ada sejumlah alasan yang dapat menyebabkan akun kamu dinonaktifkan:',
+            'compromised' => 'Akun Anda terindikasi telah disalahgunakan oleh pihak-pihak yang tidak bertanggung jawab untuk hal-hal yang membahayakan. Akun Anda mungkin akan dinonaktifkan untuk sementara waktu hingga identitas pengguna akun telah terkonfirmasi.',
+            'opening' => 'Ada sejumlah alasan yang dapat menyebabkan akun Anda dinonaktifkan:',
 
             'tos' => [
-                '_' => 'Kamu telah melanggar salah satu atau mungkin beberapa :community_rules atau :tos kami.',
+                '_' => 'Anda telah melakukan pelanggaran terhadap satu atau lebih poin yang tercantum pada :community_rules atau :tos kami.',
                 'community_rules' => 'peraturan komunitas',
                 'tos' => 'ketentuan layanan',
             ],
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => 'Pengguna berdasarkan mode permainan',
+    ],
+
     'force_reactivation' => [
         'reason' => [
-            'inactive_different_country' => "Akun kamu sudah lama tidak digunakan.",
+            'inactive_different_country' => "Akun Anda telah lama tidak digunakan.",
         ],
     ],
 
@@ -99,6 +88,7 @@ return [
         'failed' => 'Gagal masuk',
         'forgot' => 'Lupa kata sandi?',
         'info' => 'Silahkan sign in untuk melanjutkan',
+        'invalid_captcha' => 'Captcha tidak valid. Harap muat ulang halaman.',
         'locked_ip' => 'Alamat IP Anda dikunci. Mohon tunggu beberapa menit.',
         'password' => 'Kata Sandi',
         'register' => "Belum memiliki akun osu!? Buat yang baru sekarang",
@@ -107,7 +97,7 @@ return [
         'username' => 'Nama Pengguna',
 
         'beta' => [
-            'main' => 'Akses beta saat ini dibatasi untuk pengguna istimewa.',
+            'main' => 'Akses beta saat ini hanya terbuka kepada pengguna-pengguna tertentu.',
             'small' => '(osu!supporter akan segera masuk)',
         ],
     ],
@@ -120,9 +110,9 @@ return [
         'login_link' => 'klik untuk masuk',
         'login_text' => 'masuk',
         'username' => 'Tamu',
-        'error' => 'Anda perlu masuk untuk melakukan ini.',
+        'error' => 'Anda harus masuk terlebih dahulu untuk dapat melakukan tindakan ini.',
     ],
-    'logout_confirm' => 'Apa Anda yakin akan keluar? :(',
+    'logout_confirm' => 'Apa Anda yakin ingin keluar? :(',
     'report' => [
         'button_text' => 'laporkan',
         'comments' => 'Komentar Tambahan',
@@ -147,20 +137,19 @@ return [
     ],
     'restricted_banner' => [
         'title' => 'Akun Anda telah dibatasi!',
-        'message' => 'Selama dibatasi, Anda tidak dapat berinteraksi dengan pengguna lain dan skor hanya akan terlihat oleh Anda. Hal ini biasanya terproses secara otomatis dan akan diangkat dalam 24 jam. Jika Anda ingin mengajukan banding atas pembatasan Anda, mohon <a href="mailto:accounts@ppy.sh">hubungi layanan dukungan</a>.',
+        'message' => 'Selama akun Anda di-restrict, Anda tidak dapat berinteraksi dengan para pengguna lain dan skor-skor yang telah Anda raih hanya akan dapat dilihat oleh diri Anda sendiri. Hal ini pada umumnya merupakan efek samping dari proses yang dilakukan oleh sistem secara otomatis dan akan diangkat dalam 24 jam apabila Anda memang terbukti tidak melakukan pelanggaran apapun terhadap aturan-aturan yang berlaku. Jika Anda ingin mengajukan banding atas status akun Anda, mohon <a href="mailto:accounts@ppy.sh">hubungi layanan dukungan</a>.',
     ],
     'show' => [
         'age' => ':age tahun',
         'change_avatar' => 'ganti avatar Anda!',
-        'first_members' => 'Di sini dari awal',
+        'first_members' => 'Di sini sejak awal',
         'is_developer' => 'osu!developer',
         'is_supporter' => 'osu!supporter',
         'joined_at' => 'Bergabung :date',
         'lastvisit' => 'Terakhir terlihat :date',
         'lastvisit_online' => 'Saat ini online',
-        'missingtext' => 'Mungkin Anda salah ketik! (atau pengguna mungkin telah diblokir)',
+        'missingtext' => 'Mungkin Anda salah ketik! (atau pengguna yang Anda hendak tuju mungkin telah di-ban sebelumnya)',
         'origin_country' => 'Dari :country',
-        'page_description' => 'osu! - Segala sesuatu yang ingin Anda ketahui tentang :username!',
         'previous_usernames' => 'dulu dikenal sebagai',
         'plays_with' => 'Bermain menggunakan :devices',
         'title' => "profil :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Unggah gambar',
                     'dropzone' => 'Letakkan di sini untuk mengunggah',
                     'dropzone_info' => 'Anda juga dapat meletakkan gambar Anda di sini untuk mengunggah.',
-                    'size_info' => 'Ukuran gambar sampul yang optimal selayaknya adalah 2800x620',
+                    'size_info' => 'Ukuran gambar sampul yang optimal selayaknya adalah 2400x620',
                     'too_large' => 'File yang diunggah terlalu besar.',
                     'unsupported_format' => 'Format tidak didukung.',
 
@@ -186,8 +175,8 @@ return [
             ],
 
             'default_playmode' => [
-                'is_default_tooltip' => 'mode permainan default',
-                'set' => 'Atur :mode sebagai mode permainan default profil',
+                'is_default_tooltip' => 'mode permainan utama',
+                'set' => 'atur :mode sebagai mode permainan utama Anda',
             ],
         ],
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'oleh :artist',
-                'none' => 'Saat ini belum ada...',
                 'title' => 'Beatmap',
 
                 'favourite' => [
@@ -232,11 +220,10 @@ return [
                 'show_more' => 'lihat lebih banyak aktivitas',
             ],
             'historical' => [
-                'empty' => 'Tidak ada catatan performa terbaru. :(',
                 'title' => 'Historis',
 
                 'monthly_playcounts' => [
-                    'title' => 'Riwayat Main',
+                    'title' => 'Riwayat Permainan',
                     'count_label' => 'Kali Bermain',
                 ],
                 'most_played' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Jumlah Kudosu Tersedia',
-                'available_info' => "Kudosu yang Anda miliki dapat ditukarkan menjadi bintang-bintang kudosu (kudosu stars) yang dapat membantu beatmap Anda untuk mendapatkan lebih banyak perhatian. Berikut jumlah kudosu yang belum Anda tukarkan.",
                 'recent_entries' => 'Riwayat Kudosu Terbaru',
                 'title' => 'Kudosu!',
                 'total' => 'Jumlah Kudosu yang Diperoleh',
@@ -281,8 +266,8 @@ return [
                         ],
 
                         'vote' => [
-                            'give' => 'Menerima :amount karena mendapatkan vote positif di post modding :post',
-                            'reset' => 'Kehilangan :amount karena kehilangan vote positif di post modding :post',
+                            'give' => 'Mendapatkan :amount dari suara yang diperoleh pada topik diskusi :post',
+                            'reset' => 'Kehilangan :amount dari suara yang hilang pada topik diskusi :post',
                         ],
 
                         'recalculate' => [
@@ -307,7 +292,7 @@ return [
                 'title' => 'saya!',
             ],
             'medals' => [
-                'empty' => "Pengguna ini belum mendapatkannya. ;_;",
+                'empty' => "Pengguna ini belum tercatat pernah mendapatkan medali sebelumnya. ;_;",
                 'recent' => 'Terbaru',
                 'title' => 'Medali',
             ],
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Unduh Replay',
-                'empty' => 'Belum ada catatan performa yang mendapat peringkat pertama. :(',
                 'not_ranked' => 'Hanya beatmap Ranked yang dapat memberikan pp.',
                 'pp_weight' => 'terbobotkan sejumlah :percentage',
+                'view_details' => 'Lihat Rincian',
                 'title' => 'Peringkat',
 
                 'best' => [
@@ -343,7 +328,7 @@ return [
             'account_standing' => [
                 'title' => 'Kondisi Akun',
                 'bad_standing' => "Akun <strong>:username</strong> tidak dalam kondisi baik :(",
-                'remaining_silence' => '<strong>:username</strong> akan dapat berbicara lagi dalam :duration.',
+                'remaining_silence' => '<strong>:username</strong> akan dapat kembali berbicara dalam :duration.',
 
                 'recent_infringements' => [
                     'title' => 'Pelanggaran Terbaru',
@@ -355,8 +340,8 @@ return [
                     'actor' => 'oleh :username',
 
                     'actions' => [
-                        'restriction' => 'Blokir',
-                        'silence' => 'Bungkam',
+                        'restriction' => 'Ban',
+                        'silence' => 'Silence',
                         'note' => 'Catatan',
                     ],
                 ],
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Minat',
-            'lastfm' => 'Last.fm',
             'location' => 'Lokasi Saat Ini',
             'occupation' => 'Pekerjaan',
             'skype' => 'Skype',
@@ -387,7 +371,7 @@ return [
             'placeholder' => 'Ketik konten laman di sini',
 
             'restriction_info' => [
-                '_' => 'Kamu harus menjadi seorang :link untuk menggunakan fitur ini.',
+                '_' => 'Anda harus memiliki :link untuk dapat menggunakan fitur ini.',
                 'link' => 'osu!supporter',
             ],
         ],
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => 'Tampilan batu bata',
         'card' => 'Tampilan kartu',
         'list' => 'Tampilan daftar',
     ],

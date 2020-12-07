@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[видалений користувач]',
@@ -65,29 +50,33 @@ return [
     ],
 
     'disabled' => [
-        'title' => '',
-        'warning' => "",
+        'title' => 'Ой-ой! Схоже, ваш обліковий запис був відключений.',
+        'warning' => "Врахуйте, що якщо ви порушили правила, то як мінімум місяць ваші спроби оскаржити блокування розглядатися не будуть. Після закінчення одного місяця можете зв'язуватися з нами, якщо вважаєте за це необхідним. Також знайте, що створення нових акаунтів щоб уникнути блокування <strong>лише продовжить цей місячний період</strong>, в який ви не зможете відновити свій головний аккаунт. До того ж, <strong>створення вторинних акаунтів заборонено правилами</strong>, тому радимо вам не робити цього!",
 
         'if_mistake' => [
-            '_' => '',
-            'email' => '',
+            '_' => 'Якщо ви вважаєте, що це помилка ви можете зв\'язатися з нами (через :email або після натискання на "?" В правому-нижньому кутку цієї сторінки). Зауважте, що ми завжди впевнені в своїх діях, так як вони засновані на надійних даних. Ми залишаємо за собою право ігнорувати ваші скарги, якщо порахуємо, що ви ведете себе недобросовісно.',
+            'email' => 'ел. поште',
         ],
 
         'reasons' => [
-            'compromised' => '',
-            'opening' => '',
+            'compromised' => 'Можливо, ваш аккаунт був скомпрометований. Він може бути тимчасово відключений, поки особистість власника підтверджується.',
+            'opening' => 'Є ряд причин, які можуть призвести до відключення вашого облікового запису:',
 
             'tos' => [
-                '_' => '',
-                'community_rules' => '',
-                'tos' => '',
+                '_' => 'Ви зламали один або кілька наших :community_rules або :tos.',
+                'community_rules' => 'правила спільноти',
+                'tos' => 'умови обслуговування',
             ],
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
-            'inactive_different_country' => "",
+            'inactive_different_country' => "Ваш обліковий запис вже давно не використовується.",
         ],
     ],
 
@@ -95,10 +84,11 @@ return [
         '_' => 'Вхід',
         'button' => 'Вхід',
         'button_posting' => 'Входимо...',
-        'email_login_disabled' => '',
+        'email_login_disabled' => 'Вхід через електронну пошту відключений. Будь ласка, використовуйте ім\'я користувача.',
         'failed' => 'Помилка авторизації',
         'forgot' => 'Забули пароль?',
-        'info' => '',
+        'info' => 'Увійдіть, щоб продовжити',
+        'invalid_captcha' => 'Занадто багато невдалих спроб входу в систему, будь ласка, завершіть капчу і спробуйте ще раз. (Оновити сторінку, якщо капча не видима)',
         'locked_ip' => 'ваша IP адреса заблокована. Будь ласка спробуйте пізніше.',
         'password' => 'Пароль',
         'register' => "У вас все ще немає аккаунта osu!? Створіть новий",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Зараз в мережі',
         'missingtext' => 'Можливо, ви зробили помилку! (Або гравець заблокований)',
         'origin_country' => 'Проживає в :country',
-        'page_description' => 'osu! - Все, що ви хотіли знати про :username!',
         'previous_usernames' => 'також відомий як',
         'plays_with' => 'Грає з :devices',
         'title' => "профіль :username",
@@ -174,13 +163,13 @@ return [
                     'button' => 'Завантажити зображення',
                     'dropzone' => 'Для завантаження файлу перетягніть його сюди',
                     'dropzone_info' => 'Ви також можете перетягнути зображення сюди для завантаження',
-                    'size_info' => 'Розмір обкладинки повинен бути 2800x620',
+                    'size_info' => 'Розмір обкладинки повинен бути 2400x620',
                     'too_large' => 'Завантажене зображення занадто велике.',
                     'unsupported_format' => 'Формат не підтримується.',
 
                     'restriction_info' => [
-                        '_' => '',
-                        'link' => '',
+                        '_' => 'Завантаження доступна тільки :link',
+                        'link' => 'власникам osu!supporter',
                     ],
                 ],
             ],
@@ -192,7 +181,7 @@ return [
         ],
 
         'extra' => [
-            'none' => '',
+            'none' => 'нічого',
             'unranked' => 'Немає недавніх ігор',
 
             'achievements' => [
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'від :artist',
-                'none' => 'Нічого... поки що.',
                 'title' => 'Карти',
 
                 'favourite' => [
@@ -222,17 +210,16 @@ return [
                 ],
             ],
             'discussions' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Обговорення',
+                'title_longer' => 'Недавні обговорення',
+                'show_more' => 'бачити більше обговорень',
             ],
             'events' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Події',
+                'title_longer' => 'Недавні події',
+                'show_more' => 'бачити більше подій',
             ],
             'historical' => [
-                'empty' => 'Поки записів немає :(',
                 'title' => 'Активність',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Кудосу доступно',
-                'available_info' => "Кудосу можуть бути використані для обміну між іншими авторами карт, які в свою чергу допоможуть залучити до вашої карті більше уваги. Це кількість кудосу, які ви не використали.",
                 'recent_entries' => 'Останні обміни',
                 'title' => 'Кудосу!',
                 'total' => 'Кудосу накопичено',
@@ -299,8 +284,8 @@ return [
                 ],
 
                 'total_info' => [
-                    '_' => '',
-                    'link' => '',
+                    '_' => 'Залежить від того, скільки вкладу користувач вніс у модерацію карт. Відвідайте :link для додаткової інформації.',
+                    'link' => 'цієї сторінки',
                 ],
             ],
             'me' => [
@@ -312,18 +297,18 @@ return [
                 'title' => 'Досягнення',
             ],
             'posts' => [
-                'title' => '',
-                'title_longer' => '',
-                'show_more' => '',
+                'title' => 'Пости',
+                'title_longer' => 'Недавні пости',
+                'show_more' => 'бачити більше постiв',
             ],
             'recent_activity' => [
                 'title' => 'Недавня активність',
             ],
             'top_ranks' => [
                 'download_replay' => 'Завантажити повтор',
-                'empty' => 'Поки рекордів немає :(',
                 'not_ranked' => 'Очки продуктивності видаються тільки за рейтингові або одобрені карти.',
                 'pp_weight' => 'зважено: :percentage',
+                'view_details' => 'Придивитися до деталей',
                 'title' => 'Рейтинги',
 
                 'best' => [
@@ -334,11 +319,11 @@ return [
                 ],
             ],
             'votes' => [
-                'given' => '',
-                'received' => '',
-                'title' => '',
-                'title_longer' => '',
-                'vote_count' => '',
+                'given' => 'Голосів дано (за 3 місяці)',
+                'received' => 'Голосів отримано (за 3 місяці)',
+                'title' => 'Голосів',
+                'title_longer' => 'Недавні голосу',
+                'vote_count' => ':count_delimited голос|:count_delimited голосів',
             ],
             'account_standing' => [
                 'title' => 'Статус аккаунту',
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => '',
             'interests' => 'Вподобання',
-            'lastfm' => 'Last.fm',
             'location' => 'Поточне місцезнаходження',
             'occupation' => 'Рід занять',
             'skype' => '',
@@ -387,8 +371,8 @@ return [
             'placeholder' => 'Введіть вміст сторінки',
 
             'restriction_info' => [
-                '_' => '',
-                'link' => '',
+                '_' => 'Для використання цієї функції потрібен :link.',
+                'link' => 'тег osu!supporter',
             ],
         ],
         'post_count' => [
@@ -415,10 +399,10 @@ return [
             'total_hits' => 'Всього попадань',
             'total_score' => 'Всього очків',
             // modding stats
-            'ranked_and_approved_beatmapset_count' => '',
-            'loved_beatmapset_count' => '',
-            'unranked_beatmapset_count' => '',
-            'graveyard_beatmapset_count' => '',
+            'ranked_and_approved_beatmapset_count' => 'Рейтингові і схвалені карти',
+            'loved_beatmapset_count' => 'Улюблені карти',
+            'unranked_beatmapset_count' => 'Карти на розгляді',
+            'graveyard_beatmapset_count' => 'Закинуті карти',
         ],
     ],
 
@@ -435,7 +419,8 @@ return [
     ],
 
     'view_mode' => [
-        'card' => '',
-        'list' => '',
+        'brick' => 'Показувати цеглою',
+        'card' => 'Показувати картками',
+        'list' => 'Показувати списком',
     ],
 ];

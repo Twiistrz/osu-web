@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models;
 
@@ -98,9 +83,20 @@ class ChangelogEntry extends Model
         foreach ($data['pull_request']['labels'] as $label) {
             $name = $label['name'];
 
-            if (!in_array(strtolower($name), $ignored, true)) {
-                return ucwords($name);
+            if (in_array(strtolower($name), $ignored, true)) {
+                continue;
             }
+
+            $separatorPos = strpos($name, ':');
+            if ($separatorPos !== false) {
+                $name = substr($name, $separatorPos + 1);
+            }
+
+            if (strpos($name, ' ') === false) {
+                $name = str_replace('-', ' ', $name);
+            }
+
+            return ucwords($name);
         }
     }
 
@@ -123,6 +119,7 @@ class ChangelogEntry extends Model
             'created_at' => Carbon::parse($data['pull_request']['merged_at']),
             'github_pull_request_id' => $data['pull_request']['number'],
             'message' => $data['pull_request']['body'],
+            'private' => static::isPrivate($data),
             'title' => $data['pull_request']['title'],
             'type' => static::guessType($data),
         ]);
@@ -141,6 +138,23 @@ class ChangelogEntry extends Model
         }
 
         return $entry;
+    }
+
+    public static function isPrivate($data)
+    {
+        static $privateCategories = [
+            'dependencies',
+        ];
+
+        foreach ($data['pull_request']['labels'] as $label) {
+            $name = $label['name'];
+
+            if (in_array(strtolower($name), $privateCategories, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static function placeholder()

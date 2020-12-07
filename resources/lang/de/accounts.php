@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -25,21 +10,21 @@ return [
 
         'avatar' => [
             'title' => 'Avatar',
-            'rules' => 'Bitte stelle sicher, dass sich dein Avatar an :link hält.<br/>Das heißt, es muss <strong>für alle Altersklassen geeignet</strong> sein. Z.B. keine Nacktheit, Obszönität oder anstößiger Inhalt.',
-            'rules_link' => 'die Community Regeln',
+            'rules' => 'Bitte stelle sicher, dass sich dein Avatar an :link hält.<br/>Das heißt, er muss <strong>für alle Altersklassen geeignet</strong> sein und darf keine Nacktheit oder anstößige Inhalte enthalten.',
+            'rules_link' => 'die Community-Regeln',
         ],
 
         'email' => [
-            'current' => 'Aktuelle E-Mail Adresse',
-            'new' => 'Neue E-Mail',
-            'new_confirmation' => 'E-Mail bestätigen',
+            'current' => 'aktuelle e-mail',
+            'new' => 'neue e-mail',
+            'new_confirmation' => 'e-mail bestätigen',
             'title' => 'E-Mail',
         ],
 
         'password' => [
             'current' => 'aktuelles passwort',
             'new' => 'neues passwort',
-            'new_confirmation' => 'Passwort bestätigen',
+            'new_confirmation' => 'passwort bestätigen',
             'title' => 'Passwort',
         ],
 
@@ -49,7 +34,7 @@ return [
             'user' => [
                 'user_discord' => 'discord',
                 'user_from' => 'aktueller standort',
-                'user_interests' => 'Interessen',
+                'user_interests' => 'interessen',
                 'user_msnm' => 'skype',
                 'user_occ' => 'beschäftigung',
                 'user_twitter' => 'twitter',
@@ -64,34 +49,54 @@ return [
     ],
 
     'notifications' => [
-        'title' => 'Nachrichten',
-        'topic_auto_subscribe' => 'aktiviere Nachrichten automatisch bei neue Forum Themen die du erstellst',
-        'beatmapset_discussion_qualified_problem' => 'erhalte Benachrichtigungen für neue Probleme auf qualifizierten Beatmaps von folgenden Modi',
+        'beatmapset_discussion_qualified_problem' => 'erhalte benachrichtigungen für neue probleme auf qualifizierten beatmaps der folgenden modi',
+        'beatmapset_disqualify' => 'erhalte benachrichtigungen, wenn beatmaps der folgenden modi disqualifiziert werden',
+        'comment_reply' => 'erhalte benachrichtigungen für antworten auf deine kommentare',
+        'title' => 'Benachrichtigungen',
+        'topic_auto_subscribe' => 'automatisch benachrichtigungen zu den von dir erstellten forenthreads aktivieren',
 
-        'mail' => [
-            '_' => 'E-Mail-Benachrichtigungen erhalten für',
-            'beatmapset:modding' => 'Beatmap-Modifizierung',
-            'forum_topic_reply' => 'Antwort auf ein Thema',
+        'options' => [
+            '_' => 'zustelloptionen',
+            'beatmapset:modding' => 'beatmap-modding',
+            'channel_message' => 'private chatnachrichten',
+            'comment_new' => 'neue kommentare',
+            'forum_topic_reply' => 'antwort auf einen thread',
+            'mail' => 'mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'medaille freigeschaltet',
         ],
     ],
 
     'oauth' => [
-        'authorized_clients' => 'autorisierte Geräte',
-        'own_clients' => 'eigene Geräte',
+        'authorized_clients' => 'autorisierte clients',
+        'own_clients' => 'eigene clients',
         'title' => 'OAuth',
     ],
 
+    'options' => [
+        'title' => 'Optionen',
+
+        'beatmapset_download' => [
+            '_' => 'bevorzuge beatmap-download',
+            'all' => 'mit video, falls verfügbar',
+            'no_video' => 'ohne video',
+            'direct' => 'in osu!direct öffnen',
+        ],
+
+        'beatmapset_title_show_original' => 'beatmap-metadaten in originalsprache anzeigen',
+    ],
+
     'playstyles' => [
-        'keyboard' => 'Tastatur',
-        'mouse' => 'Maus',
-        'tablet' => 'Tablet',
+        'keyboard' => 'tastatur',
+        'mouse' => 'maus',
+        'tablet' => 'tablet',
         'title' => 'Spielstil',
         'touch' => 'touch',
     ],
 
     'privacy' => [
-        'friends_only' => 'Blockiere Nachrichten von Benutzern, die nicht auf deiner Freundesliste sind',
-        'hide_online' => 'Online-Status verstecken',
+        'friends_only' => 'blockiere nachrichten von benutzern, die nicht auf deiner freundesliste sind',
+        'hide_online' => 'online-status verbergen',
         'title' => 'Privatsphäre',
     ],
 
@@ -101,7 +106,7 @@ return [
         'end_session_confirmation' => 'Das wird deine Sitzung auf diesem Gerät sofort beenden. Bist du sicher?',
         'last_active' => 'Zuletzt aktiv:',
         'title' => 'Sicherheit',
-        'web_sessions' => 'Sitzungen',
+        'web_sessions' => 'web-sitzungen',
     ],
 
     'update_email' => [
@@ -113,11 +118,11 @@ return [
     ],
 
     'verification_completed' => [
-        'text' => 'Sie können diesen Tab/Fenster jetzt schließen',
-        'title' => 'Überprüfung wurde abgeschlossen',
+        'text' => 'Du kannst diesen Tab/dieses Fenster nun schließen',
+        'title' => 'Verifizierung abgeschlossen',
     ],
 
     'verification_invalid' => [
-        'title' => 'Ungültiger oder abgelaufener Bestätigungslink',
+        'title' => 'Ungültiger oder abgelaufener Verifizierungslink',
     ],
 ];

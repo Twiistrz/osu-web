@@ -1,41 +1,18 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { BeatmapBasicStats } from 'beatmap-basic-stats'
 import * as React from 'react'
-import { a, div, span, table, tbody, td, th, tr, i } from 'react-dom-factories'
+import { button, div, span, table, tbody, td, th, tr, i } from 'react-dom-factories'
 el = React.createElement
 
 export class Stats extends React.Component
   constructor: (props) ->
     super props
 
-    @state =
-      preview: 'ended'
-      previewDuration: 0
-
 
   componentDidMount: =>
     @_renderChart()
-
-    $.subscribe 'osuAudio:initializing.beatmapsetPageStats', @previewInitializing
-    $.subscribe 'osuAudio:playing.beatmapsetPageStats', @previewStart
-    $.subscribe 'osuAudio:ended.beatmapsetPageStats', @previewStop
 
 
   componentWillUnmount: =>
@@ -62,18 +39,11 @@ export class Stats extends React.Component
               else ['cs', 'drain', 'accuracy', 'ar', 'stars']
 
     div className: 'beatmapset-stats',
-      a
-        href: '#'
-        className: "beatmapset-stats__row beatmapsets-stats__row beatmapset-stats__row--preview js-audio--play"
+      button
+        type: 'button'
+        className: "beatmapset-stats__row beatmapsets-stats__row beatmapset-stats__row--preview js-audio--play js-audio--player"
         'data-audio-url': @props.beatmapset.preview_url
-        span className: 'beatmapset-stats__preview-icon',
-          i className: "fas fa-#{if @state.preview == 'ended' then 'play' else 'stop'}"
-
-        div
-          className: 'beatmapset-stats__elapsed-bar'
-          style:
-            transitionDuration: "#{@state.previewDuration}s"
-            width: "#{if @state.preview == 'playing' then '100%' else 0}"
+        div className: 'beatmapset-stats__elapsed-bar'
 
       div className: 'beatmapset-stats__row beatmapset-stats__row--basic',
         el BeatmapBasicStats, beatmap: @props.beatmap
@@ -128,32 +98,6 @@ export class Stats extends React.Component
             ref: 'chartArea'
 
 
-  previewInitializing: (_e, {url, player}) =>
-    if url != @props.beatmapset.preview_url
-      return @previewStop()
-
-    @setState
-      preview: 'initializing'
-      previewDuration: 0
-
-
-  previewStart: (_e, {url, player}) =>
-    if url != @props.beatmapset.preview_url
-      return @previewStop()
-
-    @setState
-      preview: 'playing'
-      previewDuration: player.duration
-
-
-  previewStop: =>
-    return if @state.preview == 'ended'
-
-    @setState
-      preview: 'ended'
-      previewDuration: 0
-
-
   _renderChart: ->
     return if !@props.beatmapset.is_scoreable
 
@@ -165,6 +109,6 @@ export class Stats extends React.Component
         modifiers: ['beatmapset-rating']
 
       @_ratingChart = new StackedBarChart @refs.chartArea, options
-      $(window).on 'throttled-resize.beatmapsetPageStats', @_ratingChart.resize
+      $(window).on 'resize.beatmapsetPageStats', @_ratingChart.resize
 
     @_ratingChart.loadData rating: @props.beatmapset.ratings[1..]

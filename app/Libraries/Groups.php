@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Libraries;
 
@@ -31,7 +16,7 @@ class Groups
     public function all()
     {
         if (!isset($this->groups)) {
-            $this->groups = Group::orderBy('display_order')->get();
+            $this->fetch();
         }
 
         return $this->groups;
@@ -62,7 +47,7 @@ class Groups
                 'short_name' => $id,
             ]);
 
-            $this->reset();
+            $this->resetCache();
 
             return $this->byIdentifier($id);
         }
@@ -70,8 +55,44 @@ class Groups
         return $group;
     }
 
-    private function reset()
+    /**
+     * Fetch groups data
+     *
+     * This data is being used on every request so fetching them directly
+     * from external database will cause unnecessary load on network.
+     *
+     * Store the data locally on each servers and use normal shared cache
+     * to indicate the servers whether or not to reset the local cache.
+     *
+     * Expiration doesn't really exist on file storage cache so in some rare
+     * cases (like testing) using file storage for local cache will generate
+     * lots of files. Array storage should be used in those cases.
+     * In normal use where groups don't change there shouldn't be too many
+     * files generated.
+     */
+    public function fetch()
     {
+        $localCacheVersion = cache()->get('groups_local_cache_version');
+        $localStorage = config('cache.local');
+
+        if ($localCacheVersion === null) {
+            $localCacheVersion = hrtime(true);
+            cache()->forever('groups_local_cache_version', $localCacheVersion);
+        }
+
+        $localCacheKey = "groups:v{$localCacheVersion}";
+        $this->groups = cache()->store($localStorage)->get($localCacheKey);
+
+        if ($this->groups === null) {
+            $this->groups = Group::orderBy('display_order')->get();
+            cache()->store($localStorage)->forever($localCacheKey, $this->groups);
+        }
+    }
+
+    public function resetCache()
+    {
+        cache()->put('groups_local_cache_version', hrtime(true));
+
         $this->groups = null;
         $this->groupsById = null;
         $this->groupsByIdentifier = null;

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'landing' => [
@@ -42,7 +27,7 @@ return [
         'title' => '搜尋',
 
         'beatmapset' => [
-            'login_required' => '',
+            'login_required' => '登入以搜索譜面',
             'more' => '搜尋到 :count 張圖譜',
             'more_simple' => '查看更多搜尋結果',
             'title' => '圖譜',
@@ -72,7 +57,7 @@ return [
         ],
 
         'user' => [
-            'login_required' => '',
+            'login_required' => '登入以搜尋玩家',
             'more' => '搜尋到 :count 張圖譜',
             'more_simple' => '查看更多搜尋結果',
             'more_hidden' => '搜尋玩家的人數不可超過 :max 人，請修改搜尋內容。',
@@ -89,6 +74,13 @@ return [
     'download' => [
         'tagline' => "讓我們<br>開始吧！",
         'action' => '下載 osu!',
+
+        'help' => [
+            '_' => '',
+            'help_forum_link' => '',
+            'support_button' => '聯絡支援團隊',
+        ],
+
         'os' => [
             'windows' => 'Windows 版',
             'macos' => 'macOS 版',
@@ -145,7 +137,7 @@ return [
         'title' => '哇！',
         'subtitle' => '看起來你玩得很開心！',
         'body' => [
-            'part-1' => '你知道嗎？ osu! 是一款沒有廣告，完全依賴玩家贊助以維持開發及運營的遊戲。',
+            'part-1' => '你知道嗎？ osu! 是一款沒有廣告，完全依賴玩家贊助以維持開發及營運的遊戲。',
             'part-2' => '如果你選擇給 osu! 捐贈，就可以解鎖額外的功能，例如<strong>遊戲內自動下載</strong>。',
         ],
         'find-out-more' => '點擊這裡以瞭解更多',

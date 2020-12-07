@@ -1,5 +1,8 @@
 <?php
 
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
 namespace Tests\Controllers;
 
 use App\Models\Beatmap;
@@ -8,8 +11,6 @@ use App\Models\BeatmapDiscussionPost;
 use App\Models\BeatmapDiscussionVote;
 use App\Models\Beatmapset;
 use App\Models\User;
-use App\Models\UserGroup;
-use DB;
 use Faker;
 use Tests\TestCase;
 
@@ -182,17 +183,8 @@ class BeatmapDiscussionsControllerTest extends TestCase
     public function testPostReviewGuest()
     {
         $this
-            ->post(route('beatmapsets.beatmap-discussions.review'))
+            ->post(route('beatmapsets.discussion.review', $this->beatmapset->getKey()))
             ->assertUnauthorized();
-    }
-
-    // beatmapset id missing
-    public function testPostReviewIdMissing()
-    {
-        $this
-            ->actingAsVerified($this->user)
-            ->post(route('beatmapsets.beatmap-discussions.review'))
-            ->assertStatus(404);
     }
 
     // invalid document
@@ -200,9 +192,7 @@ class BeatmapDiscussionsControllerTest extends TestCase
     {
         $this
             ->actingAsVerified($this->user)
-            ->post(route('beatmapsets.beatmap-discussions.review'), [
-                'beatmapset_id' => $this->beatmapset->getKey(),
-            ])
+            ->post(route('beatmapsets.discussion.review', $this->beatmapset->getKey()))
             ->assertStatus(422);
     }
 
@@ -216,31 +206,34 @@ class BeatmapDiscussionsControllerTest extends TestCase
         $timestampedIssueText = '00:01:234 '.self::$faker->sentence();
         $issueText = self::$faker->sentence();
 
+        $document = json_encode(
+            [
+                [
+                    'type' => 'embed',
+                    'discussion_type' => 'problem',
+                    'text' => $timestampedIssueText,
+                    'timestamp' => true,
+                    'beatmap_id' => $this->beatmapset->beatmaps->first()->getKey(),
+                ],
+                [
+                    'type' => 'embed',
+                    'discussion_type' => 'problem',
+                    'text' => $issueText,
+                ],
+            ]
+        );
+
         $this
             ->actingAsVerified($this->user)
-            ->post(route('beatmapsets.beatmap-discussions.review'), [
-                'beatmapset_id' => $this->beatmapset->getKey(),
-                'document' => [
-                    [
-                        'type' => 'embed',
-                        'discussion_type' => 'problem',
-                        'text' => $timestampedIssueText,
-                        'timestamp' => true,
-                        'beatmap_id' => $this->beatmapset->beatmaps->first()->getKey(),
-                    ],
-                    [
-                        'type' => 'embed',
-                        'discussion_type' => 'problem',
-                        'text' => $issueText,
-                    ],
-                ],
+            ->post(route('beatmapsets.discussion.review', $this->beatmapset->getKey()), [
+                'document' => $document,
             ])
             ->assertSuccessful()
             ->assertJsonFragment(
-              [
-                  'user_id' => $this->user->getKey(),
-                  'message' => $timestampedIssueText,
-              ]
+                [
+                    'user_id' => $this->user->getKey(),
+                    'message' => $timestampedIssueText,
+                ]
             )
             // ensure timestamp was parsed correctly
             ->assertJsonFragment(
@@ -249,10 +242,10 @@ class BeatmapDiscussionsControllerTest extends TestCase
                 ]
             )
             ->assertJsonFragment(
-              [
-                  'user_id' => $this->user->getKey(),
-                  'message' => $issueText,
-              ]
+                [
+                    'user_id' => $this->user->getKey(),
+                    'message' => $issueText,
+                ]
             );
 
         // ensure 3 discussions/posts are created - one for the review and one for each embedded problem
@@ -270,7 +263,7 @@ class BeatmapDiscussionsControllerTest extends TestCase
         $this->user = factory(User::class)->create();
         $this->anotherUser = factory(User::class)->create();
         $this->bngUser = factory(User::class)->create();
-        $this->bngUserGroup($this->bngUser);
+        $this->bngUser->addToGroup(app('groups')->byIdentifier('bng'));
         $this->beatmapset = factory(Beatmapset::class)->create([
             'user_id' => $this->mapper->user_id,
             'discussion_enabled' => true,
@@ -286,25 +279,5 @@ class BeatmapDiscussionsControllerTest extends TestCase
             'beatmap_id' => $this->beatmap->beatmap_id,
             'user_id' => $this->user->user_id,
         ]);
-    }
-
-    private function bngUserGroup($user)
-    {
-        $table = (new UserGroup)->getTable();
-
-        $conditions = [
-            'user_id' => $user->user_id,
-            'group_id' => app('groups')->byIdentifier('bng')->getKey(),
-        ];
-
-        $existingUserGroup = UserGroup::where($conditions)->first();
-
-        if ($existingUserGroup !== null) {
-            return $existingUserGroup;
-        }
-
-        DB::table($table)->insert($conditions);
-
-        return UserGroup::where($conditions)->first();
     }
 }

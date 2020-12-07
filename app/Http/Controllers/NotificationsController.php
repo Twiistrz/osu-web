@@ -1,25 +1,11 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Http\Controllers;
 
+use App\Libraries\Notification\BatchIdentities;
 use App\Libraries\NotificationsBundle;
 use App\Models\UserNotification;
 
@@ -35,6 +21,16 @@ class NotificationsController extends Controller
         parent::__construct();
 
         $this->middleware('auth');
+    }
+
+    public function batchDestroy()
+    {
+        UserNotification::batchDestroy(
+            auth()->user(),
+            BatchIdentities::fromParams(request()->all())
+        );
+
+        return response(null, 204);
     }
 
     public function endpoint()
@@ -120,20 +116,10 @@ class NotificationsController extends Controller
      */
     public function markRead()
     {
-        // TODO: params validation
-        $params = get_params(request()->all(), null, [
-            'category:string',
-            'id:int',
-            'notifications:any',
-            'object_id:int',
-            'object_type:string',
-        ]);
-
-        if (isset($params['notifications'])) {
-            UserNotification::markAsReadByIds(auth()->user(), $params['notifications']);
-        } else {
-            UserNotification::markAsReadByNotificationIdentifier(auth()->user(), $params);
-        }
+        UserNotification::batchMarkAsRead(
+            auth()->user(),
+            BatchIdentities::fromParams(request()->all())
+        );
 
         return response(null, 204);
     }

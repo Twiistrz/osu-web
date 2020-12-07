@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'availability' => [
@@ -30,20 +15,23 @@ return [
         'guest_title' => 'Beatmapit',
     ],
 
+    'panel' => [
+        'download' => [
+            'all' => 'lataa',
+            'video' => 'lataa videon kanssa',
+            'no_video' => 'lataa ilman videota',
+            'direct' => 'avaa osu!directissä',
+        ],
+    ],
+
     'show' => [
         'discussion' => 'Keskustelu',
 
         'details' => [
-            'approved' => 'vahvistettu ',
             'favourite' => 'Lisää tämä beatmap-setti suosikkeihin',
             'logged-out' => 'Sinun täytyy kirjautua sisään ladataksesi beatmappeja!',
-            'loved' => 'rakastettu ',
             'mapped_by' => 'luonut: :mapper',
-            'qualified' => 'esihyväksytty ',
-            'ranked' => 'hyväksytty ',
-            'submitted' => 'julkaistu ',
             'unfavourite' => 'Poista tämä beatmapkokoelma suosikeista',
-            'updated' => 'viimeisin päivitys ',
             'updated_timeago' => 'päivitetty viimeksi :timeago',
 
             'download' => [
@@ -57,6 +45,15 @@ return [
                 'bottom' => 'lisäomimaisuuksien käyttämiseen',
                 'top' => 'Kirjaudu sisään',
             ],
+        ],
+
+        'details_date' => [
+            'approved' => '',
+            'loved' => '',
+            'qualified' => '',
+            'ranked' => '',
+            'submitted' => '',
+            'updated' => '',
         ],
 
         'favourites' => [
@@ -78,13 +75,11 @@ return [
 
             'disqualify' => [
                 '_' => '',
-                'button_title' => '',
             ],
 
             'report' => [
                 '_' => '',
-                'button' => '',
-                'button_title' => '',
+                'button' => 'Ilmoita Ongelma',
                 'link' => '',
             ],
         ],
@@ -98,7 +93,6 @@ return [
             'source' => 'Lähde',
             'success-rate' => 'Läpäisyprosentti',
             'tags' => 'Tunnisteet',
-            'unranked' => 'Beatmap ei ole hyväksytyssä tilassa',
         ],
 
         'scoreboard' => [
@@ -120,6 +114,7 @@ return [
                 'rank' => 'Sijoitus',
                 'score_total' => 'Kokonaispisteet',
                 'score' => 'Pisteet',
+                'time' => 'Aika',
             ],
 
             'no_scores' => [
@@ -156,10 +151,10 @@ return [
             'ranked' => '',
             'approved' => '',
             'loved' => '',
-            'qualified' => '',
-            'wip' => '',
+            'qualified' => 'Esihyväksytty',
+            'wip' => 'Työn alla',
             'pending' => '',
-            'graveyard' => '',
+            'graveyard' => 'Hautausmaa',
         ],
     ],
 ];

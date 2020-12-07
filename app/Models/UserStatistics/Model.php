@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Models\UserStatistics;
 
@@ -35,6 +20,7 @@ abstract class Model extends BaseModel
     protected $primaryKey = 'user_id';
 
     public $timestamps = false;
+    public $incrementing = false;
 
     const UPDATED_AT = 'last_update';
 
@@ -83,13 +69,19 @@ abstract class Model extends BaseModel
         return $this->count300 + $this->count100 + $this->count50;
     }
 
-    public static function getClass($modeStr)
+    public static function getClass($modeStr, $variant = null)
     {
         if (!Beatmap::isModeValid($modeStr)) {
             throw new ClassNotFoundException();
         }
 
-        return get_class_namespace(static::class).'\\'.studly_case($modeStr);
+        if (!Beatmap::isVariantValid($modeStr, $variant)) {
+            throw new ClassNotFoundException();
+        }
+
+        $variant = $variant === null ? '' : "_{$variant}";
+
+        return get_class_namespace(static::class).'\\'.studly_case("{$modeStr}{$variant}");
     }
 
     public static function getMode(): string
@@ -101,9 +93,9 @@ abstract class Model extends BaseModel
     {
         $bestClass = Best\Model::getClassByString(static::getMode());
 
-        $instance = new static;
+        $instance = new static();
         $statsTable = $instance->getTable();
-        $bestTable = (new $bestClass)->getTable();
+        $bestTable = (new $bestClass())->getTable();
 
         $instance->getConnection()->update(
             "UPDATE {$statsTable} SET accuracy_count = 0, accuracy_total = 0, ranked_score = (SELECT COALESCE(SUM(score), 0) FROM (SELECT MAX(score) AS score FROM {$bestTable} WHERE user_id = {$user->getKey()} GROUP BY beatmap_id) s) WHERE user_id = {$user->getKey()}"
@@ -179,5 +171,13 @@ abstract class Model extends BaseModel
     public function isRanked()
     {
         return $this->rank_score !== 0.0 && $this->rank_score_index !== 0;
+    }
+
+    public function scopeFriendsOf($query, $user)
+    {
+        $userIds = $user->friends()->allRelatedIds();
+        $userIds[] = $user->getKey();
+
+        return $query->whereIn('user_id', $userIds);
     }
 }

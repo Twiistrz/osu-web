@@ -1,27 +1,13 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
-import { BeatmapsetJSON } from 'beatmapsets/beatmapset-json';
+import { BeatmapsetJson } from 'beatmapsets/beatmapset-json';
 import { Img2x } from 'img2x';
 import { route } from 'laroute';
 import * as React from 'react';
+import { getArtist, getTitle } from 'utils/beatmap-helper';
 
-export default function Beatmapset({ beatmapset, modifiers = [] }: { beatmapset: BeatmapsetJSON, modifiers?: string[] }) {
+export default function Beatmapset({ beatmapset, modifiers = [] }: { beatmapset: BeatmapsetJson, modifiers?: string[] }) {
   const url = route('beatmapsets.show', { beatmapset: beatmapset.id });
 
   return (
@@ -31,9 +17,9 @@ export default function Beatmapset({ beatmapset, modifiers = [] }: { beatmapset:
       </div>
       <div className='beatmapset-search-card__details'>
         <div className='beatmapset-search-card__title'>
-          {`${beatmapset.title} `}
+          {`${getTitle(beatmapset)} `}
           <span className='beatmapset-search-card__title-artist'>
-            {osu.trans('users.show.extra.beatmaps.by_artist', { artist: beatmapset.artist })}
+            {osu.trans('users.show.extra.beatmaps.by_artist', { artist: getArtist(beatmapset) })}
           </span>
         </div>
 

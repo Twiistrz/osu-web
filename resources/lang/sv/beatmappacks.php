@@ -1,28 +1,13 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'index' => [
-        'description' => 'För-samlade kollektioner av beatmaps baserad på ett gemensamt tema.',
-        'nav_title' => '',
-        'title' => 'Beatmap Samlingar',
+        'description' => 'Färdigförpackade samlingar med beatmaps som är baserade på ett gemensamt tema.',
+        'nav_title' => 'listning',
+        'title' => 'Beatmap-samlingar',
 
         'blurb' => [
             'important' => 'LÄS DETTA INNAN NEDLADDNING',
@@ -34,7 +19,7 @@ return [
                 'scary' => 'INTE',
             ],
             'note' => [
-                '_' => 'Notera att det är högst rekommenderat att :scary, eftersom de äldsta mapsen är av mycket lägre kvalité jämfört med de nyaste mapsen.',
+                '_' => 'Notera att det är som högst rekommenderat att :scary, eftersom de äldsta mapparna är av mycket lägre kvalité jämfört med de nyaste mapparna.',
                 'scary' => 'ladda ner samlingarna från nyaste till äldsta',
             ],
         ],
@@ -45,6 +30,10 @@ return [
         'item' => [
             'cleared' => 'rensad',
             'not_cleared' => 'ej rensad',
+        ],
+        'no_diff_reduction' => [
+            '_' => '',
+            'link' => '',
         ],
     ],
 

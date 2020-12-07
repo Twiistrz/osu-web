@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'deleted' => '[người dùng đã bị xóa]',
@@ -85,6 +70,10 @@ return [
         ],
     ],
 
+    'filtering' => [
+        'by_game_mode' => '',
+    ],
+
     'force_reactivation' => [
         'reason' => [
             'inactive_different_country' => "",
@@ -99,6 +88,7 @@ return [
         'failed' => 'Đăng nhập không chính xác',
         'forgot' => 'Quên mật khẩu?',
         'info' => '',
+        'invalid_captcha' => '',
         'locked_ip' => 'Địa chỉ IP của bạn đã bị khóa. Vui lòng đợi một vài phút.',
         'password' => 'Mật khẩu',
         'register' => "Không có tài khoản osu!? Tạo một tài khoản mới",
@@ -160,7 +150,6 @@ return [
         'lastvisit_online' => 'Hiện đang trực tuyến',
         'missingtext' => 'Có thể bạn đã thực hiện một lỗi đánh máy! (hoặc người dùng này có thể đã bị ban)',
         'origin_country' => 'Từ :country',
-        'page_description' => 'osu! - Tất cả những bì bạn muốn biết về :username!',
         'previous_usernames' => 'được biết đến trước đây với',
         'plays_with' => 'Chơi bằng :devices',
         'title' => "Trang cá nhân của :username",
@@ -174,7 +163,7 @@ return [
                     'button' => 'Tải ảnh lên',
                     'dropzone' => 'Thả vào đây để tải lên',
                     'dropzone_info' => 'Bạn cũng có thể thả hình ảnh vào đây để tải lên',
-                    'size_info' => 'Kích cỡ ảnh bìa nên là 2800x620',
+                    'size_info' => 'Kích cỡ ảnh bìa nên là 2400x620',
                     'too_large' => 'Tệp đã tải lên quá lơn.',
                     'unsupported_format' => 'Định dạng không được hỗ trợ.',
 
@@ -202,7 +191,6 @@ return [
             ],
             'beatmaps' => [
                 'by_artist' => 'bởi :artist',
-                'none' => 'Chưa có... gì cả.',
                 'title' => 'Beatmaps',
 
                 'favourite' => [
@@ -232,7 +220,6 @@ return [
                 'show_more' => 'xem sự kiện khác',
             ],
             'historical' => [
-                'empty' => 'Chưa ghi nhận điểm. :(',
                 'title' => 'Lịch Sử',
 
                 'monthly_playcounts' => [
@@ -253,8 +240,6 @@ return [
                 ],
             ],
             'kudosu' => [
-                'available' => 'Kudosu Có Sẵn',
-                'available_info' => "Kudosu có thể được chuyển thành kudosu stars, chúng có thể giúp beatmap của bạn nhận được nhiều sự chú ý hơn. Đây là số kudosu bạn chưa chuyển đổi.",
                 'recent_entries' => 'Lịch Sử Kudosu Gần Đây',
                 'title' => 'Kudosu!',
                 'total' => 'Tông Số Kudosu Nhận Được',
@@ -321,9 +306,9 @@ return [
             ],
             'top_ranks' => [
                 'download_replay' => 'Tải Xuống Replay',
-                'empty' => 'Chưa ghi nhận thành tích tuyệt vời nào. :(',
                 'not_ranked' => 'Chỉ có beatmap được xếp hạng mới có pp.',
                 'pp_weight' => 'trọng số :percentage',
+                'view_details' => '',
                 'title' => 'Xếp Hạng',
 
                 'best' => [
@@ -366,7 +351,6 @@ return [
         'info' => [
             'discord' => 'Discord',
             'interests' => 'Sở Thích',
-            'lastfm' => 'Last.fm',
             'location' => 'Vị Trí Hiện Tại',
             'occupation' => 'Nghề Nghiệp',
             'skype' => 'Skype',
@@ -423,7 +407,7 @@ return [
     ],
 
     'status' => [
-        'all' => '',
+        'all' => 'Tất cả',
         'online' => 'Online',
         'offline' => 'Offline',
     ],
@@ -435,6 +419,7 @@ return [
     ],
 
     'view_mode' => [
+        'brick' => '',
         'card' => '',
         'list' => '',
     ],

@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Controllers;
 
@@ -35,11 +20,32 @@ class ScoresControllerTest extends TestCase
     {
         $this
             ->actingAs($this->user)
+            ->withHeaders(['HTTP_REFERER' => config('app.url').'/'])
             ->json(
                 'GET',
-                route('scores.download', ['mode' => 'osu', 'score' => $this->score->getKey()])
+                route('scores.download', $this->params())
             )
             ->assertSuccessful();
+    }
+
+    public function testDownloadInvalidReferer()
+    {
+        $this
+            ->actingAs($this->user)
+            ->json(
+                'GET',
+                route('scores.download', $this->params())
+            )
+            ->assertRedirect(route('scores.show', $this->params()));
+
+        $this
+            ->actingAs($this->user)
+            ->withHeaders(['HTTP_REFERER' => rtrim(config('app.url'), '/').'.example.com'])
+            ->json(
+                'GET',
+                route('scores.download', $this->params())
+            )
+            ->assertRedirect(route('scores.show', $this->params()));
     }
 
     public function testDownloadInvalidMode()
@@ -72,11 +78,19 @@ class ScoresControllerTest extends TestCase
         $this->beforeApplicationDestroyed(function () use ($disks) {
             foreach ($disks as $disk) {
                 $path = storage_path('framework/testing/disks/'.$disk);
-                (new Filesystem)->deleteDirectory($path);
+                (new Filesystem())->deleteDirectory($path);
             }
         });
 
         $this->user = factory(User::class)->create();
         $this->score = factory(Osu::class)->states('with_replay')->create();
+    }
+
+    private function params()
+    {
+        return [
+            'mode' => $this->score->getMode(),
+            'score' => $this->score->getKey(),
+        ];
     }
 }

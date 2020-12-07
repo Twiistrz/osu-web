@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'pinned_topics' => 'Nålade Ämnen',
@@ -25,7 +10,7 @@ return [
     'title' => 'osu! forumen',
 
     'covers' => [
-        'edit' => '',
+        'edit' => 'Redigera omslag',
 
         'create' => [
             '_' => 'Välj omslagsbild',
@@ -40,10 +25,10 @@ return [
     ],
 
     'forums' => [
-        'latest_post' => '',
+        'latest_post' => 'Senaste inlägg',
 
         'index' => [
-            'title' => '',
+            'title' => 'Forumets index',
         ],
 
         'topics' => [
@@ -52,9 +37,9 @@ return [
     ],
 
     'mark_as_read' => [
-        'forum' => '',
-        'forums' => '',
-        'busy' => '',
+        'forum' => 'Markera forumet som läst',
+        'forums' => 'Markera forumen som läst',
+        'busy' => 'Markera som läst....',
     ],
 
     'post' => [
@@ -65,19 +50,20 @@ return [
 
         'actions' => [
             'destroy' => 'Radera inlägg',
-            'restore' => 'Återställ inlägg',
             'edit' => 'Redigera inlägg',
+            'report' => '',
+            'restore' => 'Återställ inlägg',
         ],
 
         'create' => [
             'title' => [
-                'reply' => '',
+                'reply' => 'Nytt svar',
             ],
         ],
 
         'info' => [
-            'post_count' => '',
-            'topic_starter' => '',
+            'post_count' => ':count_delimited inlägg|:count_delimited inlägg',
+            'topic_starter' => 'Ämnestartare ',
         ],
     ],
 
@@ -90,18 +76,20 @@ return [
     'topic' => [
         'deleted' => 'raderat ämne',
         'go_to_latest' => 'visa senaste inlägg',
+        'has_replied' => 'Du har svarat på detta ämne',
+        'in_forum' => 'i :forum',
         'latest_post' => ':when av :user',
         'latest_reply_by' => 'senaste svar av :user',
         'new_topic' => 'Lägg upp nytt ämne',
         'new_topic_login' => 'Logga in för att lägga upp ett nytt ämne',
-        'post_reply' => 'Lägg upp',
-        'reply_box_placeholder' => 'Tryck här för att svara',
+        'post_reply' => 'Skicka',
+        'reply_box_placeholder' => 'Skriv här för att svara',
         'reply_title_prefix' => 'Åter',
         'started_by' => 'av :user',
         'started_by_verbose' => 'startad av :user',
 
         'create' => [
-            'close' => '',
+            'close' => 'Stäng',
             'preview' => 'Förhandsvisning',
             // TL note: this is used in the topic reply preview, when
             // the user goes back from previewing to editing the reply
@@ -164,7 +152,7 @@ return [
         '_' => 'Ämnen',
 
         'actions' => [
-            'login_reply' => 'Logga in för att Svara',
+            'login_reply' => 'Logga in för att svara',
             'reply' => 'Svara',
             'reply_with_quote' => 'Citera inlägg för svar',
             'search' => 'Sök',
@@ -173,7 +161,7 @@ return [
         'create' => [
             'create_poll' => 'Skapande av enkät',
 
-            'preview' => '',
+            'preview' => 'Skicka förhandsvisningen',
 
             'create_poll_button' => [
                 'add' => 'Skapa en enkät',
@@ -181,8 +169,8 @@ return [
             ],
 
             'poll' => [
-                'hide_results' => '',
-                'hide_results_info' => '',
+                'hide_results' => 'Dölj resultaten av enkäten.',
+                'hide_results_info' => 'De kommer att visas först efter enkätens avslutande.',
                 'length' => 'Kör enkät i',
                 'length_days_suffix' => 'dagar',
                 'length_info' => 'Lämna tom för inget avslut av enkät',
@@ -201,7 +189,7 @@ return [
         ],
 
         'index' => [
-            'feature_votes' => '',
+            'feature_votes' => 'stjärnprioritet',
             'replies' => 'svar',
             'views' => 'visningar',
         ],
@@ -251,8 +239,10 @@ return [
         'lock' => [
             'is_locked' => 'Detta ämne är låst och kan ej svaras på',
             'to_0' => 'Lås upp ämne',
+            'to_0_confirm' => 'Lås upp ämnet?',
             'to_0_done' => 'Ämne har blivit upplåst',
             'to_1' => 'Lås ämne',
+            'to_1_confirm' => 'Lås ämnet?',
             'to_1_done' => 'Ämne har blivit låst',
         ],
 
@@ -262,16 +252,19 @@ return [
 
         'moderate_pin' => [
             'to_0' => 'Ta bort nålat ämne',
+            'to_0_confirm' => 'Lossa ämnet?',
             'to_0_done' => 'Nål på ämne har tagits bort',
             'to_1' => 'Nåla ämne',
+            'to_1_confirm' => 'Fäst ämnet?',
             'to_1_done' => 'Ämne har blivit nålat',
             'to_2' => 'Nåla ämne och markera som meddelande',
+            'to_2_confirm' => 'Fäst ämnet och markera det som meddelande?',
             'to_2_done' => 'Ämne har blivit nålat och markerat som meddelande',
         ],
 
         'moderate_toggle_deleted' => [
-            'show' => '',
-            'hide' => '',
+            'show' => 'Visa raderade inlägg',
+            'hide' => 'Dölj raderade inlägg',
         ],
 
         'show' => [
@@ -283,9 +276,9 @@ return [
                 'do' => 'Uppmuntra denna begäran',
 
                 'info' => [
-                    '_' => '',
-                    'feature_request' => '',
-                    'supporters' => '',
+                    '_' => 'Detta är en :feature_request. Funktionsförfrågningar kan röstas upp av :supporters.',
+                    'feature_request' => 'funktionönskemål',
+                    'supporters' => 'supportrar',
                 ],
 
                 'user' => [
@@ -296,21 +289,21 @@ return [
             ],
 
             'poll' => [
-                'edit' => '',
-                'edit_warning' => '',
+                'edit' => 'Redigera enkät',
+                'edit_warning' => 'Redigering av en enkät kommer att ta bort det aktuella resultatet!',
                 'vote' => 'Rösta',
 
                 'button' => [
-                    'change_vote' => '',
-                    'edit' => '',
-                    'view_results' => '',
-                    'vote' => '',
+                    'change_vote' => 'Ändra röst',
+                    'edit' => 'Redigera enkät',
+                    'view_results' => 'Hoppa till resultaten',
+                    'vote' => 'Rösta',
                 ],
 
                 'detail' => [
                     'end_time' => 'Enkät kommer avslutas :time',
                     'ended' => 'Enkät avslutades :time',
-                    'results_hidden' => '',
+                    'results_hidden' => 'Resultaten kommer att visas efter enkätröstningens slut.',
                     'total' => 'Totala röster: :count',
                 ],
             ],
@@ -320,8 +313,8 @@ return [
             'to_not_watching' => 'Inte bokmärkt',
             'to_watching' => 'Bokmärk',
             'to_watching_mail' => 'Bokmärke med notifikation',
-            'tooltip_mail_disable' => '',
-            'tooltip_mail_enable' => '',
+            'tooltip_mail_disable' => 'Avisering är aktiverad. Klicka för att inaktivera',
+            'tooltip_mail_enable' => 'Avisering är inaktiverad. Klicka för att aktivera',
         ],
     ],
 ];

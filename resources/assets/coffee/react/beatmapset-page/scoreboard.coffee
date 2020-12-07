@@ -1,27 +1,13 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { ScoreTop } from './score-top'
-import { ScoreboardMod } from './scoreboard-mod'
 import { ScoreboardTab } from './scoreboard-tab'
 import { ScoreboardTable } from './scoreboard-table'
+import ScoreboardMod from 'beatmapsets-show/scoreboard-mod'
 import * as React from 'react'
 import { div, h2, p } from 'react-dom-factories'
+import { classWithModifiers } from 'utils/css'
 el = React.createElement
 
 export class Scoreboard extends React.PureComponent
@@ -30,6 +16,7 @@ export class Scoreboard extends React.PureComponent
   MANIA_KEY_MODS = ['4K', '5K', '6K', '7K', '8K', '9K']
   MANIA_MODS = ['NM', 'EZ', 'NF', 'HT', 'HR', 'SD', 'PF', 'DT', 'NC', 'FI', 'HD', 'FL', 'MR']
 
+  # FIXME: update to use utils/score's modeAttributesMap
   hitTypeMapping: =>
     # mapping of [displayed text, internal name] for each mode
     switch @props.beatmap.mode
@@ -63,9 +50,6 @@ export class Scoreboard extends React.PureComponent
     className = 'beatmapset-scoreboard__main'
     className += ' beatmapset-scoreboard__main--loading' if @props.loading
 
-    modsClassName = 'beatmapset-scoreboard__mods'
-    modsClassName += ' beatmapset-scoreboard__mods--initial' if _.isEmpty @props.enabledMods
-
     mods = if @props.beatmap.mode == 'mania'
       if @props.beatmap.convert
         _.concat(MANIA_MODS, MANIA_KEY_MODS)
@@ -86,13 +70,13 @@ export class Scoreboard extends React.PureComponent
             active: @props.type == type
 
       if currentUser.is_supporter && @props.isScoreable
-        div className: 'beatmapset-scoreboard__mods-wrapper',
-          div className: modsClassName,
-            for mod in mods
-              el ScoreboardMod,
-                key: mod
-                mod: mod
-                enabled: _.includes @props.enabledMods, mod
+        div
+          className: classWithModifiers('beatmapset-scoreboard__mods', initial: @props.enabledMods.length == 0)
+          for mod in mods
+            el ScoreboardMod,
+              key: mod
+              mod: mod
+              enabled: _.includes @props.enabledMods, mod
 
       div className: className,
         if @props.scores.length > 0
@@ -108,7 +92,6 @@ export class Scoreboard extends React.PureComponent
             el ScoreboardTable,
               beatmap: @props.beatmap
               scores: @props.scores
-              countries: @props.countries
               hitTypeMapping: @hitTypeMapping()
               scoreboardType: @props.type
 
@@ -138,7 +121,6 @@ export class Scoreboard extends React.PureComponent
       key: rank
       score: score
       position: rank
-      playmode: @props.beatmap.mode
-      countries: @props.countries
+      beatmap: @props.beatmap
       modifiers: modifiers
       hitTypeMapping: @hitTypeMapping()

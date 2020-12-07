@@ -1,20 +1,5 @@
-###
-#    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
-#
-#    This file is part of osu!web. osu!web is distributed with the hope of
-#    attracting more community contributions to the core ecosystem of osu!.
-#
-#    osu!web is free software: you can redistribute it and/or modify
-#    it under the terms of the Affero GNU General Public License version 3
-#    as published by the Free Software Foundation.
-#
-#    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
-#    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#    See the GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
-###
+# Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+# See the LICENCE file in the repository root for full licence text.
 
 import { runInAction } from 'mobx'
 import { Observer } from 'mobx-react'
@@ -35,8 +20,8 @@ export class CommentsManager extends React.PureComponent
       # FIXME no initialization from component?
       json = osu.parseJson("json-comments-#{props.commentableType}-#{props.commentableId}", true)
       if json?
-        core.dataStore.updateWithCommentBundleJSON(json)
-        uiState.initializeWithCommentBundleJSON(json)
+        core.dataStore.updateWithCommentBundleJson(json)
+        uiState.initializeWithCommentBundleJson(json)
 
       state = osu.parseJson @jsonStorageId()
       uiState.importCommentsUIState(state) if state?
@@ -63,25 +48,26 @@ export class CommentsManager extends React.PureComponent
       componentProps = _.assign {}, @props.componentProps
       componentProps.commentableId = @props.commentableId
       componentProps.commentableType = @props.commentableType
+      componentProps.user = @props.user
 
       el @props.component, componentProps
 
 
   handleCommentsAdded: (_event, commentBundle) =>
     runInAction () ->
-      core.dataStore.updateWithCommentBundleJSON commentBundle
+      core.dataStore.updateWithCommentBundleJson commentBundle
       uiState.updateFromCommentsAdded commentBundle
 
 
   handleCommentsNew: (_event, commentBundle) =>
     runInAction () ->
-      core.dataStore.updateWithCommentBundleJSON commentBundle
+      core.dataStore.updateWithCommentBundleJson commentBundle
       uiState.updateFromCommentsNew commentBundle
 
 
   handleCommentUpdated: (_event, commentBundle) =>
     runInAction () ->
-      core.dataStore.updateWithCommentBundleJSON commentBundle
+      core.dataStore.updateWithCommentBundleJson commentBundle
       uiState.updateFromCommentUpdated commentBundle
 
 
@@ -147,8 +133,8 @@ export class CommentsManager extends React.PureComponent
 
       runInAction () ->
         core.dataStore.commentStore.flushStore()
-        core.dataStore.updateWithCommentBundleJSON data
-        uiState.initializeWithCommentBundleJSON data
+        core.dataStore.updateWithCommentBundleJson data
+        uiState.initializeWithCommentBundleJson data
     .always =>
       runInAction () ->
         uiState.comments.loadingSort = null

@@ -1,20 +1,5 @@
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 import { route } from 'laroute';
 import * as _ from 'lodash';
@@ -30,14 +15,15 @@ interface Props {
 export default class MessageGroup extends React.Component<Props, any> {
   render(): React.ReactNode {
     const messages = this.props.messages;
-    const sender = messages[0].sender;
 
-    if (_.isEmpty(messages)) {
+    if (messages.length === 0) {
       return;
     }
 
+    const sender = messages[0].sender;
+
     let className = 'chat-message-group';
-    if (messages[0] && sender.id === currentUser.id) {
+    if (sender.id === currentUser.id) {
       className += ' chat-message-group--own';
     }
 
@@ -58,14 +44,14 @@ export default class MessageGroup extends React.Component<Props, any> {
             }
 
             let classes = 'chat-message-group__message';
-            let innerClasses;
+            let contentClasses = 'chat-message-group__message-content';
 
             if (!message.persisted) {
               classes += ' chat-message-group__message--sending';
             }
 
             if (message.isAction) {
-              innerClasses = ' chat-message-group__message-content--action';
+              contentClasses += ' chat-message-group__message-content--action';
             }
 
             const showTimestamp: boolean =
@@ -76,8 +62,8 @@ export default class MessageGroup extends React.Component<Props, any> {
 
             return (
               <div className={classes} key={message.uuid}>
-                <div className={`chat-message-group__message-content${innerClasses ? innerClasses : ''}`}>
-                  <span dangerouslySetInnerHTML={{__html: message.parsedContent}} />
+                <div className='chat-message-group__message-entry'>
+                  <span className={contentClasses} dangerouslySetInnerHTML={{__html: message.parsedContent}} />
                   {!message.persisted && !message.errored &&
                     <div className='chat-message-group__message-status'>
                       <Spinner />

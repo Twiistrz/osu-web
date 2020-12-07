@@ -1,45 +1,70 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace App\Transformers;
 
 use App\Models\Beatmap;
+use App\Models\BeatmapFailtimes;
 
 class BeatmapCompactTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
         'beatmapset',
+        'checksum',
+        'failtimes',
+        'max_combo',
     ];
+
+    protected $beatmapsetTransformer = BeatmapsetCompactTransformer::class;
 
     public function transform(Beatmap $beatmap)
     {
         return [
+            'difficulty_rating' => $beatmap->difficultyrating,
             'id' => $beatmap->beatmap_id,
             'mode' => $beatmap->mode,
-            'difficulty_rating' => $beatmap->difficultyrating,
+            'total_length' => $beatmap->total_length,
             'version' => $beatmap->version,
         ];
     }
 
     public function includeBeatmapset(Beatmap $beatmap)
     {
-        return $this->item($beatmap->beatmapset, new BeatmapsetCompactTransformer);
+        $beatmapset = $beatmap->beatmapset;
+
+        return $beatmapset === null
+            ? $this->primitive(null)
+            : $this->item($beatmap->beatmapset, new $this->beatmapsetTransformer());
+    }
+
+    public function includeChecksum(Beatmap $beatmap)
+    {
+        return $this->primitive($beatmap->checksum);
+    }
+
+    public function includeFailtimes(Beatmap $beatmap)
+    {
+        $failtimes = $beatmap->failtimes;
+
+        $result = [];
+
+        foreach ($failtimes as $failtime) {
+            $result[$failtime->type] = $failtime->data;
+        }
+
+        foreach (['exit', 'fail'] as $type) {
+            if (!isset($result[$type])) {
+                $result[$type] = (new BeatmapFailtimes())->data;
+            }
+        }
+
+        return $this->primitive($result);
+    }
+
+    public function includeMaxCombo(Beatmap $beatmap)
+    {
+        return $this->primitive($beatmap->maxCombo());
     }
 }

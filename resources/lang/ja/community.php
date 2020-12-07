@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'support' => [
@@ -71,7 +56,7 @@ return [
 
             'country_ranking' => [
                 'title' => '国別ランキング',
-                'description' => '世界を征服する前に、国を征服してください。',
+                'description' => '世界征服の前にまずは君の国で一番を目指そう。',
             ],
 
             'mod_filtering' => [
@@ -144,11 +129,11 @@ return [
             ],
             'more_beatmaps' => [
                 'title' => '他のビートマップをアップロード',
-                'description' => '一度に保持できるRankedされていないビートマップ数は、基準値とRankedされたビートマップの追加ボーナス値から計算されます。<br/><br/>通常これは4つで、Rankedされたビートマップごとに1つ追加されます。（最大2）サポーターになると、8つになりRankedされるごとに1つ追加されます。（最大12）',
+                'description' => '一度に保持できるRankedされていないビートマップ数は、基準値とRankedされたビートマップの追加ボーナス値から計算されます。<br/><br/>通常これは:baseつで、Rankedされたビートマップごとに:bonusつ追加されます。（最大 :bonus_max）サポーターになると、:supporter_baseつになりRankedされるごとに:supporter_bonusつ追加されます。（最大 :supporter_bonus_max）',
             ],
             'friend_filtering' => [
                 'title' => 'フレンドリーダーボード',
-                'description' => 'フレンドと競い合って、自分がどのようにランクアップしていくか見てください！*<br/><br/><small>*新しいサイトではまだ利用できません。近日公開予定(tm)</small>',
+                'description' => 'フレンドと競い合って、自分のランクアップを確認してください！',
             ],
 
         ],

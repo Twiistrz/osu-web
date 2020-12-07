@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -25,8 +10,8 @@ return [
 
         'avatar' => [
             'title' => 'Avatar',
-            'rules' => 'Veuillez vous assurer que votre avatar adhère à :link.<br/>Cela signifie qu\'il doit être <strong>adapté à tous les âges</strong>. c\'est-à-dire pas de nudité, de profanation ou de contenu suggestif.',
-            'rules_link' => 'les règles de la communauté',
+            'rules' => 'Veuillez vous assurer que votre avatar correspond aux :link.<br/>Cela signifie qu\'il doit être <strong>adapté à tous les âges</strong>. c\'est-à-dire pas de nudité, de profanation ou de contenu suggestif.',
+            'rules_link' => 'règles de la communauté',
         ],
 
         'email' => [
@@ -64,21 +49,41 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'recevoir des notifications lorsqu\'un nouveau problème est posté sur les beatmaps qualifiées des modes suivants',
+        'beatmapset_disqualify' => 'recevoir des notifications lorsque les beatmaps des modes suivants sont disqualifiées',
+        'comment_reply' => 'recevoir des notifications pour des réponses à vos commentaires',
         'title' => 'Notifications',
         'topic_auto_subscribe' => 'activer automatiquement les notifications sur les nouveaux sujets de forum que vous créez',
-        'beatmapset_discussion_qualified_problem' => 'recevoir des notifications pour un nouveau problème sur les beatmaps qualifiées des modes suivants',
 
-        'mail' => [
-            '_' => 'recevoir des notifications par mail pour',
+        'options' => [
+            '_' => 'types d\'alertes',
             'beatmapset:modding' => 'modding de beatmap',
+            'channel_message' => 'messages privés',
+            'comment_new' => 'nouveaux commentaires',
             'forum_topic_reply' => 'réponse à un sujet',
+            'mail' => 'email',
+            'push' => 'alerte',
+            'user_achievement_unlock' => 'médaille utilisateur déverrouillée',
         ],
     ],
 
     'oauth' => [
         'authorized_clients' => 'clients autorisés',
-        'own_clients' => 'clients',
+        'own_clients' => 'vos clients',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Options',
+
+        'beatmapset_download' => [
+            '_' => 'type de téléchargement des beatmaps par défaut',
+            'all' => 'avec vidéo si possible',
+            'no_video' => 'sans vidéo',
+            'direct' => 'ouvrir dans osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'afficher les métadonnées de la beatmap dans la langue d\'origine',
     ],
 
     'playstyles' => [
@@ -90,7 +95,7 @@ return [
     ],
 
     'privacy' => [
-        'friends_only' => 'Bloque les messages privés des personnes qui ne sont pas dans votre liste d’amis',
+        'friends_only' => 'bloquer les messages privés des personnes qui ne sont pas dans votre liste d’amis',
         'hide_online' => 'masquer votre présence en ligne',
         'title' => 'Confidentialité',
     ],
@@ -113,7 +118,7 @@ return [
     ],
 
     'verification_completed' => [
-        'text' => 'Vous pouvez maintenant fermer cet onglet/cette fenêtre',
+        'text' => 'Vous pouvez désormais fermer cet onglet/cette fenêtre',
         'title' => 'La vérification est terminée',
     ],
 

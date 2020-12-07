@@ -1,22 +1,7 @@
 <?php
 
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 return [
     'edit' => [
@@ -37,8 +22,8 @@ return [
         ],
 
         'password' => [
-            'current' => 'huidige wachtwoord',
-            'new' => 'nieuwe wachtwoord',
+            'current' => 'huidig wachtwoord',
+            'new' => 'nieuw wachtwoord',
             'new_confirmation' => 'wachtwoord bevestiging',
             'title' => 'Wachtwoord',
         ],
@@ -64,14 +49,21 @@ return [
     ],
 
     'notifications' => [
+        'beatmapset_discussion_qualified_problem' => 'ontvang meldingen voor nieuw probleem op gekwalificeerde beatmaps van de volgende modes',
+        'beatmapset_disqualify' => 'ontvang meldingen voor wanneer beatmaps van de volgende modes zijn gediskwalificeerd',
+        'comment_reply' => 'ontvang meldingen voor reacties op uw reacties',
         'title' => 'Meldingen',
         'topic_auto_subscribe' => 'automatisch meldingen inschakelen op nieuwe forum onderwerpen die u maakt',
-        'beatmapset_discussion_qualified_problem' => 'ontvang meldingen voor nieuw probleem op gekwalificeerde beatmaps van de volgende modes',
 
-        'mail' => [
-            '_' => 'e-mailnotificaties ontvangen voor',
+        'options' => [
+            '_' => 'verzend methodes',
             'beatmapset:modding' => 'beatmap modding',
+            'channel_message' => 'privéberichten',
+            'comment_new' => 'nieuwe reacties',
             'forum_topic_reply' => 'topic antwoord',
+            'mail' => 'e-mail',
+            'push' => 'push',
+            'user_achievement_unlock' => 'medaille verdiend',
         ],
     ],
 
@@ -79,6 +71,19 @@ return [
         'authorized_clients' => 'autoriseer clients',
         'own_clients' => 'eigen clients',
         'title' => 'OAuth',
+    ],
+
+    'options' => [
+        'title' => 'Opties',
+
+        'beatmapset_download' => [
+            '_' => 'standaard beatmap download type',
+            'all' => 'met video als beschikbaar',
+            'no_video' => 'zonder video',
+            'direct' => 'open in osu!direct',
+        ],
+
+        'beatmapset_title_show_original' => 'beatmap metadata in originele taal weergeven',
     ],
 
     'playstyles' => [

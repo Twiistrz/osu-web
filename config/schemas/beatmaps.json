@@ -1,6 +1,6 @@
 {
   "mappings": {
-    "beatmaps": {
+    "_doc": {
       "dynamic": false,
       "properties": {
         "approved": {
@@ -66,9 +66,6 @@
               "type": "long"
             },
             "countSpinner": {
-              "type": "long"
-            },
-            "countTotal": {
               "type": "long"
             },
             "diff_approach": {
@@ -217,8 +214,8 @@
         "tokenizer": {
           "prefix": {
             "type": "edge_ngram",
-            "min_gram": "3",
-            "max_gram": "8",
+            "min_gram": "2",
+            "max_gram": "20",
             "token_chars": [
               "letter",
               "digit"

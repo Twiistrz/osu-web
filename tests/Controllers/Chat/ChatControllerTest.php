@@ -1,21 +1,7 @@
 <?php
-/**
- *    Copyright (c) ppy Pty Ltd <contact@ppy.sh>.
- *
- *    This file is part of osu!web. osu!web is distributed with the hope of
- *    attracting more community contributions to the core ecosystem of osu!.
- *
- *    osu!web is free software: you can redistribute it and/or modify
- *    it under the terms of the Affero GNU General Public License version 3
- *    as published by the Free Software Foundation.
- *
- *    osu!web is distributed WITHOUT ANY WARRANTY; without even the implied
- *    warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- *    See the GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with osu!web.  If not, see <http://www.gnu.org/licenses/>.
- */
+
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
 
 namespace Tests\Controllers\Chat;
 
@@ -43,37 +29,72 @@ class ChatControllerTest extends TestCase
     {
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
     }
 
     public function testCreatePMWhenAlreadyExists() // success
     {
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
 
         // should return existing conversation and not error
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
+    }
+
+    public function testCreatePMWhenLeftChannel() // success
+    {
+        $this->actAsScopedUser($this->user, ['*']);
+        $request = $this->json(
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        );
+
+        $channelId = $request->json('new_channel_id');
+        $request->assertSuccessful();
+
+        app('OsuAuthorize')->cacheReset();
+        $this->json(
+            'DELETE',
+            route('api.chat.channels.part', [
+                'channel' => $channelId,
+                'user' => $this->user->user_id,
+            ])
+        )->assertSuccessful();
+
+        app('OsuAuthorize')->cacheReset();
+        $this->json(
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertSuccessful();
     }
 
     public function testCreatePMWhenGuest() // fail
@@ -97,13 +118,13 @@ class ChatControllerTest extends TestCase
 
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(403);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(403);
     }
 
     public function testCreatePMWhenRestricted() // fail
@@ -112,13 +133,13 @@ class ChatControllerTest extends TestCase
 
         $this->actAsScopedUser($restrictedUser, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(403);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(403);
     }
 
     public function testCreatePMWhenSilenced() // fail
@@ -131,13 +152,13 @@ class ChatControllerTest extends TestCase
 
         $this->actAsScopedUser($silencedUser, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(403);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(403);
     }
 
     public function testCreatePMWhenTargetRestricted() // fail
@@ -146,26 +167,26 @@ class ChatControllerTest extends TestCase
 
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $restrictedUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(404);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $restrictedUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(422);
     }
 
     public function testCreatePMWithSelf() // fail
     {
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->user->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(422);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->user->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(422);
     }
 
     public function testCreatePMWhenFriendsOnlyAndNotFriended() // fail
@@ -174,13 +195,13 @@ class ChatControllerTest extends TestCase
 
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $privateUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(403);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $privateUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(403);
     }
 
     public function testCreatePMWhenFriendsOnlyAndFriended() // success
@@ -193,13 +214,13 @@ class ChatControllerTest extends TestCase
 
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $privateUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $privateUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
     }
 
     //endregion
@@ -234,13 +255,13 @@ class ChatControllerTest extends TestCase
         // start conversation with $this->anotherUser
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
 
         // block $this->anotherUser
         $block = factory(UserRelation::class)->states('block')->create([
@@ -249,7 +270,7 @@ class ChatControllerTest extends TestCase
         ]);
 
         // ensure conversation with $this->anotherUser isn't visible
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.presence'))
             ->assertStatus(200)
             ->assertJsonMissing(['users' => [
@@ -275,19 +296,19 @@ class ChatControllerTest extends TestCase
         // start conversation with $this->anotherUser
         $this->actAsScopedUser($this->user, ['*']);
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
 
         // restrict $this->anotherUser
         $this->anotherUser->update(['user_warnings' => 1]);
 
         // ensure conversation with $this->anotherUser isn't visible
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.presence'))
             ->assertStatus(200)
             ->assertJsonMissing(['users' => [
@@ -299,7 +320,7 @@ class ChatControllerTest extends TestCase
         $this->anotherUser->update(['user_warnings' => 0]);
 
         // ensure conversation with $this->anotherUser is visible again
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.presence'))
             ->assertStatus(200)
             ->assertJsonFragment(['users' => [
@@ -313,19 +334,19 @@ class ChatControllerTest extends TestCase
         // start conversation with $this->anotherUser
         $this->actAsScopedUser($this->user, ['*']);
         $response = $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
 
         $presenceData = $response->decodeResponseJson();
         $channelId = $presenceData['new_channel_id'];
 
         // leave PM with $this->anotherUser
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('DELETE', route('api.chat.channels.part', [
             'channel' => $channelId,
             'user' => $this->user->user_id,
@@ -333,7 +354,7 @@ class ChatControllerTest extends TestCase
             ->assertStatus(204);
 
         // ensure conversation with $this->anotherUser isn't visible
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.presence'))
             ->assertStatus(200)
             ->assertJsonMissing(['users' => [
@@ -342,17 +363,18 @@ class ChatControllerTest extends TestCase
             ]]);
 
         // reopen PM with $this->anotherUser
+        app('OsuAuthorize')->cacheReset();
         $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
 
         // ensure conversation with $this->anotherUser is visible again
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.presence'))
             ->assertStatus(200)
             ->assertJsonFragment(['users' => [
@@ -383,7 +405,7 @@ class ChatControllerTest extends TestCase
         ]))
             ->assertStatus(204);
 
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.updates'), ['since' => $publicMessage->message_id])
             ->assertStatus(204);
     }
@@ -401,7 +423,7 @@ class ChatControllerTest extends TestCase
         ]))
             ->assertStatus(204);
 
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.updates'), ['since' => 0])
             ->assertStatus(200)
             ->assertJsonFragment(['content' => $publicMessage->content]);
@@ -412,13 +434,13 @@ class ChatControllerTest extends TestCase
         // create PM
         $this->actAsScopedUser($this->user, ['*']);
         $response = $this->json(
-                'POST',
-                route('api.chat.new'),
-                [
-                    'target_id' => $this->anotherUser->user_id,
-                    'message' => self::$faker->sentence(),
-                ]
-            )->assertStatus(200);
+            'POST',
+            route('api.chat.new'),
+            [
+                'target_id' => $this->anotherUser->user_id,
+                'message' => self::$faker->sentence(),
+            ]
+        )->assertStatus(200);
 
         $presenceData = $response->decodeResponseJson();
         $channelId = $presenceData['new_channel_id'];
@@ -430,7 +452,7 @@ class ChatControllerTest extends TestCase
         ]);
 
         // ensure reply is visible
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.updates'), ['since' => 0])
             ->assertStatus(200)
             ->assertJsonFragment(['content' => $publicMessage->content]);
@@ -439,7 +461,7 @@ class ChatControllerTest extends TestCase
         $this->anotherUser->update(['user_warnings' => 1]);
 
         // ensure reply is no longer visible
-        $this->actAsScopedUser($this->user, ['*']);
+        app('OsuAuthorize')->cacheReset();
         $this->json('GET', route('api.chat.updates'), ['since' => 0])
             ->assertStatus(204);
     }
