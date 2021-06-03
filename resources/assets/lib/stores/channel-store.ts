@@ -9,7 +9,7 @@ import DispatcherAction from 'actions/dispatcher-action';
 import { UserLogoutAction } from 'actions/user-login-actions';
 import { dispatch, dispatchListener } from 'app-dispatcher';
 import ChatAPI from 'chat/chat-api';
-import { ChannelJson, GetUpdatesJson, MessageJson, PresenceJson } from 'chat/chat-api-responses';
+import { ChannelJson, ChannelType, GetUpdatesJson, MessageJson, PresenceJson } from 'chat/chat-api-responses';
 import { groupBy, maxBy } from 'lodash';
 import { action, computed, observable, runInAction } from 'mobx';
 import Channel from 'models/chat/channel';
@@ -17,13 +17,15 @@ import Message from 'models/chat/message';
 import core from 'osu-core-singleton';
 import UserStore from './user-store';
 
+const skippedChannelTypes = new Set<ChannelType>(['MULTIPLAYER', 'TEMPORARY']);
+
 @dispatchListener
 export default class ChannelStore {
   @observable channels = observable.map<number, Channel>();
-  @observable loaded: boolean = false;
+  lastPolledMessageId = 0;
 
   private api = new ChatAPI();
-  private markingAsRead: Record<number, number> = {};
+  private markingAsRead: Partial<Record<number, number>> = {};
 
   @computed
   get channelList(): Channel[] {
@@ -31,18 +33,10 @@ export default class ChannelStore {
   }
 
   @computed
-  get maxMessageId(): number {
-    const channelArray = Array.from(this.channels.toJS().values());
-    const max = maxBy(channelArray, 'lastMessageId');
-
-    return max == null ? -1 : max.lastMessageId;
-  }
-
-  @computed
   get nonPmChannels(): Channel[] {
     const sortedChannels: Channel[] = [];
     this.channels.forEach((channel) => {
-      if (channel.type !== 'PM' && channel.metaLoaded) {
+      if (channel.type !== 'PM' && channel.isDisplayable) {
         sortedChannels.push(channel);
       }
     });
@@ -60,7 +54,7 @@ export default class ChannelStore {
   get pmChannels(): Channel[] {
     const sortedChannels: Channel[] = [];
     this.channels.forEach((channel) => {
-      if (channel.newPmChannel || (channel.type === 'PM' && channel.metaLoaded)) {
+      if (channel.newPmChannel || (channel.type === 'PM' && channel.isDisplayable)) {
         sortedChannels.push(channel);
       }
     });
@@ -85,6 +79,9 @@ export default class ChannelStore {
   addNewConversation(json: ChannelJson, message: MessageJson) {
     const channel = this.getOrCreate(json.channel_id);
     channel.updateWithJson(json);
+    // prevent new PM channel from being deleted from presence updates requested before the new conversation but
+    // the response arrives after.
+    channel.newPmChannelTransient = true;
     this.handleChatChannelNewMessages(channel.channelId, [message]);
 
     return channel;
@@ -111,7 +108,6 @@ export default class ChannelStore {
   @action
   flushStore() {
     this.channels.clear();
-    this.loaded = false;
   }
 
   get(channelId: number): Channel | undefined {
@@ -191,7 +187,7 @@ export default class ChannelStore {
   }
 
   @action
-  async markAsRead(channelId: number) {
+  markAsRead(channelId: number) {
     const channel = this.get(channelId);
 
     if (channel == null || !channel.isUnread) {
@@ -236,6 +232,8 @@ export default class ChannelStore {
   updateWithJson(updateJson: GetUpdatesJson) {
     this.updateWithPresence(updateJson.presence);
 
+    this.lastPolledMessageId = maxBy(updateJson.messages, 'message_id')?.message_id ?? this.lastPolledMessageId;
+
     const groups = groupBy(updateJson.messages, 'channel_id');
     for (const key of Object.keys(groups)) {
       const channelId = parseInt(key, 10);
@@ -250,12 +248,14 @@ export default class ChannelStore {
   @action
   updateWithPresence(presence: PresenceJson) {
     presence.forEach((json) => {
-      this.getOrCreate(json.channel_id).updatePresence(json);
+      if (!skippedChannelTypes.has(json.type)) {
+        this.getOrCreate(json.channel_id).updatePresence(json);
+      }
     });
 
     // remove parted channels
     this.channels.forEach((channel) => {
-      if (channel.newPmChannel) {
+      if (channel.newPmChannel || channel.newPmChannelTransient) {
         return;
       }
 
@@ -263,8 +263,6 @@ export default class ChannelStore {
         this.channels.delete(channel.channelId);
       }
     });
-
-    this.loaded = true;
   }
 
   @action
@@ -274,10 +272,14 @@ export default class ChannelStore {
       return Message.fromJson(messageJson);
     });
 
-    if (messages.length === 0) return;
-
     const channel = this.channels.get(channelId);
     if (channel == null) return;
+
+    if (messages.length === 0) {
+      // assume no more messages.
+      channel.firstMessageId = channel.minMessageId;
+      return;
+    }
 
     channel.addMessages(messages);
     channel.loaded = true;
@@ -293,9 +295,7 @@ export default class ChannelStore {
     try {
       if (channel.newPmChannel) {
         const users = channel.users.slice();
-        const userId = users.find((user) => {
-          return user !== currentUser.id;
-        });
+        const userId = users.find((user) => user !== currentUser.id);
 
         if (userId == null) {
           console.debug('sendMessage:: userId not found?? this shouldn\'t happen');

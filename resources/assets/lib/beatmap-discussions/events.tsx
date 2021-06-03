@@ -8,11 +8,11 @@ import Event from './event';
 
 interface Props {
   events: BeatmapsetEventJson[];
-  users: Record<string, UserJson>;
+  users: Partial<Record<string, UserJson>>;
 }
 
 export default class Events extends React.PureComponent<Props> {
   render() {
-    return this.props.events.map((event) => <Event event={event} key={event.id} mode='profile' users={this.props.users} />);
+    return this.props.events.map((event) => <Event key={event.id} event={event} mode='profile' users={this.props.users} />);
   }
 }

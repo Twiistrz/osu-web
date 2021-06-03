@@ -35,7 +35,6 @@ return [
                 'user_discord' => '',
                 'user_from' => 'současná poloha',
                 'user_interests' => 'zájmy',
-                'user_msnm' => '',
                 'user_occ' => 'zaměstnání',
                 'user_twitter' => '',
                 'user_website' => 'webové stránky',
@@ -57,11 +56,13 @@ return [
 
         'options' => [
             '_' => 'možnosti doručení',
+            'beatmap_owner_change' => '',
             'beatmapset:modding' => 'módování beatmap',
             'channel_message' => 'soukromé zprávy',
             'comment_new' => 'nové komentáře',
             'forum_topic_reply' => 'odpoveď témata',
             'mail' => 'e-mail',
+            'mapping' => '',
             'push' => 'push',
             'user_achievement_unlock' => 'medaile odemčena',
         ],
@@ -74,16 +75,16 @@ return [
     ],
 
     'options' => [
+        'beatmapset_show_nsfw' => 'skrýt varování pro explicitní obsah v beatmapách',
+        'beatmapset_title_show_original' => 'zobrazit informace map v originálním jazyce',
         'title' => 'Možnosti',
 
         'beatmapset_download' => [
             '_' => 'výchozí typ stahování map',
             'all' => 's videem, je-li k dispozici',
-            'no_video' => 'bez videa',
             'direct' => 'otevřít v osu!direct',
+            'no_video' => 'bez videa',
         ],
-
-        'beatmapset_title_show_original' => 'zobrazit informace map v originálním jazyce',
     ],
 
     'playstyles' => [

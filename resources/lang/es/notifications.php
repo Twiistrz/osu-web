@@ -6,10 +6,12 @@
 return [
     'all_read' => '¡Todas las notificaciones leídas!',
     'delete' => 'Eliminar :type',
+    'loading' => 'Cargando notificaciones no leídas...',
     'mark_read' => 'Borrar :type',
     'none' => 'No hay notificaciones',
     'see_all' => 'ver todas las notificaciones',
     'see_channel' => 'ir al chat',
+    'verifying' => 'Verifique la sesión para ver las notificaciones',
 
     'filters' => [
         '_' => 'todas',
@@ -24,6 +26,12 @@ return [
     'item' => [
         'beatmapset' => [
             '_' => 'Mapa',
+
+            'beatmap_owner_change' => [
+                '_' => '',
+                'beatmap_owner_change' => '',
+                'beatmap_owner_change_compact' => '',
+            ],
 
             'beatmapset_discussion' => [
                 '_' => 'Discusión del mapa',
@@ -41,10 +49,10 @@ return [
 
             'beatmapset_problem' => [
                 '_' => 'Problema con mapa calificado',
-                'beatmapset_discussion_qualified_problem' => 'Reportado por :username en ":title": ":content"',
-                'beatmapset_discussion_qualified_problem_empty' => 'Reportado por :username en ":title"',
-                'beatmapset_discussion_qualified_problem_compact' => 'Reportado por :username: ":content"',
-                'beatmapset_discussion_qualified_problem_compact_empty' => 'Reportado por :username',
+                'beatmapset_discussion_qualified_problem' => 'Denunciado por :username en ":title": ":content"',
+                'beatmapset_discussion_qualified_problem_empty' => 'Denunciado por :username en ":title"',
+                'beatmapset_discussion_qualified_problem_compact' => 'Denunciado por :username: ":content"',
+                'beatmapset_discussion_qualified_problem_compact_empty' => 'Denunciado por :username',
             ],
 
             'beatmapset_state' => [
@@ -133,6 +141,16 @@ return [
             ],
         ],
 
+        'user' => [
+            'user_beatmapset_new' => [
+                '_' => 'Nuevo mapa',
+
+                'user_beatmapset_new' => 'Nuevo mapa ":title" por :username',
+                'user_beatmapset_new_compact' => 'Nuevo mapa ":title"',
+                'user_beatmapset_new_group' => 'Nuevos mapas por :username',
+            ],
+        ],
+
         'user_achievement' => [
             '_' => 'Medallas',
 
@@ -147,6 +165,10 @@ return [
 
     'mail' => [
         'beatmapset' => [
+            'beatmap_owner_change' => [
+                'beatmap_owner_change' => '',
+            ],
+
             'beatmapset_discussion' => [
                 'beatmapset_discussion_lock' => 'La discusión en ":title" se ha cerrado',
                 'beatmapset_discussion_post_new' => 'La discusión en ":title" tiene nuevas actualizaciones',
@@ -200,6 +222,10 @@ return [
             'user_achievement_unlock' => [
                 'user_achievement_unlock' => '¡:username ha desbloqueado una nueva medalla, ":title"!',
                 'user_achievement_unlock_self' => '¡Ha desbloqueado una nueva medalla, ":title"!',
+            ],
+
+            'user_beatmapset_new' => [
+                'user_beatmapset_new' => ':username ha creado nuevos mapas',
             ],
         ],
     ],

@@ -7,32 +7,32 @@ return [
     'deleted' => '[مستخدم محذوف]',
 
     'beatmapset_activities' => [
-        'title' => "سِجِل اِقتراحات:user",
-        'title_compact' => 'ألأِقتِراحات',
+        'title' => "سجل اقتراحات :user",
+        'title_compact' => 'الإقتراحات',
 
         'discussions' => [
-            'title_recent' => 'مناقشة بدأت مؤخرا',
+            'title_recent' => 'المناقشات التي بدأت مؤخرا',
         ],
 
         'events' => [
-            'title_recent' => 'الأحداث الأخيرة',
+            'title_recent' => 'آخر الأحداث',
         ],
 
         'posts' => [
-            'title_recent' => 'المنشورات الحديثة',
+            'title_recent' => 'المنشورات الأخيرة',
         ],
 
         'votes_received' => [
-            'title_most' => 'الاكثر تصويتاََ بواسطة (اخر ٣ اشهر)',
+            'title_most' => 'الأكثر تصويتاََ بواسطة (آخر ٣ اشهر)',
         ],
 
         'votes_made' => [
-            'title_most' => 'الاكثر تصويتاََ (اخر ٣ اشهر)',
+            'title_most' => 'الأكثر تصويتاََ (آخر ٣ اشهر)',
         ],
     ],
 
     'blocks' => [
-        'banner_text' => 'لقد حظرت هذا المستخدم.',
+        'banner_text' => 'لقد قمت بحظر هذا المستخدم.',
         'blocked_count' => 'المستخدمون المحظورون (:count)',
         'hide_profile' => 'إخفاء الملف الشخصي',
         'not_blocked' => 'هذا المستخدم ليس محظوراََ.',
@@ -71,7 +71,7 @@ return [
     ],
 
     'filtering' => [
-        'by_game_mode' => '',
+        'by_game_mode' => 'الأعضاء حسب نمط اللعبة',
     ],
 
     'force_reactivation' => [
@@ -154,6 +154,10 @@ return [
         'plays_with' => 'يستخدم :devices',
         'title' => "صفحة:username الشخصية",
 
+        'comments_count' => [
+            '_' => 'نَشَر :link',
+            'count' => ':count_delimited تعليق|:count_delimited تعليقات',
+        ],
         'edit' => [
             'cover' => [
                 'button' => 'تغيير صورة الغلاف',
@@ -163,7 +167,7 @@ return [
                     'button' => 'رفع صورة',
                     'dropzone' => 'اَسقط الملف هنا للرفع',
                     'dropzone_info' => 'يمكنك أيضا إسقاط الصورة هنا للرفع',
-                    'size_info' => 'حجم الغلاف يجب ان يكون 2400x620',
+                    'size_info' => 'حجم الغلاف يجب ان يكون 2400x640',
                     'too_large' => 'الملف المرفوع كبير جدا.',
                     'unsupported_format' => 'تنسيق غير مدعوم.',
 
@@ -353,7 +357,6 @@ return [
             'interests' => 'الاهتمامات',
             'location' => 'الموقع الحالي',
             'occupation' => 'المهنة',
-            'skype' => '',
             'twitter' => '',
             'website' => 'الموقع',
         ],
@@ -404,6 +407,11 @@ return [
             'unranked_beatmapset_count' => 'الخرائط المعلقة',
             'graveyard_beatmapset_count' => 'الخرائط المقبورة',
         ],
+    ],
+
+    'silenced_banner' => [
+        'title' => 'أنت مُقيد (صامت) حاليا.',
+        'message' => 'قد تكون بعض الإجراءات غير متوفرة.',
     ],
 
     'status' => [

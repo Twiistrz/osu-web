@@ -30,7 +30,8 @@ class WikiController extends Controller
      *
      * Returns [WikiPage](#wikipage).
      *
-     * @urlParam page The path name of the wiki page.
+     * @urlParam locale string required Two-letter language code of the wiki page. Example: en
+     * @urlParam path string required The path name of the wiki page. Example: Welcome
      */
     public function show($locale = null, $path = null)
     {
@@ -39,31 +40,26 @@ class WikiController extends Controller
             return ujs_redirect(wiki_url(null, $this->locale()));
         }
 
-        $validLocale = LocaleMeta::isValid($locale);
+        $cleanLocale = LocaleMeta::sanitizeCode($locale);
 
         // if images slip through the markdown processing, redirect them to the correct place
         if (OsuWiki::isImage($path)) {
-            $prependPath = $locale === 'images' || $validLocale ? null : $locale;
+            $prependPath = $locale === 'images' || $cleanLocale === null ? $locale : null;
 
             return ujs_redirect(route('wiki.image', concat_path([$prependPath, $path])));
         }
 
         // if invalid locale, assume locale to be part of path and
         // actual locale to be either user locale or passed as parameter
-        if (!$validLocale) {
+        if ($cleanLocale === null) {
             return ujs_redirect(wiki_url(concat_path([$locale, $path]), $this->locale()));
         }
 
-        // in case locale is passed as query parameter (legacy url inside the page),
-        // redirect to new path
+        // in case locale is passed as query parameter (legacy url inside the page)
+        // or it's in wrong case, redirect to new path
         $queryLocale = $this->locale();
-        if ($queryLocale !== $locale) {
+        if ($queryLocale !== $locale && present($path)) {
             return ujs_redirect(wiki_url($path, $queryLocale));
-        }
-
-        // if path is missing, redirect to default page
-        if ($path === null) {
-            return ujs_redirect(wiki_url($path, $locale));
         }
 
         // normalize path by making sure no trailing slash
@@ -76,17 +72,27 @@ class WikiController extends Controller
             return ujs_redirect(wiki_url($path, $locale));
         }
 
-        $page = Wiki\Page::lookupForController($path, $this->locale());
+        $page = Wiki\Page::lookupForController($path, $locale);
 
         if (!$page->isVisible()) {
-            $redirectTarget = (new WikiRedirect())->sync()->resolve($path);
+            $redirect = (new WikiRedirect())->sync();
+            $redirectTarget = $redirect->resolve($path);
+            if ($redirectTarget !== null && $redirectTarget !== $path) {
+                return ujs_redirect(wiki_url(ltrim($redirectTarget, '/'), $locale));
+            }
+
+            $redirectTarget = $redirect->resolve(concat_path([$locale, $path]));
             if ($redirectTarget !== null && $redirectTarget !== $path) {
                 return ujs_redirect(wiki_url(ltrim($redirectTarget, '/')));
             }
 
-            $correctPath = Wiki\Page::searchPath($path, $this->locale());
+            if (!present($path)) {
+                return ujs_redirect(wiki_url($locale));
+            }
+
+            $correctPath = Wiki\Page::searchPath($path, $locale);
             if ($correctPath !== null && $correctPath !== $path) {
-                return ujs_redirect(wiki_url($correctPath));
+                return ujs_redirect(wiki_url($correctPath, $locale));
             }
 
             $status = 404;

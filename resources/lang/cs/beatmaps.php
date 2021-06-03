@@ -18,6 +18,7 @@ return [
         'deny_kudosu' => 'odepřít kudosu',
         'edit' => 'upravit',
         'edited' => 'Naposledy upravil :editor v :update_time.',
+        'guest' => '',
         'kudosu_denied' => 'Odepřen od získávání kudosu.',
         'message_placeholder_deleted_beatmap' => 'Tato obtížnost byla smazána, takže už nemůže být probírána.',
         'message_placeholder_locked' => 'Diskuze o této mapě byly vypnuty.',
@@ -220,14 +221,15 @@ return [
             'not-found' => 'bez výsledků',
             'not-found-quote' => '... ups, nic nebylo nalezeno.',
             'filters' => [
+                'extra' => 'extra',
                 'general' => 'Obecné',
-                'mode' => 'Mód',
-                'status' => 'Kategorie',
                 'genre' => 'Žánr',
                 'language' => 'Jazyk',
-                'extra' => 'extra',
-                'rank' => 'Dle získaného písmene',
+                'mode' => 'Mód',
+                'nsfw' => 'Explicitní mapy',
                 'played' => 'Již hrané',
+                'rank' => 'Dle získaného písmene',
+                'status' => 'Kategorie',
             ],
             'sorting' => [
                 'title' => 'Název',
@@ -248,8 +250,9 @@ return [
         ],
     ],
     'general' => [
-        'recommended' => 'Doporučená obtížnost',
         'converts' => 'Zahrň konvertované beatmapy',
+        'follows' => '',
+        'recommended' => 'Doporučená obtížnost',
     ],
     'mode' => [
         'all' => '',
@@ -307,7 +310,7 @@ return [
         'NF' => '',
         'NM' => '',
         'PF' => '',
-        'Relax' => '',
+        'RX' => '',
         'SD' => '',
         'SO' => '',
         'TD' => '',
@@ -330,6 +333,12 @@ return [
         'other' => 'Jiné',
         'unspecified' => 'Nespecifikováno',
     ],
+
+    'nsfw' => [
+        'exclude' => 'Skrýt',
+        'include' => 'Zobrazit',
+    ],
+
     'played' => [
         'any' => 'Jakékoliv',
         'played' => 'Hrané',

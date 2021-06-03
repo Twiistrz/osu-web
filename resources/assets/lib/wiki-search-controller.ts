@@ -16,6 +16,7 @@ export class WikiSearchController {
   @observable shouldShowSuggestions = false;
   @observable suggestions: SuggestionJson[] = [];
 
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   private debouncedFetchSuggestions = debounce(this.fetchSuggestions, 200);
   @observable private query = '';
   private xhr?: JQueryXHR;
@@ -55,7 +56,7 @@ export class WikiSearchController {
   @action
   selectIndex(index: number): void {
     if (index < -1) {
-     return this.selectIndex(this.suggestions.length - 1);
+      return this.selectIndex(this.suggestions.length - 1);
     }
 
     if (index >= this.suggestions.length) {
@@ -100,11 +101,11 @@ export class WikiSearchController {
   @action
   private fetchSuggestions() {
     this.xhr = $.getJSON(route('wiki-suggestions'), { query: this.query.trim() })
-    .done(action((response: SuggestionJson[]) => {
-      if (response != null) {
-        this.suggestions = observable(response);
-        this.shouldShowSuggestions = true;
-      }
-    }));
+      .done(action((response: SuggestionJson[]) => {
+        if (response != null) {
+          this.suggestions = observable(response);
+          this.shouldShowSuggestions = true;
+        }
+      }));
   }
 }

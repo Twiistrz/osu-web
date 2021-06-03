@@ -13,7 +13,16 @@ return [
     ],
 
     'scopes' => [
+        'bot' => 'Chovat se jako chat bot.',
         'identify' => 'Indentifikovat vás a prohlížet váš veřejný profil.',
+
+        'chat' => [
+            'write' => 'Posílejte zprávy vaším jménem.',
+        ],
+
+        'forum' => [
+            'write' => '',
+        ],
 
         'friends' => [
             'read' => 'Koukněte se, koho sledujete.',

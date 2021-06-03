@@ -47,17 +47,18 @@ return [
         'confirm_restore' => 'Gönderiyi geri yükle?',
         'edited' => 'En son :user tarafından :when, toplamda :count_delimited defa düzenlendi.|En son :user tarafından :when, toplamda :count_delimited defa düzenlendi.',
         'posted_at' => ':when gönderildi',
+        'posted_by' => ':username tarafından gönderildi',
 
         'actions' => [
             'destroy' => 'Gönderiyi sil',
             'edit' => 'Gönderiyi düzenle',
-            'report' => '',
+            'report' => 'Gönderiyi bildir',
             'restore' => 'Gönderiyi geri getir',
         ],
 
         'create' => [
             'title' => [
-                'reply' => 'Yeni Yanıt',
+                'reply' => 'Yeni yanıt',
             ],
         ],
 
@@ -74,12 +75,14 @@ return [
     ],
 
     'topic' => [
+        'confirm_destroy' => 'Konu gerçekten silinsin mi?',
+        'confirm_restore' => 'Konu gerçekten geri yüklensin mi?',
         'deleted' => 'silinmiş konu',
-        'go_to_latest' => 'son yazılan mesajı göster',
+        'go_to_latest' => 'son gönderiyi görüntüle',
         'has_replied' => 'Bu konuyu yanıtladınız',
-        'in_forum' => ':forum da',
+        'in_forum' => ':forum forumunda',
         'latest_post' => ':user tarafından :when',
-        'latest_reply_by' => 'son cevap :user tarafından',
+        'latest_reply_by' => 'son yanıt :user tarafından',
         'new_topic' => 'Yeni konu aç',
         'new_topic_login' => 'Yeni konu başlatmak için giriş yapın',
         'post_reply' => 'Gönder',
@@ -87,6 +90,11 @@ return [
         'reply_title_prefix' => 'Ynt',
         'started_by' => ':user tarafından',
         'started_by_verbose' => ':user tarafından başlatıldı',
+
+        'actions' => [
+            'destroy' => 'Konuyu sil',
+            'restore' => 'Konuyu geri yükle',
+        ],
 
         'create' => [
             'close' => 'Kapat',
@@ -97,11 +105,11 @@ return [
             'submit' => 'Gönder',
 
             'necropost' => [
-                'default' => 'Bu konu bir süredir inaktif. Sadece mantıklı bir nedeniniz varsa buraya gönderi yapın.',
+                'default' => 'Bu konu uzun bir süredir inaktif. Yalnızca geçerli bir nedeniniz varsa bir gönderi oluşturun.',
 
                 'new_topic' => [
-                    '_' => "Bu konu bir süredir inaktif. Eğer buraya gönderi yapmak için mantıklı bir nedeniniz yoksa, :create lütfen.",
-                    'create' => 'yeni bir konu aç',
+                    '_' => "Bu konu uzun bir süredir inaktif. Eğer burada gönderi oluşturmak için mantıklı bir nedeniniz yoksa, bunun yerine lütfen :create.",
+                    'create' => 'yeni bir konu açın',
                 ],
             ],
 
@@ -152,9 +160,9 @@ return [
         '_' => 'Konular',
 
         'actions' => [
-            'login_reply' => 'Cevaplamak için giriş yap',
+            'login_reply' => 'Yanıtlamak için giriş yap',
             'reply' => 'Yanıtla',
-            'reply_with_quote' => 'Alıntı yaparak cevap ver',
+            'reply_with_quote' => 'Yanıtlamak için alıntıla',
             'search' => 'Ara',
         ],
 
@@ -273,11 +281,11 @@ return [
 
             'feature_vote' => [
                 'current' => 'Mevcut Öncelik: +:count',
-                'do' => 'Bu isteği destekle',
+                'do' => 'Bu talebi destekle',
 
                 'info' => [
                     '_' => 'Bu bir :feature_request. Özellik talepleri :supporters tarafından oylanabilir.',
-                    'feature_request' => 'özellik talebi',
+                    'feature_request' => 'özellik talebidir',
                     'supporters' => 'supporter\'lar',
                 ],
 

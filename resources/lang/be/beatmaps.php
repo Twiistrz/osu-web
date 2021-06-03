@@ -18,6 +18,7 @@ return [
         'deny_kudosu' => 'забараніць кудосу',
         'edit' => 'рэдагаваць',
         'edited' => 'Апошняе рэдагаванне :editor а :update_time.',
+        'guest' => '',
         'kudosu_denied' => 'Адмоўлена ў атрыманні кудосу.',
         'message_placeholder_deleted_beatmap' => 'Гэтая цяжкасць была выдалена і абмяркоўваць у ёй больш нельга.',
         'message_placeholder_locked' => 'Абмеркаванні для гэтай бітмапы былі адключаныя.',
@@ -220,14 +221,15 @@ return [
             'not-found' => 'няма вынікаў',
             'not-found-quote' => '... няма, нічога не знойдзена.',
             'filters' => [
+                'extra' => 'дадаткова',
                 'general' => 'Агульнае',
-                'mode' => 'Рэжым',
-                'status' => 'Катэгорыі',
                 'genre' => 'Жанр',
                 'language' => 'Мова',
-                'extra' => 'дадаткова',
-                'rank' => 'Рэйтынг',
+                'mode' => 'Рэжым',
+                'nsfw' => '',
                 'played' => 'Згуляна',
+                'rank' => 'Рэйтынг',
+                'status' => 'Катэгорыі',
             ],
             'sorting' => [
                 'title' => 'Назва',
@@ -248,8 +250,9 @@ return [
         ],
     ],
     'general' => [
-        'recommended' => 'Рэкамендавана цяжкасць',
         'converts' => 'Уключыць канвертаваныя бітмапы',
+        'follows' => '',
+        'recommended' => 'Рэкамендавана цяжкасць',
     ],
     'mode' => [
         'all' => '',
@@ -307,7 +310,7 @@ return [
         'NF' => '',
         'NM' => '',
         'PF' => '',
-        'Relax' => '',
+        'RX' => '',
         'SD' => '',
         'SO' => '',
         'TD' => '',
@@ -330,6 +333,12 @@ return [
         'other' => 'Іншае',
         'unspecified' => '',
     ],
+
+    'nsfw' => [
+        'exclude' => '',
+        'include' => '',
+    ],
+
     'played' => [
         'any' => 'Усе',
         'played' => 'Згуляна',

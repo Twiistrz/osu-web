@@ -3,15 +3,22 @@
 
 import * as _ from 'lodash';
 import Notification from 'models/notification';
+import { isBeatmapOwnerChangeNotification } from 'models/notification/beatmap-owner-change-notification';
 
-export function formatMessage(item: Notification, compact: boolean = false) {
-  const replacements = {
+type Replacements = { title: string } & Partial<Record<string, string>>;
+
+export function formatMessage(item: Notification, compact = false) {
+  const replacements: Replacements = {
     content: item.details.content,
     title: item.title,
     username: item.details.username,
   };
 
-  if (item.name === 'beatmapset_discussion_review_new') {
+  if (isBeatmapOwnerChangeNotification(item)) {
+    replacements.beatmap = item.details.version;
+  }
+
+  if (item.name === 'beatmapset_discussion_review_new' && item.details.embeds != null) {
     _.merge(replacements, {
       praises: item.details.embeds.praises,
       problems: item.details.embeds.problems,

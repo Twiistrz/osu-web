@@ -47,11 +47,12 @@ return [
         'confirm_restore' => 'ต้องการกู้คืนโพสต์จริงหรอ?',
         'edited' => 'แก้ไขล่าสุดโดย :user :when ถูกแก้ไขทั้งหมด :count ครั้ง',
         'posted_at' => 'โพสต์เมื่อ :when',
+        'posted_by' => 'โพสต์โดย :username',
 
         'actions' => [
             'destroy' => 'ลบโพสต์',
             'edit' => 'แก้ไขโพสต์',
-            'report' => '',
+            'report' => 'รายงานโพสต์',
             'restore' => 'กู้คืนโพสต์',
         ],
 
@@ -74,6 +75,8 @@ return [
     ],
 
     'topic' => [
+        'confirm_destroy' => 'ต้องการลบโพสต์จริงหรอ?',
+        'confirm_restore' => 'ต้องการกู้คืนโพสต์จริงหรอ?',
         'deleted' => 'ลบกระทู้',
         'go_to_latest' => 'ดูโพสต์ล่าสุด',
         'has_replied' => 'คุณได้ตอบกลับการสนทนานี้',
@@ -87,6 +90,11 @@ return [
         'reply_title_prefix' => 'รี',
         'started_by' => 'โดย :user',
         'started_by_verbose' => 'เริ่มโดย :user',
+
+        'actions' => [
+            'destroy' => 'ลบหัวข้อ',
+            'restore' => 'กู้คือหัวข้อ',
+        ],
 
         'create' => [
             'close' => 'ปิด',

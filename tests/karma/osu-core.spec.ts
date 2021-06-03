@@ -22,16 +22,17 @@ import OsuCore from 'osu-core';
 
 describe('OsuCore user:update subscriber testing thing', () => {
   it('user:update should update the user store from a JSON value', () => {
-    const core = new OsuCore(window);
+    const core = new OsuCore();
 
     const json: UserJson = {
       avatar_url: '',
       country_code: '',
-      cover: {},
+      cover: { custom_url: null, id: null, url: null },
       default_group: '',
       id: 1,
       is_active: true,
       is_bot: false,
+      is_deleted: false,
       is_online: true,
       is_supporter: true,
       last_visit: null,

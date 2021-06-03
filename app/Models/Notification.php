@@ -26,6 +26,7 @@ use App\Models\Forum\Topic;
  */
 class Notification extends Model
 {
+    const BEATMAP_OWNER_CHANGE = 'beatmap_owner_change';
     const BEATMAPSET_DISCUSSION_LOCK = 'beatmapset_discussion_lock';
     const BEATMAPSET_DISCUSSION_POST_NEW = 'beatmapset_discussion_post_new';
     const BEATMAPSET_DISCUSSION_QUALIFIED_PROBLEM = 'beatmapset_discussion_qualified_problem';
@@ -45,6 +46,7 @@ class Notification extends Model
     const USER_BEATMAPSET_NEW = 'user_beatmapset_new';
 
     const NAME_TO_CATEGORY = [
+        self::BEATMAP_OWNER_CHANGE => 'beatmap_owner_change',
         self::BEATMAPSET_DISCUSSION_LOCK => 'beatmapset_discussion',
         self::BEATMAPSET_DISCUSSION_POST_NEW => 'beatmapset_discussion',
         self::BEATMAPSET_DISCUSSION_QUALIFIED_PROBLEM => 'beatmapset_problem',
@@ -61,7 +63,7 @@ class Notification extends Model
         self::COMMENT_NEW => 'comment',
         self::FORUM_TOPIC_REPLY => 'forum_topic_reply',
         self::USER_ACHIEVEMENT_UNLOCK => 'user_achievement_unlock',
-        self::USER_BEATMAPSET_NEW => 'user_modding',
+        self::USER_BEATMAPSET_NEW => 'user_beatmapset_new',
     ];
 
     const NOTIFIABLE_CLASSES = [
@@ -74,7 +76,8 @@ class Notification extends Model
     ];
 
     const SUBTYPES = [
-        'comment_new' => 'comment',
+        self::COMMENT_NEW => 'comment',
+        self::USER_BEATMAPSET_NEW => 'mapping',
     ];
 
     protected $casts = [

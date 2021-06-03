@@ -6,6 +6,7 @@
 return [
     'event' => [
         'approve' => 'Approved.',
+        'beatmap_owner_change' => 'Owner of difficulty :beatmap changed to :new_user.',
         'discussion_delete' => 'Moderator deleted discussion :discussion.',
         'discussion_lock' => 'Discussion for this beatmap has been disabled. (:text)',
         'discussion_post_delete' => 'Moderator deleted post from discussion :discussion.',
@@ -15,8 +16,8 @@ return [
         'disqualify' => 'Disqualified by :user. Reason: :discussion (:text).',
         'disqualify_legacy' => 'Disqualified by :user. Reason: :text.',
         'genre_edit' => 'Genre changed from :old to :new.',
-        'issue_reopen' => 'Resolved issue :discussion reopened.',
-        'issue_resolve' => 'Issue :discussion marked as resolved.',
+        'issue_reopen' => 'Resolved issue :discussion by :discussion_user reopened by :user.',
+        'issue_resolve' => 'Issue :discussion by :discussion_user marked as resolved by :user.',
         'kudosu_allow' => 'Kudosu denial for discussion :discussion has been removed.',
         'kudosu_deny' => 'Discussion :discussion denied for kudosu.',
         'kudosu_gain' => 'Discussion :discussion by :user obtained enough votes for kudosu.',
@@ -30,6 +31,11 @@ return [
         'qualify' => 'This beatmap has reached the required number of nominations and has been qualified.',
         'rank' => 'Ranked.',
         'remove_from_loved' => 'Removed from Loved by :user. (:text)',
+
+        'nsfw_toggle' => [
+            'to_0' => 'Removed explicit mark',
+            'to_1' => 'Marked as explicit',
+        ],
     ],
 
     'index' => [
@@ -49,6 +55,7 @@ return [
 
     'type' => [
         'approve' => 'Approval',
+        'beatmap_owner_change' => 'Difficulty owner change',
         'discussion_delete' => 'Discussion deletion',
         'discussion_post_delete' => 'Discussion reply deletion',
         'discussion_post_restore' => 'Discussion reply restoration',
@@ -66,6 +73,7 @@ return [
         'love' => 'Love',
         'nominate' => 'Nomination',
         'nomination_reset' => 'Nomination resetting',
+        'nsfw_toggle' => 'Explicit mark',
         'qualify' => 'Qualification',
         'rank' => 'Ranking',
         'remove_from_loved' => 'Loved removal',

@@ -17,7 +17,6 @@ interface AccountUIState {
 interface CommentsUIState {
   currentSort: CommentSort;
   hasMoreComments: Dictionary<boolean>;
-  isShowDeleted: boolean;
   loadingFollow: boolean | null;
   loadingSort: CommentSort | null;
   pinnedCommentIds: number[];
@@ -30,7 +29,6 @@ interface CommentsUIState {
 const defaultCommentsUIState: CommentsUIState = {
   currentSort: 'new',
   hasMoreComments: {},
-  isShowDeleted: false,
   loadingFollow: null,
   loadingSort: null,
   pinnedCommentIds: [],

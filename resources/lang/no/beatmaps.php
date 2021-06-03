@@ -18,6 +18,7 @@ return [
         'deny_kudosu' => 'avvis kudosu',
         'edit' => 'rediger',
         'edited' => 'Sist endret av :editor :update_time.',
+        'guest' => '',
         'kudosu_denied' => 'Avvist fra å få kudosu.',
         'message_placeholder_deleted_beatmap' => 'Denne vanskelighetsgraden har blitt slettet så den kan ikke bli diskutert lenger.',
         'message_placeholder_locked' => 'Diskusjon for dette beatmappet har blitt deaktivert.',
@@ -197,7 +198,7 @@ return [
         'rank_estimate' => [
             '_' => '',
             'queue' => '',
-            'soon' => '',
+            'soon' => 'snart',
         ],
 
         'reset_at' => [
@@ -220,14 +221,15 @@ return [
             'not-found' => 'ingen treff',
             'not-found-quote' => '... nei, ingenting ble funnet.',
             'filters' => [
+                'extra' => 'ekstra',
                 'general' => 'Generelt',
-                'mode' => 'Modus',
-                'status' => 'Kategorier',
                 'genre' => 'Sjanger',
                 'language' => 'Språk',
-                'extra' => 'ekstra',
-                'rank' => 'Rangering Oppnådd',
+                'mode' => 'Modus',
+                'nsfw' => 'Eksplisitt innhold',
                 'played' => 'Spilt',
+                'rank' => 'Rangering Oppnådd',
+                'status' => 'Kategorier',
             ],
             'sorting' => [
                 'title' => 'Tittel',
@@ -248,11 +250,12 @@ return [
         ],
     ],
     'general' => [
-        'recommended' => 'Anbefalt vanskelighetsgrad',
         'converts' => 'Inkluder konverterte beatmaps',
+        'follows' => '',
+        'recommended' => 'Anbefalt vanskelighetsgrad',
     ],
     'mode' => [
-        'all' => '',
+        'all' => 'Alle',
         'any' => 'Alle',
         'osu' => '',
         'taiko' => '',
@@ -307,7 +310,7 @@ return [
         'NF' => '',
         'NM' => '',
         'PF' => '',
-        'Relax' => '',
+        'RX' => '',
         'SD' => '',
         'SO' => '',
         'TD' => '',
@@ -330,6 +333,12 @@ return [
         'other' => 'Andre',
         'unspecified' => 'Uspesifisert',
     ],
+
+    'nsfw' => [
+        'exclude' => 'Skjul',
+        'include' => 'Vis',
+    ],
+
     'played' => [
         'any' => 'Alle',
         'played' => 'Spilt',

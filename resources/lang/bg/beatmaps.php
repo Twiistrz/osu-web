@@ -18,6 +18,7 @@ return [
         'deny_kudosu' => 'забрани kudosu',
         'edit' => 'редактирай',
         'edited' => 'Последно редактирано от :editor :update_time.',
+        'guest' => '',
         'kudosu_denied' => 'Забранено получаване на kudosu.',
         'message_placeholder_deleted_beatmap' => 'Тази трудност е била изтрита, така че тя вече не може да се обсъжда.',
         'message_placeholder_locked' => 'Дискусията за този бийтмап бе деактивирана.',
@@ -220,14 +221,15 @@ return [
             'not-found' => 'няма намерени резултати',
             'not-found-quote' => '... не, нищо не е намерено.',
             'filters' => [
+                'extra' => 'екстра',
                 'general' => 'Общо',
-                'mode' => 'Игра',
-                'status' => 'Категории',
                 'genre' => 'Жанр',
                 'language' => 'Език',
-                'extra' => 'екстра',
-                'rank' => 'Постигнат Ранг',
+                'mode' => 'Игра',
+                'nsfw' => '',
                 'played' => 'Изигран',
+                'rank' => 'Постигнат Ранг',
+                'status' => 'Категории',
             ],
             'sorting' => [
                 'title' => 'Заглавие',
@@ -248,8 +250,9 @@ return [
         ],
     ],
     'general' => [
-        'recommended' => 'Препоръчана трудност',
         'converts' => 'Включи конвертирани бийтмапове',
+        'follows' => '',
+        'recommended' => 'Препоръчана трудност',
     ],
     'mode' => [
         'all' => '',
@@ -307,7 +310,7 @@ return [
         'NF' => '',
         'NM' => '',
         'PF' => '',
-        'Relax' => '',
+        'RX' => '',
         'SD' => '',
         'SO' => '',
         'TD' => '',
@@ -330,6 +333,12 @@ return [
         'other' => 'Други',
         'unspecified' => 'Неопределен',
     ],
+
+    'nsfw' => [
+        'exclude' => '',
+        'include' => '',
+    ],
+
     'played' => [
         'any' => 'Всички',
         'played' => 'Изиграни',

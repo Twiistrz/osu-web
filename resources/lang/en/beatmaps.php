@@ -18,6 +18,7 @@ return [
         'deny_kudosu' => 'deny kudosu',
         'edit' => 'edit',
         'edited' => 'Last edited by :editor :update_time.',
+        'guest' => 'Guest difficulty by :user',
         'kudosu_denied' => 'Denied from obtaining kudosu.',
         'message_placeholder_deleted_beatmap' => 'This difficulty has been deleted so it may no longer be discussed.',
         'message_placeholder_locked' => 'Discussion for this beatmap has been disabled.',
@@ -54,7 +55,7 @@ return [
         ],
 
         'message_hint' => [
-            'in_general' => 'This post will go to general beatmapset discussion. To mod this beatmap, start message with timestamp (e.g. 00:12:345).',
+            'in_general' => 'This post will go to general beatmap discussion. To mod this difficulty, start message with timestamp (e.g. 00:12:345).',
             'in_timeline' => 'To mod multiple timestamps, post multiple times (one post per timestamp).',
         ],
 
@@ -220,14 +221,15 @@ return [
             'not-found' => 'no results',
             'not-found-quote' => '... nope, nothing found.',
             'filters' => [
+                'extra' => 'Extra',
                 'general' => 'General',
-                'mode' => 'Mode',
-                'status' => 'Categories',
                 'genre' => 'Genre',
                 'language' => 'Language',
-                'extra' => 'Extra',
-                'rank' => 'Rank Achieved',
+                'mode' => 'Mode',
+                'nsfw' => 'Explicit Content',
                 'played' => 'Played',
+                'rank' => 'Rank Achieved',
+                'status' => 'Categories',
             ],
             'sorting' => [
                 'title' => 'Title',
@@ -248,8 +250,9 @@ return [
         ],
     ],
     'general' => [
-        'recommended' => 'Recommended difficulty',
         'converts' => 'Include converted beatmaps',
+        'follows' => 'Subscribed mappers',
+        'recommended' => 'Recommended difficulty',
     ],
     'mode' => [
         'all' => 'All',
@@ -307,7 +310,7 @@ return [
         'NF' => 'No Fail',
         'NM' => 'No mods',
         'PF' => 'Perfect',
-        'Relax' => 'Relax',
+        'RX' => 'Relax',
         'SD' => 'Sudden Death',
         'SO' => 'Spun Out',
         'TD' => 'Touch Device',
@@ -330,6 +333,12 @@ return [
         'other' => 'Other',
         'unspecified' => 'Unspecified',
     ],
+
+    'nsfw' => [
+        'exclude' => 'Hide',
+        'include' => 'Show',
+    ],
+
     'played' => [
         'any' => 'Any',
         'played' => 'Played',

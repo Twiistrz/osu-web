@@ -2,7 +2,6 @@
 // See the LICENCE file in the repository root for full licence text.
 
 import { route } from 'laroute';
-import * as _ from 'lodash';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Name, typeNames } from 'models/notification-type';
@@ -12,7 +11,7 @@ import NotificationController from 'notifications/notification-controller';
 import NotificationReadButton from 'notifications/notification-read-button';
 import core from 'osu-core-singleton';
 import * as React from 'react';
-import { ShowMoreLink } from 'show-more-link';
+import ShowMoreLink from 'show-more-link';
 import Stack from './stack';
 
 interface Link {
@@ -29,11 +28,6 @@ interface Props {
 interface State {
   hasError: boolean;
 }
-
-const linkMap: Record<string, string> = {
-  channel: 'chat.index',
-  null: 'notifications.index',
-};
 
 @observer
 export default class Main extends React.Component<Props, State> {
@@ -54,13 +48,11 @@ export default class Main extends React.Component<Props, State> {
 
   @computed
   get links() {
-    return this.typeNames.map((type) => {
-      return { title: osu.trans(`notifications.filters.${type ?? '_'}`), type };
-    });
+    return this.typeNames.map((type) => ({ title: osu.trans(`notifications.filters.${type ?? '_'}`), type }));
   }
 
   static getDerivedStateFromError(error: Error) {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line no-console
     console.error(error);
     return { hasError: true };
   }
@@ -93,15 +85,15 @@ export default class Main extends React.Component<Props, State> {
   private handleFilterClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const type = ((event.currentTarget as HTMLButtonElement).dataset.type ?? null) as Name;
     this.controller.navigateTo(type);
-  }
+  };
 
   private handleMarkAsRead = () => {
     this.controller.markCurrentTypeAsRead();
-  }
+  };
 
   private handleShowMore = () => {
     this.controller.loadMore();
-  }
+  };
 
   private renderFilter = (link: Link) => {
     const type = this.controller.getType(link.type);
@@ -114,8 +106,8 @@ export default class Main extends React.Component<Props, State> {
 
     return (
       <button
-        className={osu.classWithModifiers('notification-popup__filter', modifiers)}
         key={link.title}
+        className={osu.classWithModifiers('notification-popup__filter', modifiers)}
         onClick={this.handleFilterClick}
         {...data}
       >
@@ -123,10 +115,10 @@ export default class Main extends React.Component<Props, State> {
         <span>{link.title}</span>
       </button>
     );
-  }
+  };
 
   private renderFilters() {
-    if (this.props.only != null) return null;
+    if (this.props.only != null || !core.notificationsWorker.hasData) return null;
 
     return (
       <div className='notification-popup__filters'>
@@ -136,7 +128,7 @@ export default class Main extends React.Component<Props, State> {
   }
 
   private renderHistoryLink() {
-    const linkName = linkMap[this.props.only ?? 'null'];
+    const linkName = this.props.only === 'channel' ? 'chat.index' : 'notifications.index';
 
     return (
       <a className='notification-popup__filter' href={route(linkName)}>
@@ -182,12 +174,20 @@ export default class Main extends React.Component<Props, State> {
       return;
     }
 
-    const nodes = this.controller.stacks.map((stack) => {
-      return <Stack key={stack.id} stack={stack} />;
-    });
+    const nodes = this.controller.stacks.map((stack) => <Stack key={stack.id} stack={stack} />);
 
     if (nodes.length === 0) {
-      const transKey = this.controller.currentFilter == null ? 'notifications.all_read' : 'notifications.none';
+      let transKey = 'notifications.loading';
+      if (core.notificationsWorker.hasData) {
+        if (this.controller.currentFilter == null) {
+          transKey = 'notifications.all_read';
+        } else {
+          transKey = 'notifications.none';
+        }
+      } else if (core.notificationsWorker.waitingVerification) {
+        transKey = 'notifications.verifying';
+      }
+
       return (
         <p key='empty' className='notification-popup__empty'>
           {osu.trans(transKey)}

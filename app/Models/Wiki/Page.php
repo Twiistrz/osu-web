@@ -8,6 +8,7 @@ namespace App\Models\Wiki;
 use App\Exceptions\GitHubNotFoundException;
 use App\Libraries\Elasticsearch\BoolQuery;
 use App\Libraries\Elasticsearch\Es;
+use App\Libraries\Elasticsearch\QueryHelper;
 use App\Libraries\Elasticsearch\Sort;
 use App\Libraries\LocaleMeta;
 use App\Libraries\Markdown\OsuMarkdown;
@@ -125,7 +126,7 @@ class Page implements WikiObject
             ]];
 
         $query = (new BoolQuery())
-            ->must(['match' => ['path_clean' => es_query_and_words($searchPath)]])
+            ->must(QueryHelper::queryString($searchPath, ['path_clean'], 'and'))
             ->must(['exists' => ['field' => 'page']])
             ->should($currentLocaleQuery)
             ->should($fallbackLocaleQuery)
@@ -189,7 +190,7 @@ class Page implements WikiObject
 
     public function editUrl()
     {
-        return 'https://github.com/'.OsuWiki::user().'/'.OsuWiki::repository().'/tree/master/wiki/'.$this->pagePath();
+        return 'https://github.com/'.OsuWiki::user().'/'.OsuWiki::repository().'/tree/'.OsuWiki::branch().'/wiki/'.$this->pagePath();
     }
 
     public function esDeleteDocument(array $options = [])

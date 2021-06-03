@@ -6,10 +6,12 @@
 return [
     'all_read' => '已经阅读所有通知！',
     'delete' => '删除 :type',
+    'loading' => '加载未读通知…',
     'mark_read' => '清除 :type 类型的通知',
     'none' => '没有新通知',
     'see_all' => '显示所有通知',
     'see_channel' => '前往聊天',
+    'verifying' => '请验证会话以查看通知',
 
     'filters' => [
         '_' => '所有',
@@ -25,6 +27,12 @@ return [
         'beatmapset' => [
             '_' => '谱面',
 
+            'beatmap_owner_change' => [
+                '_' => '',
+                'beatmap_owner_change' => '',
+                'beatmap_owner_change_compact' => '',
+            ],
+
             'beatmapset_discussion' => [
                 '_' => '谱面讨论',
                 'beatmapset_discussion_lock' => '谱面 :title 已被锁定以供讨论。',
@@ -33,8 +41,8 @@ return [
                 'beatmapset_discussion_post_new_empty' => ':username 发布了主题为“:title”新的帖子',
                 'beatmapset_discussion_post_new_compact' => ':username 的新主题',
                 'beatmapset_discussion_post_new_compact_empty' => ':username 发布了新的帖子',
-                'beatmapset_discussion_review_new' => '来自 :username 在“:title”上发表了新的审阅，问题：:problems，建议：:suggestions，赞：:praises',
-                'beatmapset_discussion_review_new_compact' => '来自 :username 发表了新的审阅，问题：:problems，建议：:suggestions，赞：:praises',
+                'beatmapset_discussion_review_new' => ':username 在《:title》上发表了新的审阅，问题：:problems，建议：:suggestions，赞：:praises',
+                'beatmapset_discussion_review_new_compact' => ':username 发表了新的审阅，问题：:problems，建议：:suggestions，赞：:praises',
                 'beatmapset_discussion_unlock' => '谱面 :title 已被解锁以供讨论。',
                 'beatmapset_discussion_unlock_compact' => '评论已解锁',
             ],
@@ -48,7 +56,7 @@ return [
             ],
 
             'beatmapset_state' => [
-                '_' => '谱面状态已被改变',
+                '_' => '谱面状态已改变',
                 'beatmapset_disqualify' => '谱面 :title 被 :username 取消提名。',
                 'beatmapset_disqualify_compact' => '谱面被取消资格',
                 'beatmapset_love' => '谱面 :title 已经被 :username 推荐为 loved 。',
@@ -81,7 +89,7 @@ return [
             'channel' => [
                 '_' => '新消息',
                 'pm' => [
-                    'channel_message' => ':username 发表了 ":title"',
+                    'channel_message' => ':username 说 ":title"',
                     'channel_message_compact' => ':title',
                     'channel_message_group' => '由 :username',
                 ],
@@ -133,6 +141,16 @@ return [
             ],
         ],
 
+        'user' => [
+            'user_beatmapset_new' => [
+                '_' => '新谱面',
+
+                'user_beatmapset_new' => ':username 上传了标题为“:title”的新谱面',
+                'user_beatmapset_new_compact' => '新谱面《:title》',
+                'user_beatmapset_new_group' => ':username 的新谱面',
+            ],
+        ],
+
         'user_achievement' => [
             '_' => '奖章',
 
@@ -147,6 +165,10 @@ return [
 
     'mail' => [
         'beatmapset' => [
+            'beatmap_owner_change' => [
+                'beatmap_owner_change' => '',
+            ],
+
             'beatmapset_discussion' => [
                 'beatmapset_discussion_lock' => '谱面“:title”的讨论已被锁定',
                 'beatmapset_discussion_post_new' => '谱面“:title”的讨论有新动态',
@@ -200,6 +222,10 @@ return [
             'user_achievement_unlock' => [
                 'user_achievement_unlock' => ':username 解锁了新成就“:title”！',
                 'user_achievement_unlock_self' => '您已解锁了新成就“:title”！',
+            ],
+
+            'user_beatmapset_new' => [
+                'user_beatmapset_new' => ':username 创建了一张新谱面',
             ],
         ],
     ],

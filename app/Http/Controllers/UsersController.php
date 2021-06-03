@@ -7,8 +7,8 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\ModelNotSavedException;
 use App\Exceptions\ValidationException;
-use App\Libraries\Search\PostSearch;
-use App\Libraries\Search\PostSearchRequestParams;
+use App\Libraries\Search\ForumSearch;
+use App\Libraries\Search\ForumSearchRequestParams;
 use App\Libraries\UserRegistration;
 use App\Models\Achievement;
 use App\Models\Beatmap;
@@ -43,6 +43,7 @@ class UsersController extends Controller
             'checkUsernameExists',
             'report',
             'me',
+            'posts',
             'updatePage',
         ]]);
 
@@ -102,7 +103,7 @@ class UsersController extends Controller
     public function checkUsernameExists()
     {
         $username = Request::input('username');
-        $user = User::lookup($username, 'string') ?? UserNotFound::instance();
+        $user = User::lookup($username, 'username') ?? UserNotFound::instance();
 
         return json_item($user, 'UserCompact', ['cover', 'country']);
     }
@@ -186,10 +187,11 @@ class UsersController extends Controller
      *
      * ### Response format
      *
-     * Array of [Beatmapset](#beatmapset).
+     * Array of [BeatmapPlaycount](#beatmapplaycount) when `type` is `most_played`;
+     * array of [Beatmapset](#beatmapset), otherwise.
      *
-     * @urlParam user required Id of the user. Example: 1
-     * @urlParam type required Beatmap type. Example: favourite
+     * @urlParam user integer required Id of the user. Example: 1
+     * @urlParam type string required Beatmap type. Example: favourite
      *
      * @queryParam limit Maximum number of results.
      * @queryParam offset Result offset for pagination. Example: 1
@@ -234,8 +236,8 @@ class UsersController extends Controller
      * ### Response format
      *
      * Field | Type                          | Description
-     * ----- | ----------------------------- | ---------------------------------
-     * users | [UserCompact](#usercompact)[] | Includes: country, cover, groups.
+     * ----- | ----------------------------- | -----------
+     * users | [UserCompact](#usercompact)[] | Includes: country, cover, groups, statistics_fruits, statistics_mania, statistics_osu, statistics_taiko.
      *
      * @queryParam ids[] User id to be returned. Specify once for each user id requested. Up to 50 users can be requested at once. Example: 1
      *
@@ -256,16 +258,25 @@ class UsersController extends Controller
     {
         $params = get_params(request()->all(), null, ['ids:int[]']);
 
+        $includes = UserCompactTransformer::CARD_INCLUDES;
+
         if (isset($params['ids'])) {
+            $preload = UserCompactTransformer::CARD_INCLUDES_PRELOAD;
+
+            foreach (Beatmap::MODES as $modeStr => $modeInt) {
+                $includes[] = "statistics_rulesets.{$modeStr}";
+                $preload[] = camel_case("statistics_{$modeStr}");
+            }
+
             $users = User
                 ::whereIn('user_id', array_slice($params['ids'], 0, 50))
                 ->default()
-                ->with(UserCompactTransformer::CARD_INCLUDES_PRELOAD)
+                ->with($preload)
                 ->get();
         }
 
         return [
-            'users' => json_collection($users ?? [], 'UserCompact', UserCompactTransformer::CARD_INCLUDES),
+            'users' => json_collection($users ?? [], 'UserCompact', $includes),
         ];
     }
 
@@ -276,8 +287,9 @@ class UsersController extends Controller
             abort(404);
         }
 
-        $search = (new PostSearch(new PostSearchRequestParams(request()->all(), $user)))
-            ->size(50);
+        $params = request()->all();
+        $params['username'] = $id;
+        $search = (new ForumSearch(new ForumSearchRequestParams($params)))->size(50);
 
         return ext_view('users.posts', compact('search', 'user'));
     }
@@ -293,7 +305,7 @@ class UsersController extends Controller
      *
      * Array of [KudosuHistory](#kudosuhistory).
      *
-     * @urlParam user required Id of the user. Example: 1
+     * @urlParam user integer required Id of the user. Example: 1
      *
      * @queryParam limit Maximum number of results.
      * @queryParam offset Result offset for pagination. Example: 1
@@ -325,7 +337,7 @@ class UsersController extends Controller
      *
      * Array of [Event](#event).
      *
-     * @urlParam user required Id of the user. Example: 1
+     * @urlParam user integer required Id of the user. Example: 1
      *
      * @queryParam limit Maximum number of results.
      * @queryParam offset Result offset for pagination. Example: 1
@@ -365,8 +377,8 @@ class UsersController extends Controller
      * weight     | Only for type `best`.
      * user       | |
      *
-     * @urlParam user required Id of the user. Example: 1
-     * @urlParam type required Score type. Must be one of these: `best`, `firsts`, `recent`. Example: best
+     * @urlParam user integer required Id of the user. Example: 1
+     * @urlParam type string required Score type. Must be one of these: `best`, `firsts`, `recent`. Example: best
      *
      * @queryParam include_fails Only for recent scores, include scores of failed plays. Set to 1 to include them. Defaults to 0. Example: 0
      * @queryParam mode [GameMode](#gamemode) of the scores to be returned. Defaults to the specified `user`'s mode. Example: osu
@@ -422,9 +434,7 @@ class UsersController extends Controller
      *
      * See [Get User](#get-user).
      *
-     * @authenticated
-     *
-     * @urlParam mode [GameMode](#gamemode). User default mode will be used if not specified. Example: osu
+     * @urlParam mode string [GameMode](#gamemode). User default mode will be used if not specified. Example: osu
      *
      * @response "See User object section"
      */
@@ -437,6 +447,10 @@ class UsersController extends Controller
      * Get User
      *
      * This endpoint returns the detail of specified user.
+     *
+     * <aside class="notice">
+     * It's highly recommended to pass <code>key</code> parameter to avoid getting unexpected result (mainly when looking up user with numeric username or nonexistent user id).
+     * </aside>
      *
      * ---
      *
@@ -470,14 +484,16 @@ class UsersController extends Controller
      * unranked_beatmapset_count            | |
      * user_achievements                    | |
      *
-     * @urlParam user required Id of the user. Example: 1
-     * @urlParam mode [GameMode](#gamemode). User default mode will be used if not specified. Example: osu
+     * @urlParam user integer required Id or username of the user. Id lookup is prioritised unless `key` parameter is specified. Previous usernames are also checked in some cases. Example: 1
+     * @urlParam mode string [GameMode](#gamemode). User default mode will be used if not specified. Example: osu
+     *
+     * @queryParam key Type of `user` passed in url parameter. Can be either `id` or `username` to limit lookup by their respective type. Passing empty or invalid value will result in id lookup followed by username lookup if not found.
      *
      * @response "See User object section"
      */
     public function show($id, $mode = null)
     {
-        $user = $this->lookupUser($id);
+        $user = $this->lookupUser($id, get_string(request('key')));
 
         if ($user === null) {
             if (is_json_request()) {
@@ -487,10 +503,8 @@ class UsersController extends Controller
             return ext_view('users.show_not_found', null, null, 404);
         }
 
-        if ((string) $user->user_id !== (string) $id) {
-            $route = is_api_request() ? 'api.users.show' : 'users.show';
-
-            return ujs_redirect(route($route, compact('user', 'mode')));
+        if (!is_api_request() && (string) $user->user_id !== (string) $id) {
+            return ujs_redirect(route('users.show', compact('user', 'mode')));
         }
 
         $currentMode = $mode ?? $user->playmode;
@@ -509,6 +523,7 @@ class UsersController extends Controller
             'graveyard_beatmapset_count',
             'groups',
             'loved_beatmapset_count',
+            'mapping_follower_count',
             'monthly_playcounts',
             'page',
             'previous_usernames',
@@ -520,6 +535,7 @@ class UsersController extends Controller
             'scores_first_count',
             'scores_recent_count',
             'statistics',
+            'statistics.country_rank',
             'statistics.rank',
             'statistics.variants',
             'support_level',
@@ -619,9 +635,9 @@ class UsersController extends Controller
     // Find matching id or username
     // If no user is found, search for a previous username
     // only if parameter is not a number (assume number is an id lookup).
-    private function lookupUser($id)
+    private function lookupUser($id, ?string $type = null)
     {
-        $user = User::lookupWithHistory($id, null, true);
+        $user = User::lookupWithHistory($id, $type, true);
 
         if ($user === null || !priv_check('UserShow', $user)->can()) {
             return null;

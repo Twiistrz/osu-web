@@ -23,6 +23,8 @@ export default class UserCardBrick extends React.PureComponent<Props> {
     modifiers: [],
   };
 
+  declare context: React.ContextType<typeof UserCardTypeContext>;
+
   readonly eventId = `user-card-brick-${osu.uuid()}`;
 
   componentDidMount() {
@@ -74,9 +76,9 @@ export default class UserCardBrick extends React.PureComponent<Props> {
     } else if (isFriend && !this.context.isFriendsPage) {
       modifiers.push('friend');
     }
-  }
+  };
 
   private refresh = () => {
     this.forceUpdate();
-  }
+  };
 }

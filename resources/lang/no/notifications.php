@@ -6,10 +6,12 @@
 return [
     'all_read' => 'Alle varsler lest!',
     'delete' => '',
+    'loading' => '',
     'mark_read' => 'Tøm :type',
     'none' => 'Ingen varsler',
     'see_all' => 'se alle varsler',
     'see_channel' => '',
+    'verifying' => '',
 
     'filters' => [
         '_' => 'alle',
@@ -25,6 +27,12 @@ return [
     'item' => [
         'beatmapset' => [
             '_' => 'Beatmap',
+
+            'beatmap_owner_change' => [
+                '_' => '',
+                'beatmap_owner_change' => '',
+                'beatmap_owner_change_compact' => '',
+            ],
 
             'beatmapset_discussion' => [
                 '_' => 'Beatmapdiskusjon',
@@ -134,6 +142,16 @@ return [
             ],
         ],
 
+        'user' => [
+            'user_beatmapset_new' => [
+                '_' => '',
+
+                'user_beatmapset_new' => '',
+                'user_beatmapset_new_compact' => '',
+                'user_beatmapset_new_group' => '',
+            ],
+        ],
+
         'user_achievement' => [
             '_' => 'Medaljer',
 
@@ -148,6 +166,10 @@ return [
 
     'mail' => [
         'beatmapset' => [
+            'beatmap_owner_change' => [
+                'beatmap_owner_change' => '',
+            ],
+
             'beatmapset_discussion' => [
                 'beatmapset_discussion_lock' => 'Diskusjonen om ":title" har blitt låst',
                 'beatmapset_discussion_post_new' => 'Diskusjonen om ":title" har nye oppdateringer',
@@ -201,6 +223,10 @@ return [
             'user_achievement_unlock' => [
                 'user_achievement_unlock' => ':username har låst opp en ny medalje, ":title"!',
                 'user_achievement_unlock_self' => 'Du har låst opp en ny medalje, ":title"!',
+            ],
+
+            'user_beatmapset_new' => [
+                'user_beatmapset_new' => '',
             ],
         ],
     ],
